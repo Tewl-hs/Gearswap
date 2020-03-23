@@ -1,0 +1,17 @@
+sets.exported={
+    main="Amanomurakumo",
+    sub="Rose Strap",
+    ammo="Knobkierrie",
+    head="Flam. Zucchetto +2",
+    body="Kasuga Domaru +1",
+    hands="Wakido Kote +2",
+    legs="Kasuga Haidate +1",
+    feet="Danzo Sune-Ate",
+    neck={ name="Sam. Nodowa +1", augments={'Path: A',}},
+    waist="Ioskeha Belt",
+    left_ear="Steelflash Earring",
+    right_ear="Bladeborn Earring",
+    left_ring="Flamma Ring",
+    right_ring="Karieyh Ring",
+    back={ name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}},
+}
