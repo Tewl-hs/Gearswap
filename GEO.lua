@@ -66,6 +66,7 @@ function get_sets()
 
         sets.midcast['Elemental Magic'] = { 
             main        = "Daybreak",
+            sub         = "Ammurapi Shield",
             range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
             head        = "Nares Cap",
             neck        = "Eddy Necklace",
@@ -81,11 +82,13 @@ function get_sets()
         } 
 
         sets.midcast['Enfeebling Magic'] = {
+            sub         = "Ammurapi Shield",
             neck        = "Incanter's Torque",
             body        = "Vanya Robe"
         }
 
         sets.midcast['Enhancing Magic'] = {
+            sub         = "Ammurapi Shield",
             neck        = "Incanter's Torque",
             right_ear   = "Augment. Earring",
             waist       = "Siegel Sash"
