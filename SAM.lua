@@ -147,13 +147,13 @@ function precast(spell,action)
      ws_order = 1
      ws_new = 0
      Old_Mob_ID = Mob_ID
-    end
+	end
 
 	if spell.type=="WeaponSkill" then
 		if spell.name == 'Tachi: Enpi' and ws_order == 4 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Fudo" '..spell.target.raw)
-			send_command('@input /echo '..ws_order)
+			add_to_chat(123,'Step '..ws_order)
 			  ws_order = 1
 			  ws_new = 1
 			return
@@ -161,22 +161,22 @@ function precast(spell,action)
 		if spell.name == 'Tachi: Enpi' and ws_order == 3 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Shoha" '..spell.target.raw)
-			send_command('@input /echo '..ws_order)
+			add_to_chat(123,'Step '..ws_order)
 			ws_order = ws_order + 1
 			return
 		end
 		if spell.name == 'Tachi: Enpi' and ws_order == 2 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Kasha" '..spell.target.raw)
-			send_command('@input /echo '..ws_order)
+			add_to_chat(123,'Step '..ws_order)
 			ws_order = ws_order + 1
 			return
 		end
 		if spell.name == 'Tachi: Enpi' and ws_order == 1  and ws_new == 0 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Fudo" '..spell.target.raw)
-			send_command('@input /echo Starting 4 step light skillchain!!!')
-			send_command('@input /echo '..ws_order)
+			add_to_chat(123,'Starting 4 step light skillchain!!!')
+			add_to_chat(123,'Step '..ws_order)
 			ws_order = ws_order + 1
 			return
 		end
