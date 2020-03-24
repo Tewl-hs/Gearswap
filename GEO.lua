@@ -59,7 +59,7 @@ function get_sets()
             left_ring   = "Stikini Ring",
             back        = "Lifestream Cape",
             waist       = "Austertiy Belt +1",
-            legs        = "Azimuth Tights +1",   
+            legs        = "Bagua Pants +1",   
             feet        = "Medium's Sabots"  
         }
 
