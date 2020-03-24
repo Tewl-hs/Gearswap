@@ -30,7 +30,7 @@ function get_sets()
     }
     sets.precast.DummySong = { 
         range       = "Daurdabla",
-        neck        = "Twilight Torque"
+        neck        = "Orunmila's Torque"
     }
     sets.precast.Nightingale = {
         feet        = "Bihu Slippers +1"
@@ -86,7 +86,7 @@ function get_sets()
         hands       = "Aya. Manopolas +1",
         legs        = "Aya. Cosciales +2",
         feet        = "Aya. Gambieras +2",
-        neck        = "Twilight Torque",
+        neck        = "Loricate Torque +1",
         waist       = "Flume Belt +1",
         left_ear    = "Colossus's Earring",
         right_ear   = "Cassie Earring",

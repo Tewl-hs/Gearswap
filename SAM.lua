@@ -106,7 +106,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 	sets.DT = {
 		body		= "Wakido Domaru +2",
 		hands		= "Sakonji Kote +3",
-		neck		= "Twilight Torque",
+		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
 		left_ring	= "Defending Ring",
 		right_ring	= "Gelatinous Ring +1",

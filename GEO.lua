@@ -9,7 +9,7 @@ function get_sets()
             sub         = { name="Genbu's Shield", augments={'"Cure" potency +3%','Mag. Acc.+5','HP+24',}},
             range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
             head        = "Befouled Crown",
-            neck        = "Twilight Torque",
+            neck        = "Loricate Torque +1",
             left_ear    = "Malignance Earring",
             right_ear   = "Colossus's Earring",
             body        = "Jhakri Robe +2",
