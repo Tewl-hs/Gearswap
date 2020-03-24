@@ -8,7 +8,7 @@ function get_sets()
             main        = "Daybreak",
             sub         = { name="Genbu's Shield", augments={'"Cure" potency +3%','Mag. Acc.+5','HP+24',}},
             range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
-            head        = "Azimuth Hood +1",
+            head        = "Befouled Crown",
             neck        = "Twilight Torque",
             left_ear    = "Malignance Earring",
             right_ear   = "Colossus's Earring",
