@@ -1,7 +1,7 @@
 function get_sets()
 
 -- Load Macros
-    send_command('input /macro book 1;wait 0.2;input /macro set 1;')
+    send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
 
     -- Augments
     Kali = {}
@@ -57,7 +57,7 @@ function get_sets()
         left_ear    = "Aoidos' Earring",
         right_ear   = "Musical Earring",
         left_ring   = "Inyanga Ring",
-        right_ring  = "Kishar Ring",
+        right_ring  = "Stikini Ring",
         back        = "Intarabus's Cape"
      }
     sets.midcast.Ballad = {
