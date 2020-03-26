@@ -171,31 +171,28 @@ function equipx(gearset)
 end
 
 function precast(spell)
+    if spell.type=="Item" then
+        return
+    end
+    if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+        if buffactive.Silence then
+            cancel_spell()
+            if player.inventory['Echo Drops'] then
+                send_command('@input /item "Echo Drops" <me>')
+                add_to_chat(123,'You were silenced try recasting!')	
+            else
+                add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+            end
+            return
+        end
+	end
 	if spell.type:endswith('Magic') then
 		equipx(sets.WHM.FastCast)
 	end
 end
 	
-function midcast(spell,action)
-	if spell.type == 'WeaponSkill' then
-		-- Do nothing here (yet)
-	elseif spell.type == 'JobAbility' then
-		-- Do nothing- here (yet)
-	elseif spell.type == 'Ninjitsu' then
-		-- Do nothing here (yet)
-	elseif spell.type == 'BardSong' then
-		-- Do nothing here (yet)
-	elseif spell.type:endswith('Magic') then
-		if buffactive.Silence then
-			cancel_spell()
-			if player.inventory['Echo Drops'] then
-				send_command('@input /item "Echo Drops" <me>')
-				add_to_chat(123,'Using Echo Drop, Recast '..spell.name..' on '..spell.target.name)	
-			else
-				add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
-			end
-			return
-		end
+function midcast(spell,action)	
+	if spell.type:endswith('Magic') then
 		if spell.skill == 'Healing Magic' then
 			if spell.english:startswith('Cure') or spell.english:startswith("Cura") then
 				equipx(sets.WHM.Cure)
