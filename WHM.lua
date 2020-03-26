@@ -1,4 +1,6 @@
-	function get_sets()			
+function get_sets()			
+
+	sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
 	
 	--TP Sets--
 	sets.WHM = {}
@@ -18,7 +20,7 @@
 		back="Alaunus's Cape",
 		waist="Fucho-no-obi",
 		legs="Inyanga Shalwar +2",
-		feet="Inyanga crackows +1"
+		feet="Inyan. Crackows +1"
 	}
 				
 	sets.WHM.FastCast = {
@@ -178,12 +180,22 @@ function midcast(spell,action)
 	if spell.type == 'WeaponSkill' then
 		-- Do nothing here (yet)
 	elseif spell.type == 'JobAbility' then
-		-- Do nothing here (yet)
+		-- Do nothing- here (yet)
 	elseif spell.type == 'Ninjitsu' then
 		-- Do nothing here (yet)
 	elseif spell.type == 'BardSong' then
 		-- Do nothing here (yet)
 	elseif spell.type:endswith('Magic') then
+		if buffactive.Silence then
+			cancel_spell()
+			if player.inventory['Echo Drops'] then
+				send_command('@input /item "Echo Drops" <me>')
+				add_to_chat(123,'Using Echo Drop, Recast '..spell.name..' on '..spell.target.name)	
+			else
+				add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+			end
+			return
+		end
 		if spell.skill == 'Healing Magic' then
 			if spell.english:startswith('Cure') or spell.english:startswith("Cura") then
 				equipx(sets.WHM.Cure)
@@ -207,9 +219,7 @@ function midcast(spell,action)
 end
 
 function aftercast(spell)
-
 	equipx(sets.WHM.Idle)
-
 end
 
 function status_change(new,old)
@@ -222,7 +232,7 @@ end
 
 function buff_change(buff,gain)
 	if name == "silence" and gain =="True" then
-		if player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
+		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
 			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
@@ -231,7 +241,39 @@ function buff_change(buff,gain)
 end
 
 function self_command(command)
-
-	-- Do nothing here (yet)
-
+	if command == 'goIdle' then
+		equipx(sets.WHM.Idle)
+	end
 end
+
+--- Detecting Movement 
+mov = {counter=0}
+if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
+    mov.x = windower.ffxi.get_mob_by_index(player.index).x
+    mov.y = windower.ffxi.get_mob_by_index(player.index).y
+    mov.z = windower.ffxi.get_mob_by_index(player.index).z
+end
+ 
+moving = false
+windower.raw_register_event('prerender',function()
+    mov.counter = mov.counter + 1;
+    if mov.counter>15 then
+        local pl = windower.ffxi.get_mob_by_index(player.index)
+        if pl and pl.x and mov.x then
+            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+            if dist > 1 and not moving then
+                send_command('gs equip sets.MoveSpeed')
+        		moving = true
+            elseif dist < 1 and moving then
+                send_command('gs c goIdle')
+                moving = false
+            end
+        end
+        if pl and pl.x then
+            mov.x = pl.x
+            mov.y = pl.y
+            mov.z = pl.z
+        end
+        mov.counter = 0
+    end
+end)

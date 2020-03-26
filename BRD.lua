@@ -3,6 +3,8 @@ function get_sets()
 -- Load Macros
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
 
+    sets.MoveSpeed = { feet = "Fili cothurnes +1",}    --auto swaps when moving
+
     -- Augments
     Kali = {}
     Kali.Skill      = { name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',} }
@@ -11,7 +13,7 @@ function get_sets()
 -- Gear sets
 
     sets.precast = { }
-    sets.precast.Normal = { 
+    sets.precast.FastCast = { 
         main        = Kali.Skill, 
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
@@ -33,7 +35,7 @@ function get_sets()
         neck        = "Orunmila's Torque"
     }
     sets.precast.Nightingale = {
-        feet        = "Bihu Slippers +1"
+        feet        = "Bihu Slippers +3"
     }
     sets.precast.Troubadour = {
         body        = "Bihu Justaucorps +1"
@@ -43,7 +45,7 @@ function get_sets()
     }
 
     sets.midcast = { }
-    sets.midcast.Normal = {        
+    sets.midcast.BardSong = {        
         main        = Kali.Skill, 
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
@@ -89,7 +91,7 @@ function get_sets()
         neck        = "Loricate Torque +1",
         waist       = "Flume Belt +1",
         left_ear    = "Colossus's Earring",
-        right_ear   = "Cassie Earring",
+        right_ear   = "Odnowa Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
         back        = "Moonbeam Cape"
@@ -100,7 +102,18 @@ function precast(spell)
     if spell.type=="Item" then
         return
     end
-    sets.PC = sets.precast.Normal
+    if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+        if buffactive.Silence then
+            cancel_spell()
+            if player.inventory['Echo Drops'] then
+                send_command('@input /item "Echo Drops" <me>')
+            else
+                add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+            end
+            return
+        end
+    end
+    sets.PC = sets.precast.FastCast
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
         sets.PC = set_combine(sets.PC, {sub=Kali.MACC})
     end
@@ -117,11 +130,11 @@ end
 function midcast(spell)
     if spell.type=="BardSong" then 
         if spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
-            send_command('@input /echo <----- Dummy Song Playing ----->')
+            add_to_chat(121,'--- Singing Dummy Song ---')
             return
         end
 
-        sets.MC = sets.midcast.Normal
+        sets.MC = sets.midcast.BardSong
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
             sets.MC = set_combine(sets.MC, {sub=Kali.MACC})
         end
@@ -153,10 +166,42 @@ end
 
 function buff_change(buff,gain)
     if buff == 'silence' and gain then
-		if player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
+		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
 			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
 		end
 	end
 end
+
+--- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
+mov = {counter=0}
+if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
+    mov.x = windower.ffxi.get_mob_by_index(player.index).x
+    mov.y = windower.ffxi.get_mob_by_index(player.index).y
+    mov.z = windower.ffxi.get_mob_by_index(player.index).z
+end
+ 
+moving = false
+windower.raw_register_event('prerender',function()
+    mov.counter = mov.counter + 1;
+    if mov.counter>15 then
+        local pl = windower.ffxi.get_mob_by_index(player.index)
+        if pl and pl.x and mov.x then
+            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+            if dist > 1 and not moving then
+                send_command('gs equip sets.MoveSpeed')
+        		moving = true
+            elseif dist < 1 and moving then
+                send_command('gs equip sets.aftercast.Idle')
+                moving = false
+            end
+        end
+        if pl and pl.x then
+            mov.x = pl.x
+            mov.y = pl.y
+            mov.z = pl.z
+        end
+        mov.counter = 0
+    end
+end)

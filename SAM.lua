@@ -6,10 +6,14 @@ function get_sets()
 -- Load Macros
 send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
 
+	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}    --auto swaps when moving
+
 -- test variables
 	ws_order = 1
 	ws_new = 0
 	max_stp = true
+
+	AutoWS = 'Tachi: Enpi'
 
 -- Augmented Gear
     Capes = {}
@@ -108,6 +112,8 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 		hands		= "Sakonji Kote +3",
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
+		left_ear	= "Colossus's Earring",
+		right_ear	= "Odnowa Earring +1",
 		left_ring	= "Defending Ring",
 		right_ring	= "Gelatinous Ring +1",
 		back		= Capes.TP
@@ -121,16 +127,16 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 	sets.aftercast = {}
 	sets.aftercast.TP = sets.TP.Engaged
 	sets.aftercast.Idle = {
-		head		= "Valorous Mask",
+		head		= "Wakido Kabuto +3",
 		body		= "Ken. Samue +1",
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
-		feet		= "Danzo Sune-Ate",
-		neck		= "Sam. Nodowa +2",
-		waist		= "Ioskeha belt +1",
-		left_ear	= "Telos Earring",
-		right_ear	= "Cessance earring",
-		left_ring	= "Flamma Ring",
+		feet		= "Flam. Gambieras +2",
+		neck		= "Loricate Torque +1",
+		waist		= "Flume Belt +1",
+		left_ear	= "Colossus's Earring",
+		right_ear	= "Odnowa Earring +1",
+		left_ring	= "Defending Ring",
 		right_ring	= "Karieyh Ring",
 		back		= Capes.TP
 	}
@@ -150,7 +156,7 @@ function precast(spell,action)
 	end
 
 	if spell.type=="WeaponSkill" then
-		if spell.name == 'Tachi: Enpi' and ws_order == 4 then
+		if spell.name == AutoWS and ws_order == 4 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Fudo" '..spell.target.raw)
 			add_to_chat(123,'Step '..ws_order)
@@ -158,21 +164,21 @@ function precast(spell,action)
 			  ws_new = 1
 			return
 		end
-		if spell.name == 'Tachi: Enpi' and ws_order == 3 then
+		if spell.name == AutoWS and ws_order == 3 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Shoha" '..spell.target.raw)
 			add_to_chat(123,'Step '..ws_order)
 			ws_order = ws_order + 1
 			return
 		end
-		if spell.name == 'Tachi: Enpi' and ws_order == 2 then
+		if spell.name == AutoWS and ws_order == 2 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Kasha" '..spell.target.raw)
 			add_to_chat(123,'Step '..ws_order)
 			ws_order = ws_order + 1
 			return
 		end
-		if spell.name == 'Tachi: Enpi' and ws_order == 1  and ws_new == 0 then
+		if spell.name == AutoWS and ws_order == 1  and ws_new == 0 then
 			cancel_spell()
 			send_command('@input /ws "Tachi: Fudo" '..spell.target.raw)
 			add_to_chat(123,'Starting 4 step light skillchain!!!')
@@ -180,10 +186,10 @@ function precast(spell,action)
 			ws_order = ws_order + 1
 			return
 		end
-		if spell.name == 'Tachi: Enpi' and ws_order == 1  and ws_new == 1 then
+		if spell.name == AutoWS and ws_order == 1  and ws_new == 1 then
 			ws_new = 0
 			cancel_spell()
-			send_command('@input /ws "Tachi: Enpi" '..spell.target.raw)
+			send_command('@input /ws "'..AutoWS..'" '..spell.target.raw)
 			return
 		end
 		sets.WeaponSkill = sets.WS.Normal
@@ -285,3 +291,35 @@ end
 function self_command(command)
 	-- 
 end
+
+--- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
+mov = {counter=0}
+if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
+    mov.x = windower.ffxi.get_mob_by_index(player.index).x
+    mov.y = windower.ffxi.get_mob_by_index(player.index).y
+    mov.z = windower.ffxi.get_mob_by_index(player.index).z
+end
+ 
+moving = false
+windower.raw_register_event('prerender',function()
+    mov.counter = mov.counter + 1;
+    if mov.counter>15 then
+        local pl = windower.ffxi.get_mob_by_index(player.index)
+        if pl and pl.x and mov.x then
+            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+            if dist > 1 and not moving then
+                send_command('gs equip sets.MoveSpeed')
+        		moving = true
+            elseif dist < 1 and moving then
+                send_command('gs equip sets.aftercast.Idle')
+                moving = false
+            end
+        end
+        if pl and pl.x then
+            mov.x = pl.x
+            mov.y = pl.y
+            mov.z = pl.z
+        end
+        mov.counter = 0
+    end
+end)
