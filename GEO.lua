@@ -75,7 +75,7 @@ function get_sets()
         right_ear   = "Barkaro. Earring",
         body        = "Jhakri Robe +2",
         hands       = "Jhakri Cuffs +2",
-        left_ring   = "Kishar Ring",
+        left_ring   = "Mujin Ring",
         right_ring  = "Shiva Ring +1",
         waist       = "Othila Sash",
         legs        = "Azimuth Tights +1",
@@ -133,7 +133,7 @@ function get_sets()
     
     function midcast(spell)
         if spell.english:startswith('Cure') then
-            equip(set_combine(sets.fastcast,{body="Heka's Kalasiris"}))
+            equip(set_combine(sets.midcast.cure,{body="Heka's Kalasiris"}))
         elseif sets.midcast[spell.skill] then
             equip (sets.midcast[spell.skill])
         elseif spell.type ~= 'JobAbility' then
