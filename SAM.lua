@@ -134,7 +134,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 		feet		= "Flam. Gambieras +2",
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
-		left_ear	= "Colossus's Earring",
+		left_ear	= "Genmei Earring",
 		right_ear	= "Odnowa Earring +1",
 		left_ring	= "Defending Ring",
 		right_ring	= "Karieyh Ring",

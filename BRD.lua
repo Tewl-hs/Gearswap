@@ -90,7 +90,7 @@ function get_sets()
         feet        = "Aya. Gambieras +2",
         neck        = "Loricate Torque +1",
         waist       = "Flume Belt +1",
-        left_ear    = "Colossus's Earring",
+        left_ear    = "Genmei Earring",
         right_ear   = "Odnowa Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",

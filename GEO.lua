@@ -12,7 +12,7 @@ function get_sets()
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Befouled Crown",
         neck        = "Loricate Torque +1",
-        left_ear    = "Colossus's Earring",
+        left_ear    = "Genmei Earring",
         right_ear   = "Odnowa Earring +1",
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +1",
@@ -69,8 +69,8 @@ function get_sets()
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
-        head        = "Geo. Galero +1",
-        neck        = "Incanter's Torque",
+        head        = "Bagua Galero +3",
+        neck        = "Baetyl Pendant",
         left_ear    = "Malignance Earring",
         right_ear   = "Barkaro. Earring",
         body        = "Jhakri Robe +2",
@@ -96,7 +96,7 @@ function get_sets()
     }
 
     sets.midcast['Dark Magic'] = {
-        head        = "Bagua Galero +1",
+        head        = "Bagua Galero +3",
         neck        = "Incanter's Torque"
     }
 
