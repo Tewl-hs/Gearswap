@@ -97,7 +97,8 @@ function get_sets()
 
     sets.midcast['Dark Magic'] = {
         head        = "Bagua Galero +3",
-        neck        = "Incanter's Torque"
+        neck        = "Incanter's Torque",
+        waist       = "Austertiy Belt +1"
     }
 
     sets.midcast['Healing Magic'] = {

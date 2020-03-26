@@ -112,19 +112,19 @@ function precast(spell)
             end
             return
         end
-    end
-    sets.PC = sets.precast.FastCast
-    if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-        sets.PC = set_combine(sets.PC, {sub=Kali.MACC})
-    end
-    if spell.english == 'Honor March' then
-        sets.PC = set_combine(sets.PC, {range="Marsyas"})
-    elseif sets.precast[spell.english] then
+        sets.PC = sets.precast.FastCast
+        if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+            sets.PC = set_combine(sets.PC, {sub=Kali.MACC})
+        end
+        if spell.english == 'Honor March' then
+            sets.PC = set_combine(sets.PC, {range="Marsyas"})
+        elseif sets.precast[spell.english] then
             sets.PC = set_combine(sets.PC, sets.precast[spell.english])
-    elseif spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
-        sets.PC = set_combine(sets.PC,sets.precast.DummySong)
+        elseif spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
+            sets.PC = set_combine(sets.PC,sets.precast.DummySong)
+        end
+        equip(sets.PC)    
     end
-    equip(sets.PC)
 end
 
 function midcast(spell)
