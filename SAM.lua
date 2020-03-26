@@ -129,7 +129,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 	sets.aftercast.Idle = {
 		head		= "Wakido Kabuto +3",
 		body		= "Ken. Samue +1",
-		hands		= "Wakido Kote +3",
+		hands		= "Sakonji Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Flam. Gambieras +2",
 		neck		= "Loricate Torque +1",
