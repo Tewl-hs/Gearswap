@@ -76,6 +76,7 @@ function get_sets()
 	})
 
 	sets.WHM.Cursna = set_combine(sets.WHM.Healing,{
+		main="Yagrush",
 		ring1="Haoma's Ring",
 		ring2="Menelaus's's Ring",
 		body="Ebers bliaud +1",		
