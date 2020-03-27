@@ -20,7 +20,7 @@ function get_sets()
 		back="Alaunus's Cape",
 		waist="Fucho-no-obi",
 		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +1"
+		feet="Chironic Slippers"
 	}
 				
 	sets.WHM.FastCast = {
