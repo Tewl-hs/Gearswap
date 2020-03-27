@@ -24,6 +24,7 @@ function get_sets()
 	}
 				
 	sets.WHM.FastCast = {
+		main="Grioavoir",
 		neck="Cleric's Torque",
 		head="Nahtirah Hat",
 		body="Inyanga Jubbah +2",
