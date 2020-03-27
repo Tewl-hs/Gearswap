@@ -59,7 +59,7 @@ function get_sets()
         left_ear    = "Aoidos' Earring",
         right_ear   = "Musical Earring",
         left_ring   = "Inyanga Ring",
-        right_ring  = "Stikini Ring",
+        right_ring  = "Stikini Ring +1",
         back        = "Intarabus's Cape"
      }
     sets.midcast.Ballad = {
