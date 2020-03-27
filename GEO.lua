@@ -17,11 +17,20 @@ function get_sets()
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +1",
         left_ring   = "Defending Ring",
-        right_ring  = "Gelatinous Ring +1",
+        right_ring  = "Stikini Ring +1",
         back        = "Moonbeam Cape",
         waist       = "Fucho-no-Obi",
         legs        = "Assid. Pants +1",
         feet        = "Geomancy Sandals +1"            
+    }
+
+    sets.idle.DT = {
+        neck        = "Loricate Torque +1",
+        left_ear    = "Genmei Earring",
+        right_ear   = "Odnowa Earring +1",
+        left_ring   = "Defending Ring",
+        right_ring  = "Gelatinous Ring +1",
+        back        = "Moonbeam Cape"
     }
 
     sets.luopan = { 
@@ -58,7 +67,7 @@ function get_sets()
         neck        = "Incanter's Torque",
         body        = "Bagua Tunic +1",
         hands       = "Geomancy Mitaines +2",
-        left_ring   = "Stikini Ring",
+        right_ring   = "Stikini Ring +1",
         back        = "Lifestream Cape",
         waist       = "Austertiy Belt +1",
         legs        = "Bagua Pants +1",   
