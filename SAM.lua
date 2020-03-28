@@ -306,12 +306,16 @@ windower.raw_register_event('prerender',function()
     if mov.counter>15 then
         local pl = windower.ffxi.get_mob_by_index(player.index)
         if pl and pl.x and mov.x then
-            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
             if dist > 1 and not moving then
-                send_command('gs equip sets.MoveSpeed')
+				if player.status ~= 'Engaged' then
+					send_command('gs equip sets.MoveSpeed')
+				end
         		moving = true
-            elseif dist < 1 and moving then
-                send_command('gs equip sets.aftercast.Idle')
+			elseif dist < 1 and moving then
+				if player.status ~= 'Engaged' then
+					send_command('gs equip sets.aftercast.Idle')
+				end
                 moving = false
             end
         end

@@ -45,6 +45,7 @@ function get_sets()
 
     sets.precast = {}
     sets.precast.fastcast = { 
+        main        = "Solstice",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Vanya Hood",
         neck        = "Orunmila's Torque",
@@ -67,7 +68,8 @@ function get_sets()
         neck        = "Incanter's Torque",
         body        = "Bagua Tunic +1",
         hands       = "Geomancy Mitaines +2",
-        right_ring   = "Stikini Ring +1",
+        left_ring   = "Stikini Ring +1",
+        right_ring  = "Stikini Ring +1",
         back        = "Lifestream Cape",
         waist       = "Austertiy Belt +1",
         legs        = "Bagua Pants +1",   
@@ -142,6 +144,11 @@ function get_sets()
     end
     
     function midcast(spell)
+        
+        if spell.type=="Item" then
+            return
+        end
+        
         if spell.english:startswith('Cure') then
             equip(set_combine(sets.midcast.cure,{body="Heka's Kalasiris"}))
         elseif sets.midcast[spell.skill] then
