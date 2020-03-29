@@ -17,7 +17,7 @@ function get_sets()
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +1",
         left_ring   = "Defending Ring",
-        right_ring  = "Stikini Ring +1",
+        right_ring  = "Gelatinous Ring +1",
         back        = "Moonbeam Cape",
         waist       = "Fucho-no-Obi",
         legs        = "Assid. Pants +1",
@@ -56,7 +56,7 @@ function get_sets()
         right_ring  = "Prolix Ring",
         back        = "Lifestream Cape",
         waist       = "Witful Belt",
-        legs        = "Geomancy Pants +1",
+        legs        = "Geomancy Pants +2",
         feet        = "Merlinic Crackows"            
     }
     
@@ -148,7 +148,7 @@ function get_sets()
         if spell.type=="Item" then
             return
         end
-        
+
         if spell.english:startswith('Cure') then
             equip(set_combine(sets.midcast.cure,{body="Heka's Kalasiris"}))
         elseif sets.midcast[spell.skill] then
