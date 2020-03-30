@@ -28,7 +28,7 @@ function get_sets()
         right_ear   = "Loquacious Earring",
         left_ring   = "Prolix Ring",
         right_ring  = "Kishar Ring",
-        back        = "Intarabus's Cape"
+        back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
     sets.precast.DummySong = { 
         range       = "Daurdabla",
@@ -60,7 +60,7 @@ function get_sets()
         right_ear   = "Musical Earring",
         left_ring   = "Inyanga Ring",
         right_ring  = "Stikini Ring +1",
-        back        = "Intarabus's Cape"
+        back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
      }
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave"
