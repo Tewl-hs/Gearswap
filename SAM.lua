@@ -11,8 +11,9 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 -- test variables
 	ws_order = 1
 	ws_new = 0
-	max_stp = true
+	max_stp = false
 	range_mode = false
+	use_twilight = false
 
 	AutoWS = 'Tachi: Enpi'
 
@@ -131,6 +132,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 	sets.aftercast = {}
 	sets.aftercast.TP = sets.TP.Engaged
 	sets.aftercast.Idle = {
+		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Ken. Samue +1",
 		hands		= "Sakonji Kote +3",
@@ -278,7 +280,7 @@ function status_change(new,old)
 
 		sets.TP.Engaged = sets.TP.DD
 		
-		if buffactive['Weakness'] or buffactive['Doom'] then
+		if buffactive['Weakness'] or buffactive['Doom'] and use_twilight == true then
 			sets.aftercast.TP = set_combine(sets.TP.Engaged,sets.Twilight)
 		else
 			sets.aftercast.TP = sets.TP.Engaged
