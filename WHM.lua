@@ -6,21 +6,21 @@ function get_sets()
 	sets.WHM = {}
 	
 	sets.WHM.Idle = {
-		main="Queller Rod",
+		main="Queller Rod", -- 1
 		sub="Genbu's Shield",
-		ammo="Homiliary",
-		head="Inyanga Tiara +2",
+		ammo="Homiliary", -- 1
+		head="Inyanga Tiara +2", -- 2
 		neck="Cleric's torque",
-		ear2="Moonshade earring",
+		ear2="Moonshade earring", -- 1
 		ear1="Novia earring",
-		body="Piety briault +3",
+		body="Piety briault +3", -- 3
 		hands="Inyanga Dastanas +2",
-		ring1="Stikini Ring +1",
-		ring2="Stikini Ring +1",
+		ring1="Stikini Ring +1", -- 1
+		ring2="Stikini Ring +1", -- 1
 		back="Alaunus's Cape",
-		waist="Fucho-no-obi",
+		waist="Fucho-no-obi", -- ~1
 		legs="Inyanga Shalwar +2",
-		feet="Chironic Slippers"
+		feet="Chironic Slippers" -- 2
 	}
 				
 	sets.WHM.FastCast = {

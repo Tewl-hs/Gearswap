@@ -12,6 +12,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 	ws_order = 1
 	ws_new = 0
 	max_stp = true
+	range_mode = false
 
 	AutoWS = 'Tachi: Enpi'
 
@@ -60,7 +61,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 		hands		= "Valorous Mitts",
 		legs		= "Wakido Haidate +3",
 		feet		= "Valorous Greaves",
-		neck		= "Fotia Gorget", -- Sam. Nodowa +2
+		neck		= "Sam. Nodowa +2",
 		waist		= "Fotia Belt",
 		left_ear	= "Moonshade Earring",
 		right_ear	= "Thrud Earring",
@@ -73,6 +74,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 		head		= "Sakonji Kabuto +3",
 		hands		= "Kasuga Kote +1",
 		feet		= "Waki. Sune-Ate +2",
+		neck		= "Fotia Gorget",
 		back		= Capes.RA
 	}
 
@@ -108,6 +110,8 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 	
 -- Special Sets
 	sets.DT = {
+		ammo		= "Staunch Tathlum +1",
+		head		= "Sakonji Kabuto +3",
 		body		= "Wakido Domaru +2",
 		hands		= "Sakonji Kote +3",
 		neck		= "Loricate Torque +1",
@@ -193,7 +197,7 @@ function precast(spell,action)
 			return
 		end
 		sets.WeaponSkill = sets.WS.Normal
-		if player.equipment.range == 'Yoichinoyumi' then
+		if range_mode == true then
 			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo="Yoichi's Arrow"})
 		else
 			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo="Knobkierrie"})
@@ -238,14 +242,14 @@ function aftercast(spell,action)
 		if max_stp == true then
 			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.TP.STP)
 		end
-		if player.equipment.range ~= 'Yoichinoyumi' then
+		if range_mode == false then
 			equip(set_combine(sets.TP.Engaged, {ammo="Ginsen"}))
 		else
 			equip(set_combine(sets.TP.Engaged, {ammo="Yoichi's Arrow"}))
 		end
 	else
 		if player.equipment.range ~= 'Yoichinoyumi' then
-			equip(set_combine(sets.aftercast.Idle, {ammo="Ginsen"}))
+			equip(sets.aftercast.Idle)
 		else
 			equip(set_combine(sets.aftercast.Idle, {ammo="Yoichi's Arrow"}))
 		end
@@ -255,14 +259,14 @@ end
 -- Status change (spells, songs, etc.)
 function status_change(new,old)
 	if T{'Idle','Resting'}:contains(new) then
-		if player.equipment.range ~= 'Yoichinoyumi' then
+		if range_mode == false then
 			equip(set_combine(sets.aftercast.Idle, {ammo="Ginsen"}))
 		else
 			equip(set_combine(sets.aftercast.Idle, {ammo="Yoichi's Arrow"}))
 		end
 	elseif new == 'Engaged' then
 		sets.TP.DD = sets.TP.Normal
-		if player.equipment.range ~= 'Yoichinoyumi' then
+		if range_mode == false then
 			sets.TP.DD = set_combine(sets.TP.DD, {ammo="Ginsen"})
 		else
 			sets.TP.DD = set_combine(sets.TP.DD, {ammo="Yoichi's Arrow"})

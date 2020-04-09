@@ -21,10 +21,10 @@ function get_sets()
         back        = "Moonbeam Cape",
         waist       = "Fucho-no-Obi",
         legs        = "Assid. Pants +1",
-        feet        = "Geomancy Sandals +1"            
+        feet        = "Geomancy Sandals +2"            
     }
 
-    sets.idle.DT = {
+    sets.idle.DT = { -- Full DT items
         neck        = "Loricate Torque +1",
         left_ear    = "Genmei Earring",
         right_ear   = "Odnowa Earring +1",
@@ -34,7 +34,7 @@ function get_sets()
     }
 
     sets.luopan = { 
-        main        = "Solstice",
+        main        = "Sucellus", -- Solstice: Pet: Regen -3, DT +1
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Azimuth Hood +1",
         hands       = "Geomancy Mitaines +2",
@@ -55,7 +55,7 @@ function get_sets()
         left_ring   = "Kishar Ring",
         right_ring  = "Prolix Ring",
         back        = "Lifestream Cape",
-        waist       = "Witful Belt",
+        waist       = "Embla Sash",
         legs        = "Geomancy Pants +2",
         feet        = "Merlinic Crackows"            
     }
@@ -86,7 +86,7 @@ function get_sets()
         right_ear   = "Barkaro. Earring",
         body        = "Jhakri Robe +2",
         hands       = "Jhakri Cuffs +2",
-        left_ring   = "Mujin Ring",
+        left_ring   = "Mujin Band",
         right_ring  = "Shiva Ring +1",
         waist       = "Othila Sash",
         legs        = "Azimuth Tights +1",
@@ -144,17 +144,27 @@ function get_sets()
     end
     
     function midcast(spell)
-        
         if spell.type=="Item" then
             return
         end
-
-        if spell.english:startswith('Cure') then
-            equip(set_combine(sets.midcast.cure,{body="Heka's Kalasiris"}))
-        elseif sets.midcast[spell.skill] then
+        if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+            if buffactive.Silence then
+                cancel_spell()
+                if player.inventory['Echo Drops'] then
+                    send_command('@input /item "Echo Drops" <me>')
+                else
+                    add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+                end
+                return
+            end
+            if spell.english:startswith('Cure') then
+                equip(set_combine(sets.midcast.cure,{body="Heka's Kalasiris"}))
+            elseif sets.midcast[spell.skill] then
+                equip (sets.midcast[spell.skill])
+            end
+        end
+        if sets.midcast[spell.skill] then
             equip (sets.midcast[spell.skill])
-        elseif spell.type ~= 'JobAbility' then
-            add_to_chat(123,'[Unsupported Action] '..spell.skill)
         end
     end
     
@@ -174,14 +184,14 @@ function get_sets()
     
     function buff_change(buff,gain)
         if buff == 'silence' and gain then
-            if player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
+            if player.inventory['Echo Drops'] then
                 send_command('@input /item "Echo Drops" <me>')
             else
                 add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
             end
         end
     end
-
+    -- Determine what idle set to equip if a luopan is out
     function goIdle()
         if pet.isvalid then
             equip(set_combine(sets.idle,sets.luopan))
@@ -196,7 +206,6 @@ function get_sets()
         end
     end
     
-    --- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
     mov = {counter=0}
     if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
         mov.x = windower.ffxi.get_mob_by_index(player.index).x

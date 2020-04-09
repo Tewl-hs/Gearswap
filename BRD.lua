@@ -14,21 +14,21 @@ function get_sets()
 
     sets.precast = { }
     sets.precast.FastCast = { 
-        main        = Kali.Skill, 
+        main        = Kali.Skill, -- 7
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
-        head        = "Nahtirah Hat",
-        body        = "Inyanga Jubbah +1",
-        hands       = "Madk. Dastanas +1",
-        legs        = "Aya. Cosciales +2",
-        feet        = "Bihu Slippers +3",
-        neck        = "Orunmila's Torque",
-        waist       = "Witful Belt",
-        left_ear    = "Aoidos' Earring",
-        right_ear   = "Loquacious Earring",
-        left_ring   = "Prolix Ring",
-        right_ring  = "Kishar Ring",
-        back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
+        head        = "Fili Calot +1", -- 14 song
+        body        = "Inyanga Jubbah +1", -- 13
+        hands       = "Leyline Gloves", -- 6
+        legs        = "Aya. Cosciales +2", -- 6
+        feet        = "Bihu Slippers +3", -- 10 song
+        neck        = "Orunmila's Torque", -- 5
+        waist       = "Embla Sash", -- 5
+        left_ear    = "Aoidos' Earring", -- 2 song
+        right_ear   = "Loquacious Earring", --2
+        left_ring   = "Prolix Ring", -- 2
+        right_ring  = "Kishar Ring", -- 4 
+        back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}} -- 10888
     }
     sets.precast.DummySong = { 
         range       = "Daurdabla",
@@ -83,9 +83,9 @@ function get_sets()
         main        = "Sangoma", 
         sub         = "Genbu's Shield", 
         range       = "Gjallarhorn",
-        head        = "Aya. Zucchetto +1",
+        head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
-        hands       = "Aya. Manopolas +1",
+        hands       = "Aya. Manopolas +2",
         legs        = "Aya. Cosciales +2",
         feet        = "Aya. Gambieras +2",
         neck        = "Loricate Torque +1",
