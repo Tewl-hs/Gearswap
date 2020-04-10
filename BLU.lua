@@ -1,7 +1,7 @@
 function get_sets()
 
     -- Load Macros
-        send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
+        send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 5')
     
         sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
     
@@ -38,20 +38,19 @@ function get_sets()
             right_ear   = "Regal Earring",
             left_ring   = "Stikini Ring +1",
             right_ring  = "Shiva Ring +1",
-            back        = "Toro Cape"
+            back        = "Rosmerta's Cape"
          }
          sets.midcast.MACC = { 
             neck        = "Incanter's Torque",
             waist       = "Luminary Sash",
             right_ring  = "Stikini Ring +1",
-            back        = "Zaffre Cape" 
          }
     
         sets.aftercast = { }
         sets.aftercast.Idle = {        
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
-            body        = "Ayanmo Corazza +2",
+            body        = "Jhakri Robe +2", -- "Ayanmo Corazza +2",
             hands       = "Aya. Manopolas +2",
             legs        = "Aya. Cosciales +2",
             feet        = "Aya. Gambieras +2",
@@ -59,8 +58,8 @@ function get_sets()
             waist       = "Flume Belt +1",
             left_ear    = "Genmei Earring",
             right_ear   = "Odnowa Earring +1",
-            left_ring   = "Defending Ring",
-            right_ring  = "Gelatinous Ring +1",
+            left_ring   = "Stikini Ring +1", --"Defending Ring",
+            right_ring  = "Stikini Ring +1", --"Gelatinous Ring +1",
             back        = "Moonbeam Cape"
         }
     end

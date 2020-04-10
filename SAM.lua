@@ -11,7 +11,7 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 -- test variables
 	ws_order = 1
 	ws_new = 0
-	max_stp = false
+	max_stp = true
 	range_mode = false
 	use_twilight = false
 
