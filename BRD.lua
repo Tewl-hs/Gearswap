@@ -144,7 +144,7 @@ function midcast(spell)
             sets.MC = set_combine(sets.MC,sets.midcast.Minuet)
         elseif string.find(spell.english,'March') then
             sets.MC = set_combine(sets.MC,sets.midcast.March)
-            if spell.english == 'Honor March' then 
+            if spell.english == 'Honor March' or string.find(spell.english,'Lullaby') then 
                 sets.MC = set_combine(sets.MC,{range="Marsyas"})
             end
         elseif string.find(spell.english,'Madrigal') then

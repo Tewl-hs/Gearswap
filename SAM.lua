@@ -5,6 +5,7 @@ function get_sets()
 
 -- Load Macros
 send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
+send_command('input //equipviewer pos 1663 934')
 
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}    --auto swaps when moving
 
