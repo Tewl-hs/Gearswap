@@ -3,7 +3,7 @@ function get_sets()
     -- Load Macros
     send_command('input /macro book 20;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 2')
 
-    sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
+    sets.MoveSpeed = { feet = "Geomancy Sandals +3",}    --auto swaps when moving
     
     -- Gear sets
     sets.idle = { 
@@ -15,13 +15,13 @@ function get_sets()
         left_ear    = "Genmei Earring",
         right_ear   = "Odnowa Earring +1",
         body        = "Jhakri Robe +2",
-        hands       = "Bagua Mitaines +1",
+        hands       = "Bagua Mitaines +3",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
         back        = "Moonbeam Cape",
         waist       = "Fucho-no-Obi",
         legs        = "Assid. Pants +1",
-        feet        = "Geomancy Sandals +2"            
+        feet        = "Geomancy Sandals +3"            
     }
 
     sets.idle.DT = { -- Full DT items
@@ -85,7 +85,7 @@ function get_sets()
         left_ear    = "Malignance Earring",
         right_ear   = "Barkaro. Earring",
         body        = "Jhakri Robe +2",
-        hands       = "Jhakri Cuffs +2",
+        hands       = "Bagua Mitaines +3",
         left_ring   = "Mujin Band",
         right_ring  = "Shiva Ring +1",
         waist       = "Othila Sash",

@@ -5,7 +5,6 @@ function get_sets()
 
 -- Load Macros
 send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
-send_command('input //equipviewer pos 1663 934')
 
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}    --auto swaps when moving
 
@@ -15,6 +14,7 @@ send_command('input //equipviewer pos 1663 934')
 	max_stp = true
 	range_mode = false
 	use_twilight = false
+	use_DT = false
 
 	AutoWS = 'Tachi: Enpi'
 
@@ -114,7 +114,7 @@ send_command('input //equipviewer pos 1663 934')
 	sets.DT = {
 		ammo		= "Staunch Tathlum +1",
 		head		= "Sakonji Kabuto +3",
-		body		= "Wakido Domaru +2",
+		-- body		= "Wakido Domaru +2",
 		hands		= "Sakonji Kote +3",
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
@@ -225,7 +225,7 @@ function precast(spell,action)
 	elseif sets.precast[spell.english] then
 		equip(sets.precast[spell.english])
 	else
-		if player.equipment.range == 'Yoichinoyumi' then
+		if range_mode == true then
 			equip({ammo="Yoichi's Arrow"})
 		end
 	end
@@ -246,12 +246,19 @@ function aftercast(spell,action)
 			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.TP.STP)
 		end
 		if range_mode == false then
-			equip(set_combine(sets.TP.Engaged, {ammo="Ginsen"}))
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo="Ginsen"})
+			if use_DT == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
+			end
+			equip(sets.TP.Engaged)
 		else
+			if use_DT == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
+			end
 			equip(set_combine(sets.TP.Engaged, {ammo="Yoichi's Arrow"}))
 		end
 	else
-		if player.equipment.range ~= 'Yoichinoyumi' then
+		if range_mode == false then
 			equip(sets.aftercast.Idle)
 		else
 			equip(set_combine(sets.aftercast.Idle, {ammo="Yoichi's Arrow"}))
@@ -263,15 +270,26 @@ end
 function status_change(new,old)
 	if T{'Idle','Resting'}:contains(new) then
 		if range_mode == false then
-			equip(set_combine(sets.aftercast.Idle, {ammo="Ginsen"}))
+			equip(set_combine(sets.aftercast.Idle))
 		else
 			equip(set_combine(sets.aftercast.Idle, {ammo="Yoichi's Arrow"}))
 		end
 	elseif new == 'Engaged' then
 		sets.TP.DD = sets.TP.Normal
+
+		if max_stp == true then 
+			sets.TP.DD = set_combine(sets.TP.DD, sets.TP.STP)
+		end
+
 		if range_mode == false then
 			sets.TP.DD = set_combine(sets.TP.DD, {ammo="Ginsen"})
+			if use_DT == true then
+				sets.TP.DD = set_combine(sets.TP.DD,sets.DT)
+			end
 		else
+			if use_DT == true then
+				sets.TP.DD = set_combine(sets.TP.DD,sets.DT)
+			end
 			sets.TP.DD = set_combine(sets.TP.DD, {ammo="Yoichi's Arrow"})
 		end
 
@@ -295,8 +313,84 @@ function buff_change(status,gain_or_loss)
 end
 
 -- Self commands 
-function self_command(command)
-	-- 
+function goIdle()
+	if range_mode == false then
+		equip(sets.aftercast.Idle)
+	else
+		equip(set_combine(sets.aftercast.Idle, {range="Yoichinoyumi",ammo="Yoichi's Arrow"}))
+	end
+end
+
+function SwapGear()
+	if player.status == 'Engaged' then
+		sets.TP.Engaged = sets.TP.Normal
+		if max_stp == true then
+			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.TP.STP)
+		end
+		if range_mode == false then
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo="Ginsen"})
+			
+			if use_DT == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
+			end
+
+			equip(sets.TP.Engaged)
+		else
+			if use_DT == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
+			end
+			equip(set_combine(sets.TP.Engaged, {range="Yoichinoyumi",ammo="Yoichi's Arrow"}))
+		end
+	else
+		if range_mode == false then
+			equip(sets.aftercast.Idle)
+		else
+			equip(set_combine(sets.aftercast.Idle, {range="Yoichinoyumi",ammo="Yoichi's Arrow"}))
+		end
+	end
+end
+
+function self_command(commandArgs)
+	local originalCommand = commandArgs
+    if type(commandArgs) == 'string' then
+        commandArgs = T(commandArgs:split(' '))
+        if #commandArgs == 0 then
+            return
+        end
+    end
+	if commandArgs[1] == 'goIdle' then
+		goIdle()
+	elseif commandArgs[1] == 'SwapGear' then
+		SwapGear()
+	elseif commandArgs[1] == 'tr' then
+		if range_mode == false then
+			range_mode = true
+			add_to_chat(123,"-- [RANGED MODE ACTIVATED] --")
+		else
+			range_mode = false
+			add_to_chat(123,"-- [RANGED MODE DEACTIVATED] --")
+		end
+	elseif commandArgs[1] == 'tstp' then
+		if max_stp == false then
+			max_stp = true
+			add_to_chat(123,"-- [MAX STP ACTIVATED] --")
+			send_command('gs c SwapGear')
+		else
+			max_stp = false
+			add_to_chat(123,"-- [MAX STP DEACTIVATED] --")
+			send_command('gs c SwapGear')
+		end
+	elseif commandArgs[1] == 'tdt' then
+		if use_DT == false then
+			use_DT = true
+			add_to_chat(123,"-- [DMG TAKEN SET ACTIVATED] --")
+			send_command('gs c SwapGear')
+		else
+			use_DT = false
+			add_to_chat(123,"-- [DMG TAKEN SET DEACTIVATED] --")
+			send_command('gs c SwapGear')
+		end
+	end
 end
 
 --- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
@@ -321,7 +415,7 @@ windower.raw_register_event('prerender',function()
         		moving = true
 			elseif dist < 1 and moving then
 				if player.status ~= 'Engaged' then
-					send_command('gs equip sets.aftercast.Idle')
+					send_command('gs c goIdle')
 				end
                 moving = false
             end

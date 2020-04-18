@@ -1,4 +1,4 @@
-function get_sets()
+ function get_sets()
 
     -- Load Macros
         send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 5')
@@ -9,34 +9,34 @@ function get_sets()
     
     -- Gear sets
     
-        sets.precast = { 
-            ammo        = "Impatiens",
-            head        = "Jhakri Coronal +2",
-            body        = "Jhakri Robe +2",
-            hands       = "Jhakri Cuffs +2",
-            legs        = "Jhakri Slops +2",
-            feet        = "Jhakri Pigaches +2",
+        sets.precast = { -- Fast Cast Current: 53% Target: 79% Cap: 80%
+            ammo        = "Sapience Orb", -- 2
+            head        = "Carmine Mask +1", -- 9
+            body        = "Jhakri Robe +2", -- Need: Pinga Tunic +1 (15%)
+            hands       = "Leyline Gloves", -- 6 / Could get 2 more
+            legs        = "Aya. Cosciales +2", -- 6 Need: Pinga Pants +1 (13%)
+            feet        = "Carmine Greaves +1", -- 8
             neck        = "Orunmila's Torque", -- 5
             waist       = "Witful Belt", -- 5
-            left_ear    = "Halasz Earring", -- 2 song
-            right_ear   = "Loquacious Earring", --2
+            left_ear    = "Halasz Earring", -- Need: Enchanter's Earring (+2%)
+            right_ear   = "Loquacious Earring", -- 2
             left_ring   = "Prolix Ring", -- 2
             right_ring  = "Kishar Ring", -- 4 
-            back        = "Swift Cape"
+            back        = "Swith Cape +1" -- 4
         }
     
-        sets.midcast = { 
-            ammo        = "Mavi Tathlum",
+        sets.midcast = { -- Focus Cleaving 
+            ammo        = "Ghastly Tathlum +1",
             head        = "Jhakri Coronal +2",
-            body        = "Jhakri Robe +2",
-            hands       = "Jhakri Cuffs +2",
-            legs        = "Jhakri Slops +2",
-            feet        = "Jhakri Pigaches +2",
+            body        = "Jhakri Robe +2", -- Need: Amalric Doublet +1
+            hands       = "Jhakri Cuffs +2", -- Need: Amalric Gages +1
+            legs        = "Jhakri Slops +2", -- Need: Amalric Slops +1
+            feet        = "Jhakri Pigaches +2", -- Need: Amalric Nails +1
             neck        = "Baetyl Pendant",
-            waist       = "Luminary Sash",
+            waist       = "Eschan Stone", -- Need: Orpheus Sash
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
-            left_ring   = "Stikini Ring +1",
+            left_ring   = "Shiva Ring +1",
             right_ring  = "Shiva Ring +1",
             back        = "Rosmerta's Cape"
          }
@@ -44,22 +44,23 @@ function get_sets()
             neck        = "Incanter's Torque",
             waist       = "Luminary Sash",
             right_ring  = "Stikini Ring +1",
+            left_ring   = "Stikini Ring +1"
          }
     
         sets.aftercast = { }
         sets.aftercast.Idle = {        
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
-            body        = "Jhakri Robe +2", -- "Ayanmo Corazza +2",
+            body        = "Jhakri Robe +2", --"Ayanmo Corazza +2",
             hands       = "Aya. Manopolas +2",
             legs        = "Aya. Cosciales +2",
             feet        = "Aya. Gambieras +2",
             neck        = "Loricate Torque +1",
             waist       = "Flume Belt +1",
             left_ear    = "Genmei Earring",
-            right_ear   = "Odnowa Earring +1",
-            left_ring   = "Stikini Ring +1", --"Defending Ring",
-            right_ring  = "Stikini Ring +1", --"Gelatinous Ring +1",
+            right_ear   = "Odnowa Earring +1", -- Need: Etiolation Earring
+            left_ring   = "Stikini Ring +1",--"Defending Ring"
+            right_ring  = "Stikini Ring +1",--"Gelatinous Ring +1",
             back        = "Moonbeam Cape"
         }
     end
@@ -68,7 +69,7 @@ function get_sets()
         if spell.type=="Item" then
             return
         end
-        if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+        if string.find(spell.type,'Magic') then
             if buffactive.Silence then
                 cancel_spell()
                 if player.inventory['Echo Drops'] then

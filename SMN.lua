@@ -9,21 +9,20 @@ function get_sets()
     
         sets.precast = { }
         sets.precast.FC = {
-            main        = "",
-            sub         = "",
-            ammo        = "",
-            head        = "",
-            neck        = "",
-            ear1        = "",
-            ear2        = "", 
-            hands       = "",
-            body        = "",
-            ring1       = "",
-            ring2       = "",
-            back        = "",
-            waist       = "",
-            legs        = "",
-            feet        = ""
+            main        = "Grioavoir",
+            ammo        = "Hydrocera",
+            head        = "Nahtirah Hat",
+            neck        = "Henic Torque",
+            ear1        = "Malignance Earring",
+            ear2        = "Loquacious Earring", 
+            hands       = "Inyanga Dastanas +2",
+            body        = "Inyanga Jubbah +2",
+            ring1       = "Kishar Ring",
+            ring2       = "Prolix Ring",
+            back        = "Swith Cape",
+            waist       = "Embla Sash",
+            legs        =" Inyanga Shalwar +2",
+            feet        = "Vanya Clogs"
         }
     
         sets.midcast = { }
@@ -37,7 +36,20 @@ function get_sets()
         }
         -- Cure potency 
         sets.midcast.Cure = {
-    
+            main        = "Daybreak",
+            ammo        = "Hydrocera",
+            head        = "Vanya Hood",
+            neck        = "Henic Earring",
+            ear1        = "Roundel Earring",
+            ear2        = "Meili Earring",
+            body        = "Inyanga Jubbah +2",
+            hands       = "Bokwus Gloves",
+            ring1       = "Janniston Ring",
+            ring2       = "Menelaus's Ring",
+            back        = "Altruistic Cape",
+            waist       = "Austerity Belt",
+            legs        =" Inyanga Shalwar +2",
+            feet        = "Vanya Clogs"    
         }
         -- Cursna
         sets.midcast.Cursna = {
@@ -67,7 +79,20 @@ function get_sets()
         sets.aftercast = { }
         -- Default set to equip after spell or JA
         sets.aftercast.Idle = {  
-    
+            main        = "Daybreak",
+            ammo        = "Hydrocera",
+            head        = "Befouled Crown",
+            neck        = "Henic Earring",
+            ear1        = "Moonshade Earring",
+            ear2        = "Novia Earring",
+            body        = "Orvail Robe",
+            hands       = "Inyanga Dastanas +2",
+            ring1       = "Stikini Ring +1",
+            ring2       = "Stikini Ring +1",
+            back        = "Altruistic Cape",
+            waist       = "Fucho-no-obi",
+            legs        =" Inyanga Shalwar +2",
+            feet        = "Serpentes Sabots"    
         }
         sets.aftercast.Perp = set_combine(sets.aftercast.Idle, {
             waist="Siegel Sash",
@@ -152,5 +177,11 @@ function get_sets()
     
     -- This function will equip your aftercast/idle set
     function idle()
-    
+        equip(sets.aftercast.Idle)
+    end
+
+    function self_command(commandArgs)
+        if commandArgs == 'goIdle' then
+            goIdle()
+        end
     end

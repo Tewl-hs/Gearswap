@@ -155,12 +155,26 @@ function midcast(spell)
 end
 
 function aftercast(spell)
-    equip(sets.aftercast.Idle)
+    goIdle()
 end
 
 function status_change(new,old)
     if T{'Idle','Resting'}:contains(new) then
+        goIdle()
+    end
+end
+
+function goIdle()
+    if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+        equip(set_combine(sets.aftercast.Idle,{main=Kali.Skill},{sub=Kali.MACC}))
+    else
         equip(sets.aftercast.Idle)
+    end
+end
+
+function self_command(commandArgs)
+    if commandArgs == 'goIdle' then
+        goIdle()
     end
 end
 
@@ -191,9 +205,9 @@ windower.raw_register_event('prerender',function()
             dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
             if dist > 1 and not moving then
                 send_command('gs equip sets.MoveSpeed')
-        		moving = true
+      		    moving = true
             elseif dist < 1 and moving then
-                send_command('gs equip sets.aftercast.Idle')
+                send_command('gs c goIdle')
                 moving = false
             end
         end
