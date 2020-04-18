@@ -113,9 +113,11 @@ send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /loc
 -- Special Sets
 	sets.DT = {
 		ammo		= "Staunch Tathlum +1",
-		head		= "Sakonji Kabuto +3",
-		-- body		= "Wakido Domaru +2",
-		hands		= "Sakonji Kote +3",
+		head		= "Sakonji Kabuto +3", -- Need: Kendatsuba Jinpachi +1 (MDT/MEVA)
+		body		= "Ken. Samue +1", -- Option: Wakido Domaru +3 (DT-8%)
+		hands		= "Sakonji Kote +3", -- Option: Kendatsuba Tekko +1 (MDT/MEVA)
+		legs		= "Ken. Hakama +1",
+		-- feet		= "" Need: Kendatsuba Sune-ate +1 (MDT/MEVA)
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
 		left_ear	= "Colossus's Earring",
