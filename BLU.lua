@@ -5,10 +5,6 @@
     
         sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
     
-        -- Augments
-    
-    -- Gear sets
-    
         sets.precast = { -- Fast Cast Current: 53% Target: 79% Cap: 80%
             ammo        = "Sapience Orb", -- 2
             head        = "Carmine Mask +1", -- 9
@@ -20,8 +16,8 @@
             waist       = "Witful Belt", -- 5
             left_ear    = "Halasz Earring", -- Need: Enchanter's Earring (+2%)
             right_ear   = "Loquacious Earring", -- 2
-            left_ring   = "Prolix Ring", -- 2
             right_ring  = "Kishar Ring", -- 4 
+            left_ring   = "Prolix Ring", -- 2
             back        = "Swith Cape +1" -- 4
         }
     
@@ -36,8 +32,8 @@
             waist       = "Eschan Stone", -- Need: Orpheus Sash
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
-            left_ring   = "Shiva Ring +1",
             right_ring  = "Shiva Ring +1",
+            left_ring   = "Shiva Ring +1",
             back        = "Rosmerta's Cape"
          }
          sets.midcast.MACC = { 
@@ -51,7 +47,7 @@
         sets.aftercast.Idle = {        
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
-            body        = "Jhakri Robe +2", --"Ayanmo Corazza +2",
+            body        = "Jhakri Robe +2",
             hands       = "Aya. Manopolas +2",
             legs        = "Aya. Cosciales +2",
             feet        = "Aya. Gambieras +2",
@@ -59,8 +55,8 @@
             waist       = "Flume Belt +1",
             left_ear    = "Genmei Earring",
             right_ear   = "Odnowa Earring +1", -- Need: Etiolation Earring
-            left_ring   = "Stikini Ring +1",--"Defending Ring"
-            right_ring  = "Stikini Ring +1",--"Gelatinous Ring +1",
+            left_ring   = "Stikini Ring +1",
+            right_ring  = "Stikini Ring +1",
             back        = "Moonbeam Cape"
         }
     end
@@ -115,7 +111,6 @@
         end
     end
     
-    --- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
     mov = {counter=0}
     if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
         mov.x = windower.ffxi.get_mob_by_index(player.index).x
