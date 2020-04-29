@@ -4,15 +4,22 @@
 function get_sets()			
 
 -- Load Macros
-send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
-send_command('input //equipviewer pos 1663 934')
-send_command('bind ^f9 gs c tstp') -- F9 Toggle MAX STP/DefensiveAccuracy
-send_command('bind ^f10 gs c tr') -- F10 Toggle Ranged Mode
-send_command('bind ^f11 gs c tdt') -- F11 Toggle DT SET
-send_command('bind ^f12 gs c twilight') -- F12 Toggle Twilight Auto/Equip (Locks when weakened or doomed)
+	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
+	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
+	send_command('bind ^f9 gs c tstp') -- F9 Toggle MAX STP/DefensiveAccuracy
+	send_command('bind ^f10 gs c tr') -- F10 Toggle Ranged Mode
+	send_command('bind ^f11 gs c tdt') -- F11 Toggle DT SET
+	send_command('bind ^f12 gs c twilight') -- !!!Needs adjustment!!! F12 Toggle Twilight Auto/Equip (Locks when weakened or doomed) 
 
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}    --auto swaps when moving
 
+	
+	max_stp = true
+	range_mode = false
+	use_twilight = false
+	use_DT = false
+
+--  NOT MY CODE! Testing content for displaying text under chat
 	texts = require('texts')
 	if stateBox then stateBox:destroy() end
 
@@ -47,26 +54,21 @@ send_command('bind ^f12 gs c twilight') -- F12 Toggle Twilight Auto/Equip (Locks
 
 	update_status()
 
--- test variables
+-- Variables for auto-skill chain only change AutoWS 
 	ws_order = 1
 	ws_new = 0
-	max_stp = true
-	range_mode = false
-	use_twilight = false
-	use_DT = false
-
 	AutoWS = 'Tachi: Enpi'
-	
--- 
+
+-- Variables for ranged/ammo/capes - These are not put into the sets because of mode changes and for augment shorthand 
    Gear = {} 
-   Gear.Bow = "Yoichinoyumi"
-   Gear.Arrow = "Yoichi's Arrow"
-   Gear.DTAmmo = "Staunch Tathlum +1"
-   Gear.TPAmmo = "Ginsen"
-   Gear.WSAmmo = "Knobkierrie"
-   Gear.TPCape = { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
-   Gear.WSCape = { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
-   Gear.RACape = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+   Gear.Bow			= "Yoichinoyumi"
+   Gear.Arrow 		= "Yoichi's Arrow"
+   Gear.DTAmmo 		= "Staunch Tathlum +1"
+   Gear.TPAmmo		= "Ginsen"
+   Gear.WSAmmo		= "Knobkierrie"
+   Gear.TPCape		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+   Gear.WSCape 		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
+   Gear.RACape		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
 
 -- JA Sets
 	sets.precast = {}
@@ -150,12 +152,6 @@ send_command('bind ^f12 gs c twilight') -- F12 Toggle Twilight Auto/Equip (Locks
 		feet		= "Ryuo Sune-Ate +1",
 		right_ear	= "Dedition earring"
 	}
-		
-	sets.TP.DD = {}
-	sets.TP.Hybrid = {}
-	sets.TP.Ranged = {}
-	sets.TP.Engaged = {}
-	sets.WeaponSkill = {}
 	
 -- Special Sets
 	sets.DT = {
