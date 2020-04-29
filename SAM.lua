@@ -1,19 +1,35 @@
- 
--- Functions
--- Gear Sets go here
-function get_sets()			
-
--- Load Macros
+----------------------------------------------------------------------------------------------------------------------
+-- Author: Tewl / Bismark
+-- Files: SAM.lua 
+--
+-- Binds
+-- CTRL+F9  : Toggle MAX STP/DefensiveAccuracy
+-- CTRL+F10 : Toggle Ranged Mode
+-- CTRL+F11 : Toggle DT SET
+-- CTRL+F12 : Toggle Twilight set lock (Currently not functional. Needs adjustment)
+--
+-- Not all of this is my code, some was copied and altered for my own preferences.
+-- This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
+-- and to share with friends that might be interested or could help with it.
+--
+-- sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
+--
+-- The display code I believe came from Selindrile's and the movement speed I found on FFXIAH line provided in comment 
+--
+----------------------------------------------------------------------------------------------------------------------
+ function get_sets()			
+--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
 	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
 	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
-	send_command('bind ^f9 gs c tstp') -- F9 Toggle MAX STP/DefensiveAccuracy
-	send_command('bind ^f10 gs c tr') -- F10 Toggle Ranged Mode
-	send_command('bind ^f11 gs c tdt') -- F11 Toggle DT SET
-	send_command('bind ^f12 gs c twilight') -- !!!Needs adjustment!!! F12 Toggle Twilight Auto/Equip (Locks when weakened or doomed) 
+--  Sets binds 
+	send_command('bind ^f9 gs c tstp')
+	send_command('bind ^f10 gs c tr')
+	send_command('bind ^f11 gs c tdt') 
+	-- Commented out because I needs rewrite
+	--send_command('bind ^f12 gs c twilight')
 
-	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}    --auto swaps when moving
+	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-	
 	max_stp = true
 	range_mode = false
 	use_twilight = false
@@ -53,11 +69,12 @@ function get_sets()
 	stateBox:stroke_transparency(stroketransparancy)
 
 	update_status()
+-- End of display code
 
--- Variables for auto-skill chain only change AutoWS 
+-- Variables for auto-skill chain. Only edit AutoWS 
+	AutoWS = 'Tachi: Enpi'
 	ws_order = 1
 	ws_new = 0
-	AutoWS = 'Tachi: Enpi'
 
 -- Variables for ranged/ammo/capes - These are not put into the sets because of mode changes and for augment shorthand 
    Gear = {} 
@@ -445,18 +462,14 @@ function self_command(commandArgs)
 	end
 end
 
-function file_unload()
-    if binds_on_unload then
-        binds_on_unload()
-    end
-     
+function file_unload()     
 	send_command('unbind ^F9')
 	send_command('unbind ^F10')
 	send_command('unbind ^F11')
 	send_command('unbind ^F12')
 end
 
--- Not my code, just something I'm playing with
+-- More code for displaying text -- Not finished 
 function update_status()
 	local clr = {
         h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
@@ -519,6 +532,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
         stateBox:show()
     end
 end)
+-- End of Display Code
 
 --- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
 mov = {counter=0}
