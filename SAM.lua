@@ -56,6 +56,7 @@ send_command('bind ^f12 gs c twilight') -- F12 Toggle Twilight Auto/Equip (Locks
 	use_DT = false
 
 	AutoWS = 'Tachi: Enpi'
+	
 -- 
    Gear = {} 
    Gear.Bow = "Yoichinoyumi"
@@ -66,12 +67,6 @@ send_command('bind ^f12 gs c twilight') -- F12 Toggle Twilight Auto/Equip (Locks
    Gear.TPCape = { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
    Gear.WSCape = { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
    Gear.RACape = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
-
--- Augmented Gear
-    Capes = {}
-	Capes.TP 		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
-	Capes.WS 		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
-	Capes.RA 		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
 
 -- JA Sets
 	sets.precast = {}
