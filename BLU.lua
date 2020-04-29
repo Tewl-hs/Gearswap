@@ -1,63 +1,83 @@
- function get_sets()
+
+
+function get_sets()
+
+
 
     -- Load Macros
         send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 5')
+        send_command('input //equipviewer pos 1663 934')
     
         sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
+
     
-        sets.precast = { -- Fast Cast Current: 53% Target: 79% Cap: 80%
+        sets.precast = { -- Fast Cast Current: 72% 
             ammo        = "Sapience Orb", -- 2
             head        = "Carmine Mask +1", -- 9
-            body        = "Jhakri Robe +2", -- Need: Pinga Tunic +1 (15%)
+            body        = "Pinga Tunic", -- 13 Need: Pinga Tunic +1 (15%)
             hands       = "Leyline Gloves", -- 6 / Could get 2 more
-            legs        = "Aya. Cosciales +2", -- 6 Need: Pinga Pants +1 (13%)
+            legs        = "Pinga Pants", -- 11 Need: Pinga Pants +1 (13%)
             feet        = "Carmine Greaves +1", -- 8
             neck        = "Orunmila's Torque", -- 5
             waist       = "Witful Belt", -- 5
-            left_ear    = "Halasz Earring", -- Need: Enchanter's Earring (+2%)
-            right_ear   = "Loquacious Earring", -- 2
+            left_ear    = "Loquacious Earring", -- 2
+            right_ear   = "Etiolation Earring", -- 1 Need: Enchanter's Earring (+2%)
             right_ring  = "Kishar Ring", -- 4 
             left_ring   = "Prolix Ring", -- 2
-            back        = "Swith Cape +1" -- 4
+            back        = "Swith Cape +1" -- 4 / Rosmerta's Cape +6
         }
     
         sets.midcast = { -- Focus Cleaving 
-            ammo        = "Ghastly Tathlum +1",
+            ammo        = "Pemphredo Tathlum",
             head        = "Jhakri Coronal +2",
-            body        = "Jhakri Robe +2", -- Need: Amalric Doublet +1
-            hands       = "Jhakri Cuffs +2", -- Need: Amalric Gages +1
-            legs        = "Jhakri Slops +2", -- Need: Amalric Slops +1
-            feet        = "Jhakri Pigaches +2", -- Need: Amalric Nails +1
+            body        = "Amalric Doublet +1",
+            hands       = "Amalric Gages +1",
+            legs        = "Amalric Slops +1",
+            feet        = "Amalric Nails +1",
             neck        = "Baetyl Pendant",
-            waist       = "Eschan Stone", -- Need: Orpheus Sash
+            waist       = "Eschan Stone", -- Need: Orpheus Sash (130M+)
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
-            right_ring  = "Shiva Ring +1",
             left_ring   = "Shiva Ring +1",
+            right_ring  = "Shiva Ring +1",
             back        = "Rosmerta's Cape"
          }
          sets.midcast.MACC = { 
+            ammo        = "Hydrocera",
             neck        = "Incanter's Torque",
             waist       = "Luminary Sash",
-            right_ring  = "Stikini Ring +1",
-            left_ring   = "Stikini Ring +1"
+            back        = "Rosmerta's Cape",
+            left_ring   = "Stikini Ring +1",
+            right_ring  = "Stikini Ring +1"
          }
+
     
         sets.aftercast = { }
-        sets.aftercast.Idle = {        
+        sets.aftercast.Idle = { 
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
-            body        = "Jhakri Robe +2",
+            body        = "Ayanmo Corazza +2",
             hands       = "Aya. Manopolas +2",
             legs        = "Aya. Cosciales +2",
             feet        = "Aya. Gambieras +2",
             neck        = "Loricate Torque +1",
             waist       = "Flume Belt +1",
             left_ear    = "Genmei Earring",
-            right_ear   = "Odnowa Earring +1", -- Need: Etiolation Earring
+            right_ear   = "Etiolation Earring",
+            left_ring   = "Defending Ring",
+            right_ring  = "Gelatinous Ring +1",
+            back        = "Moonbeam Cape" -- Need: Moonlight Cape (30M+)
+        }
+        
+        sets.aftercast.Engaged = {
+            ammo        = "Ginsen",  
+            neck        = "Asperity Necklace",
+            body        = "Jhakri Robe +2",
+            waist       = "Sailfi Belt +1",
+            left_ear    = "Moonshade Earring",
+            right_ear   = "Cessance Earring",
             left_ring   = "Stikini Ring +1",
             right_ring  = "Stikini Ring +1",
-            back        = "Moonbeam Cape"
         }
     end
     
@@ -82,7 +102,7 @@
     function midcast(spell)
         if spell.skill == 'Blue Magic' then 
             if spell.english == 'Magic Fruit' then
-
+                equip(set_combine(sets.midcast,{right_ear="Etiolation Earring",back="Moonbeam Cape"})) -- equip HP+ gear for full heal
             elseif spell.english == 'Dream Flower' then
                 equip(set_combine(sets.midcast,sets.midcast.MACC))
             else
@@ -110,6 +130,23 @@
             end
         end
     end
+
+    function goIdle()
+        equip(sets.aftercast.Idle)
+    end
+
+    function self_command(commandArgs)
+        local originalCommand = commandArgs
+        if type(commandArgs) == 'string' then
+            commandArgs = T(commandArgs:split(' '))
+            if #commandArgs == 0 then
+                return
+            end
+        end
+        if commandArgs[1] == 'goIdle' then
+            goIdle()
+        end
+    end
     
     mov = {counter=0}
     if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
@@ -129,7 +166,7 @@
                     send_command('gs equip sets.MoveSpeed')
                     moving = true
                 elseif dist < 1 and moving then
-                    send_command('gs equip sets.aftercast.Idle')
+                    send_command('gs c goIdle')
                     moving = false
                 end
             end

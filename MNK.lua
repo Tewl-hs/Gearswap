@@ -4,14 +4,24 @@
 function get_sets()			
 
     -- Load Macros
-    send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
+    send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
     send_command('input //equipviewer pos 1663 934')
     
-        sets.MoveSpeed = { feet = "Herald's Gaiters",} 
+        sets.MoveSpeed = { feet = "Hermes' Sandals",} 
+
+        -- test variables
+	    ws_order = 1
+	    ws_new = 0
+	    max_stp = true
+	    range_mode = false
+	    use_twilight = false
+	    use_DT = false
+
+	    AutoWS = 'One Inch Punch'
     
     -- Augmented Gear
         Capes = {}
-        Capes.TP 		= { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+        Capes.TP 		= { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
         Capes.WS 		= { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',} }
     
     -- JA Sets
@@ -39,7 +49,6 @@ function get_sets()
     -- WS Sets
         sets.WS = {
             ammo        = "Knobkierrie",
-
             neck		= "Fotia Gorget",
             waist		= "Fotia Belt",
             left_ear	= "Moonshade Earring",
@@ -90,9 +99,53 @@ function get_sets()
         if spell.english == 'Spectral Jig' then
             send_command('cancel 71;')
         end
+
+        
+
+	    Mob_ID = player.target.id
+        if Mob_ID ~= Old_Mob_ID then
+          ws_order = 1
+          ws_new = 0
+          Old_Mob_ID = Mob_ID
+    	end
     
         if spell.type=="WeaponSkill" then
-            sets.WeaponSkill = sets.WS.Normal
+            if spell.name == AutoWS and ws_order == 4 then
+                cancel_spell()
+                send_command('@input /ws "Victory Smite" '..spell.target.raw)
+                add_to_chat(013,'['..ws_order..'] Victory Smite')
+                ws_order = 1
+                ws_new = 1
+                return
+            end
+            if spell.name == AutoWS and ws_order == 3 then
+                cancel_spell()
+                send_command('@input /ws "Shijin Spiral" '..spell.target.raw)
+                add_to_chat(013,'['..ws_order..'] Shijin Spiral')
+                ws_order = ws_order + 1
+                return
+            end
+            if spell.name == AutoWS and ws_order == 2 then
+                cancel_spell()
+                send_command('@input /ws "Victory Smite" '..spell.target.raw)
+                add_to_chat(013,'['..ws_order..'] Victory Smite')
+                ws_order = ws_order + 1
+                return
+            end
+            if spell.name == AutoWS and ws_order == 1  and ws_new == 0 then
+                cancel_spell()
+                send_command('@input /ws "Asuran Fists" '..spell.target.raw)
+                add_to_chat(123,'Starting skillchain.')
+                add_to_chat(013,'['..ws_order..'] Asuran Fists')
+                ws_order = ws_order + 1
+                return
+            end
+            if spell.name == AutoWS and ws_order == 1  and ws_new == 1 then
+                ws_new = 0
+                cancel_spell()
+                send_command('@input /ws "'..AutoWS..'" '..spell.target.raw)
+                return
+            end
             if sets.WS[spell.english] then
                 equip(sets.WS[spell.english])
             else

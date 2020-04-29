@@ -1,6 +1,7 @@
 function get_sets()			
 
 	sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
+    send_command('input //equipviewer pos 1663 934')
 	
 	--TP Sets--
 	sets.WHM = {}
@@ -24,7 +25,7 @@ function get_sets()
 	}
 				
 	sets.WHM.FastCast = {
-		main="Grioavoir",
+		main="Grioavolr",
 		neck="Cleric's Torque",
 		head="Nahtirah Hat",
 		body="Inyanga Jubbah +2",

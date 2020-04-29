@@ -4,6 +4,7 @@ function get_sets()
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
 
     sets.MoveSpeed = { feet = "Fili cothurnes +1",}    --auto swaps when moving
+    send_command('input //equipviewer pos 1663 934')
 
     -- Augments
     Kali = {}
@@ -63,7 +64,7 @@ function get_sets()
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
      }
     sets.midcast.Ballad = {
-        legs        = "Fili Rhingrave"
+        legs        = "Fili Rhingrave +1"
     }
     sets.midcast.Minuet = {
         Body        = "Fili Hongreline +1"
@@ -91,7 +92,7 @@ function get_sets()
         neck        = "Loricate Torque +1",
         waist       = "Flume Belt +1",
         left_ear    = "Genmei Earring",
-        right_ear   = "Odnowa Earring +1",
+        right_ear   = "Etiolation Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
         back        = "Moonbeam Cape"
