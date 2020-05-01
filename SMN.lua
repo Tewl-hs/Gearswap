@@ -3,7 +3,7 @@ function get_sets()
     -- Load Macros
        -- send_command('input /macro book 1;wait 0.2;input /macro set 1;')-- Load Macros
 
-        sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
+        sets.MoveSpeed = { feet = "Herald's Gaiters",}  --auto swaps when moving
     
     -- Variables
         MagicalBloodPactRage = T{
@@ -36,6 +36,7 @@ function get_sets()
             legs        = { name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}},
             feet        = { name="Merlinic Crackows", augments={'"Mag.Atk.Bns."+6','"Fast Cast"+7','CHR+8',}},
         }
+
         sets.precast.BloodPact = {
             main        = "Nirvana",
             sub         = "Elan Strap +1",
@@ -46,12 +47,12 @@ function get_sets()
             right_ear   = "Andoaa Earring",
             body        = "Convoker's Doublet +3",
             hands       = "Glyphic Bracers +3",
-            left_ring   = "Evoker's Ring", -- 10
-            right_ring  = "Stikini Ring +1", -- 8
-            waist       = "Lucidity Sash", -- +7
-            legs        = "Baayami Slops", -- 30
-            feet        = "Baayami Sabots +1", -- 29
-            back        = "Conveyance Cape" -- +11
+            left_ring   = "Evoker's Ring",
+            right_ring  = "Stikini Ring +1",
+            waist       = "Lucidity Sash",		
+	        back        = "Conveyance Cape",		
+            legs        = "Baayami Slops",
+            feet        = "Baayami Sabots +1"
         }
     
         sets.midcast = { }
@@ -64,7 +65,7 @@ function get_sets()
             main        = "Daybreak",
             ammo        = "Hydrocera",
             head        = "Vanya Hood",
-            neck        = "Henic Torque",
+            neck        = "Henic Earring",
             left_ear    = "Roundel Earring",
             right_ear   = "Meili Earring",
             body        = "Inyanga Jubbah +2",
@@ -89,7 +90,7 @@ function get_sets()
             waist="Siegel Sash",
         })
     
-        sets.midcast.PhysicalBP = {
+        sets.midcast.PhysicalBP = { -- HP: -110, +85, +9, -110, -90, +50 (-166)
             main        = "Nirvana",
             sub         = "Elan Strap +1",
             ammo        = "Sancus Sachet +1",
@@ -105,10 +106,9 @@ function get_sets()
             left_ring   = "Varar Ring +1",
             right_ring  = "Varar Ring +1",
             back        = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
-
         }
     
-        sets.midcast.MagicalBP = {
+        sets.midcast.MagicalBP = { -- HP: -110, -160, +9, -110, -90, +50, +88 (-323)
             main        = "Grioavolr",
             sub         = "Elan Strap +1",
             ammo        = "Sancus Sachet +1",
@@ -152,6 +152,7 @@ function get_sets()
             waist       = "Fucho-no-obi",
             back        = "Altruistic Cape",
         }
+
         sets.aftercast.Avatar = {
             head        = "Convoker's Horn +2",
             body        = { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
@@ -179,38 +180,27 @@ function get_sets()
         sets.Engaged = {
             main        = "Nirvana",
             sub         = "Elan Strap +1"
-         }
-
+        }
     end
     
     function precast(spell)
-        if (pet.isvalid and pet_midaction()) or spell.type=="Item" then
+        if (pet.isvalid and pet_midaction()) or spell.type == "Item" then
             return
         end
 
-        if spell.type=="BloodPactWard" or spell.type== "BloodPactRage" then
+        if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
             equip(sets.precast.BloodPact)
-        elseif spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+        else
             equip(sets.precast.FC)
         end
     end
     
     function midcast(spell)
-        if (pet.isvalid and pet_midaction()) or spell.type=="Item" then
+        if (pet.isvalid and pet_midaction()) or spell.type == "Item" then
             return
         end 
-        if spell.type=="BloodPactWard" then
-            if DebuffBloodPactWard:contains(spell.name) then
-                equip(sets.midcast.PetDebuff)
-            else
-                equip(sets.midcast.PetBuff)
-            end
-        elseif spell.type== "BloodPactRage" then
-            if MagicalBloodPactRage:contains(spell.name) then
-                equip(sets.midcast.MagicalBP)
-            else
-                equip(sets.midcast.PhysicalBP)
-            end
+        if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
+            -- Do nothing
         elseif sets.midcast[spell.english] then
             equip(sets.midcast[spell.english])
         elseif spell.type=="WhiteMagic" then
@@ -225,7 +215,7 @@ function get_sets()
     end
     
     function aftercast(spell)
-        if pet_midaction() or spell.type=="Item" then
+        if pet_midaction() or spell.type == "Item" then
             return
         elseif spell and string.find(spell.type,'BloodPact') and not spell.interrupted then
             pet_midcast(spell)
@@ -239,13 +229,13 @@ function get_sets()
     end
 
     function pet_midcast(spell)
-        if spell.type=="BloodPactWard" then
+        if spell.type == "BloodPactWard" then
             if DebuffBloodPactWard:contains(spell.name) then
                 equip(sets.midcast.PetDebuff)
             else
                 equip(sets.midcast.PetBuff)
             end
-        elseif spell.type== "BloodPactRage" then
+        elseif spell.type == "BloodPactRage" then
             if MagicalBloodPactRage:contains(spell.name) then
                 equip(sets.midcast.MagicalBP)
             else
