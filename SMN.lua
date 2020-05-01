@@ -17,7 +17,6 @@ function get_sets()
         DebuffBloodPactWard = T{'Diamond Storm','Sleepga','Slowga','Tidal Roar','Shock Squall','Nightmare','Pavor Nocturnus','Ultimate Terror','Somnolence','Lunar Cry','Lunar Roar','Bitter Elegy','Lunatic Voice'}
     
     -- Gear sets
-    
         sets.precast = { }
         sets.precast.FC = {
             main        = "Grioavolr",
