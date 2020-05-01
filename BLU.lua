@@ -56,8 +56,8 @@ function get_sets()
         sets.aftercast.Idle = { 
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
-            body        = "Jhakri Robe +2",
-            --body      = "Ayanmo Corazza +2",
+            --body        = "Jhakri Robe +2",
+            body      = "Ayanmo Corazza +2",
             hands       = "Aya. Manopolas +2",
             legs        = "Aya. Cosciales +2",
             feet        = "Aya. Gambieras +2",
@@ -65,10 +65,10 @@ function get_sets()
             waist       = "Flume Belt +1",
             left_ear    = "Genmei Earring",
             right_ear   = "Etiolation Earring",
-            --left_ring   = "Defending Ring",
-            --right_ring  = "Gelatinous Ring +1",
-            left_ring   = "Stikini Ring +1",
-            right_ring  = "Stikini Ring +1",
+            left_ring   = "Defending Ring",
+            right_ring  = "Gelatinous Ring +1",
+            --left_ring   = "Stikini Ring +1",
+            --right_ring  = "Stikini Ring +1",
             back        = "Moonbeam Cape" -- Need: Moonlight Cape (30M+)
         }
         

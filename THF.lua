@@ -4,10 +4,10 @@
 function get_sets()			
 
     -- Load Macros
-    send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
+    send_command('input /macro book 18;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 6')
     send_command('input //equipviewer pos 1663 934')
     
-        sets.MoveSpeed = { feet = "Hermes' Sandals",} 
+        sets.MoveSpeed = { feet = "Fajin Boots",} 
     
     -- Augmented Gear
         Capes = {}
@@ -15,52 +15,35 @@ function get_sets()
     -- JA Sets
         sets.precast = {}
         sets.precast.JA = { }
+
     -- WS Sets
         sets.WS = {
-            ammo        = "Knobkierrie",
             neck		= "Fotia Gorget",
             waist		= "Fotia Belt",
-            left_ear	= "Moonshade Earring",
-            right_ear	= "Sherida Earring",
-            left_ring	= "Epona's Ring",
-            right_ring	= "Niqmaddu Ring",
-            back		= Capes.WS
+            hands       = "Mummu Wrists +1",
+            legs        = "Samnuha Tights",
+            feet        = "Mummu Gamash. +1"
         }
     
     -- TP Sets
         sets.TP = {
             ammo        = "Ginsen",
             head		= "Whirlpool Mask",
-            body		= "Ken. Samue +1", 
-            hands		= "Hizamaru Kote +2",
-            legs		= "Ken. Hakama +1",
-            feet		= "Hiza. Sune-Ate +2",
-            neck		= "Moonbeam Nodowa",
-            waist		= "Black Belt",
+            body		= "Mummu Jacket +1", 
+            hands		= "Plun. Armlets +3",
+            legs		= "Mummu Kecks +1",
+            feet		= "Skulk. Poulaines +1",
+            neck		= "Asperity Necklace",
+            waist		= "Chaac Belt",
             left_ear	= "Telos Earring",
             right_ear	= "Sherida Earring",
             left_ring	= "Epona's Ring",
-            right_ring	= "Niqmaddu Ring",
-            back		= Capes.TP
+            right_ring	= "Regal Ring",
+            back		= "Atheling Mantle"
         }
         
     -- Aftercast/Idle Sets
         sets.aftercast = {}
-        sets.aftercast.Idle = {
-            ammo		= "Staunch Tathlum +1",
-            head		= "Whirlpool Mask",
-            body		= "Ken. Samue +1", 
-            hands		= "Hizamaru Kote +2",
-            legs		= "Ken. Hakama +1",
-            feet		= "Hiza. Sune-Ate +2",
-            neck		= "Loricate Torque +1",
-            waist		= "Black Belt",
-            left_ear	= "Genmei Earring",
-            right_ear	= "Odnowa Earring +1",
-            left_ring	= "Defending Ring",
-            right_ring	= "Gelatinous Ring +1",
-            back		= Capes.TP
-        }
     end
     
     -- Precast/Midcast/Aftercast Functions
@@ -128,14 +111,10 @@ function get_sets()
             if pl and pl.x and mov.x then
                 dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
                 if dist > 1 and not moving then
-                    if player.status ~= 'Engaged' then
-                        send_command('gs equip sets.MoveSpeed')
-                    end
+                    send_command('gs equip sets.MoveSpeed')
                     moving = true
                 elseif dist < 1 and moving then
-                    if player.status ~= 'Engaged' then
-                        send_command('gs equip sets.aftercast.Idle')
-                    end
+                    send_command('gs equip sets.TP')
                     moving = false
                 end
             end

@@ -46,11 +46,12 @@ function get_sets()
             right_ear   = "Andoaa Earring",
             body        = "Convoker's Doublet +3",
             hands       = "Glyphic Bracers +3",
-            left_ring   = "Evoker's Ring",
-            right_ring  = "Stikini Ring +1",
-            waist       = "Lucidity Sash",
-            --legs       = "",
-            feet        = "Baayami Sabots +1"
+            left_ring   = "Evoker's Ring", -- 10
+            right_ring  = "Stikini Ring +1", -- 8
+            waist       = "Lucidity Sash", -- +7
+            legs        = "Baayami Slops", -- 30
+            feet        = "Baayami Sabots +1", -- 29
+            back        = "Conveyance Cape" -- +11
         }
     
         sets.midcast = { }
@@ -63,7 +64,7 @@ function get_sets()
             main        = "Daybreak",
             ammo        = "Hydrocera",
             head        = "Vanya Hood",
-            neck        = "Henic Earring",
+            neck        = "Henic Torque",
             left_ear    = "Roundel Earring",
             right_ear   = "Meili Earring",
             body        = "Inyanga Jubbah +2",
