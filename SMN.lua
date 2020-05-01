@@ -57,9 +57,7 @@ function get_sets()
     
         sets.midcast = { }
         -- When you summon an avatar. Spell interruption rate down, any gear that enhances a level
-        sets.midcast.SummoningMagic = {
-    
-        }
+        sets.midcast.SummoningMagic = { }
         -- Cure potency 
         sets.midcast.Cure = {
             main        = "Daybreak",
