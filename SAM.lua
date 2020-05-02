@@ -14,8 +14,6 @@
 --
 -- sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --
--- The display code I believe came from Selindrile's and the movement speed I found on FFXIAH line provided in comment 
---
 ----------------------------------------------------------------------------------------------------------------------
  function get_sets()			
 --  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
