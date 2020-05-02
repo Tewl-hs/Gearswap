@@ -1,7 +1,7 @@
 function get_sets()
         sets.MoveSpeed = { feet = "Herald's Gaiters",}  --auto swaps when moving
     
-    -- Variables
+    -- Tables
         MagicalBloodPactRage = T{
             'Inferno','Earthen Fury','Tidal Wave','Aerial Blast','Diamond Dust','Judgment Bolt','Searing Light','Howling Moon','Ruinous Omen',
             'Fire II','Stone II','Water II','Aero II','Blizzard II','Thunder II',
