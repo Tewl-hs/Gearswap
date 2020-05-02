@@ -1,8 +1,4 @@
 function get_sets()
-
-    -- Load Macros
-       -- send_command('input /macro book 1;wait 0.2;input /macro set 1;')-- Load Macros
-
         sets.MoveSpeed = { feet = "Herald's Gaiters",}  --auto swaps when moving
     
     -- Variables
@@ -82,7 +78,7 @@ function get_sets()
         sets.midcast.Enhancing = {
     
         }
-        -- Additional spell specific enhancing gear
+        -- Spell specific midcast 
         sets.midcast["Stoneskin"] = set_combine(sets.midcast.Enhancing, {
             waist="Siegel Sash",
         })
@@ -187,8 +183,10 @@ function get_sets()
 
         if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
             equip(sets.precast.BloodPact)
-        else
+        elseif spell.action_type == "Magic" then            
             equip(sets.precast.FC)
+        elseif spell.precast[spell.name] then
+            equip(sets.precast[spell.name])
         end
     end
     
