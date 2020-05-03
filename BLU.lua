@@ -59,7 +59,7 @@ function get_sets()
             --body        = "Jhakri Robe +2",
             body      = "Ayanmo Corazza +2",
             hands       = "Aya. Manopolas +2",
-            legs        = "Aya. Cosciales +2",
+            legs        = "Malignance Tights",
             feet        = "Aya. Gambieras +2",
             neck        = "Loricate Torque +1",
             waist       = "Flume Belt +1",

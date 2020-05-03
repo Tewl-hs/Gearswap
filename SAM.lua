@@ -171,11 +171,11 @@
 -- Special Sets
 	sets.DT = {
 		-- ammo ** SET THIS IN Gear.DTAmmo
-		head		= "Sakonji Kabuto +3", -- Need: Kendatsuba Jinpachi +1 (MDT/MEVA)
+		head		= "Ken. Jinpachi +1",
 		body		= "Ken. Samue +1", -- Option: Wakido Domaru +3 (DT-8%)
 		hands		= "Sakonji Kote +3", -- Option: Kendatsuba Tekko +1 (MDT/MEVA)
 		legs		= "Ken. Hakama +1",
-		-- feet		= "" Need: Kendatsuba Sune-ate +1 (MDT/MEVA)
+		feet		= "Ken. Sune-Ate +1",
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
 		left_ear	= "Colossus's Earring",
@@ -198,7 +198,7 @@
 		body		= "Ken. Samue +1",
 		hands		= "Sakonji Kote +3",
 		legs		= "Ken. Hakama +1",
-		feet		= "Flam. Gambieras +2",
+		feet		= "Ken. Sune-Ate +1",
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
 		left_ear	= "Genmei Earring",

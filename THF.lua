@@ -31,7 +31,7 @@ function get_sets()
             head		= "Whirlpool Mask",
             body		= "Mummu Jacket +1", 
             hands		= "Plun. Armlets +3",
-            legs		= "Mummu Kecks +1",
+            legs		= "Malignance Tights",
             feet		= "Skulk. Poulaines +1",
             neck		= "Asperity Necklace",
             waist		= "Chaac Belt",

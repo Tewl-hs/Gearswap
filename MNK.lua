@@ -30,11 +30,11 @@ function get_sets()
     -- TP Sets
         sets.TP = {
             ammo        = "Ginsen",
-            head		= "Whirlpool Mask",
+            head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
             hands		= "Hizamaru Kote +2",
             legs		= "Ken. Hakama +1",
-            feet		= "Hiza. Sune-Ate +2",
+            feet		= "Ken. Sune-Ate +1",
             neck		= "Moonbeam Nodowa",
             waist		= "Black Belt",
             left_ear	= "Telos Earring",
@@ -48,11 +48,11 @@ function get_sets()
         sets.aftercast = {}
         sets.aftercast.Idle = {
             ammo		= "Staunch Tathlum +1",
-            head		= "Whirlpool Mask",
+            head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
             hands		= "Hizamaru Kote +2",
             legs		= "Ken. Hakama +1",
-            feet		= "Hiza. Sune-Ate +2",
+            feet		= "Ken. Sune-Ate +1",
             neck		= "Loricate Torque +1",
             waist		= "Black Belt",
             left_ear	= "Genmei Earring",
