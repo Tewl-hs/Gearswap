@@ -69,7 +69,7 @@ function get_sets()
             send_command('cancel 71;')
         end
     
-        if spell.type=="WeaponSkill" then
+        if spell.type == 'WeaponSkill' then
             if sets.WS[spell.english] then
                 equip(sets.WS[spell.english])
             else
@@ -112,7 +112,6 @@ function get_sets()
         -- 
     end
     
-    --- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
     mov = {counter=0}
     if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
         mov.x = windower.ffxi.get_mob_by_index(player.index).x

@@ -150,7 +150,7 @@
 		head		= "Flam. Zucchetto +2",
 		body		= "Ken. Samue +1", 
 		legs		= "Ken. Hakama +1",
-		feet		= "Flam. Gambieras +2",
+		feet		= "Ken. Sune-Ate +1",
 		hands		= "Wakido Kote +3",
 		neck		= "Sam. Nodowa +2",
 		waist		= "Ioskeha belt +1",
@@ -532,7 +532,6 @@ windower.raw_register_event('incoming chunk', function(id, data)
 end)
 -- End of Display Code
 
---- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
     mov.x = windower.ffxi.get_mob_by_index(player.index).x

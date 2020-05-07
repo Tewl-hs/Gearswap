@@ -42,6 +42,14 @@ function get_sets()
             right_ring  = "Shiva Ring +1",
             back        = "Rosmerta's Cape"
          }
+
+         sets.midcast['Carcharian Verve'] = set_combine(sets.midcast,{
+             head       = "Amalric Coif +1"
+         })
+         sets.midcast['Battery Charge'] = set_combine(sets.midcast,{
+            head        = "Amalric Coif +1"
+        })
+
          sets.midcast.MACC = { 
             ammo        = "Hydrocera",
             neck        = "Incanter's Torque",
@@ -56,9 +64,11 @@ function get_sets()
         sets.aftercast.Idle = { 
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
+            body        = "Malignance Tabard",
             --body        = "Jhakri Robe +2",
-            body      = "Ayanmo Corazza +2",
-            hands       = "Aya. Manopolas +2",
+            --body      = "Ayanmo Corazza +2",
+            --hands       = "Aya. Manopolas +2",
+            hands       = "Malignance Gloves",
             legs        = "Malignance Tights",
             feet        = "Aya. Gambieras +2",
             neck        = "Loricate Torque +1",
@@ -108,6 +118,8 @@ function get_sets()
                 equip(set_combine(sets.midcast,{right_ear="Etiolation Earring",back="Moonbeam Cape"})) -- equip HP+ gear for full heal
             elseif spell.english == 'Dream Flower' then
                 equip(set_combine(sets.midcast,sets.midcast.MACC))
+            elseif sets.midcast[spell.name] then                
+                equip(sets.midcast[spell.name])
             else
                 equip(sets.midcast)
             end

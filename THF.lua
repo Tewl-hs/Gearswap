@@ -20,7 +20,7 @@ function get_sets()
         sets.WS = {
             neck		= "Fotia Gorget",
             waist		= "Fotia Belt",
-            hands       = "Mummu Wrists +1",
+            hands       = "Malignance Gloves",
             legs        = "Samnuha Tights",
             feet        = "Mummu Gamash. +1"
         }
@@ -29,11 +29,11 @@ function get_sets()
         sets.TP = {
             ammo        = "Ginsen",
             head		= "Whirlpool Mask",
-            body		= "Mummu Jacket +1", 
+            body		= "Malignance Tabard", 
             hands		= "Plun. Armlets +3",
             legs		= "Malignance Tights",
             feet		= "Skulk. Poulaines +1",
-            neck		= "Asperity Necklace",
+            neck		= "Asn. Gorget +1",
             waist		= "Chaac Belt",
             left_ear	= "Telos Earring",
             right_ear	= "Sherida Earring",
