@@ -172,7 +172,7 @@
 	sets.DT = {
 		-- ammo ** SET THIS IN Gear.DTAmmo
 		head		= "Ken. Jinpachi +1",
-		body		= "Ken. Samue +1", -- Option: Wakido Domaru +3 (DT-8%)
+		body		= "Tartarus Platemail", --"Ken. Samue +1",
 		hands		= "Sakonji Kote +3", -- Option: Kendatsuba Tekko +1 (MDT/MEVA)
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
@@ -195,7 +195,7 @@
 	sets.aftercast.Idle = {
 		-- ammo ** SET THIS IN Gear.DTAmmo
 		head		= "Wakido Kabuto +3",
-		body		= "Ken. Samue +1",
+		body		= "Tartarus Platemail", --"Ken. Samue +1",
 		hands		= "Sakonji Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",

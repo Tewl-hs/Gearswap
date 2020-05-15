@@ -19,7 +19,7 @@ function get_sets()
         hands       = "Bagua Mitaines +3",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
-        back        = "Moonbeam Cape",
+        back        = "Moonlight Cape",
         waist       = "Fucho-no-Obi",
         legs        = "Assid. Pants +1",
         feet        = "Geomancy Sandals +3"            
@@ -31,7 +31,7 @@ function get_sets()
         right_ear   = "Etiolation Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
-        back        = "Moonbeam Cape"
+        back        = "Moonlight Cape"
     }
 
     sets.luopan = { 

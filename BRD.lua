@@ -14,23 +14,28 @@ function get_sets()
 -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { 
+    sets.precast.FastCast = { -- Current: 71%
         main        = Kali.Skill, -- 7
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
-        head        = "Fili Calot +1", -- 14 song
-        body        = "Inyanga Jubbah +1", -- 13
+        head        = "Nahtirah Hat", -- 10
+        body        = "Inyanga Jubbah +2", -- 13
         hands       = "Leyline Gloves", -- 6
         legs        = "Aya. Cosciales +2", -- 6
-        feet        = "Bihu Slippers +3", -- 10 song
         neck        = "Orunmila's Torque", -- 5
-        waist       = "Embla Sash", -- 5
-        left_ear    = "Aoidos' Earring", -- 2 song
-        right_ear   = "Loquacious Earring", --2
+        waist       = "Witful Belt", -- 5
+        left_ear    = "Loquacious Earring", --2
+        right_ear   = "Etiolation Earring", -- 1
         left_ring   = "Prolix Ring", -- 2
         right_ring  = "Kishar Ring", -- 4 
-        back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}} -- 10888
+        back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}} -- 10
     }
+    sets.precast.BardSong = set_combine(sets.precast.FastCast,{
+        head        = "Fili Calot +1", -- 14 song
+        right_ear   = "Aoidos' Earring", -- 2 song
+        feet        = "Bihu Slippers +3", -- 10 song
+        waist       = "Embla Sash", -- 5
+    })
     sets.precast.DummySong = { 
         range       = "Daurdabla",
         neck        = "Orunmila's Torque"
@@ -47,12 +52,12 @@ function get_sets()
 
     sets.midcast = { }
     sets.midcast.BardSong = {        
-        main        = Kali.Skill, 
+        main        = "Carnwenhan",--Kali.Skill, 
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Fili Calot +1",
         body        = "Fili Hongreline +1",
-        hands       = "Inyanga Dastanas +1",
+        hands       = "Inyanga Dastanas +2",
         legs        = "Inyanga Shalwar +2",
         feet        = "Brioso Slippers +1",
         neck        = "Moonbow Whistle +1",
@@ -76,6 +81,11 @@ function get_sets()
         head        = "Fili Calot +1"
     }
 
+    sets.Engaged = {
+        main = "Carnwenhan",
+        waist = "Sailfi Belt +1"
+    }
+
     sets.PC = { }
     sets.MC = { }
 
@@ -95,7 +105,7 @@ function get_sets()
         right_ear   = "Etiolation Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
-        back        = "Moonbeam Cape"
+        back        = "Moonlight Cape"
     }
 end
 
@@ -114,6 +124,9 @@ function precast(spell)
             return
         end
         sets.PC = sets.precast.FastCast
+        if spell.type=="BardSong" then 
+            sets.PC = sets.precast.BardSong
+        end
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
             sets.PC = set_combine(sets.PC, {sub=Kali.MACC})
         end
@@ -124,7 +137,7 @@ function precast(spell)
         elseif spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
             sets.PC = set_combine(sets.PC,sets.precast.DummySong)
         end
-        equip(sets.PC)    
+        equip(sets.PC)
     end
 end
 
@@ -135,23 +148,25 @@ function midcast(spell)
             return
         end
 
-        sets.MC = sets.midcast.BardSong
-        if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-            sets.MC = set_combine(sets.MC, {sub=Kali.MACC})
-        end
-        if string.find(spell.english,'Ballad') then
-            sets.MC = set_combine(sets.MC,sets.midcast.Ballad)
-        elseif string.find(spell.english,'Minuet') then
-            sets.MC = set_combine(sets.MC,sets.midcast.Minuet)
-        elseif string.find(spell.english,'March') then
-            sets.MC = set_combine(sets.MC,sets.midcast.March)
-            if spell.english == 'Honor March' or string.find(spell.english,'Lullaby') then 
-                sets.MC = set_combine(sets.MC,{range="Marsyas"})
+        if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+            sets.MC = sets.midcast.BardSong
+            if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+                sets.MC = set_combine(sets.MC, {sub=Kali.MACC})
             end
-        elseif string.find(spell.english,'Madrigal') then
-            sets.MC = set_combine(sets.MC,sets.midcast.Madrigal)
+            if string.find(spell.english,'Ballad') then
+                sets.MC = set_combine(sets.MC,sets.midcast.Ballad)
+            elseif string.find(spell.english,'Minuet') then
+                sets.MC = set_combine(sets.MC,sets.midcast.Minuet)
+            elseif string.find(spell.english,'March') then
+                sets.MC = set_combine(sets.MC,sets.midcast.March)
+                if spell.english == 'Honor March' or string.find(spell.english,'Lullaby') then 
+                    sets.MC = set_combine(sets.MC,{range="Marsyas"})
+                end
+            elseif string.find(spell.english,'Madrigal') then
+                sets.MC = set_combine(sets.MC,sets.midcast.Madrigal)
+            end
+            equip(sets.MC)
         end
-        equip(sets.MC)
     end
 end
 
@@ -167,7 +182,7 @@ end
 
 function goIdle()
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-        equip(set_combine(sets.aftercast.Idle,{main=Kali.Skill},{sub=Kali.MACC}))
+        equip(set_combine(sets.aftercast.Idle,{main="Carnwenhan"},{sub=Kali.MACC}))
     else
         equip(sets.aftercast.Idle)
     end

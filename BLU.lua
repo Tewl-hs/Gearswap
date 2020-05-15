@@ -11,20 +11,20 @@ function get_sets()
         sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
 
     
-        sets.precast = { -- Fast Cast Current: 72% 
+        sets.precast = { -- Fast Cast Current: 79% 
             ammo        = "Sapience Orb", -- 2
             head        = "Carmine Mask +1", -- 9
-            body        = "Pinga Tunic", -- 13 Need: Pinga Tunic +1 (15%)
-            hands       = "Leyline Gloves", -- 6 / Could get 2 more
-            legs        = "Pinga Pants", -- 11 Need: Pinga Pants +1 (13%)
+            body        = "Pinga Tunic", -- 13 Option: Pinga Tunic +1 (15%)
+            hands       = "Leyline Gloves", -- 6 / Option: (8%)
+            legs        = "Pinga Pants", -- 11 Option: Pinga Pants +1 (13%)
             feet        = "Carmine Greaves +1", -- 8
             neck        = "Orunmila's Torque", -- 5
             waist       = "Witful Belt", -- 5
             left_ear    = "Loquacious Earring", -- 2
-            right_ear   = "Etiolation Earring", -- 1 Need: Enchanter's Earring (+2%)
+            right_ear   = "Etiolation Earring", -- 1 Option: Enchanter's Earring (+2%)
             right_ring  = "Kishar Ring", -- 4 
             left_ring   = "Prolix Ring", -- 2
-            back        = "Swith Cape +1" -- 4 / Rosmerta's Cape +6
+            back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}}, -- 10
         }
     
         sets.midcast = { -- Focus Cleaving 
@@ -35,12 +35,12 @@ function get_sets()
             legs        = "Amalric Slops +1",
             feet        = "Amalric Nails +1",
             neck        = "Baetyl Pendant",
-            waist       = "Eschan Stone", -- Need: Orpheus Sash (130M+)
+            waist       = "Eschan Stone", -- Want: Orpheus Sash
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
             left_ring   = "Shiva Ring +1",
             right_ring  = "Shiva Ring +1",
-            back        = "Rosmerta's Cape"
+            back        = { name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
          }
 
          sets.midcast['Carcharian Verve'] = set_combine(sets.midcast,{
@@ -65,9 +65,6 @@ function get_sets()
             ammo        = "Staunch Tathlum +1",
             head        = "Aya. Zucchetto +2",
             body        = "Malignance Tabard",
-            --body        = "Jhakri Robe +2",
-            --body      = "Ayanmo Corazza +2",
-            --hands       = "Aya. Manopolas +2",
             hands       = "Malignance Gloves",
             legs        = "Malignance Tights",
             feet        = "Aya. Gambieras +2",
@@ -77,10 +74,14 @@ function get_sets()
             right_ear   = "Etiolation Earring",
             left_ring   = "Defending Ring",
             right_ring  = "Gelatinous Ring +1",
-            --left_ring   = "Stikini Ring +1",
-            --right_ring  = "Stikini Ring +1",
-            back        = "Moonbeam Cape" -- Need: Moonlight Cape (30M+)
+            back        = "Moonlight Cape"
         }
+
+        sets.aftercast.Refresh = set_combine(sets.aftercast.Idle,{
+            body        = "Jhakri Robe +2",
+            left_ring   = "Stikini Ring +1",
+            right_ring  = "Stikini Ring +1",
+        })
         
         sets.aftercast.Engaged = {
             ammo        = "Ginsen",  
