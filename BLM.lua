@@ -17,22 +17,22 @@ function init_gear_sets()
     sets.precast.JA = {}
     sets.precast.JA['Mana Wall'] = { }
 	
-	sets.precast.FastCast = {
+	sets.precast.FastCast = { -- 82
         main        = "Sucellus", -- 5
         sub         = "Genbu's Shield",
         ammo        = "Sapience Orb", -- 2
         head        = "Amalric Coif +1", -- 11
-        -- body        = "",
-        hands       = "Merlinic Dastanas", -- 6
-        -- legs        = "",
-        feet        = { name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}}, -- 6
+        body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
+        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
+        legs        = { name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, -- 7
+        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
         waist       = "Witful Belt", -- 5
         left_ear    = "Loquacious Earring", -- 2
-        right_ear   = "Etiolation Earring", -- 1 Option: Enchanter's Earring (+2%)
+        right_ear   = "Etiolation Earring", -- 1
         right_ring  = "Kishar Ring", -- 4 
         left_ring   = "Prolix Ring", -- 2
-        --back        = ""
+        back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
     }
     sets.precast.Stoneskin = set_combine(sets.precast.Fastcast,{waist="Siegel Sash"})
 	
@@ -52,7 +52,7 @@ function init_gear_sets()
         right_ear   = "Barkaro. Earring",
         left_ring   = "Shiva Ring +1",
         right_ring  = "Shiva Ring +1",
-        --back      = ""
+        back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
      }
 	sets.midcast['Elemental Magic'].MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
 
@@ -81,15 +81,16 @@ function init_gear_sets()
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
+        hands       = "",
         legs        = "Assid. Pants +1",
-        feet        = "Herald's Gaiters",
+        feet        = "",
         neck        = "Loricate Torque +1",
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
-        --back        = "Moonlight Cape"
+        back        = "Moonlight Cape"
     }
 end
 
@@ -134,8 +135,8 @@ function equip_aftercast()
     equip(sets.idle)
 end
 
-function job_self_command(command)
-	if command == 'idle' then
+function job_self_command(cmdParams, eventArgs)
+	if cmdParams[1] == 'goIdle' then
 		equip_aftercast()
 	end
 end
@@ -158,7 +159,7 @@ windower.raw_register_event('prerender',function()
                 send_command('gs equip sets.MoveSpeed')
                 moving = true
             elseif dist < 1 and moving then
-                send_command('gs c idle')
+                send_command('gs c goIdle')
                 moving = false
             end
         end
