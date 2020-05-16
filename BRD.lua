@@ -214,12 +214,12 @@ end
 
 function buff_change(buff,gain)
     if buff == 'silence' and gain then
-		if player.inventory['Echo Drops'] then
-			send_command('@input /item "Echo Drops" <me>')
-		else
-			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
-		end
-	end
+        if player.inventory['Echo Drops'] then
+            send_command('@input /item "Echo Drops" <me>')
+        else
+            add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+        end
+    end
 end
 
 mov = {counter=0}
