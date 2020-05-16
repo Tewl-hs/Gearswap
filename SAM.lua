@@ -1,20 +1,19 @@
-----------------------------------------------------------------------------------------------------------------------
--- Author: Tewl / Bismark
--- Files: SAM.lua 
---
--- Binds
--- CTRL+F9  : Toggle MAX STP/DefensiveAccuracy
--- CTRL+F10 : Toggle Ranged Mode
--- CTRL+F11 : Toggle DT SET
--- CTRL+F12 : Toggle Twilight set lock (Currently not functional. Needs adjustment)
---
--- Not all of this is my code, some was copied and altered for my own preferences.
--- This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
--- and to share with friends that might be interested or could help with it.
---
--- sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
---
-----------------------------------------------------------------------------------------------------------------------
+--[[
+	Author: Tewl / Bismark
+	Files: SAM.lua 
+
+	Binds
+	CTRL+F9  : Toggle MAX STP/DefensiveAccuracy
+	CTRL+F10 : Toggle Ranged Mode
+	CTRL+F11 : Toggle DT SET
+	CTRL+F12 : Toggle Twilight set lock (Currently not functional. Needs adjustment)
+
+	Not all of this is my code, some was copied and altered for my own preferences.
+	This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
+	and to share with friends that might be interested or could help with it.
+
+	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
+-]]
  function get_sets()			
 --  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
 	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM

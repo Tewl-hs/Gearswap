@@ -1,6 +1,16 @@
-function get_sets()
+--[[
+	Author: Tewl / Bismark
+	Files: BRD.lua 
 
--- Load Macros
+	Not all of this is my code, some was copied and altered for my own preferences.
+	This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
+	and to share with friends that might be interested or could help with it.
+
+	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
+-]]
+
+function get_sets()
+    -- Load Macros
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
 
     sets.MoveSpeed = { feet = "Fili cothurnes +1",}    --auto swaps when moving
@@ -11,7 +21,7 @@ function get_sets()
     Kali.Skill      = { name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',} }
     Kali.MACC       = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',} }
 
--- Gear sets
+    -- Gear sets
 
     sets.precast = { }
     sets.precast.FastCast = { -- Current: 72%
@@ -115,10 +125,10 @@ function get_sets()
 end
 
 function precast(spell)
-    if spell.type=="Item" then
+    if spell.type == 'Item' then
         return
     end
-    if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+    if spell.action_type == 'Magic' then
         if buffactive.Silence then
             cancel_spell()
             if player.inventory['Echo Drops'] then
@@ -128,6 +138,7 @@ function precast(spell)
             end
             return
         end
+
         local Precast = sets.precast.FastCast
         if spell.type == 'BardSong' then 
             Precast = sets.precast.BardSong
@@ -135,11 +146,11 @@ function precast(spell)
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
             Precast = set_combine(Precast, {sub=Kali.MACC})
         end
-        if spell.english == 'Honor March' then
+        if spell.name == 'Honor March' then
             Precast = set_combine(Precast, {range="Marsyas"})
-        elseif sets.precast[spell.english] then
-            Precast = set_combine(Precast, sets.precast[spell.english])
-        elseif spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
+        elseif sets.precast[spell.name] then
+            Precast = set_combine(Precast, sets.precast[spell.name])
+        elseif spell.name == 'Knight\'s Minne' or spell.name == 'Knight\'s Minne II' then
             Precast = set_combine(Precast,sets.precast.DummySong)
         end
         equip(Precast)
@@ -149,33 +160,31 @@ function precast(spell)
 end
 
 function midcast(spell)
-    if spell.type=="BardSong" then 
-        if spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
+    if spell.type == 'BardSong' then 
+        if spell.name == 'Knight\'s Minne' or spell.name == 'Knight\'s Minne II' then
             add_to_chat(121,'--- Singing Dummy Song ---')
             return
         end
-
-        if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
-            local Midcast = sets.midcast.BardSong
-            if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-                Midcast = set_combine(Midcast, {sub=Kali.MACC})
-            end
-            if string.find(spell.english,'Ballad') then
-                Midcast = set_combine(Midcast,sets.midcast.Ballad)
-            elseif string.find(spell.english,'Minuet') then
-                Midcast = set_combine(Midcast,sets.midcast.Minuet)
-            elseif string.find(spell.english,'March') then
-                Midcast = set_combine(Midcast,sets.midcast.March)
-                if spell.english == 'Honor March' or string.find(spell.english,'Lullaby') then 
-                    Midcast = set_combine(Midcast,{range="Marsyas"})
-                end
-            elseif string.find(spell.english,'Madrigal') then
-                Midcast = set_combine(Midcast,sets.midcast.Madrigal)
-            elseif string.find(spell.english,'Lullaby') then
-                Midcast = set_combine(Midcast,sets.midcast.Lullaby)
-            end
-            equip(Midcast)
+        
+        local Midcast = sets.midcast.BardSong
+        if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+            Midcast = set_combine(Midcast, {sub=Kali.MACC})
         end
+        if string.find(spell.name,'Ballad') then
+            Midcast = set_combine(Midcast,sets.midcast.Ballad)
+        elseif string.find(spell.name,'Minuet') then
+            Midcast = set_combine(Midcast,sets.midcast.Minuet)
+        elseif string.find(spell.name,'March') then
+            Midcast = set_combine(Midcast,sets.midcast.March)
+            if spell.name == 'Honor March' or string.find(spell.name,'Lullaby') then 
+                Midcast = set_combine(Midcast,{range="Marsyas"})
+            end
+        elseif string.find(spell.name,'Madrigal') then
+            Midcast = set_combine(Midcast,sets.midcast.Madrigal)
+        elseif string.find(spell.name,'Lullaby') then
+            Midcast = set_combine(Midcast,sets.midcast.Lullaby)
+        end
+        equip(Midcast)
     end
 end
 
@@ -213,7 +222,6 @@ function buff_change(buff,gain)
 	end
 end
 
---- Detecting Movement : Found @ https://www.ffxiah.com/forum/topic/53719/new-area-function-councilors-garb/
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
     mov.x = windower.ffxi.get_mob_by_index(player.index).x
