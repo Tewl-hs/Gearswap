@@ -44,10 +44,10 @@ function get_sets()
         feet        = "Bihu Slippers +3"
     }
     sets.precast.Troubadour = {
-        body        = "Bihu Justaucorps +1"
+        body        = "Bihu Jstcorps. +3"
     }
     sets.precast.SoulVoice = {
-        legs        = "Bihu Cannions +1"
+        legs        = "Bihu Cannions +2"
     }
 
     sets.midcast = { }
@@ -59,7 +59,7 @@ function get_sets()
         body        = "Fili Hongreline +1",
         hands       = "Inyanga Dastanas +2",
         legs        = "Inyanga Shalwar +2",
-        feet        = "Brioso Slippers +1",
+        feet        = "Brioso Slippers +2",
         neck        = "Moonbow Whistle +1",
         waist       = "Luminary Sash",
         left_ear    = "Aoidos' Earring",
@@ -67,18 +67,24 @@ function get_sets()
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
-     }
+    }
+    sets.midcast.Debuff = {
+
+    }
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave +1"
     }
     sets.midcast.Minuet = {
-        Body        = "Fili Hongreline +1"
+        body        = "Fili Hongreline +1"
     }
     sets.midcast.March = {
         hands       = "Fili Manchettes +1"
     }
     sets.midcast.Madrigal = {
         head        = "Fili Calot +1"
+    }
+    sets.midcast.Lullaby = {
+        hands       = "Brioso Cuffs +1"
     }
 
     sets.Engaged = {
@@ -164,6 +170,8 @@ function midcast(spell)
                 end
             elseif string.find(spell.english,'Madrigal') then
                 sets.MC = set_combine(sets.MC,sets.midcast.Madrigal)
+            elseif string.find(spell.english,'Lullaby') then
+                sets.MC = set_combine(sets.MC,sets.midcast.Lullaby)
             end
             equip(sets.MC)
         end

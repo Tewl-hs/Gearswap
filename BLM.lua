@@ -81,9 +81,9 @@ function init_gear_sets()
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
-        hands       = "",
+        hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         legs        = "Assid. Pants +1",
-        feet        = "",
+        feet        = "Inspirited Boots",
         neck        = "Loricate Torque +1",
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
@@ -136,7 +136,7 @@ function equip_aftercast()
 end
 
 function job_self_command(cmdParams, eventArgs)
-	if cmdParams[1] == 'goIdle' then
+	if cmdParams[1] == 'idle' then
 		equip_aftercast()
 	end
 end
@@ -159,7 +159,7 @@ windower.raw_register_event('prerender',function()
                 send_command('gs equip sets.MoveSpeed')
                 moving = true
             elseif dist < 1 and moving then
-                send_command('gs c goIdle')
+                send_command('gs c idle')
                 moving = false
             end
         end
