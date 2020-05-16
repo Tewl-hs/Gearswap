@@ -92,9 +92,6 @@ function get_sets()
         waist = "Sailfi Belt +1"
     }
 
-    sets.PC = { }
-    sets.MC = { }
-
     sets.aftercast = { }
     sets.aftercast.Idle = {        
         main        = "Sangoma", 
@@ -129,21 +126,21 @@ function precast(spell)
             end
             return
         end
-        sets.PC = sets.precast.FastCast
-        if spell.type=="BardSong" then 
-            sets.PC = sets.precast.BardSong
+        local Precast = sets.precast.FastCast
+        if spell.type == 'BardSong' then 
+            Precast = sets.precast.BardSong
         end
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-            sets.PC = set_combine(sets.PC, {sub=Kali.MACC})
+            Precast = set_combine(Precast, {sub=Kali.MACC})
         end
         if spell.english == 'Honor March' then
-            sets.PC = set_combine(sets.PC, {range="Marsyas"})
+            Precast = set_combine(Precast, {range="Marsyas"})
         elseif sets.precast[spell.english] then
-            sets.PC = set_combine(sets.PC, sets.precast[spell.english])
+            Precast = set_combine(Precast, sets.precast[spell.english])
         elseif spell.english == 'Knight\'s Minne' or spell.english == 'Knight\'s Minne II' then
-            sets.PC = set_combine(sets.PC,sets.precast.DummySong)
+            Precast = set_combine(Precast,sets.precast.DummySong)
         end
-        equip(sets.PC)
+        equip(Precast)
     elseif sets.precast[spell.name] then
         equip(sets.precast[spell.name])
     end
@@ -157,25 +154,25 @@ function midcast(spell)
         end
 
         if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
-            sets.MC = sets.midcast.BardSong
+            local Midcast = sets.midcast.BardSong
             if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-                sets.MC = set_combine(sets.MC, {sub=Kali.MACC})
+                Midcast = set_combine(Midcast, {sub=Kali.MACC})
             end
             if string.find(spell.english,'Ballad') then
-                sets.MC = set_combine(sets.MC,sets.midcast.Ballad)
+                Midcast = set_combine(Midcast,sets.midcast.Ballad)
             elseif string.find(spell.english,'Minuet') then
-                sets.MC = set_combine(sets.MC,sets.midcast.Minuet)
+                Midcast = set_combine(Midcast,sets.midcast.Minuet)
             elseif string.find(spell.english,'March') then
-                sets.MC = set_combine(sets.MC,sets.midcast.March)
+                Midcast = set_combine(Midcast,sets.midcast.March)
                 if spell.english == 'Honor March' or string.find(spell.english,'Lullaby') then 
-                    sets.MC = set_combine(sets.MC,{range="Marsyas"})
+                    Midcast = set_combine(Midcast,{range="Marsyas"})
                 end
             elseif string.find(spell.english,'Madrigal') then
-                sets.MC = set_combine(sets.MC,sets.midcast.Madrigal)
+                Midcast = set_combine(Midcast,sets.midcast.Madrigal)
             elseif string.find(spell.english,'Lullaby') then
-                sets.MC = set_combine(sets.MC,sets.midcast.Lullaby)
+                Midcast = set_combine(Midcast,sets.midcast.Lullaby)
             end
-            equip(sets.MC)
+            equip(Midcast)
         end
     end
 end
