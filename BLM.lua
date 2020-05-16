@@ -1,4 +1,4 @@
--- Blank Template. Need to buy gear and job master
+-- Testing Motes, work in progress
 function get_sets()
     mote_include_version = 2
     include('Mote-Include.lua')
