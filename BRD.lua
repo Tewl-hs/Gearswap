@@ -40,13 +40,13 @@ function get_sets()
         range       = "Daurdabla",
         neck        = "Orunmila's Torque"
     }
-    sets.precast.Nightingale = {
+    sets.precast['Nightingale'] = {
         feet        = "Bihu Slippers +3"
     }
-    sets.precast.Troubadour = {
+    sets.precast['Troubadour'] = {
         body        = "Bihu Jstcorps. +3"
     }
-    sets.precast.SoulVoice = {
+    sets.precast['SoulVoice'] = {
         legs        = "Bihu Cannions +2"
     }
 
@@ -144,6 +144,8 @@ function precast(spell)
             sets.PC = set_combine(sets.PC,sets.precast.DummySong)
         end
         equip(sets.PC)
+    elseif sets.precast[spell.name] then
+        equip(sets.precast[spell.name])
     end
 end
 
