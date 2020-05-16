@@ -74,15 +74,15 @@
 	ws_new = 0
 
 -- Variables for ranged/ammo/capes - These are not put into the sets because of mode changes and for augment shorthand 
-   Gear = {} 
-   Gear.Bow			= "Yoichinoyumi"
-   Gear.Arrow		= "Yoichi's Arrow"
-   Gear.DTAmmo		= "Staunch Tathlum +1"
-   Gear.TPAmmo		= "Ginsen"
-   Gear.WSAmmo		= "Knobkierrie"
-   Gear.TPCape		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
-   Gear.WSCape		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
-   Gear.RACape		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+	Gear = {} 
+	Gear.Bow		= "Yoichinoyumi"
+	Gear.Arrow		= "Yoichi's Arrow"
+	Gear.DTAmmo		= "Staunch Tathlum +1"
+	Gear.TPAmmo		= "Ginsen"
+	Gear.WSAmmo		= "Knobkierrie"
+	Gear.TPCape		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+	Gear.WSCape		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
+	Gear.RACape		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
 
 -- JA Sets
 	sets.precast = {}
