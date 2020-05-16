@@ -222,7 +222,7 @@ function buff_change(buff,gain)
     end
 end
 
--- Code for equipment movement speed. I did not write this.
+-- Code for equiping movement speed when in motion. I did not write this.
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
     mov.x = windower.ffxi.get_mob_by_index(player.index).x
