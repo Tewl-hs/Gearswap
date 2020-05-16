@@ -14,12 +14,12 @@ function get_sets()
 -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 71%
+    sets.precast.FastCast = { -- Current: 72%
         main        = Kali.Skill, -- 7
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Nahtirah Hat", -- 10
-        body        = "Inyanga Jubbah +2", -- 13
+        body        = "Inyanga Jubbah +2", -- 14
         hands       = "Leyline Gloves", -- 6
         legs        = "Aya. Cosciales +2", -- 6
         neck        = "Orunmila's Torque", -- 5
@@ -46,7 +46,7 @@ function get_sets()
     sets.precast['Troubadour'] = {
         body        = "Bihu Jstcorps. +3"
     }
-    sets.precast['SoulVoice'] = {
+    sets.precast['Soul Voice'] = {
         legs        = "Bihu Cannions +2"
     }
 
