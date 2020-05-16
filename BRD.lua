@@ -92,6 +92,8 @@ function get_sets()
         waist = "Sailfi Belt +1"
     }
 
+    sets.Weaponskill = { }
+
     sets.aftercast = { }
     sets.aftercast.Idle = {        
         main        = "Sangoma", 
