@@ -98,11 +98,13 @@ function get_sets()
     }
 
     sets.Engaged = {
-        main = "Carnwenhan",
-        waist = "Sailfi Belt +1"
+        main        = "Carnwenhan",
+        waist       = "Sailfi Belt +1"
     }
 
-    sets.Weaponskill = { }
+    sets.Weaponskill = { 
+        body        = "Bihu Jstcorps. +3"
+    }
 
     sets.aftercast = { }
     sets.aftercast.Idle = {        
