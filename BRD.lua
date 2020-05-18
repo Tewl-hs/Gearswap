@@ -57,23 +57,23 @@ function get_sets()
         body        = "Bihu Jstcorps. +3"
     }
     sets.precast['Soul Voice'] = {
-        legs        = "Bihu Cannions +2"
+        legs        = "Bihu Cannions +3"
     }
 
     sets.midcast = { }
     sets.midcast.BardSong = {        
-        main        = "Carnwenhan",--Kali.Skill, 
+        main        = "Carnwenhan", --Kali.Skill, 
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
-        head        = "Fili Calot +1",
+        head        = "Bihu Roundlet +3",
         body        = "Fili Hongreline +1",
         hands       = "Inyanga Dastanas +2",
         legs        = "Inyanga Shalwar +2",
         feet        = "Brioso Slippers +2",
         neck        = "Moonbow Whistle +1",
         waist       = "Luminary Sash",
-        left_ear    = "Aoidos' Earring",
-        right_ear   = "Musical Earring",
+        left_ear    = "Musical Earring",
+        right_ear   = "Aoidos' Earring",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
