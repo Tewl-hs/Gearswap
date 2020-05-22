@@ -94,7 +94,11 @@ function get_sets()
         head        = "Fili Calot +1"
     }
     sets.midcast.Lullaby = {
-        hands       = "Brioso Cuffs +1"
+        range       = "Marsyas",
+        hands       = "Brioso Cuffs +2"
+    }
+    sets.midcast.Paeon = {
+        hands       = "Brioso Roundlet +2"
     }
 
     sets.Engaged = {
@@ -108,7 +112,7 @@ function get_sets()
 
     sets.aftercast = { }
     sets.aftercast.Idle = {        
-        main        = "Sangoma", 
+        main        = "Carnwenhan",--"Sangoma", 
         sub         = "Genbu's Shield", 
         range       = "Gjallarhorn",
         head        = "Aya. Zucchetto +2",
@@ -176,9 +180,11 @@ function midcast(spell)
             Midcast = set_combine(Midcast,sets.midcast.Ballad)
         elseif string.find(spell.name,'Minuet') then
             Midcast = set_combine(Midcast,sets.midcast.Minuet)
+        elseif string.find(spell.name,'Paeon') then
+            Midcast = set_combine(Midcast,sets.midcast.Paeon)
         elseif string.find(spell.name,'March') then
             Midcast = set_combine(Midcast,sets.midcast.March)
-            if spell.name == 'Honor March' or string.find(spell.name,'Lullaby') then 
+            if spell.name == 'Honor March' then 
                 Midcast = set_combine(Midcast,{range="Marsyas"})
             end
         elseif string.find(spell.name,'Madrigal') then
