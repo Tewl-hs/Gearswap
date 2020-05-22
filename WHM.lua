@@ -22,9 +22,9 @@ function get_sets()
 		legs		= "Inyanga Shalwar +2",
 		feet		= "Chironic Slippers"
 	}
-		
-	sets.precast = {}
-	sets.precast.FastCast = {
+				
+		sets.precast = {}
+		sets.precast.FastCast = {
 		main		= "Grioavolr",
 		neck		= "Cleric's Torque",
 		head		= "Nahtirah Hat",
@@ -37,6 +37,7 @@ function get_sets()
 		legs		= "Ayanmo cosciales +2",
 		left_ring	= "Prolix Ring",
 		right_ring	= "Kishar Ring",
+		back		= "Alaunus's Cape",
 		waist		= "Embla Sash"
 	}
 
@@ -63,8 +64,8 @@ function get_sets()
 		feet		= "Avocat Pigaches"
 	}
 	
-	sets.midcast = {}
-	sets.midcast.Healing = set_combine(sets.Idle,{
+		sets.midcast = {}
+		sets.midcast.Healing = set_combine(sets.Idle,{
 		main		= "Yagrush",
 		sub			= "Genbu's Shield",
 		head		= "Orison Cap +2",
@@ -110,8 +111,9 @@ function get_sets()
 		main		= "Gada",
 		sub			= "Genbu's Shield",
 		head		= "Telchine Cap",
-		neck		= "Colossus's Torque",
+		neck		= "Melic Torque",
 		left_ear	= "Magnetic Earring",
+		right_ear	= "Andoaa Earring",
 		body		= "Telchine chasuble",
 		hands		= "Telchine Gloves",
 		left_ring	= "Stikini Ring +1",
@@ -120,6 +122,13 @@ function get_sets()
 		waist		= "Embla Sash",
 		legs		= "Telchine Braconi",
 		feet		= "Theophany Duckbills +3"
+	})
+
+	sets.midcast.Regen = set_combine(sets.Enhancing,{
+		main		= "Bolelabunga",
+		head		= "Inyanga Tiara +2",
+		body		= "Piety Briault +3",
+		hands		= "Ebers Mitts +1",
 	})
 	
 	sets.midcast.Enfeebling = set_combine(sets.Idle,{
@@ -140,7 +149,7 @@ function get_sets()
 	
 	sets.midcast.BarElement = set_combine(sets.Idle,{
 		main		= "Chatoyant Staff",
-		sub			= "Genbu's Shield",
+		sub			= "Fulcio Grip",
 		ammo		= "Incantor Stone",
 		head		= "Ebers Cap +1",
 		neck		= "Colossus's Torque",
@@ -157,7 +166,7 @@ function get_sets()
 
 	sets.midcast.BarStatus = set_combine(sets.Idle,{
 		main		= "Chatoyant Staff",
-		sub			= "Genbu's Shield",
+		sub			= "Fulcio Grip",
 		ammo		= "Incantor Stone",
 		head		= "Ebers Cap +1",
 		neck		= "Colossus's Torque",
@@ -197,7 +206,7 @@ function equipx(gearset)
 end
 
 function precast(spell)
-    if spell.type== "Item" then
+    if spell.type=="Item" then
         return
     end
     if spell.action_type == 'Magic' then
@@ -228,8 +237,10 @@ function midcast(spell,action)
 		elseif spell.skill == 'Enfeebling Magic' then
 			equipx(sets.midcast.Enfeebling)
 		elseif spell.skill == 'Enhancing Magic' then
-			if spell.name == 'Erase' then
+            if spell.name == 'Erase' then
 				equipx(set_combine(sets.midcast.Enhancing,{main="Yagrush",neck="Cleric's torque"}))
+			elseif spell.name:startswith('Regen') then
+				equipx(sets.midcast.Regen)
 			elseif spell.name:startswith('Bar') then
 				if BarElement:contains(spell.name) then
 					equipx(sets.midcast.BarElement)
@@ -258,7 +269,7 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	if name == "silence" and gain == "True" then
+	if name == "silence" and gain =="True" then
 		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else

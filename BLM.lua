@@ -63,12 +63,15 @@ function init_gear_sets()
 	sets.midcast['Healing Magic'] = { }
     sets.midcast['Enhancing Magic'] = {
         main        = "Daybreak",
-        sub         = "Ammurapi Shield",
+        sub         = "Ammurapi Shield", -- 10
         ammo        = "Impatiens",
-        head        = "Telchine Cap",
-        hands       = "Telchine Gloves",
+        head        = "Telchine Cap", --10
+        body        = "Telchine Chas.", -- 8
+        hands       = "Telchine Gloves", -- 10
+        legs        = "Telchine Braconi", -- 10
+        feet        = "Telchine Pigaches",  -- 8
         neck        = "Incanter's Torque",
-        waist       = "Embla Sash",
+        waist       = "Embla Sash", -- 10
     }
 	sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head        = "Amalric Coif +1",
