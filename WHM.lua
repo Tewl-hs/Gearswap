@@ -4,7 +4,6 @@ function get_sets()
 
 	sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
 	
-	
 	sets.Idle = {
 		main		= "Queller Rod",
 		sub			= "Genbu's Shield",
