@@ -108,7 +108,7 @@ function get_sets()
 	
 	sets.midcast.Enhancing = set_combine(sets.Idle,{
 		main		= "Gada",
-		sub			= "Genbu's Shield",
+		sub 		= "Genbu's Shield",
 		head		= "Telchine Cap",
 		neck		= "Melic Torque",
 		left_ear	= "Magnetic Earring",
