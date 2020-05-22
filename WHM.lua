@@ -132,7 +132,7 @@ function get_sets()
 	
 	sets.midcast.Enfeebling = set_combine(sets.Idle,{
 		main		= "Queller Rod",
-		sub			= "Genbu's Shield",
+		sub 		= "Genbu's Shield",
 		ammo		= "Hedgehog Bomb",
 		head		= "Elite Beret",
 		body		= "Healer's Briault",
@@ -148,7 +148,7 @@ function get_sets()
 	
 	sets.midcast.BarElement = set_combine(sets.Idle,{
 		main		= "Chatoyant Staff",
-		sub			= "Fulcio Grip",
+		sub 		= "Fulcio Grip",
 		ammo		= "Incantor Stone",
 		head		= "Ebers Cap +1",
 		neck		= "Colossus's Torque",
@@ -165,7 +165,7 @@ function get_sets()
 
 	sets.midcast.BarStatus = set_combine(sets.Idle,{
 		main		= "Chatoyant Staff",
-		sub			= "Fulcio Grip",
+		sub 		= "Fulcio Grip",
 		ammo		= "Incantor Stone",
 		head		= "Ebers Cap +1",
 		neck		= "Colossus's Torque",
