@@ -81,6 +81,12 @@ function get_sets()
     sets.midcast.Debuff = {
 
     }
+    sets.midcast.Threnody = set_combine(sets.midcast.Debuff,{
+
+    })
+    sets.midcast.Carol = { }
+    sets.midcast.Minne = { }
+    sets.midcast.Etude = { }
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave +1"
     }
@@ -101,11 +107,6 @@ function get_sets()
         hands       = "Brioso Roundlet +2"
     }
 
-    sets.Engaged = {
-        main        = "Carnwenhan",
-        waist       = "Sailfi Belt +1"
-    }
-
     sets.Weaponskill = { 
         body        = "Bihu Jstcorps. +3"
     }
@@ -113,7 +114,7 @@ function get_sets()
     sets.aftercast = { }
     sets.aftercast.Idle = {        
         main        = "Carnwenhan",--"Sangoma", 
-        sub         = "Genbu's Shield", 
+        sub         = "Ammurapi Shield", --"Genbu's Shield", 
         range       = "Gjallarhorn",
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
@@ -127,6 +128,36 @@ function get_sets()
         left_ring   = "Defending Ring",
         right_ring  = "Gelatinous Ring +1",
         back        = "Moonlight Cape"
+    }
+    sets.Engaged = set_combine(sets.precast.Idle,{
+        main        = "Carnwenhan",
+        head        = "Bihu Roundlet +3",
+        body        = "Bihu Jstcorps. +3",
+        hands       = "Bihu Cuffs +3",
+        legs        = "Bihu Cannions +3",
+        feet        = "Bihu Slippers +3",
+        neck        = "Bard's Charm +2",
+        waist       = "Sarissapho. Belt",
+        left_ear    = "Dedition Earring",
+        right_ear   = "Telos Earring",
+        left_ring   = "Chirich Ring +1",
+        right_ring  = "Chirich Ring +1",
+        back        = "Intarabus's Cape"
+    })
+    sets.WS = {
+        main        = "Carnwenhan",
+        head        = "Bihu Roundlet +3",
+        body        = "Bihu Jstcorps. +3",
+        hands       = "Bihu Cuffs +3",
+        legs        = "Bihu Cannions +3",
+        feet        = "Bihu Slippers +3",
+        neck        = "Fotia Gorget",
+        waist       = "Fotia Belt",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Ishvara Earring",
+        left_ring   = "Epaminondas's Ring",
+        right_ring  = "Karieyh Ring",
+        back        = "Intarabus's Cape"
     }
 end
 
@@ -162,6 +193,8 @@ function precast(spell)
         equip(Precast)
     elseif sets.precast[spell.name] then
         equip(sets.precast[spell.name])
+    elseif spell.type == 'WeaponSkill' then
+        equip(sets.WS)
     end
 end
 
@@ -201,16 +234,20 @@ function aftercast(spell)
 end
 
 function status_change(new,old)
-    if T{'Idle','Resting'}:contains(new) then
+    if T{'Idle','Resting','Engaged'}:contains(new) then
         goIdle()
     end
 end
 
 function goIdle()
+    local Aftercast = sets.aftercast.Idle
+    if player.status == 'Engaged' then
+        Aftercast = sets.Engaged
+    end
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-        equip(set_combine(sets.aftercast.Idle,{main="Carnwenhan"},{sub=Kali.MACC}))
+        equip(set_combine(Aftercast,{main="Carnwenhan"},{sub=Kali.MACC}))
     else
-        equip(sets.aftercast.Idle)
+        equip(Aftercast)
     end
 end
 
