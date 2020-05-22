@@ -69,7 +69,7 @@ function get_sets()
         body        = "Fili Hongreline +1",
         hands       = "Inyanga Dastanas +2",
         legs        = "Inyanga Shalwar +2",
-        feet        = "Brioso Slippers +2",
+        feet        = "Brioso Slippers +3",
         neck        = "Moonbow Whistle +1",
         waist       = "Luminary Sash",
         left_ear    = "Musical Earring",
