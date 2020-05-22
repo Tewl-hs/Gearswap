@@ -6,7 +6,7 @@ function get_sets()
 	
 	sets.Idle = {
 		main		= "Queller Rod",
-		sub			= "Genbu's Shield",
+		sub 		= "Genbu's Shield",
 		ammo		= "Homiliary",
 		head		= "Inyanga Tiara +2",
 		neck		= "Cleric's torque",
@@ -42,12 +42,12 @@ function get_sets()
 
 	sets.Engaged = {
 		main		= "Yagrush",
-		sub			= "Genbu's Shield"
+		sub 		= "Genbu's Shield"
 	}	
 	
 	sets.Resting = {
 		main		= "Queller Rod",
-		sub			= "Genbu's Shield",
+		sub 		= "Genbu's Shield",
 		ammo		= "Homiliary",
 		head		= "Nefer Khat",
 		neck		= "Eidolon Pendant",
@@ -66,7 +66,7 @@ function get_sets()
 		sets.midcast = {}
 		sets.midcast.Healing = set_combine(sets.Idle,{
 		main		= "Yagrush",
-		sub			= "Genbu's Shield",
+		sub 		= "Genbu's Shield",
 		head		= "Orison Cap +2",
 		neck		= "Cleric's torque",
 		left_ear	= "Magnetic Earring",
@@ -182,7 +182,7 @@ function get_sets()
 	
 	sets.midcast.Divine = set_combine(sets.Idle,{
 		main		= "Queller Rod",
-		sub			= "Genbu's Shield",
+		sub 		= "Genbu's Shield",
 		ammo		= "Incantor Stone",
 		neck		= "Inquisitor's Chain",
 		left_ear	= "Novio Earring",
