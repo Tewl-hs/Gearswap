@@ -1,32 +1,40 @@
 
--- MNK.lua
---
-function get_sets()			
+--[[
+	Author: Tewl / Bismark
+	Files: MNK.lua 
 
-    -- Load Macros
-    send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
-    send_command('input //equipviewer pos 1663 934')
+	Not all of this is my code, some was copied and altered for my own preferences.
+	This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
+	and to share with friends that might be interested or could help with it.
 
-    -- Variables for auto-skill chain. Only edit AutoWS 
-	AutoWS = 'One Inch Punch'
-	ws_order = 1
-	ws_new = 0
+	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
+-]]
+    function get_sets()		
+        -- Load Macros
+        send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
+        send_command('input //equipviewer pos 1663 934')
+
+        -- Variables for auto-skill chain. Only edit AutoWS 
+        AutoWS = 'One Inch Punch'
+        WeaponSkills = T{'Shijin Spiral','Victory Smite','Shijin Spiral'}
+        ws_order = 1
     
         sets.MoveSpeed = { feet = "Hermes' Sandals",} 
     
-    -- Augmented Gear
+        -- Augmented Gear
         Capes = {}
         Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
         Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
     
-    -- JA Sets
+        -- JA Sets
         sets.precast = {}
         sets.precast.JA = { }
-    -- WS Sets
+
+        -- WS Sets
         sets.WS = {
             ammo        = "Knobkierrie",
             neck		= "Fotia Gorget",
-            waist		= "Fotia Belt",
+            waist		= "Moonbow Belt +1",
             left_ear	= "Moonshade Earring",
             right_ear	= "Sherida Earring",
             left_ring	= "Epona's Ring",
@@ -34,7 +42,7 @@ function get_sets()
             back		= Capes.WS
         }
     
-    -- TP Sets
+        -- TP Sets
         sets.TP = {
             ammo        = "Ginsen",
             head		= "Ken. Jinpachi +1",
@@ -43,7 +51,7 @@ function get_sets()
             legs		= "Ken. Hakama +1",
             feet		= "Ken. Sune-Ate +1",
             neck		= "Moonbeam Nodowa",
-            waist		= "Black Belt",
+            waist		= "Moonbow Belt +1",
             left_ear	= "Telos Earring",
             right_ear	= "Sherida Earring",
             left_ring	= "Epona's Ring",
@@ -51,7 +59,7 @@ function get_sets()
             back		= Capes.TP
         }
         
-    -- Aftercast/Idle Sets
+        -- Aftercast/Idle Sets
         sets.aftercast = {}
         sets.aftercast.Idle = {
             ammo		= "Staunch Tathlum +1",
@@ -76,39 +84,22 @@ function get_sets()
             send_command('cancel 71;')
         end
         
-	Mob_ID = player.target.id
-    if Mob_ID ~= Old_Mob_ID then
-     ws_order = 1
-     ws_new = 0
-     Old_Mob_ID = Mob_ID
-	end
-    
+        Mob_ID = player.target.id
+	    if Mob_ID ~= Old_Mob_ID then
+	        ws_order = 1
+	        Old_Mob_ID = Mob_ID
+	    end
+
         if spell.type == 'WeaponSkill' then
-            if spell.name == AutoWS and ws_order == 3  then
-                cancel_spell()
-                send_command('@input /ws "Shijin Spiral" '..spell.target.raw)
-                ws_order = 1
-                ws_new = 1
-              return
-            end
-            if spell.name == AutoWS and ws_order == 2 then
-                cancel_spell()
-                send_command('@input /ws "Victory Smite" '..spell.target.raw)
-                ws_order = ws_order + 1
-                return
-            end
-            if spell.name == AutoWS and ws_order == 1  and ws_new == 0 then
-                cancel_spell()
-                send_command('@input /ws "Victory Smite" '..spell.target.raw)
-                ws_order = ws_order + 1
-                return
-            end
-            if spell.name == AutoWS and ws_order == 1  and ws_new == 1 then
-                ws_new = 0
-                cancel_spell()
-                send_command('@input /ws "'..AutoWS..'" '..spell.target.raw)
-                return
-            end
+	        if spell.name == AutoWS then
+		        cancel_spell()
+		        send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
+		        ws_order = ws_order + 1
+		        if ws_order > table.getn(WeaponSkills) then
+			        ws_order = 1
+		        end
+		        return
+	        end
             if sets.WS[spell.english] then
                 equip(sets.WS[spell.english])
             else

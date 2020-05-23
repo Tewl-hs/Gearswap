@@ -21,10 +21,12 @@ function get_sets()
     Kali.Skill      = { name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',} }
     Kali.MACC       = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',} }
 
+    Offhand = "Taming Sari" -- Offhand weapon when dual weilding
+
     -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 72%
+    sets.precast.FastCast = { -- Current: 72% (65% if main hand locked)
         main        = Kali.Skill, -- 7
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
@@ -78,15 +80,13 @@ function get_sets()
         right_ring  = "Stikini Ring +1",
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
-    sets.midcast.Debuff = {
 
-    }
-    sets.midcast.Threnody = set_combine(sets.midcast.Debuff,{
-
-    })
+    -- Need to buy Su3 +1
+    sets.midcast.Threnody = { }
     sets.midcast.Carol = { }
     sets.midcast.Minne = { }
     sets.midcast.Etude = { }
+
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave +1"
     }
@@ -130,22 +130,20 @@ function get_sets()
         back        = "Moonlight Cape"
     }
     sets.Engaged = set_combine(sets.precast.Idle,{
-        main        = "Carnwenhan",
-        head        = "Bihu Roundlet +3",
-        body        = "Bihu Jstcorps. +3",
-        hands       = "Bihu Cuffs +3",
-        legs        = "Bihu Cannions +3",
-        feet        = "Bihu Slippers +3",
+        head        = "Aya. Zucchetto +2",
+        body        = "Ayanmo Corazza +2",
+        hands       = "Aya. Manopolas +2",
+        legs        = "Aya. Cosciales +2",
+        feet        = "Aya. Gambieras +2",
         neck        = "Bard's Charm +2",
-        waist       = "Sarissapho. Belt",
+        waist       = "Sailfi Belt +1",
         left_ear    = "Dedition Earring",
         right_ear   = "Telos Earring",
-        left_ring   = "Chirich Ring +1",
-        right_ring  = "Chirich Ring +1",
-        back        = "Intarabus's Cape"
+        left_ring   = "Chirich Ring +1", -- Need to buy
+        right_ring  = "Chirich Ring +1", -- ' '
+        back        = "Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 Store TP, -5 DT
     })
     sets.WS = {
-        main        = "Carnwenhan",
         head        = "Bihu Roundlet +3",
         body        = "Bihu Jstcorps. +3",
         hands       = "Bihu Cuffs +3",
@@ -157,8 +155,14 @@ function get_sets()
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
         right_ring  = "Karieyh Ring",
-        back        = "Intarabus's Cape"
+        back        = "Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 WS Damage, -5 DT 
     }
+    sets.WS = set_combine(sets.WS,{
+        neck        = "Bard's Charm +2",
+        waist       = "Grunfeld Rope",
+        left_ear    = "Regal Earring",
+        back        = "Intarabus's Cape" -- Next month ambuscade / 30CHR, 20Acc/Atk, 10 WS Damage, -5 DT 
+    })
 end
 
 function precast(spell)
@@ -181,7 +185,7 @@ function precast(spell)
             Precast = sets.precast.BardSong
         end
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-            Precast = set_combine(Precast, {sub=Kali.MACC})
+            Precast = set_combine(Precast, Offhand)
         end
         if spell.name == 'Honor March' then
             Precast = set_combine(Precast, {range="Marsyas"})
@@ -194,7 +198,11 @@ function precast(spell)
     elseif sets.precast[spell.name] then
         equip(sets.precast[spell.name])
     elseif spell.type == 'WeaponSkill' then
-        equip(sets.WS)
+        if sets.WS[spell.name] then
+            equip(sets.WS[spell.name])
+        else
+            equip(sets.WS)
+        end
     end
 end
 
@@ -207,7 +215,7 @@ function midcast(spell)
         
         local Midcast = sets.midcast.BardSong
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-            Midcast = set_combine(Midcast, {sub=Kali.MACC})
+            Midcast = set_combine(Midcast, Offhand)
         end
         if string.find(spell.name,'Ballad') then
             Midcast = set_combine(Midcast,sets.midcast.Ballad)
@@ -245,7 +253,7 @@ function goIdle()
         Aftercast = sets.Engaged
     end
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-        equip(set_combine(Aftercast,{main="Carnwenhan"},{sub=Kali.MACC}))
+        equip(set_combine(Aftercast,Offhand))
     else
         equip(Aftercast)
     end
