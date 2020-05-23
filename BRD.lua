@@ -8,7 +8,6 @@
 
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 -]]
-
 function get_sets()
     -- Load Macros
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
