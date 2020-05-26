@@ -13,7 +13,7 @@ function get_sets()
 		right_ear	= "Moonshade earring",
 		left_ear	= "Novia earring",
 		body		= "Piety briault +3",
-		hands		= "Inyanga Dastanas +2",
+		hands		= { name="Chironic Gloves", augments={'Weapon skill damage +1%','Attack+11','"Refresh"+2','Accuracy+4 Attack+4','Mag. Acc.+20 "Mag.Atk.Bns."+20',}},
 		left_ring	= "Stikini Ring +1",
 		right_ring	= "Stikini Ring +1",
 		back		= "Alaunus's Cape",
@@ -22,14 +22,14 @@ function get_sets()
 		feet		= "Chironic Slippers"
 	}
 				
-		sets.precast = {}
-		sets.precast.FastCast = {
+	sets.precast = {}
+	sets.precast.FastCast = {
 		main		= "Grioavolr",
 		neck		= "Cleric's Torque",
 		head		= "Nahtirah Hat",
 		body		= "Inyanga Jubbah +2",
 		ammo		= "Incantor Stone",
-		hands		= "Chironic gloves",
+		hands		= { name="Chironic Gloves", augments={'MND+6','INT+1','"Fast Cast"+5','Mag. Acc.+11 "Mag.Atk.Bns."+11',}},
 		left_ear	= "Loquac. Earring",
 		right_ear	= "Malignance earring",
 		feet		= "Regal Pumps +1",

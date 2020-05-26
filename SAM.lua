@@ -334,7 +334,7 @@ function status_change(new,old)
 
 		sets.TP.Engaged = sets.TP.DD
 		
-		if buffactive['Weakness'] or buffactive['Doom'] and use_twilight == true then
+		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
 			sets.aftercast.TP = set_combine(sets.TP.Engaged,sets.Twilight)
 		else
 			sets.aftercast.TP = sets.TP.Engaged

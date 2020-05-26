@@ -20,7 +20,9 @@ function get_sets()
     Kali.Skill      = { name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',} }
     Kali.MACC       = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',} }
 
-    Offhand = "Taming Sari" -- Offhand weapon when dual weilding
+    Offhand = {
+        sub         = "Taming Sari" -- Offhand weapon when dual weilding
+    }
 
     -- Gear sets
 
@@ -85,6 +87,7 @@ function get_sets()
     sets.midcast.Carol = { }
     sets.midcast.Minne = { }
     sets.midcast.Etude = { }
+    sets.midcast.Mambo = { }
 
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave +1"
@@ -112,8 +115,8 @@ function get_sets()
 
     sets.aftercast = { }
     sets.aftercast.Idle = {        
-        main        = "Carnwenhan",--"Sangoma", 
-        sub         = "Ammurapi Shield", --"Genbu's Shield", 
+        main        = "Carnwenhan", --"Sangoma", 
+        sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
@@ -128,7 +131,7 @@ function get_sets()
         right_ring  = "Gelatinous Ring +1",
         back        = "Moonlight Cape"
     }
-    sets.Engaged = set_combine(sets.precast.Idle,{
+    sets.Engaged = {
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
         hands       = "Aya. Manopolas +2",
@@ -136,12 +139,12 @@ function get_sets()
         feet        = "Aya. Gambieras +2",
         neck        = "Bard's Charm +2",
         waist       = "Sailfi Belt +1",
-        left_ear    = "Dedition Earring",
+        left_ear    = "Eabani Earring",
         right_ear   = "Telos Earring",
-        left_ring   = "Chirich Ring +1", -- Need to buy
-        right_ring  = "Chirich Ring +1", -- ' '
-        back        = "Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 Store TP, -5 DT
-    })
+        left_ring   = "Chirich Ring +1", 
+        right_ring  = "Chirich Ring +1", 
+        back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 Store TP, -5 DT
+    }
     sets.WS = {
         head        = "Bihu Roundlet +3",
         body        = "Bihu Jstcorps. +3",
@@ -154,13 +157,14 @@ function get_sets()
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
         right_ring  = "Karieyh Ring",
-        back        = "Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 WS Damage, -5 DT 
+        back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 WS Damage, -5 DT 
     }
     sets.WS = set_combine(sets.WS,{
         neck        = "Bard's Charm +2",
         waist       = "Grunfeld Rope",
         left_ear    = "Regal Earring",
-        back        = "Intarabus's Cape" -- Next month ambuscade / 30CHR, 20Acc/Atk, 10 WS Damage, -5 DT 
+        right_ring  = "Metamor. Ring +1",
+        back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30CHR, 20Acc/Atk, 10 WS Damage, -5 DT 
     })
 end
 
