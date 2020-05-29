@@ -102,7 +102,6 @@ function get_sets()
         head        = "Fili Calot +1"
     }
     sets.midcast.Lullaby = {
-        range       = "Marsyas",
         hands       = "Brioso Cuffs +2"
     }
     sets.midcast.Paeon = {
@@ -235,6 +234,9 @@ function midcast(spell)
             Midcast = set_combine(Midcast,sets.midcast.Madrigal)
         elseif string.find(spell.name,'Lullaby') then
             Midcast = set_combine(Midcast,sets.midcast.Lullaby)
+            if spell.name:startswith('Horde') then
+                Midcast = set_combine(Midcast,{range="Daurdabla"})
+            end
         end
         equip(Midcast)
     end

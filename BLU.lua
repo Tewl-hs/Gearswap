@@ -11,7 +11,7 @@ function get_sets()
         sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
 
     
-        sets.precast = { -- Fast Cast Current: 79% 
+        sets.precast = { -- Fast Cast Current: 80% 
             ammo        = "Sapience Orb", -- 2
             head        = "Carmine Mask +1", -- 9
             body        = "Pinga Tunic", -- 13 Option: Pinga Tunic +1 (15%)
@@ -21,7 +21,7 @@ function get_sets()
             neck        = "Orunmila's Torque", -- 5
             waist       = "Witful Belt", -- 5
             left_ear    = "Loquacious Earring", -- 2
-            right_ear   = "Etiolation Earring", -- 1 Option: Enchanter's Earring (+2%)
+            right_ear   = "Enchanter's Earring", -- 2
             right_ring  = "Kishar Ring", -- 4 
             left_ring   = "Prolix Ring", -- 2
             back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}}, -- 10

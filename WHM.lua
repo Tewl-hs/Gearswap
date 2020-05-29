@@ -77,7 +77,7 @@ function get_sets()
 		feet		= "Ebers Duckbills +1"
 	})
 
-	sets.midcast.Cursna = set_combine(sets.Healing,{
+	sets.midcast.Cursna = set_combine(sets.midcast.Healing,{
 		left_ring	= "Haoma's Ring",
 		right_ring	= "Menelaus's's Ring",
 		body		= "Ebers bliaud +1",		
@@ -123,7 +123,7 @@ function get_sets()
 		feet		= "Theophany Duckbills +3"
 	})
 
-	sets.midcast.Regen = set_combine(sets.Enhancing,{
+	sets.midcast.Regen = set_combine(sets.midcast.Enhancing,{
 		main		= "Bolelabunga",
 		head		= "Inyanga Tiara +2",
 		body		= "Piety Briault +3",
