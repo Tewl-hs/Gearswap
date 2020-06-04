@@ -29,7 +29,6 @@ function get_sets()
     sets.precast = { }
     sets.precast.FastCast = { -- Current: 73% (66% if main hand locked)
         main        = Kali.Skill, -- 7
-        sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Nahtirah Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
@@ -47,10 +46,9 @@ function get_sets()
         head        = "Fili Calot +1", -- 14 song
         feet        = "Bihu Slippers +3", -- 10 song
     })
-    sets.precast.DummySong = { 
+    sets.precast.DummySong = set_combine(sets.precast.BardSong,{ 
         range       = "Daurdabla",
-        neck        = "Orunmila's Torque"
-    }
+    })
     sets.precast['Nightingale'] = {
         feet        = "Bihu Slippers +3"
     }
