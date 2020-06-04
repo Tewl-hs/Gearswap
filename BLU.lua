@@ -35,10 +35,10 @@ function get_sets()
             legs        = "Amalric Slops +1",
             feet        = "Amalric Nails +1",
             neck        = "Baetyl Pendant",
-            waist       = "Eschan Stone", -- Want: Orpheus Sash
+            waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
-            left_ring   = "Metamor. Ring +1", --"Shiva Ring +1",
+            left_ring   = "Metamor. Ring +1", -- "Shiva Ring +1",
             right_ring  = "Shiva Ring +1",
             back        = { name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
          }

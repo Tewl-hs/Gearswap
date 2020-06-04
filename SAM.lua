@@ -125,7 +125,7 @@
 		legs		= "Wakido Haidate +3",
 		feet		= "Valorous Greaves",
 		neck		= "Sam. Nodowa +2",
-		waist		= "Fotia Belt",
+		waist		= "Sailfi Belt +1",--"Fotia Belt",
 		left_ear	= "Moonshade Earring",
 		right_ear	= "Thrud Earring",
 		left_ring	= "Epaminondas's Ring", -- Epaminondas's Ring -- Regal Ring
@@ -177,11 +177,11 @@
 		feet		= "Ken. Sune-Ate +1",
 		neck		= "Loricate Torque +1",
 		waist		= "Flume Belt +1",
-		left_ear	= "Colossus's Earring",
+		left_ear	= "Genmei Earring",
 		right_ear	= "Odnowa Earring +1",
 		left_ring	= "Defending Ring",
 		right_ring	= "Gelatinous Ring +1",
-		back		= Gear.TPCape
+		back		= "Moonlight Cape"
 	}
 	sets.Twilight = { 
 		head		= "Twilight helm",

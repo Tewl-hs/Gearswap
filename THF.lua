@@ -28,18 +28,18 @@ function get_sets()
     -- TP Sets
         sets.TP = {
             ammo        = "Ginsen",
-            head		= "Whirlpool Mask",
-            body		= "Malignance Tabard", 
-            hands		= "Plun. Armlets +3",
-            legs		= "Malignance Tights",
-            feet		= "Skulk. Poulaines +1",
-            neck		= "Asn. Gorget +1",
-            waist		= "Chaac Belt",
-            left_ear	= "Telos Earring",
-            right_ear	= "Sherida Earring",
-            left_ring	= "Epona's Ring",
-            right_ring	= "Regal Ring",
-            back		= "Atheling Mantle"
+            head        = "Whirlpool Mask",
+            body        = "Malignance Tabard",
+            hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
+            legs        = "Malignance Tights",
+            feet        = "Skulk. Poulaines +1",
+            neck        = "Asn. Gorget +1",
+            waist       = "Twilight Belt",
+            left_ear    = "Sherida Earring",
+            right_ear   = "Telos Earring",
+            left_ring   = "Regal Ring",
+            right_ring  = "Epona's Ring",
+            back        = "Atheling Mantle",
         }
         
     -- Aftercast/Idle Sets

@@ -27,7 +27,7 @@ function get_sets()
     -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 72% (65% if main hand locked)
+    sets.precast.FastCast = { -- Current: 73% (66% if main hand locked)
         main        = Kali.Skill, -- 7
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
@@ -36,18 +36,16 @@ function get_sets()
         hands       = "Leyline Gloves", -- 6
         legs        = "Aya. Cosciales +2", -- 6
         neck        = "Orunmila's Torque", -- 5
-        waist       = "Witful Belt", -- 5
+        waist       = "Embla Sash", -- 5
         left_ear    = "Loquacious Earring", --2
-        right_ear   = "Etiolation Earring", -- 1
+        right_ear   = "Enchntr. Earring +1", -- 2
         left_ring   = "Prolix Ring", -- 2
         right_ring  = "Kishar Ring", -- 4 
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}} -- 10
     }
     sets.precast.BardSong = set_combine(sets.precast.FastCast,{
         head        = "Fili Calot +1", -- 14 song
-        right_ear   = "Aoidos' Earring", -- 2 song
         feet        = "Bihu Slippers +3", -- 10 song
-        waist       = "Embla Sash", -- 5
     })
     sets.precast.DummySong = { 
         range       = "Daurdabla",
@@ -76,19 +74,28 @@ function get_sets()
         neck        = "Moonbow Whistle +1",
         waist       = "Luminary Sash",
         left_ear    = "Musical Earring",
-        right_ear   = "Aoidos' Earring",
+        right_ear   = "Enchntr. Earring +1",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
 
-    -- Need to buy Su3 +1
-    sets.midcast.Threnody = { }
-    sets.midcast.Carol = { }
-    sets.midcast.Minne = { }
-    sets.midcast.Etude = { }
-    sets.midcast.Mambo = { }
-
+    -- Need to upgrade to Mousai +1
+    sets.midcast.Threnody = {
+        body        = "Mousai Manteel"
+    }
+    sets.midcast.Carol = {
+        hands       = "Mousai Gages"
+    }
+    sets.midcast.Minne = {
+        legs        = "Mousai Seraweels"
+    }
+    sets.midcast.Etude = {
+        head        = "Mousai Turban"
+    }
+    sets.midcast.Mambo = {
+        feet        = "Mousai Crackows"
+    }
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave +1"
     }
@@ -145,6 +152,7 @@ function get_sets()
         back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 Store TP, -5 DT
     }
     sets.WS = {
+        range       = "Linos",
         head        = "Bihu Roundlet +3",
         body        = "Bihu Jstcorps. +3",
         hands       = "Bihu Cuffs +3",
@@ -221,6 +229,16 @@ function midcast(spell)
         end
         if string.find(spell.name,'Ballad') then
             Midcast = set_combine(Midcast,sets.midcast.Ballad)
+        elseif string.find(spell.name,'Carol') then
+            Midcast = set_combine(Midcast,sets.midcast.Carol)
+        elseif string.find(spell.name,'Minne') then
+            Midcast = set_combine(Midcast,sets.midcast.Minne)
+        elseif string.find(spell.name,'Threnody') then
+            Midcast = set_combine(Midcast,sets.midcast.Threnody)
+        elseif string.find(spell.name,'Mambo') then
+            Midcast = set_combine(Midcast,sets.midcast.Mambo)
+        elseif string.find(spell.name,'Etude') then
+            Midcast = set_combine(Midcast,sets.midcast.Etude)
         elseif string.find(spell.name,'Minuet') then
             Midcast = set_combine(Midcast,sets.midcast.Minuet)
         elseif string.find(spell.name,'Paeon') then

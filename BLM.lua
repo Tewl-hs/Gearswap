@@ -5,7 +5,7 @@ function get_sets()
 end
 
 function user_setup()
-    state.CastingMode:options('Default', 'MACC','MagicBurst')
+    state.CastingMode:options('Default', 'MagicBurst')
     state.IdleMode:options('Normal','PDT')
 end
 
@@ -17,9 +17,9 @@ function init_gear_sets()
     sets.precast.JA = {}
     sets.precast.JA['Mana Wall'] = { }
 	
-	sets.precast.FastCast = { -- 82
+	sets.precast.FC = { -- 82
         main        = "Sucellus", -- 5
-        sub         = "Genbu's Shield",
+        sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
         head        = "Amalric Coif +1", -- 11
         body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
@@ -38,24 +38,30 @@ function init_gear_sets()
 	
     sets.midcast = {}
     sets.midcast['Elemental Magic'] = {
-        main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
-        sub         = "Willpower Grip",
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
+        --sub         = "Willpower Grip",
         ammo        = "Pemphredo Tathlum",
-        head        = "Jhakri Coronal +2",
+        head        = "Arch. Petasos +3",
         body        = { name="Amalric Doublet +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         legs        = { name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         feet        = { name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-        neck        = "Baetyl Pendant",
+        neck        = "Saevus Pendant +1",
         waist       = "Eschan Stone",
         left_ear    = "Regal Earring",
         right_ear   = "Barkaro. Earring",
         left_ring   = "Shiva Ring +1",
-        right_ring  = "Shiva Ring +1",
+        right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
      }
 	sets.midcast['Elemental Magic'].MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
-
+        head        = "Ea Hat",
+        body        = "Ea Houppelande",
+        legs        = "Ea Slops",
+        right_ear   = "Malignance Earring",
+        left_ring   = "Mujin Band"
     })
 	
     sets.midcast['Dark Magic'] = {  }  
@@ -79,8 +85,10 @@ function init_gear_sets()
     })
     
     sets.idle = {
-        main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
-        sub         = "Willpower Grip",
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
+        --sub         = "Willpower Grip",
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
@@ -102,32 +110,31 @@ function job_pretarget(spell)
 end
 
 function job_precast(spell)
-    if spell.action_type == 'Magic' then
-        equip(sets.precast.FastCast)
-    end
+
 end
 
+function job_post_precast(spell, action, spellMap, eventArgs)
 
-function job_post_midcast(spell)
-    if spell.skill == 'Elemental Magic' then
-        equip(sets.midcast['Elemental Magic'])
-    elseif spell.skill == 'Enhancing Magic' then
-        if spell.name == 'Refresh' then
-            equip(sets.midcast[spell.skill].Refresh)
-        else
-            equip(sets.midcast[spell.skill])
-        end
-    end
+end
+
+function job_midcast(spell, action, spellMap, eventArgs)
+
+end
+
+function job_post_midcast(spell, action, spellMap, eventArgs)
+
 end        
 
 function job_aftercast(spell)
-    equip_aftercast()
+    
+end
+
+function job_aftercast(spell, action, spellMap, eventArgs)
+
 end
 
 function status_change(new,old)
-    if T{'Idle','Resting'}:contains(new) then
-        equip_aftercast()
-    end
+    
 end
 
 function job_state_change(stateField, newValue, oldValue)
