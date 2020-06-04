@@ -1,14 +1,8 @@
 
 
 function get_sets()
-
-
-
-    -- Load Macros
         send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 5')
         send_command('input //equipviewer pos 1663 934')
-    
-        sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
 
     
         sets.precast = { -- Fast Cast Current: 80% 
@@ -62,19 +56,19 @@ function get_sets()
     
         sets.aftercast = { }
         sets.aftercast.Idle = { 
-            ammo        = "Staunch Tathlum +1",
-            head        = "Aya. Zucchetto +2",
-            body        = "Malignance Tabard",
-            hands       = "Malignance Gloves",
-            legs        = "Malignance Tights",
-            feet        = "Aya. Gambieras +2",
-            neck        = "Loricate Torque +1",
-            waist       = "Flume Belt +1",
-            left_ear    = "Genmei Earring",
-            right_ear   = "Etiolation Earring",
-            left_ring   = "Defending Ring",
-            right_ring  = "Gelatinous Ring +1",
-            back        = "Moonlight Cape"
+            ammo        = "Staunch Tathlum +1", -- 3/3
+            head        = "Aya. Zucchetto +2",  -- 3/3
+            body        = "Malignance Tabard",  -- 9/9
+            hands       = "Malignance Gloves",  -- 5/5
+            legs        = "Carmine Cuisses +1",  --
+            feet        = "Aya. Gambieras +2",  -- 3/3
+            neck        = "Loricate Torque +1", -- 6/6
+            waist       = "Flume Belt +1",      -- 4/0
+            left_ear    = "Genmei Earring",     -- 2/0
+            right_ear   = "Etiolation Earring", -- 0/3
+            left_ring   = "Defending Ring",     -- 10/10
+            right_ring  = "Gelatinous Ring +1", -- 7/-1
+            back        = "Moonlight Cape"      -- 6/6
         }
 
         sets.aftercast.Refresh = set_combine(sets.aftercast.Idle,{
@@ -82,17 +76,6 @@ function get_sets()
             left_ring   = "Stikini Ring +1",
             right_ring  = "Stikini Ring +1",
         })
-        
-        sets.aftercast.Engaged = {
-            ammo        = "Ginsen",  
-            neck        = "Asperity Necklace",
-            body        = "Jhakri Robe +2",
-            waist       = "Sailfi Belt +1",
-            left_ear    = "Moonshade Earring",
-            right_ear   = "Cessance Earring",
-            left_ring   = "Stikini Ring +1",
-            right_ring  = "Stikini Ring +1",
-        }
     end
     
     function precast(spell)
@@ -163,34 +146,3 @@ function get_sets()
             goIdle()
         end
     end
-    
-    mov = {counter=0}
-    if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-        mov.x = windower.ffxi.get_mob_by_index(player.index).x
-        mov.y = windower.ffxi.get_mob_by_index(player.index).y
-        mov.z = windower.ffxi.get_mob_by_index(player.index).z
-    end
-     
-    moving = false
-    windower.raw_register_event('prerender',function()
-        mov.counter = mov.counter + 1;
-        if mov.counter>15 then
-            local pl = windower.ffxi.get_mob_by_index(player.index)
-            if pl and pl.x and mov.x then
-                dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-                if dist > 1 and not moving then
-                    send_command('gs equip sets.MoveSpeed')
-                    moving = true
-                elseif dist < 1 and moving then
-                    send_command('gs c goIdle')
-                    moving = false
-                end
-            end
-            if pl and pl.x then
-                mov.x = pl.x
-                mov.y = pl.y
-                mov.z = pl.z
-            end
-            mov.counter = 0
-        end
-    end)
