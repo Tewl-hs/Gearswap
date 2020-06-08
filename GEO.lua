@@ -3,8 +3,6 @@ function get_sets()
     -- Load Macros
     send_command('input /macro book 20;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 2')
     send_command('input //equipviewer pos 1663 915')
-
-    sets.MoveSpeed = { feet = "Geomancy Sandals +3",}    --auto swaps when moving
     
     -- Gear sets
     sets.idle = { 
@@ -45,21 +43,21 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.fastcast = { -- 73
+    sets.precast.FC = { -- FC 81/80 QC: 7/10
         main        = "Solstice", -- 5
-        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 3
-        head        = "Vanya Hood", -- 10
+        ammo        = "Impatiens", -- 0|2
+        head        = "Nahtirah Hat", -- 10
         neck        = "Orunmila's Torque", -- 5
         left_ear    = "Malignance Earring", -- 4
         right_ear   = "Loquac. Earring", -- 2
-        body        = "Heka's Kalasiris", -- Cure -15 / Need: Merlinic Jubbah w/  Aug: 13%
+        body        = "Merlinic Jubbah", -- 11
         left_ring   = "Kishar Ring", -- 4
-        right_ring  = "Prolix Ring", -- 2
+        right_ring  = "Lebeche Ring", -- 0|2
         back        = "Lifestream Cape", -- 7
-        waist       = "Embla Sash", -- 5
-        hands       = "Merlinic Dastanas", -- 6 / Can get 7%
+        waist       = "Witful Belt", -- 3|3
+        hands       = "Merlinic Dastanas", -- 6
         legs        = "Geomancy Pants +3", -- 15
-        feet        = "Merlinic Crackows" -- 5  Need augment: +7        
+        feet        = "Merlinic Crackows" -- 11       
     }
     sets.precast.JA = {}
     sets.precast.JA['Primeval Zeal'] = {
@@ -137,11 +135,16 @@ function get_sets()
         waist       = "Luminary Sash"
     }
 
-    sets.midcast['Enhancing Magic'] = {
-        sub         = "Ammurapi Shield",
+    sets.midcast['Enhancing Magic'] = { -- Enhancing Duration: 76
+        sub         = "Ammurapi Shield", -- 10
+        head        = "Telchine Cap", --10
+        body        = "Telchine Chas.", -- 8
+        hands       = "Telchine Gloves", -- 10
+        legs        = "Telchine Braconi", -- 10
+        feet        = "Telchine Pigaches",  -- 8
         neck        = "Incanter's Torque",
         right_ear   = "Augment. Earring",
-        waist       = "Embla Sash"
+        waist       = "Embla Sash" -- 10
     }
 
     sets.midcast['Dark Magic'] = {
@@ -171,28 +174,22 @@ function get_sets()
     end
     
     function precast(spell)
-        if spell.type=="Item" then
-            return
-        end
         if spell.english:startswith('Cure') then
-            equip(set_combine(sets.precast.fastcast,{body="Heka's Kalasiris"}))
+            equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
         elseif spell.type == 'JobAbility' then
             if sets.precast.JA[spell.english] then
                 equip(sets.precast.JA[spell.english])
             end
-        else
+        elseif spell.action_type == 'Magic' then
             if spell.english == 'Dispelga' then
-                equip(set_combine(sets.precast.fastcast,{main="Daybreak"}))
+                equip(set_combine(sets.precast.FC,{main="Daybreak"}))
             else
-                equip(sets.precast.fastcast)
+                equip(sets.precast.FC)
             end
         end
     end
     
     function midcast(spell)
-        if spell.type=="Item" then
-            return
-        end
         if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
             if buffactive.Silence then
                 cancel_spell()
@@ -253,34 +250,3 @@ function get_sets()
             goIdle()
         end
     end
-    
-    mov = {counter=0}
-    if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-        mov.x = windower.ffxi.get_mob_by_index(player.index).x
-        mov.y = windower.ffxi.get_mob_by_index(player.index).y
-        mov.z = windower.ffxi.get_mob_by_index(player.index).z
-    end
- 
-    moving = false
-    windower.raw_register_event('prerender',function()
-        mov.counter = mov.counter + 1;
-        if mov.counter>15 then
-            local pl = windower.ffxi.get_mob_by_index(player.index)
-            if pl and pl.x and mov.x then
-                dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-                if dist > 1 and not moving then
-                    send_command('gs equip sets.MoveSpeed')
-        		    moving = true
-                elseif dist < 1 and moving then
-                    send_command('gs c goIdle')
-                    moving = false
-                end
-            end
-            if pl and pl.x then
-                mov.x = pl.x
-                mov.y = pl.y
-                mov.z = pl.z
-           end
-            mov.counter = 0
-        end
-    end)
