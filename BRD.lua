@@ -27,13 +27,12 @@ function get_sets()
     -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 73% (66% if main hand locked)
-        main        = Kali.Skill, -- 7
-        range       = "Gjallarhorn",
+    sets.precast.FastCast = { -- Current: 70%
         head        = "Nahtirah Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
         hands       = "Leyline Gloves", -- 6
         legs        = "Aya. Cosciales +2", -- 6
+        feet        = "Regal Pumps +1", -- 4
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
         left_ear    = "Loquacious Earring", --2
@@ -136,6 +135,7 @@ function get_sets()
         back        = "Moonlight Cape"
     }
     sets.Engaged = {
+        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
         hands       = "Aya. Manopolas +2",
@@ -147,10 +147,10 @@ function get_sets()
         right_ear   = "Telos Earring",
         left_ring   = "Chirich Ring +1", 
         right_ring  = "Chirich Ring +1", 
-        back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 Store TP, -5 DT
+        back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}},
     }
     sets.WS = {
-        range       = "Linos",
+        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Bihu Roundlet +3",
         body        = "Bihu Jstcorps. +3",
         hands       = "Bihu Cuffs +3",
@@ -162,14 +162,15 @@ function get_sets()
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
         right_ring  = "Karieyh Ring",
-        back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30DEX, 20Acc/Atk, 10 WS Damage, -5 DT 
+        back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
     }
     sets.WS = set_combine(sets.WS,{
+        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         neck        = "Bard's Charm +2",
         waist       = "Grunfeld Rope",
         left_ear    = "Regal Earring",
         right_ring  = "Metamor. Ring +1",
-        back        = "Atheling Mantle", --"Intarabus's Cape" -- Next month ambuscade / 30CHR, 20Acc/Atk, 10 WS Damage, -5 DT 
+        back        = { name="Intarabus's Cape", augments={'CHR+20','Accuracy+20 Attack+20','CHR+10','Weapon skill damage +10%',}},
     })
 end
 

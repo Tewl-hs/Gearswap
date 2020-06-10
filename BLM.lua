@@ -17,7 +17,7 @@ function init_gear_sets()
     sets.precast.JA = {}
     sets.precast.JA['Mana Wall'] = { }
 	
-	sets.precast.FC = { -- 82
+	sets.precast.FC = { -- 85
         main        = "Sucellus", -- 5
         sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
@@ -27,9 +27,9 @@ function init_gear_sets()
         legs        = { name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, -- 7
         feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
-        waist       = "Witful Belt", -- 5
+        waist       = "Embla Sash", -- 5
         left_ear    = "Loquacious Earring", -- 2
-        right_ear   = "Etiolation Earring", -- 1
+        right_ear   = "Malignance Earring", -- 4
         right_ring  = "Kishar Ring", -- 4 
         left_ring   = "Prolix Ring", -- 2
         back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
@@ -41,7 +41,7 @@ function init_gear_sets()
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
-        --sub         = "Willpower Grip",
+        --sub         = "Enki Strap",
         ammo        = "Pemphredo Tathlum",
         head        = "Arch. Petasos +3",
         body        = { name="Amalric Doublet +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
@@ -49,18 +49,19 @@ function init_gear_sets()
         legs        = { name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         feet        = { name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         neck        = "Saevus Pendant +1",
-        waist       = "Eschan Stone",
+        waist       = "Refoccilation Stone",
         left_ear    = "Regal Earring",
-        right_ear   = "Barkaro. Earring",
+        right_ear   = "Malignance Earring",
         left_ring   = "Shiva Ring +1",
         right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
      }
 	sets.midcast['Elemental Magic'].MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
-        head        = "Ea Hat",
-        body        = "Ea Houppelande",
-        legs        = "Ea Slops",
-        right_ear   = "Malignance Earring",
+        head        = "Ea Hat +1",
+        body        = "Ea Houppe. +1",
+        legs        = "Ea Slops +1",
+        neck        = "Mizu. Kubikazari",
+        feet        = "Ea Pigaches +1",
         left_ring   = "Mujin Band"
     })
 	
