@@ -27,12 +27,13 @@ function get_sets()
     -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 70%
+    sets.precast.FastCast = { -- Current: 73% | 80% w/ Kali
+        --main        = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',}}, -- 7
         head        = "Nahtirah Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
-        hands       = "Leyline Gloves", -- 6
+        hands       = "Leyline Gloves", -- 6 (Max: 8)
         legs        = "Aya. Cosciales +2", -- 6
-        feet        = "Regal Pumps +1", -- 4
+        feet        = "Chironic Slippers", -- 7 
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
         left_ear    = "Loquacious Earring", --2
@@ -106,7 +107,7 @@ function get_sets()
         head        = "Fili Calot +1"
     }
     sets.midcast.Lullaby = {
-        hands       = "Brioso Cuffs +2"
+        hands       = "Brioso Cuffs +3"
     }
     sets.midcast.Paeon = {
         hands       = "Brioso Roundlet +2"
