@@ -3,6 +3,8 @@ function get_sets()
     -- Load Macros
     send_command('input /macro book 20;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 2')
     send_command('input //equipviewer pos 1663 915')
+
+    sets.MoveSpeed = { feet = "Geomancy Sandals +3",}
     
     -- Gear sets
     sets.idle = { 
@@ -36,7 +38,7 @@ function get_sets()
         main        = "Sucellus", -- Solstice: Pet: Regen -3, DT +1
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Azimuth Hood +1",
-        hands       = "Geomancy Mitaines +2",
+        hands       = "Geo. Mitaines +3",
         back        = "Nantosuelta's Cape",
         waist       = "Isa Belt",
         feet        = "Bagua Sandals +3"            
@@ -90,7 +92,7 @@ function get_sets()
         head        = "Azimuth Hood +1",
         neck        = "Incanter's Torque",
         body        = "Bagua Tunic +3",
-        hands       = "Geomancy Mitaines +2",
+        hands       = "Geo. Mitaines +3",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         back        = "Lifestream Cape",
@@ -250,3 +252,38 @@ function get_sets()
             goIdle()
         end
     end
+
+    mov = {counter=0}
+    if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
+        mov.x = windower.ffxi.get_mob_by_index(player.index).x
+        mov.y = windower.ffxi.get_mob_by_index(player.index).y
+        mov.z = windower.ffxi.get_mob_by_index(player.index).z
+    end
+ 
+    moving = false
+    windower.raw_register_event('prerender',function()
+        mov.counter = mov.counter + 1;
+        if mov.counter>15 then
+            local pl = windower.ffxi.get_mob_by_index(player.index)
+            if pl and pl.x and mov.x then
+	    		dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+                if dist > 1 and not moving then
+	    			if player.status ~= 'Engaged' then
+	    				send_command('gs equip sets.MoveSpeed')
+	    			end
+        		    moving = true
+			    elseif dist < 1 and moving then
+				    if player.status ~= 'Engaged' then
+					    send_command('gs c goIdle')
+				    end
+                    moving = false
+                end
+            end
+            if pl and pl.x then
+                mov.x = pl.x
+                mov.y = pl.y
+                mov.z = pl.z
+            end
+            mov.counter = 0
+        end
+    end)
