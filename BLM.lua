@@ -11,6 +11,42 @@ end
 
 	
 function init_gear_sets()
+    --  NOT MY CODE! Testing content for displaying text under chat
+    texts = require('texts')
+    if stateBox then stateBox:destroy() end
+
+    local settings = windower.get_windower_settings()
+    local x,y
+
+    if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
+        x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
+    else
+        x,y = 0, settings["ui_y_res"]-17 -- -285, -18
+    end
+
+    if displayx then x = displayx end
+    if displayy then y = displayy end
+
+    local font = displayfont or 'Arial'
+    local size = displaysize or 12
+    local bold = displaybold or true
+    local bg = displaybg or 0
+    local strokewidth = displaystroke or 2
+    local stroketransparancy = displaytransparancy or 192
+
+    stateBox = texts.new()
+    stateBox:pos(x,y)
+    stateBox:font(font)--Arial
+    stateBox:size(size)
+    stateBox:bold(bold)
+    stateBox:bg_alpha(bg)--128
+    stateBox:right_justified(false)
+    stateBox:stroke_width(strokewidth)
+    stateBox:stroke_transparency(stroketransparancy)
+
+    update_status()
+    -- End of display code
+
     sets.MoveSpeed = { feet = "Herald's Gaiters", } 
 
     sets.precast = {}
@@ -57,11 +93,11 @@ function init_gear_sets()
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
      }
 	sets.midcast['Elemental Magic'].MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
-        head        = "Ea Hat +1",
-        body        = "Ea Houppe. +1",
-        legs        = "Ea Slops +1",
-        neck        = "Mizu. Kubikazari",
-        feet        = "Ea Pigaches +1",
+        head        = "Ea Hat",
+        body        = "Ea Houppelande",
+        legs        = "Ea Slops",
+        --neck        = "Mizu. Kubikazari",
+        --feet        = "Ea Pigaches +1",
         left_ring   = "Mujin Band"
     })
 	
@@ -89,7 +125,7 @@ function init_gear_sets()
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
-        --sub         = "Willpower Grip",
+        --sub         = "Enki Strap",
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
@@ -139,7 +175,7 @@ function status_change(new,old)
 end
 
 function job_state_change(stateField, newValue, oldValue)
-
+    update_status()
 end
 
 function equip_aftercast()
@@ -151,6 +187,62 @@ function job_self_command(cmdParams, eventArgs)
 		equip_aftercast()
 	end
 end
+
+-- More code for displaying text -- Not finished 
+function update_status()
+	local clr = {
+        h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
+		w='\\cs(255,255,255)', -- White for labels and default modals
+        n='\\cs(192,192,192)', -- White for labels and default modals
+        s='\\cs(96,96,96)', -- Gray for inactive booleans
+		Fire='\\cs(255,80,80)', -- Red For Fire Element
+		Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
+		Wind='\\cs(110,255,110)', -- Light Green For Wind Element
+		Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
+		Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
+		Water='\\cs(110,110,255)', -- Blue For Water Element
+		Light='\\cs(255,255,155)', -- Light Yellow For Light Element
+		Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
+    }
+
+    local info = {}
+    local orig = {}
+	local spc = '    '
+	
+	local labels = {
+		Weapons = "Weapons",
+        OffenseMode = "Offense",
+		RangedMode = "Ranged",
+        DefenseMode = "Defense",
+        HybridMode = "Hybrid",
+        IdleMode = "Idle",
+    }
+
+    stateBox:clear()
+	stateBox:append('   ')
+	stateBox:append(string.format("%sMode: %s%s", clr.w, clr.h, state.CastingMode.value))
+	stateBox:append(spc)
+
+    stateBox:update(info)
+    stateBox:show()
+end
+
+function clear_job_states()
+    if stateBox then stateBox:destroy() end
+end
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+    if id == 0x00D and stateBox then
+        stateBox:hide()
+    end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+    if id == 0x00A and stateBox then
+        stateBox:show()
+    end
+end)
+-- End of Display Code
 
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
