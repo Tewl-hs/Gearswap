@@ -62,7 +62,7 @@ function get_sets()
             body        = "Malignance Tabard",  -- 9/9
             hands       = "Malignance Gloves",  -- 5/5
             legs        = "Carmine Cuisses +1",  --
-            feet        = "Aya. Gambieras +2",  -- 3/3
+            feet        = "Malignance Boots",  -- 4/4
             neck        = "Loricate Torque +1", -- 6/6
             waist       = "Flume Belt +1",      -- 4/0
             left_ear    = "Genmei Earring",     -- 2/0

@@ -4,7 +4,7 @@
 function get_sets()			
 
     -- Load Macros
-    send_command('input /macro book 18;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 6')
+    send_command('input /macro book 18;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 8')
     send_command('input //equipviewer pos 1663 934')
     
         sets.MoveSpeed = { feet = "Fajin Boots",} 
@@ -20,9 +20,13 @@ function get_sets()
         sets.WS = {
             neck		= "Fotia Gorget",
             waist		= "Fotia Belt",
-            hands       = "Malignance Gloves",
+            hands       = "Meg. Gloves +1",
             legs        = "Samnuha Tights",
-            feet        = "Mummu Gamash. +1"
+            feet        = "Mummu Gamash. +2",
+            left_ear    = "Ishvara Earring",
+            right_ear   = "Moonshade Earring",
+            left_ring   = "Regal Ring",
+            right_ring  = "Epaminondas's Ring",
         }
     
     -- TP Sets
