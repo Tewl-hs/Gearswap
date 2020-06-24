@@ -38,7 +38,7 @@ function get_sets()
             legs        = "Malignance Tights",
             feet        = "Skulk. Poulaines +1",
             neck        = "Asn. Gorget +1",
-            waist       = "Twilight Belt",
+            waist       = "Sailfi Belt +1",
             left_ear    = "Sherida Earring",
             right_ear   = "Telos Earring",
             left_ring   = "Regal Ring",
