@@ -110,7 +110,7 @@ function get_sets()
         hands       = "Brioso Cuffs +3"
     }
     sets.midcast.Paeon = {
-        hands       = "Brioso Roundlet +2"
+        hands       = "Brioso Roundlet +3"
     }
 
     sets.Weaponskill = { 
