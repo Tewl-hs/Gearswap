@@ -3,124 +3,128 @@ function get_sets()
 	BarElement = T{'Barfire', 'Barfira', 'Barblizzard', 'Barblizzara', 'Baraero', 'Baraera', 'Barstone', 'Barstonra', 'Barthunder', 'Barthundra', 'Barwater', 'Barwatera'}
 
 	sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
+
+    Macro_Book = '1'
+    send_command('input /macro book '..Macro_Book)
 	
 	sets.Idle = {
-		main		= "Queller Rod",
-		sub 		= "Genbu's Shield",
-		ammo		= "Homiliary",
-		head		= "Inyanga Tiara +2",
-		neck		= "Cleric's torque",
-		right_ear	= "Moonshade earring",
-		left_ear	= "Novia earring",
-		body		= "Piety briault +3",
-		hands		= { name="Chironic Gloves", augments={'Weapon skill damage +1%','Attack+11','"Refresh"+2','Accuracy+4 Attack+4','Mag. Acc.+20 "Mag.Atk.Bns."+20',}},
-		left_ring	= "Stikini Ring +1",
-		right_ring	= "Stikini Ring +1",
-		back		= "Alaunus's Cape",
-		waist		= "Fucho-no-obi",
-		legs		= "Inyanga Shalwar +2",
-		feet		= "Chironic Slippers"
+		main		="Queller Rod",
+		sub			="Genbu's Shield",
+		ammo		="Homiliary",
+		head		="Inyanga Tiara +2",
+		neck		="Cleric's torque",
+		right_ear	="Moonshade earring",
+		left_ear	="Novia earring",
+		body		="Piety briault +3",
+		hands		={ name="Chironic Gloves", augments={'Weapon skill damage +1%','Attack+11','"Refresh"+2','Accuracy+4 Attack+4','Mag. Acc.+20 				"Mag.Atk.Bns."+20',}},
+		left_ring	="Stikini Ring +1",
+		right_ring	="Stikini Ring +1",
+		back		="Alaunus's Cape",
+		waist		="Fucho-no-obi",
+		legs		="Inyanga Shalwar +2",
+		feet		="Chironic Slippers"
 	}
 				
-	sets.precast = {}
-	sets.precast.FastCast = {
-		main		= "Grioavolr",
-		neck		= "Cleric's Torque",
-		head		= "Nahtirah Hat",
-		body		= "Inyanga Jubbah +2",
-		ammo		= "Incantor Stone",
-		hands		= { name="Chironic Gloves", augments={'MND+6','INT+1','"Fast Cast"+5','Mag. Acc.+11 "Mag.Atk.Bns."+11',}},
-		left_ear	= "Loquac. Earring",
-		right_ear	= "Malignance earring",
-		feet		= "Regal Pumps +1",
-		legs		= "Ayanmo cosciales +2",
-		left_ring	= "Prolix Ring",
-		right_ring	= "Kishar Ring",
-		back		= "Alaunus's Cape",
-		waist		= "Embla Sash"
+		sets.precast = {}
+		sets.precast.FastCast = {
+		main		="Grioavolr",
+		sub		="Clerisy Strap",
+		neck		="Cleric's Torque",
+		head		="Nahtirah Hat",
+		body		="Inyanga Jubbah +2",
+		ammo		="Incantor Stone",
+		hands		={ name="Chironic Gloves", augments={'MND+6','INT+1','"Fast Cast"+5','Mag. Acc.+11 "Mag.Atk.Bns."+11',}},
+		left_ear	="Loquac. Earring",
+		right_ear	="Malignance earring",
+		feet		="Regal Pumps +1",
+		legs		="Ayanmo cosciales +2",
+		left_ring	="Prolix Ring",
+		right_ring	="Kishar Ring",
+		back		="Alaunus's Cape",
+		waist		="Embla Sash"
 	}
 
 	sets.Engaged = {
-		main		= "Yagrush",
-		sub 		= "Genbu's Shield"
+		main		="Yagrush",
+		sub		="Genbu's Shield"
 	}	
 	
 	sets.Resting = {
-		main		= "Queller Rod",
-		sub 		= "Genbu's Shield",
-		ammo		= "Homiliary",
-		head		= "Nefer Khat",
-		neck		= "Eidolon Pendant",
-		left_ear	= "Magnetic earring",
-		right_ear	= "Moonshade earring",
-		body		= "Orvail Robe",
-		hands		= "Oracle's Gloves",
-		left_ring	= "Janniston Ring",
-		right_ring	= "Tamas Ring",
-		back		= "Felicitas Cape",
-		waist		= "Austerity Belt",
-		legs		= "Nisse Slacks",
-		feet		= "Avocat Pigaches"
+		main		="Queller Rod",
+		sub		="Genbu's Shield",
+		ammo		="Homiliary",
+		head		="Nefer Khat",
+		neck		="Eidolon Pendant",
+		left_ear	="Magnetic earring",
+		right_ear	="Moonshade earring",
+		body		="Orvail Robe",
+		hands		="Oracle's Gloves",
+		left_ring	="Janniston Ring",
+		right_ring	="Tamas Ring",
+		back		="Felicitas Cape",
+		waist		="Austerity Belt",
+		legs		="Nisse Slacks",
+		feet		="Avocat Pigaches"
 	}
 	
 		sets.midcast = {}
 		sets.midcast.Healing = set_combine(sets.Idle,{
-		main		= "Yagrush",
-		sub 		= "Genbu's Shield",
-		head		= "Orison Cap +2",
-		neck		= "Cleric's torque",
-		left_ear	= "Magnetic Earring",
-		right_ear	= "Loquacious Earring",
-		body		= "Orvail Robe",
-		hands		= "Orison Mitts +2",
-		body		= "Ebers bliaud +1",
-		feet		= "Ebers Duckbills +1"
+		main		="Yagrush",
+		sub		="Genbu's Shield",
+		head		="Orison Cap +2",
+		neck		="Cleric's torque",
+		left_ear	="Magnetic Earring",
+		right_ear	="Loquacious Earring",
+		body		="Orvail Robe",
+		hands		="Orison Mitts +2",
+		body		="Ebers bliaud +1",
+		feet		="Ebers Duckbills +1"
 	})
 
 	sets.midcast.Cursna = set_combine(sets.midcast.Healing,{
-		left_ring	= "Haoma's Ring",
-		right_ring	= "Menelaus's's Ring",
-		body		= "Ebers bliaud +1",		
-		neck		= "Debilis Medallion",
-		right_ear	= "Meili Earring",
-		Hands		= "Fanatic Gloves",
-		legs		= "Theophany Pantaloons +3",
-		back		= "Alaunus's Cape",
-		feet		= "Vanya Clogs"
+		left_ring	="Haoma's Ring",
+		right_ring	="Menelaus's's Ring",
+		body		="Ebers bliaud +1",		
+		neck		="Debilis Medallion",
+		right_ear	="Meili Earring",
+		Hands		="Fanatic Gloves",
+		legs		="Theophany Pantaloons +3",
+		back		="Alaunus's Cape",
+		feet		="Vanya Clogs"
 	})	
 	
 	sets.midcast.Cure = set_combine(sets.Idle,{
-		main		= "Queller Rod",
-		ammo		= "Hydrocera",
-		head		= "Ebers cap +1",
-		neck		= "Cleric's torque",
-		body		= "Ebers bliaud +1",
-		left_ear	= "Nourishing Earring +1",
-		right_ear	= "Glorious Earring",
-		hands		= "Bokwus Gloves",
-		back		= "Alaunus's Cape",
-		waist		= "Witful Belt",
-		left_ring	= "Janniston Ring",
-		right_ring	= "Tamas Ring",
-		legs		= "Ebers Pantaloons +1",
-		feet		= "Piety duckbills +3"
+		main		="Queller Rod",
+		ammo		="Hydrocera",
+		head		="Ebers cap +1",
+		neck		="Cleric's torque",
+		body		="Ebers bliaud +1",
+		left_ear	="Nourishing Earring +1",
+		right_ear	="Glorious Earring",
+		hands		="Bokwus Gloves",
+		back		="Alaunus's Cape",
+		waist		="Witful Belt",
+		left_ring	="Janniston Ring",
+		right_ring	="Tamas Ring",
+		legs		="Ebers Pantaloons +1",
+		feet		="Piety duckbills +3"
 	})	
 	
 	sets.midcast.Enhancing = set_combine(sets.Idle,{
-		main		= "Gada",
-		sub 		= "Genbu's Shield",
-		head		= "Telchine Cap",
-		neck		= "Melic Torque",
-		left_ear	= "Magnetic Earring",
-		right_ear	= "Andoaa Earring",
-		body		= "Telchine chasuble",
-		hands		= "Telchine Gloves",
-		left_ring	= "Stikini Ring +1",
-		right_ring	= "Stikini Ring +1",
-		back		= "Merciful Cape",
-		waist		= "Embla Sash",
-		legs		= "Telchine Braconi",
-		feet		= "Theophany Duckbills +3"
+		main		="Gada",
+		sub		="Genbu's Shield",
+		head		="Telchine Cap",
+		neck		="Melic Torque",
+		left_ear	="Magnetic Earring",
+		right_ear	="Andoaa Earring",
+		body		="Telchine chasuble",
+		hands		="Telchine Gloves",
+		left_ring	="Stikini Ring +1",
+		right_ring	="Stikini Ring +1",
+		back		="Merciful Cape",
+		waist		="Embla Sash",
+		legs		="Telchine Braconi",
+		feet		="Theophany Duckbills +3"
 	})
 
 	sets.midcast.Regen = set_combine(sets.midcast.Enhancing,{
@@ -131,67 +135,68 @@ function get_sets()
 	})
 	
 	sets.midcast.Enfeebling = set_combine(sets.Idle,{
-		main		= "Queller Rod",
-		sub 		= "Genbu's Shield",
-		ammo		= "Hedgehog Bomb",
-		head		= "Elite Beret",
-		body		= "Healer's Briault",
-		hands		= "Cleric's Mitts",
-		right_ring	= "Kishar Ring",
-		left_ear	= "Magnetic Earring",
-		back		= "Alaunus's Cape",
-		waist		= "Hierarch Belt",
-		legs		= "Augur's brais",
-		feet		= "Rubeus Boots",
-		neck		= "Spider Torque"
+		main		="Gada",
+		sub		="Genbu's Shield",
+		ammo		="Hedgehog Bomb",
+		head		="Befouled Crown",
+		body		="Theophany Briault +3",
+		hands		="Piety Mitts +3",
+		right_ring	="Kishar Ring",
+		right_ear	="Vor Earring",
+		left_ear	="Enfeebling Earring",
+		back		="Alaunus's Cape",
+		waist		="Hierarch Belt",
+		legs		="Chironic Hose",
+		feet		="Theophany Duckbills +3",
+		neck		="Henic Torque"
 	})
 	
 	sets.midcast.BarElement = set_combine(sets.Idle,{
-		main		= "Chatoyant Staff",
-		sub 		= "Fulcio Grip",
-		ammo		= "Incantor Stone",
-		head		= "Ebers Cap +1",
-		neck		= "Colossus's Torque",
-		left_ear	= "Magnetic Earring",
-		body		= "Ebers Bliaud +1",
-		hands		= "Ebers Mitts +1",
-		left_ring	= "Stikini Ring +1",
-		right_ring	= "Stikini Ring +1",
-		back		= "Merciful Cape",
-		waist		= "Embla Sash",
-		legs		= "Piety Pantaloons +3",
-		feet		= "Ebers Duckbills +1"
+		main		="Chatoyant Staff",
+		sub		="Fulcio Grip",
+		ammo		="Incantor Stone",
+		head		="Ebers Cap +1",
+		neck		="Colossus's Torque",
+		left_ear	="Magnetic Earring",
+		body		="Ebers Bliaud +1",
+		hands		="Ebers Mitts +1",
+		left_ring	="Stikini Ring +1",
+		right_ring	="Stikini Ring +1",
+		back		="Merciful Cape",
+		waist		="Embla Sash",
+		legs		="Piety Pantaloons +3",
+		feet		="Ebers Duckbills +1"
 	})
 
 	sets.midcast.BarStatus = set_combine(sets.Idle,{
-		main		= "Chatoyant Staff",
-		sub 		= "Fulcio Grip",
-		ammo		= "Incantor Stone",
-		head		= "Ebers Cap +1",
-		neck		= "Colossus's Torque",
-		left_ear	= "Magnetic Earring",
-		body		= "Ebers Bliaud +1",
-		hands		= "Ebers Mitts +1",
-		left_ring	= "Stikini Ring +1",
-		right_ring	= "Stikini Ring +1",
-		back		= "Merciful Cape",
-		waist		= "Embla Sash",
-		legs		= "Piety Pantaloons +3",
-		feet		= "Ebers Duckbills +1"
+		main		="Chatoyant Staff",
+		sub			="Genbu's Shield",
+		ammo		="Incantor Stone",
+		head		="Ebers Cap +1",
+		neck		="Colossus's Torque",
+		left_ear	="Magnetic Earring",
+		body		="Ebers Bliaud +1",
+		hands		="Ebers Mitts +1",
+		left_ring	="Stikini Ring +1",
+		right_ring	="Stikini Ring +1",
+		back		="Merciful Cape",
+		waist		="Embla Sash",
+		legs		="Piety Pantaloons +3",
+		feet		="Ebers Duckbills +1"
 	})
 	
 	sets.midcast.Divine = set_combine(sets.Idle,{
-		main		= "Queller Rod",
-		sub 		= "Genbu's Shield",
-		ammo		= "Incantor Stone",
-		neck		= "Inquisitor's Chain",
-		left_ear	= "Novio Earring",
-		body		= "Auger's Jaseran",
-		hands		= "Cleric's mitts",
-		waist		= "Witch sash",
-		legs		= "Theophany Pantaloons",
-		feet		= "Rubeus Boots",
-		head		= "Marduk's Tiara"
+		main		="Gada",
+		sub		="Genbu's Shield",
+		ammo		="Incantor Stone",
+		head		="Ipoca Beret",
+		neck		="Jokushu Chain",
+		left_ear	="Novio Earring",
+		body		="Vanya Robe",
+		hands		="Piety mitts +3",
+		waist		="Kobo Obi",
+		legs		="Theophany Pantaloons +3",
+		feet		="Chironic Slippers",
 	})
 	
 end

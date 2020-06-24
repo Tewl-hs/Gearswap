@@ -32,7 +32,7 @@ function get_sets()
     -- TP Sets
         sets.TP = {
             ammo        = "Ginsen",
-            head        = "Whirlpool Mask",
+            head        = "Malignance Chapeau",
             body        = "Malignance Tabard",
             hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
             legs        = "Malignance Tights",

@@ -58,7 +58,7 @@ function get_sets()
         sets.aftercast = { }
         sets.aftercast.Idle = { 
             ammo        = "Staunch Tathlum +1", -- 3/3
-            head        = "Aya. Zucchetto +2",  -- 3/3
+            head        = "Malignance Chapeau",  -- 6/6
             body        = "Malignance Tabard",  -- 9/9
             hands       = "Malignance Gloves",  -- 5/5
             legs        = "Carmine Cuisses +1",  --

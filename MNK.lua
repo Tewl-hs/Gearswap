@@ -62,19 +62,19 @@
         -- Aftercast/Idle Sets
         sets.aftercast = {}
         sets.aftercast.Idle = {
-            ammo		= "Staunch Tathlum +1",
-            head		= "Ken. Jinpachi +1",
-            body		= "Ken. Samue +1", 
-            hands		= "Hizamaru Kote +2",
-            legs		= "Ken. Hakama +1",
-            feet		= "Ken. Sune-Ate +1",
-            neck		= "Loricate Torque +1",
+            ammo		= "Staunch Tathlum +1", -- 3/3
+            head        = "Malignance Chapeau",  -- 6/6
+            body        = "Malignance Tabard",  -- 9/9
+            hands       = "Malignance Gloves",  -- 5/5
+            legs        = "Malignance Tights",  -- 7/7
+            feet        = "Malignance Boots",  -- 4/4
+            neck		= "Loricate Torque +1", -- 6/6
             waist		= "Black Belt",
             left_ear	= "Genmei Earring",
             right_ear	= "Odnowa Earring +1",
-            left_ring	= "Defending Ring",
+            left_ring	= "Defending Ring", -- 10/10
             right_ring	= "Gelatinous Ring +1",
-            back		= Capes.TP
+            back		= Capes.TP -- 5/5
         }
     end
     

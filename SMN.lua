@@ -10,7 +10,7 @@ function get_sets()
 
     DebuffBloodPactWard = T{'Diamond Storm','Sleepga','Slowga','Tidal Roar','Shock Squall','Nightmare','Pavor Nocturnus','Ultimate Terror','Somnolence','Lunar Cry','Lunar Roar','Bitter Elegy','Lunatic Voice'}
     
-    Macro_Book = '1'
+    Macro_Book = '3'
     Macro_Page = T{
         ['Ramuh']       = '1',
         ['Garuda']      = '2',
