@@ -39,7 +39,4 @@ luac.out
 *.x86_64
 *.hex
 
-export/Tewl 2020-03-29 18-33-35.lua
-Tafion_GEO.lua
-Keanne_SMN.lua
-Keanne_WHM.lua
+export/
