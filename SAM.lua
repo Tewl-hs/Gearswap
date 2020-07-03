@@ -125,13 +125,16 @@
 		legs		= "Wakido Haidate +3",
 		feet		= "Valorous Greaves",
 		neck		= "Sam. Nodowa +2",
-		waist		= "Sailfi Belt +1",--"Fotia Belt",
+		waist		= "Sailfi Belt +1", --"Fotia Belt",
 		left_ear	= "Moonshade Earring",
 		right_ear	= "Thrud Earring",
 		left_ring	= "Epaminondas's Ring", -- Epaminondas's Ring -- Regal Ring
 		right_ring	= "Karieyh Ring",
 		back		= Gear.WSCape
 	}
+	--sets.WS['Tachi: Fudo'] = {
+
+	--}
 		
 	sets.WS.Yochi = {
 		-- ammo ** SET THIS IN Gear.Arrow
@@ -214,7 +217,7 @@ function precast(spell,action)
 		send_command('cancel 71;')
 	end
 	
-	if range_mode == true then
+	if range_mode == true then -- if ranged mode, equip arrows
 		equip({ammo=Gear.Arrow})
 	end
 
@@ -236,13 +239,18 @@ function precast(spell,action)
 			return
 		end
 
-		sets.WeaponSkill = sets.WS.Normal
-		if range_mode == true then
+		sets.WeaponSkill = sets.WS.Normal -- Default weaponskill set
+
+		if sets.WS[spell.english] then -- Specific weaponskill sets
+			sets.WeaponSkill = sets.WS[spell.english]
+		end
+
+		if range_mode == true then -- if in ranged mode make sure ammo is equipped
 			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo=Gear.Arrow})
-		else
+		else -- otherwise equip the WS ammo
 			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo=Gear.WSAmmo})
 		end
-		if spell.english == 'Namas Arrow' then
+		if spell.english == 'Namas Arrow' then -- Overwrite ws set with ranged ws gear
 			sets.WeaponSkill = set_combine(sets.WeaponSkill,sets.WS.Yochi)
 		end
 		if buffactive['Sekkanoki'] then
@@ -438,6 +446,16 @@ function file_unload()
 	send_command('unbind ^F10')
 	send_command('unbind ^F11')
 	send_command('unbind ^F12')
+end
+
+function get_mob_by_name(name)
+    local mobs = windower.ffxi.get_mob_array()
+    for i, mob in pairs(mobs) do
+        if (mob.name == name) and (math.sqrt(mob.distance) < 6) then
+            return 'Found mob: '..mob.name.. ' Distance: '..math.sqrt(mob.distance)..' Id: '..mob.index
+        end
+	end
+	return 'Could not find mob: '..name
 end
 
 -- More code for displaying text -- Not finished 

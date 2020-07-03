@@ -1,7 +1,7 @@
 
 
 function get_sets()
-        send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 5')
+        send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 6')
         send_command('input //equipviewer pos 1663 934')
 
         sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving

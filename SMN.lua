@@ -115,7 +115,6 @@ function get_sets()
         left_ring   = "Varar Ring +1",
         right_ring  = "Varar Ring +1",
         back        = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: 			Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
-
     }
 
     sets.midcast.MagicalBP = {
@@ -239,7 +238,7 @@ function get_sets()
             return
         end 
         if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
-            -- Do nothing
+            -- Do nothing here. pet_midcast
         elseif sets.midcast[spell.english] then
             equip(sets.midcast[spell.english])
         elseif spell.type=="WhiteMagic" then

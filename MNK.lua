@@ -8,9 +8,9 @@
 	and to share with friends that might be interested or could help with it.
 
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
--]]
+--]]
     function get_sets()		
-        -- Load Macros
+        -- Personal settings: Load macros and set equipviewer position
         send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
         send_command('input //equipviewer pos 1663 934')
 
@@ -19,6 +19,10 @@
         WeaponSkills = T{'Shijin Spiral','Victory Smite','Shijin Spiral'}
         ws_order = 1
     
+        buffs = {}
+        buffs.Boost = buffactive["Boost"] or false
+        buffs.Impetus = buffactive["Impetus"] or false
+
         sets.MoveSpeed = { feet = "Hermes' Sandals",} 
     
         -- Augmented Gear
@@ -26,13 +30,48 @@
         Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
         Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
     
-        -- JA Sets
+        -- Precast sets: Job Abilities, Fastcast, Weaponskills 
         sets.precast = {}
-        sets.precast.JA = { }
-
-        -- WS Sets
-        sets.WS = {
+        sets.precast.JA = {
+            ["Hundred Fists"] = {
+                legs    = "Hesychast's Hose +3"
+            },
+            ["Impetus"] = {
+                body    = "Bhikku Cyclas +1"
+            },
+            ["Dodge"] = {
+                feet    = "Anchorite's Gaiters +1"
+            },
+            ["Focus"] = {},
+            ["Footwork"] = {
+                --feet    = "Shukuyu Sune-Ate",
+            },
+            ["Counterstance"] = {},
+            ["Chi Blast"] = {
+                -- head    = "Hesychast's Crown +3"
+            },
+            ["Chakra"] = {
+                --body    = "Anchorite's Cyclas +3"
+                --hands   = "Hesychast's gloves",
+                hands   = "Melee Gloves +2",
+            },
+            ["Formless Strikes"] = {
+                --body    = "Hesychast's Cyclas +3"
+            },
+            ["Mantra"] = {
+                --feet    = "Hesychast's Gaiters +3"
+            },
+            ["Boost"] = {
+                waist   = "Ask Sash",
+                hands   = "Anchorite's Gloves +1"
+            }
+        }
+        sets.precast.WS = {
             ammo        = "Knobkierrie",
+            head        = "Adhemar Bonnet +1",
+            hands       = "Adhemar Wrist. +1",
+            legs		= "Ken. Hakama +1",
+            feet		= "Ken. Sune-Ate +1",
             neck		= "Fotia Gorget",
             waist		= "Moonbow Belt +1",
             left_ear	= "Moonshade Earring",
@@ -42,15 +81,16 @@
             back		= Capes.WS
         }
     
-        -- TP Sets
-        sets.TP = {
+        -- Aftercast sets: TP, Idle
+        sets.aftercast = {}
+        sets.aftercast.TP = {
             ammo        = "Ginsen",
             head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
             hands		= "Hizamaru Kote +2",
-            legs		= "Ken. Hakama +1",
+            legs		= "Hes. Hose +3",
             feet		= "Ken. Sune-Ate +1",
-            neck		= "Moonbeam Nodowa",
+            neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Telos Earring",
             right_ear	= "Sherida Earring",
@@ -58,9 +98,6 @@
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
         }
-        
-        -- Aftercast/Idle Sets
-        sets.aftercast = {}
         sets.aftercast.Idle = {
             ammo		= "Staunch Tathlum +1", -- 3/3
             head        = "Malignance Chapeau",  -- 6/6
@@ -69,12 +106,12 @@
             legs        = "Malignance Tights",  -- 7/7
             feet        = "Malignance Boots",  -- 4/4
             neck		= "Loricate Torque +1", -- 6/6
-            waist		= "Black Belt",
-            left_ear	= "Genmei Earring",
-            right_ear	= "Odnowa Earring +1",
+            waist		= "Moonbow Belt +1", -- 6/6
+            left_ear	= "Genmei Earring", -- 2/0
+            right_ear	= "Odnowa Earring +1", -- 0/2
             left_ring	= "Defending Ring", -- 10/10
-            right_ring	= "Gelatinous Ring +1",
-            back		= Capes.TP -- 5/5
+            right_ring	= "Gelatinous Ring +1", -- 7/-1
+            back		= "Moonlight Cape" -- 6/6
         }
     end
     
@@ -88,7 +125,17 @@
 	    if Mob_ID ~= Old_Mob_ID then
 	        ws_order = 1
 	        Old_Mob_ID = Mob_ID
-	    end
+        end
+        
+        if sets.precast.JA[spell.english] then
+            equip(sets.precast.JA[spell.english])
+            if spell.english == 'Boost' then
+                buffs.Boost = true
+            end
+            if spell.english == 'Impetus' then
+                buffs.Impetus = true
+            end
+        end
 
         if spell.type == 'WeaponSkill' then
 	        if spell.name == AutoWS then
@@ -100,10 +147,13 @@
 		        end
 		        return
 	        end
-            if sets.WS[spell.english] then
-                equip(sets.WS[spell.english])
+            if sets.precast.WS[spell.english] then
+                equip(sets.precast.WS[spell.english])
             else
-                equip(sets.WS)
+                equip(sets.precast.WS)
+            end
+            if spell.english == 'Victory Smite' and buffactive['Impetus'] then
+                equip(sets.precast.JA['Impetus'])
             end
         end
     end
@@ -118,28 +168,58 @@
     
     function aftercast(spell,action)
         if player.status == 'Engaged' then
-            equip(sets.TP)
+            equip(sets.aftercast.TP,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {},(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +1"} or {})
         else
-            equip(sets.aftercast.Idle)
+            equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
+        end
+        if not buffactive["Boost"] then
+          buffs.Boost = false
+        end
+        if not buffactive["Impetus"] then
+          buffs.Impetus = false
         end
     end
     
     -- Status change (spells, songs, etc.)
     function status_change(new,old)
         if T{'Idle','Resting'}:contains(new) then
-            equip(sets.aftercast.Idle)
+            equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         elseif new == 'Engaged' then
-            equip(sets.TP)
+            equip(sets.aftercast.TP,buffactive["Boost"] and {waist = "Ask Sash"} or {},buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
         end
     end
     
-    function buff_change(status,gain_or_loss)
-        --
+    function buff_change(buff,gain)
+        if not gain then
+            if buff == 'Boost' then
+                buffs.Boost = false
+            end
+            if buff == 'Impetus' then
+                buffs.Impetus = false
+            end
+        end
+
     end
     
-    -- Self commands 
-    function self_command(command)
-        -- 
+    function self_command(commandArgs)
+        local originalCommand = commandArgs
+        if type(commandArgs) == 'string' then
+            commandArgs = T(commandArgs:split(' '))
+            if #commandArgs == 0 then
+                return
+            end
+        end
+        if commandArgs[1] == 'SwapGear' then
+            SwapGear()
+        end
+    end
+
+    function SwapGear()
+        if player.status == 'Engaged' then
+            equip(sets.aftercast.TP,buffactive["Boost"] and {waist = "Ask Sash"} or {},buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
+        else
+            equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
+        end
     end
     
     mov = {counter=0}
@@ -163,7 +243,7 @@
                     moving = true
                 elseif dist < 1 and moving then
                     if player.status ~= 'Engaged' then
-                        send_command('gs equip sets.aftercast.Idle')
+                        send_command('gs c SwapGear')
                     end
                     moving = false
                 end
