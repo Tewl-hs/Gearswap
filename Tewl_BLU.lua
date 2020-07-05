@@ -30,7 +30,7 @@ function get_sets()
             legs        = "Amalric Slops +1",
             feet        = "Amalric Nails +1",
             neck        = "Baetyl Pendant",
-            waist       = "Orpheus's Sash",
+            waist       = "Eschan Stone",--"Orpheus's Sash",
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
             left_ring   = "Metamor. Ring +1", -- "Shiva Ring +1",

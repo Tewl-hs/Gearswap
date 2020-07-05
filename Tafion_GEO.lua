@@ -16,7 +16,7 @@ function get_sets()
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +1",
         legs        = "Assid. Pants +1",
-        feet        = "Geo. Sandals +1",  
+        feet        = "Geo. Sandals +2",  
         back        = "Nantosuelta's Cape",
         left_ear    = "Moonshade Earring",
         right_ear   = "Loquac. Earring",
@@ -102,7 +102,7 @@ function get_sets()
         body        = "Jhakri Robe +2",
         hands       = "Jhakri Cuffs +1",
         left_ring   = "Shiva Ring +1", -- Need to buy/borrow
-        right_ring  = "Shiva Ring +1",
+        right_ring  = "Mujin Band",
         waist       = "Eschan Stone",
         legs        = "Jhakri Slops +1",
         feet        = "Jhakri Pigaches +2"            
