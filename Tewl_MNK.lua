@@ -87,7 +87,7 @@
             ammo        = "Ginsen",
             head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
-            hands		= "Hizamaru Kote +2",
+            hands		= "Adhemar Wrist. +1",
             legs		= "Hes. Hose +3",
             feet		= "Ken. Sune-Ate +1",
             neck		= "Mnk. Nodowa +2",
@@ -168,7 +168,7 @@
     
     function aftercast(spell,action)
         if player.status == 'Engaged' then
-            equip(sets.aftercast.TP,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {},(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +1"} or {})
+            equip(sets.aftercast.TP,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +1"} or {})
         else
             equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
         end
@@ -185,7 +185,7 @@
         if T{'Idle','Resting'}:contains(new) then
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         elseif new == 'Engaged' then
-            equip(sets.aftercast.TP,buffactive["Boost"] and {waist = "Ask Sash"} or {},buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
+            equip(sets.aftercast.TP,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
         end
     end
     
@@ -216,7 +216,7 @@
 
     function SwapGear()
         if player.status == 'Engaged' then
-            equip(sets.aftercast.TP,buffactive["Boost"] and {waist = "Ask Sash"} or {},buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
+            equip(sets.aftercast.TP,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
         else
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         end
