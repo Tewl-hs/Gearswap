@@ -9,7 +9,7 @@ function get_sets()
 	
 	sets.Idle = {
 		main		="Queller Rod",
-		sub			="Genbu's Shield",
+		sub			="Ammurapi Shield",
 		ammo		="Homiliary",
 		head		="Inyanga Tiara +2",
 		neck		="Cleric's torque",
@@ -27,8 +27,8 @@ function get_sets()
 				
 		sets.precast = {}
 		sets.precast.FastCast = {
-		main		="Grioavolr",
-		sub			="Clerisy Strap",
+		main		={ name="Gada", augments={'"Fast Cast"+5',}},
+		sub			="Ammurapi Shield",
 		neck		="Cleric's Torque",
 		head		="Nahtirah Hat",
 		body		="Inyanga Jubbah +2",
@@ -46,12 +46,12 @@ function get_sets()
 
 	sets.Engaged = {
 		main		="Yagrush",
-		sub		="Genbu's Shield"
+		sub			="Ammurapi Shield",
 	}	
 	
 	sets.Resting = {
 		main		="Queller Rod",
-		sub			="Genbu's Shield",
+		sub			="Ammurapi Shield",
 		ammo		="Homiliary",
 		head		="Nefer Khat",
 		neck		="Eidolon Pendant",
@@ -70,7 +70,7 @@ function get_sets()
 		sets.midcast = {}
 		sets.midcast.Healing = set_combine(sets.Idle,{
 		main		="Yagrush",
-		sub			="Genbu's Shield",
+		sub		="Ammurapi Shield",
 		head		="Orison Cap +2",
 		neck		="Cleric's torque",
 		left_ear	="Magnetic Earring",
@@ -111,7 +111,7 @@ function get_sets()
 	})	
 	
 	sets.midcast.Enhancing = set_combine(sets.Idle,{
-		main		="Gada",
+		main		={ name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
 		sub			="Ammurapi Shield",
 		head		="Telchine Cap",
 		neck		="Melic Torque",
@@ -135,8 +135,8 @@ function get_sets()
 	})
 	
 	sets.midcast.Enfeebling = set_combine(sets.Idle,{
-		main		="Gada",
-		sub			="Genbu's Shield",
+		main		={ name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
+		sub			="Ammurapi Shield",
 		ammo		="Hedgehog Bomb",
 		head		="Befouled Crown",
 		body		="Theophany Briault +3",
@@ -152,8 +152,8 @@ function get_sets()
 	})
 	
 	sets.midcast.BarElement = set_combine(sets.Idle,{
-		main		="Chatoyant Staff",
-		sub			="Fulcio Grip",
+		main		={ name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
+		sub			="Ammurapi Shield",
 		ammo		="Incantor Stone",
 		head		="Ebers Cap +1",
 		neck		="Colossus's Torque",
@@ -169,8 +169,8 @@ function get_sets()
 	})
 
 	sets.midcast.BarStatus = set_combine(sets.Idle,{
-		main		="Chatoyant Staff",
-		sub			="Fulcio Grip",
+		main		={ name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
+		sub			="Ammurapi Shield",
 		ammo		="Incantor Stone",
 		head		="Ebers Cap +1",
 		neck		="Colossus's Torque",
@@ -186,8 +186,8 @@ function get_sets()
 	})
 	
 	sets.midcast.Divine = set_combine(sets.Idle,{
-		main		="Gada",
-		sub			="Genbu's Shield",
+		main		={ name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
+		sub			="Ammurapi Shield",
 		ammo		="Incantor Stone",
 		head		="Ipoca Beret",
 		neck		="Jokushu Chain",
