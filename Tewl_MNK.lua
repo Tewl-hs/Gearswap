@@ -43,23 +43,20 @@
                 feet    = "Anchorite's Gaiters +1"
             },
             ["Focus"] = {},
-            ["Footwork"] = {
-                --feet    = "Shukuyu Sune-Ate",
-            },
+            ["Footwork"] = {},
             ["Counterstance"] = {},
             ["Chi Blast"] = {
-                -- head    = "Hesychast's Crown +3"
+                head    = "Hesychast's Crown +1"
             },
             ["Chakra"] = {
-                --body    = "Anchorite's Cyclas +3"
-                --hands   = "Hesychast's gloves",
-                hands   = "Melee Gloves +2",
+                body    = "Anchorite's Cyclas +1",
+                hands   = "Hesychast's Gloves +1"
             },
             ["Formless Strikes"] = {
-                --body    = "Hesychast's Cyclas +3"
+                body    = "Hesychast's Cyclas +1"
             },
             ["Mantra"] = {
-                --feet    = "Hesychast's Gaiters +3"
+                feet    = "Hesychast's Gaiters +1"
             },
             ["Boost"] = {
                 waist   = "Ask Sash",
@@ -80,6 +77,13 @@
             right_ring	= "Niqmaddu Ring",
             back		= Capes.WS
         }
+        sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
+            feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
+            right_ear   = "Brutal Earring",
+        })
+        sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
+            body        = "Adhemar Jacket +1",
+        })
     
         -- Aftercast sets: TP, Idle
         sets.aftercast = {}
@@ -115,7 +119,6 @@
         }
     end
     
-    -- Precast/Midcast/Aftercast Functions
     function precast(spell,action)
         if spell.english == 'Spectral Jig' then
             send_command('cancel 71;')
@@ -180,7 +183,6 @@
         end
     end
     
-    -- Status change (spells, songs, etc.)
     function status_change(new,old)
         if T{'Idle','Resting'}:contains(new) then
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
