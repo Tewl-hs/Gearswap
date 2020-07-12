@@ -40,7 +40,7 @@
                 body    = "Bhikku Cyclas +1"
             },
             ["Dodge"] = {
-                feet    = "Anchorite's Gaiters +1"
+                feet    = "Anchorite's Gaiters +2"
             },
             ["Focus"] = {},
             ["Footwork"] = {},
@@ -93,7 +93,7 @@
             body		= "Ken. Samue +1", 
             hands		= "Adhemar Wrist. +1",
             legs		= "Hes. Hose +3",
-            feet		= "Ken. Sune-Ate +1",
+            feet		= "Anchorite's Gaiters +2",
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Telos Earring",
