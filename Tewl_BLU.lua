@@ -30,7 +30,7 @@ function get_sets()
             legs        = "Amalric Slops +1",
             feet        = "Amalric Nails +1",
             neck        = "Baetyl Pendant",
-            waist       = "Eschan Stone",--"Orpheus's Sash",
+            waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
             left_ring   = "Metamor. Ring +1", -- "Shiva Ring +1",
@@ -39,7 +39,7 @@ function get_sets()
          }
 
          sets.midcast['Carcharian Verve'] = set_combine(sets.midcast,{
-             head       = "Amalric Coif +1"
+            head       = "Amalric Coif +1"
          })
          sets.midcast['Battery Charge'] = set_combine(sets.midcast,{
             head        = "Amalric Coif +1"
