@@ -1,4 +1,9 @@
+--[[
+	Author: Tewl / Bismark
+	Files: BLU.lua 
 
+	I only use BLU for cleaving so this is very basic. 
+--]]
 
 function get_sets()
         send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 6')
