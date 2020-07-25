@@ -119,11 +119,11 @@
 	sets.WS = {}
 	sets.WS.Normal = {
 		-- ammo ** SET THIS IN Gear.WSAmmo
-		head		= "Valorous Mask",
+		head		= { name="Valorous Mask", augments={'Attack+26','Weapon skill damage +3%','STR+15','Accuracy+13',}},
 		body		= "Sakonji Domaru +3",
-		hands		= "Valorous Mitts",
+		hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
 		legs		= "Wakido Haidate +3",
-		feet		= "Valorous Greaves",
+		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 		neck		= "Sam. Nodowa +2",
 		waist		= "Sailfi Belt +1", --"Fotia Belt",
 		left_ear	= "Moonshade Earring",

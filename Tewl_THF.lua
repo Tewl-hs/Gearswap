@@ -18,11 +18,14 @@ function get_sets()
 
     -- WS Sets
         sets.WS = {
-            neck		= "Fotia Gorget",
-            waist		= "Fotia Belt",
+            ammo        = "Yetshila",
+            head        = "Adhemar Bonnet +1",
+            body        = "Adhemar Jacket +1",
             hands       = "Meg. Gloves +1",
             legs        = "Samnuha Tights",
-            feet        = "Mummu Gamash. +2",
+            feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+            neck		= "Fotia Gorget",
+            waist		= "Fotia Belt",
             left_ear    = "Ishvara Earring",
             right_ear   = "Moonshade Earring",
             left_ring   = "Regal Ring",
@@ -48,6 +51,21 @@ function get_sets()
         
     -- Aftercast/Idle Sets
         sets.aftercast = {}
+        sets.aftercast.Idle = {
+            ammo        = "Ginsen",
+            head        = "Malignance Chapeau",
+            body        = "Malignance Tabard",
+            hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
+            legs        = "Malignance Tights",
+            feet        = "Skulk. Poulaines +1",
+            neck        = "Asn. Gorget +1",
+            waist       = "Sailfi Belt +1",
+            left_ear    = "Sherida Earring",
+            right_ear   = "Telos Earring",
+            left_ring   = "Regal Ring",
+            right_ring  = "Epona's Ring",
+            back        = "Atheling Mantle",
+        }
     end
     
     -- Precast/Midcast/Aftercast Functions

@@ -1,4 +1,3 @@
-
 --[[
 	Author: Tewl / Bismark
 	Files: MNK.lua 
@@ -66,6 +65,7 @@
         sets.precast.WS = {
             ammo        = "Knobkierrie",
             head        = "Adhemar Bonnet +1",
+            body		= "Ken. Samue +1", 
             hands       = "Adhemar Wrist. +1",
             legs		= "Ken. Hakama +1",
             feet		= "Ken. Sune-Ate +1",
@@ -89,6 +89,11 @@
         sets.aftercast = {}
         sets.aftercast.TP = {
             ammo        = "Ginsen",
+            --head        = "Malignance Chapeau",  -- 6/6
+            --body        = "Malignance Tabard",  -- 9/9
+            --hands       = "Malignance Gloves",  -- 5/5
+            --legs        = "Malignance Tights",  -- 7/7
+            --feet        = "Malignance Boots",  -- 4/4
             head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
             hands		= "Adhemar Wrist. +1",
@@ -195,9 +200,11 @@
         if not gain then
             if buff == 'Boost' then
                 buffs.Boost = false
+                SwapGear()
             end
             if buff == 'Impetus' then
                 buffs.Impetus = false
+                SwapGear()
             end
         end
 
