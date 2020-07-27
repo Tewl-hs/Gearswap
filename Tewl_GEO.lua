@@ -47,7 +47,7 @@ function get_sets()
     sets.precast = {}
     sets.precast.FC = { -- FC 81/80 QC: 7/10
         main        = "Solstice", -- 5
-        ammo        = "Impatiens", -- 0|2
+        --ammo        = "Impatiens", -- 0|2 / Causes blinking
         head        = "Nahtirah Hat", -- 10
         neck        = "Orunmila's Torque", -- 5
         left_ear    = "Malignance Earring", -- 4
