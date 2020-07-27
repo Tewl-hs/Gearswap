@@ -176,13 +176,24 @@ function get_sets()
     end
     
     function precast(spell)
-        if spell.english:startswith('Cure') then
-            equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
-        elseif spell.type == 'JobAbility' then
+        if spell.type == 'JobAbility' then
             if sets.precast.JA[spell.english] then
                 equip(sets.precast.JA[spell.english])
             end
         elseif spell.action_type == 'Magic' then
+            if buffactive.Silence then
+                cancel_spell()
+                if player.inventory['Echo Drops'] then
+                    send_command('@input /item "Echo Drops" <me>')
+                else
+                    add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+                end
+                return
+            end
+            
+            if spell.english:startswith('Cure') then
+                equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
+            end
             if spell.english == 'Dispelga' then
                 equip(set_combine(sets.precast.FC,{main="Daybreak"}))
             else
@@ -193,18 +204,7 @@ function get_sets()
     
     function midcast(spell)
         if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
-            if buffactive.Silence then
-                cancel_spell()
-                if player.inventory['Echo Drops'] then
-                    send_command('@input /item "Echo Drops" <me>')
-                else
-                    add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
-                end
-                return
-            end
-            if spell.english:startswith('Cure') then
-                equip(set_combine(sets.midcast.cure,{body="Heka's Kalasiris"}))
-            elseif sets.midcast[spell.english] then
+            if sets.midcast[spell.english] then
                     equip (sets.midcast[spell.english])
             elseif sets.midcast[spell.skill] then
                 equip (sets.midcast[spell.skill])

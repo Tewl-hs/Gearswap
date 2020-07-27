@@ -27,16 +27,16 @@ function get_sets()
     -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 73% | 80% w/ Kali
+    sets.precast.FastCast = { -- Current: 74% | 80% w/ Kali
         --main        = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',}}, -- 7
         head        = "Nahtirah Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
-        hands       = "Leyline Gloves", -- 6 (Max: 8)
+        hands       = "Leyline Gloves", -- 7 (Max: 8)
         legs        = "Aya. Cosciales +2", -- 6
         feet        = "Chironic Slippers", -- 7 
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
-        left_ear    = "Loquacious Earring", --2
+        left_ear    = "Loquacious Earring", -- 2
         right_ear   = "Enchntr. Earring +1", -- 2
         left_ring   = "Prolix Ring", -- 2
         right_ring  = "Kishar Ring", -- 4 
