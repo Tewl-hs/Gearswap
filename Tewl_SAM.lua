@@ -13,7 +13,7 @@
 	and to share with friends that might be interested or could help with it.
 
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
--]]
+--]]
  function get_sets()			
 --  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
 	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM

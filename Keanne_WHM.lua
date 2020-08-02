@@ -5,7 +5,8 @@ function get_sets()
 	sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
 
     Macro_Book = '1'
-    send_command('input /macro book '..Macro_Book)
+    Macro_Page = '1'
+	send_command('input /macro book '..Macro_book..';wait 0.2;input /macro set '..Macro_Page)
 	
 	sets.Idle = {
 		main		="Queller Rod",
