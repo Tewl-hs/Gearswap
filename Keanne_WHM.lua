@@ -2,7 +2,7 @@ function get_sets()
 	-- Tables
 	BarElement = T{'Barfire', 'Barfira', 'Barblizzard', 'Barblizzara', 'Baraero', 'Baraera', 'Barstone', 'Barstonra', 'Barthunder', 'Barthundra', 'Barwater', 'Barwatera'}
 
-	sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
+	sets.MoveSpeed = { feet = "Herald's Gaiters",}  --auto swaps when moving
 
     Macro_Book = '1'
     Macro_Page = '1'
