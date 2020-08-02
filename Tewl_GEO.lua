@@ -47,7 +47,7 @@ function get_sets()
     sets.precast = {}
     sets.precast.FC = { -- FC 81/80 QC: 7/10
         main        = "Solstice", -- 5
-        --ammo        = "Impatiens", -- 0|2 / Causes blinking
+        ammo        = "Impatiens", -- 0|2
         head        = "Nahtirah Hat", -- 10
         neck        = "Orunmila's Torque", -- 5
         left_ear    = "Malignance Earring", -- 4
@@ -104,7 +104,7 @@ function get_sets()
     sets.midcast['Elemental Magic'] = { 
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        ammo        = "Ghastly Tathlum +1",
+        ammo        = "Pemphredo Tathlum",
         head        = "Jhakri Coronal +2",--"Bagua Galero +3",
         neck        = "Baetyl Pendant",
         left_ear    = "Malignance Earring",
