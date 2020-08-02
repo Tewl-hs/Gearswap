@@ -30,6 +30,7 @@ function get_sets()
             right_ear   = "Moonshade Earring",
             left_ring   = "Regal Ring",
             right_ring  = "Epaminondas's Ring",
+            back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
         }
     
     -- TP Sets
@@ -46,7 +47,7 @@ function get_sets()
             right_ear   = "Telos Earring",
             left_ring   = "Regal Ring",
             right_ring  = "Epona's Ring",
-            back        = "Atheling Mantle",
+            back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
         }
         
     -- Aftercast/Idle Sets
