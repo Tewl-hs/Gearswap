@@ -17,7 +17,7 @@ function get_sets()
         sets.precast.JA = { }
 
     -- WS Sets
-        sets.WS = {
+        sets.precast.WS = {
             ammo        = "Yetshila",
             head        = "Adhemar Bonnet +1",
             body        = "Adhemar Jacket +1",
@@ -34,12 +34,14 @@ function get_sets()
         }
     
     -- TP Sets
-        sets.TP = {
+        sets.aftercast.Engaged = {
             ammo        = "Ginsen",
             head        = "Malignance Chapeau",
             body        = "Malignance Tabard",
+            --hands       = "Malignance Gloves",
             hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
             legs        = "Malignance Tights",
+            --feet        = "Malignance Boots",
             feet        = "Skulk. Poulaines +1",
             neck        = "Asn. Gorget +1",
             waist       = "Sailfi Belt +1",
@@ -56,9 +58,9 @@ function get_sets()
             ammo        = "Ginsen",
             head        = "Malignance Chapeau",
             body        = "Malignance Tabard",
-            hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
+            hands       = "Malignance Gloves",
             legs        = "Malignance Tights",
-            feet        = "Skulk. Poulaines +1",
+            feet        = "Malignance Boots",
             neck        = "Asn. Gorget +1",
             waist       = "Sailfi Belt +1",
             left_ear    = "Sherida Earring",
@@ -76,10 +78,10 @@ function get_sets()
         end
     
         if spell.type=="WeaponSkill" then
-            if sets.WS[spell.english] then
-                equip(sets.WS[spell.english])
+            if sets.precast.WS[spell.english] then
+                equip(sets.precast.WS[spell.english])
             else
-                equip(sets.WS)
+                equip(sets.precast.WS)
             end
         end
     end
@@ -94,7 +96,7 @@ function get_sets()
     
     function aftercast(spell,action)
         if player.status == 'Engaged' then
-            equip(sets.TP)
+            equip(sets..aftercast.Engaged)
         else
             equip(sets.aftercast.Idle)
         end
@@ -105,7 +107,7 @@ function get_sets()
         if T{'Idle','Resting'}:contains(new) then
             equip(sets.aftercast.Idle)
         elseif new == 'Engaged' then
-            equip(sets.TP)
+            equip(sets.aftercast.Engaged)
         end
     end
     
@@ -134,10 +136,16 @@ function get_sets()
             if pl and pl.x and mov.x then
                 dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
                 if dist > 1 and not moving then
-                    send_command('gs equip sets.MoveSpeed')
+                    if player.status ~= 'Engaged' then
+                        send_command('gs equip sets.MoveSpeed')
+                    end
                     moving = true
                 elseif dist < 1 and moving then
-                    send_command('gs equip sets.TP')
+                    if player.status ~= 'Engaged' then
+                        send_command('gs equip sets.aftercast.Idle')
+                    else
+                        send_command('gs equip sets.aftercast.Engaged')
+                    end
                     moving = false
                 end
             end

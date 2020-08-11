@@ -39,7 +39,7 @@
                 body    = "Bhikku Cyclas +1"
             },
             ["Dodge"] = {
-                feet    = "Anchorite's Gaiters +2"
+                feet    = "Anchorite's Gaiters +3"
             },
             ["Focus"] = {},
             ["Footwork"] = {},
@@ -89,16 +89,16 @@
         sets.aftercast = {}
         sets.aftercast.TP = {
             ammo        = "Ginsen",
-            --head        = "Malignance Chapeau",  -- 6/6
-            --body        = "Malignance Tabard",  -- 9/9
-            --hands       = "Malignance Gloves",  -- 5/5
-            --legs        = "Malignance Tights",  -- 7/7
-            --feet        = "Malignance Boots",  -- 4/4
-            head		= "Ken. Jinpachi +1",
-            body		= "Ken. Samue +1", 
-            hands		= "Adhemar Wrist. +1",
-            legs		= "Hes. Hose +3",
-            feet		= "Anchorite's Gaiters +2",
+            head        = "Malignance Chapeau",  -- 6/6
+            body        = "Malignance Tabard",  -- 9/9
+            hands       = "Malignance Gloves",  -- 5/5
+            legs        = "Malignance Tights",  -- 7/7
+            feet        = "Malignance Boots",  -- 4/4
+            --head		= "Ken. Jinpachi +1",
+            --body		= "Ken. Samue +1", 
+            --hands		= "Adhemar Wrist. +1",
+            --legs		= "Hes. Hose +3",
+            --feet		= "Anchorite's Gaiters +3",
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Telos Earring",
