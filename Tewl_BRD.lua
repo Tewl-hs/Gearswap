@@ -24,6 +24,9 @@ function get_sets()
         sub         = "Taming Sari" -- Offhand weapon when dual weilding
     }
 
+    -- DummySongs
+    DummySongs = T{'Knight\'s Minne', 'Knight\'s Minne II'}
+
     -- Gear sets
 
     sets.precast = { }
@@ -81,6 +84,9 @@ function get_sets()
     -- Need to upgrade to Mousai +1
     sets.midcast.Threnody = {
         body        = "Mousai Manteel"
+    }
+    sets.midcast.Scherzo = {
+        feet        = "Fili cothurnes +1"
     }
     sets.midcast.Carol = {
         hands       = "Mousai Gages"
@@ -162,10 +168,10 @@ function get_sets()
         left_ear    = "Moonshade Earring",
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
-        right_ring  = "Karieyh Ring",
+        right_ring  = "Ilabrat Ring",
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
     }
-    sets.WS = set_combine(sets.WS,{
+    sets.WS["Mordant Rime"] = set_combine(sets.WS,{
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         neck        = "Bard's Charm +2",
         waist       = "Grunfeld Rope",
@@ -201,7 +207,7 @@ function precast(spell)
             Precast = set_combine(Precast, {range="Marsyas"})
         elseif sets.precast[spell.name] then
             Precast = set_combine(Precast, sets.precast[spell.name])
-        elseif spell.name == 'Knight\'s Minne' or spell.name == 'Knight\'s Minne II' then
+        elseif DummySongs:contains(spell.name) then
             Precast = set_combine(Precast,sets.precast.DummySong)
         end
         equip(Precast)
@@ -218,7 +224,7 @@ end
 
 function midcast(spell)
     if spell.type == 'BardSong' then 
-        if spell.name == 'Knight\'s Minne' or spell.name == 'Knight\'s Minne II' then
+        if DummySongs:contains(spell.name) then
             add_to_chat(121,'--- Singing Dummy Song ---')
             return
         end
@@ -243,6 +249,8 @@ function midcast(spell)
             Midcast = set_combine(Midcast,sets.midcast.Minuet)
         elseif string.find(spell.name,'Paeon') then
             Midcast = set_combine(Midcast,sets.midcast.Paeon)
+        elseif string.find(spell.name,'Scherzo') then
+            Midcast = set_combine(Midcast,sets.midcast.Scherzo)
         elseif string.find(spell.name,'March') then
             Midcast = set_combine(Midcast,sets.midcast.March)
             if spell.name == 'Honor March' then 
