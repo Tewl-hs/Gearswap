@@ -1,5 +1,5 @@
 
--- MNK.lua
+-- THF.lua
 --
 function get_sets()			
 
@@ -7,68 +7,69 @@ function get_sets()
     send_command('input /macro book 18;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 8')
     send_command('input //equipviewer pos 1663 934')
     
-        sets.MoveSpeed = { feet = "Fajin Boots",} 
+    sets.MoveSpeed = { feet = "Fajin Boots",} 
     
     -- Augmented Gear
-        Capes = {}
+    Capes = {}
     
     -- JA Sets
-        sets.precast = {}
-        sets.precast.JA = { }
+    sets.precast = {}
+    sets.precast.JA = { }
 
     -- WS Sets
-        sets.precast.WS = {
-            ammo        = "Yetshila",
-            head        = "Adhemar Bonnet +1",
-            body        = "Adhemar Jacket +1",
-            hands       = "Meg. Gloves +1",
-            legs        = "Samnuha Tights",
-            feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
-            neck		= "Fotia Gorget",
-            waist		= "Fotia Belt",
-            left_ear    = "Ishvara Earring",
-            right_ear   = "Moonshade Earring",
-            left_ring   = "Regal Ring",
-            right_ring  = "Epaminondas's Ring",
-            back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
-        }
+    sets.precast.WS = {
+        ammo        = "Yetshila",
+        head        = "Adhemar Bonnet +1",
+        body        = "Adhemar Jacket +1",
+        hands       = "Meg. Gloves +1",
+        legs        = "Samnuha Tights",
+        feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+        neck		= "Fotia Gorget",
+        waist		= "Fotia Belt",
+        left_ear    = "Ishvara Earring",
+        right_ear   = "Moonshade Earring",
+        left_ring   = "Regal Ring",
+        right_ring  = "Epaminondas's Ring",
+        back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
+    }
     
     -- TP Sets
-        sets.aftercast.Engaged = {
-            ammo        = "Ginsen",
-            head        = "Malignance Chapeau",
-            body        = "Malignance Tabard",
-            --hands       = "Malignance Gloves",
-            hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
-            legs        = "Malignance Tights",
-            --feet        = "Malignance Boots",
-            feet        = "Skulk. Poulaines +1",
-            neck        = "Asn. Gorget +1",
-            waist       = "Sailfi Belt +1",
-            left_ear    = "Sherida Earring",
-            right_ear   = "Telos Earring",
-            left_ring   = "Regal Ring",
-            right_ring  = "Epona's Ring",
-            back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
-        }
+    sets.aftercast = { }
+    sets.aftercast.Engaged = {
+        ammo        = "Ginsen",
+        head        = "Malignance Chapeau",
+        body        = "Malignance Tabard",
+        --hands       = "Malignance Gloves",
+        hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
+        legs        = "Malignance Tights",
+        --feet        = "Malignance Boots",
+        feet        = "Skulk. Poulaines +1",
+        neck        = "Asn. Gorget +1",
+        waist       = "Sailfi Belt +1",
+        left_ear    = "Sherida Earring",
+        right_ear   = "Telos Earring",
+        left_ring   = "Regal Ring",
+        right_ring  = "Epona's Ring",
+        back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+    }
         
     -- Aftercast/Idle Sets
-        sets.aftercast = {}
-        sets.aftercast.Idle = {
-            ammo        = "Ginsen",
-            head        = "Malignance Chapeau",
-            body        = "Malignance Tabard",
-            hands       = "Malignance Gloves",
-            legs        = "Malignance Tights",
-            feet        = "Malignance Boots",
-            neck        = "Asn. Gorget +1",
-            waist       = "Sailfi Belt +1",
-            left_ear    = "Sherida Earring",
-            right_ear   = "Telos Earring",
-            left_ring   = "Regal Ring",
-            right_ring  = "Epona's Ring",
-            back        = "Atheling Mantle",
-        }
+    sets.aftercast = {}
+    sets.aftercast.Idle = {
+        ammo        = "Ginsen",
+        head        = "Malignance Chapeau",
+        body        = "Malignance Tabard",
+        hands       = "Malignance Gloves",
+        legs        = "Malignance Tights",
+        feet        = "Malignance Boots",
+        neck        = "Asn. Gorget +1",
+        waist       = "Sailfi Belt +1",
+        left_ear    = "Sherida Earring",
+        right_ear   = "Telos Earring",
+        left_ring   = "Regal Ring",
+        right_ring  = "Epona's Ring",
+        back        = "Atheling Mantle",
+    }
     end
     
     -- Precast/Midcast/Aftercast Functions
