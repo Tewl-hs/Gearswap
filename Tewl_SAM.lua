@@ -400,41 +400,33 @@ function self_command(commandArgs)
 	elseif commandArgs[1] == 'tr' then
 		if range_mode == false then
 			range_mode = true
-			add_to_chat(123,"-- [RANGED MODE ACTIVATED] --")
 			send_command('gs c SwapGear')
 		else
 			range_mode = false
-			add_to_chat(123,"-- [RANGED MODE DEACTIVATED] --")
 			send_command('gs c SwapGear')
 		end
 	elseif commandArgs[1] == 'tstp' then
 		if max_stp == false then
 			max_stp = true
-			add_to_chat(123,"-- [MAX STP ACTIVATED] --")
 			send_command('gs c SwapGear')
 		else
 			max_stp = false
-			add_to_chat(123,"-- [MAX STP DEACTIVATED] --")
 			send_command('gs c SwapGear')
 		end
 	elseif commandArgs[1] == 'tdt' then
 		if use_DT == false then
 			use_DT = true
-			add_to_chat(123,"-- [DMG TAKEN SET ACTIVATED] --")
 			send_command('gs c SwapGear')
 		else
 			use_DT = false
-			add_to_chat(123,"-- [DMG TAKEN SET DEACTIVATED] --")
 			send_command('gs c SwapGear')
 		end
 	elseif commandArgs[1] == 'twilight' then
 		if use_twilight == false then
 			use_twilight = true
-			add_to_chat(123,"-- [TWILIGHT ACTIVATED] --")
 			send_command('gs c SwapGear')
 		else
 			use_twilight = false
-			add_to_chat(123,"-- [TWILIGHT DEACTIVATED] --")
 		end
 	elseif commandArgs[1] == 'update_status' then
 		update_status()
@@ -475,33 +467,40 @@ function update_status()
 		Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
     }
 
-    local info = {}
-    local orig = {}
 	local spc = '    '
-	
-	local labels = {
-		Weapons = "Weapons",
-        OffenseMode = "Offense",
-		RangedMode = "Ranged",
-        DefenseMode = "Defense",
-        HybridMode = "Hybrid",
-        IdleMode = "Idle",
-    }
 
     stateBox:clear()
 	stateBox:append('   ')
+	local status_text = ''
 	--max_stp = true
 	--range_mode = false
 	--use_twilight = false
 	--use_DT = false
-	if max_stp or max_stp == nil then
-		stateBox:append(string.format("%sMode: %s%s", clr.w, clr.Ice, 'Normal'))
-	else
-		stateBox:append(string.format("%sMode: %s%s", clr.w, clr.h, 'Defensive'))
-	end
-	stateBox:append(spc)
 
-    stateBox:update(info)
+	if max_stp or max_stp == nil then
+		--stateBox:append(string.format("%sMode: %s%s", clr.w, clr.Ice, 'Normal'))
+		status_text = string.format("%sEngaged Mode: %s%s%s", clr.w, clr.Ice, 'Max STP', spc)
+	else
+		--stateBox:append(string.format("%sMode: %s%s", clr.w, clr.h, 'Defensive'))
+		status_text = string.format("%sEngaged Mode: %s%s%s", clr.w, clr.h, 'Accuracy', spc)
+	end
+	--stateBox:append(spc)
+	if range_mode or range_mode == nil then
+		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.Ice, 'Active', spc)
+	else
+		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+	end
+	if use_twilight or use_twilight == nil then
+		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.Ice, 'Active', spc)
+	else
+		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+	end
+	if use_DT or use_DT == nil then
+		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.Ice, 'Active', spc)
+	else
+		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+	end
+	stateBox:append(status_text)
     stateBox:show()
 end
 
