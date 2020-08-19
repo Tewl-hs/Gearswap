@@ -39,11 +39,11 @@ function get_sets()
         ammo        = "Ginsen",
         head        = "Malignance Chapeau",
         body        = "Malignance Tabard",
-        --hands       = "Malignance Gloves",
-        hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
+        hands       = "Malignance Gloves",
+        --hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
         legs        = "Malignance Tights",
-        --feet        = "Malignance Boots",
-        feet        = "Skulk. Poulaines +1",
+        feet        = "Malignance Boots",
+        --feet        = "Skulk. Poulaines +1",
         neck        = "Asn. Gorget +1",
         waist       = "Sailfi Belt +1",
         left_ear    = "Sherida Earring",
@@ -52,9 +52,6 @@ function get_sets()
         right_ring  = "Epona's Ring",
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     }
-        
-    -- Aftercast/Idle Sets
-    sets.aftercast = {}
     sets.aftercast.Idle = {
         ammo        = "Ginsen",
         head        = "Malignance Chapeau",
@@ -97,7 +94,7 @@ function get_sets()
     
     function aftercast(spell,action)
         if player.status == 'Engaged' then
-            equip(sets..aftercast.Engaged)
+            equip(sets.aftercast.Engaged)
         else
             equip(sets.aftercast.Idle)
         end

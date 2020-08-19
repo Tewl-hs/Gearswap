@@ -23,7 +23,7 @@
 	send_command('bind ^f10 gs c tr')
 	send_command('bind ^f11 gs c tdt') 
 	-- Commented out because I needs rewrite
-	--send_command('bind ^f12 gs c twilight')
+	send_command('bind ^f12 gs c twilight')
 
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
@@ -427,6 +427,7 @@ function self_command(commandArgs)
 			send_command('gs c SwapGear')
 		else
 			use_twilight = false
+			send_command('gs c SwapGear')
 		end
 	elseif commandArgs[1] == 'update_status' then
 		update_status()
@@ -479,26 +480,26 @@ function update_status()
 
 	if max_stp or max_stp == nil then
 		--stateBox:append(string.format("%sMode: %s%s", clr.w, clr.Ice, 'Normal'))
-		status_text = string.format("%sEngaged Mode: %s%s%s", clr.w, clr.Ice, 'Max STP', spc)
+		status_text = string.format("%s%s%s", clr.Ice, 'Store TP', spc)
 	else
 		--stateBox:append(string.format("%sMode: %s%s", clr.w, clr.h, 'Defensive'))
-		status_text = string.format("%sEngaged Mode: %s%s%s", clr.w, clr.h, 'Accuracy', spc)
+		status_text = string.format(" %s%s%s", clr.h, 'Accuracy', spc)
 	end
 	--stateBox:append(spc)
 	if range_mode or range_mode == nil then
-		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.Ice, 'Active', spc)
+		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.h, 'Active', spc)
 	else
 		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
 	end
-	if use_twilight or use_twilight == nil then
-		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.Ice, 'Active', spc)
-	else
-		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
-	end
 	if use_DT or use_DT == nil then
-		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.Ice, 'Active', spc)
+		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.h, 'Active', spc)
 	else
 		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+	end
+	if use_twilight or use_twilight == nil then
+		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.h, 'Active', spc)
+	else
+		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
 	end
 	stateBox:append(status_text)
     stateBox:show()
