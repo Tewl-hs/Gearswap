@@ -225,7 +225,7 @@ end
 function midcast(spell)
     if spell.type == 'BardSong' then 
         if DummySongs:contains(spell.name) then
-            add_to_chat(121,'--- Singing Dummy Song ---')
+            --add_to_chat(121,'--- Singing Dummy Song ---')
             return
         end
         

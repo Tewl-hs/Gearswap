@@ -132,9 +132,9 @@
 		right_ring	= "Karieyh Ring",
 		back		= Gear.WSCape
 	}
-	--sets.WS['Tachi: Fudo'] = {
-
-	--}
+	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, {
+		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
+	})
 		
 	sets.WS.Yochi = {
 		-- ammo ** SET THIS IN Gear.Arrow

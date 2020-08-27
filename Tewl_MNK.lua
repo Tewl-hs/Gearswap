@@ -8,10 +8,14 @@
 
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --]]
-    function get_sets()		
+    function get_sets()		      
+        include('Modes.lua') -- Using Motes meta tables for modes
+        
         -- Personal settings: Load macros and set equipviewer position
         send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
         send_command('input //equipviewer pos 1663 934')
+
+        EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'DT', 'Hybrid'}
 
         -- Variables for auto-skill chain. Only edit AutoWS 
         AutoWS = 'One Inch Punch'
@@ -78,6 +82,7 @@
             back		= Capes.WS
         }
         sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
+            hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
             feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
             right_ear   = "Brutal Earring",
         })
@@ -87,23 +92,49 @@
     
         -- Aftercast sets: TP, Idle
         sets.aftercast = {}
-        sets.aftercast.TP = {
+        sets.aftercast.TP = { }
+        sets.aftercast.TP.Normal = {
+            ammo        = "Ginsen",
+            head		= "Ken. Jinpachi +1",
+            body		= "Ken. Samue +1", 
+            hands		= "Adhemar Wrist. +1",
+            legs		= "Hes. Hose +3",
+            feet		= "Anchorite's Gaiters +3",
+            neck		= "Mnk. Nodowa +2",
+            waist		= "Moonbow Belt +1",
+            left_ear	= "Telos Earring",
+            right_ear	= "Sherida Earring",
+            left_ring	= "Epona's Ring",
+            right_ring	= "Niqmaddu Ring",
+            back		= Capes.TP
+        }
+        sets.aftercast.TP.DT = {
+            ammo		= "Staunch Tathlum +1", -- 3/3
+            head        = "Malignance Chapeau",  -- 6/6
+            body        = "Malignance Tabard",  -- 9/9
+            hands       = "Malignance Gloves",  -- 5/5
+            legs        = "Malignance Tights",  -- 7/7
+            feet        = "Malignance Boots",  -- 4/4
+            neck		= "Mnk. Nodowa +2",
+            waist		= "Moonbow Belt +1",
+            left_ear	= "Telos Earring",
+            right_ear	= "Sherida Earring",
+            left_ring	= "Defending Ring", -- 10/10
+            right_ring	= "Niqmaddu Ring",
+            back		= Capes.TP
+        }
+        sets.aftercast.TP.Hybrid = {
             ammo        = "Ginsen",
             head        = "Malignance Chapeau",  -- 6/6
             body        = "Malignance Tabard",  -- 9/9
             hands       = "Malignance Gloves",  -- 5/5
             legs        = "Malignance Tights",  -- 7/7
             feet        = "Malignance Boots",  -- 4/4
-            --head		= "Ken. Jinpachi +1",
-            --body		= "Ken. Samue +1", 
-            --hands		= "Adhemar Wrist. +1",
-            --legs		= "Hes. Hose +3",
-            --feet		= "Anchorite's Gaiters +3",
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Telos Earring",
             right_ear	= "Sherida Earring",
-            left_ring	= "Epona's Ring",
+            left_ring	= "Defending Ring", -- 10/10
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
         }
@@ -122,6 +153,7 @@
             right_ring	= "Gelatinous Ring +1", -- 7/-1
             back		= "Moonlight Cape" -- 6/6
         }
+        sets.aftercast.Engaged = {}
     end
     
     function precast(spell,action)
@@ -176,7 +208,8 @@
     
     function aftercast(spell,action)
         if player.status == 'Engaged' then
-            equip(sets.aftercast.TP,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +1"} or {})
+            sets.aftercast.Engaged = get_engaged_set()
+            equip(sets.aftercast.Engaged,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +1"} or {})
         else
             equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
         end
@@ -192,7 +225,8 @@
         if T{'Idle','Resting'}:contains(new) then
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         elseif new == 'Engaged' then
-            equip(sets.aftercast.TP,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
+            sets.aftercast.Engaged = get_engaged_set()
+            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
         end
     end
     
@@ -220,12 +254,20 @@
         end
         if commandArgs[1] == 'SwapGear' then
             SwapGear()
+        elseif commandArgs[1] == 'cycle' then
+            EngagedMode:cycle()
+            SwapGear()
         end
+    end
+
+    function get_engaged_set()
+        return sets.aftercast.TP[EngagedMode.value] or sets.aftercast.TP.Normal
     end
 
     function SwapGear()
         if player.status == 'Engaged' then
-            equip(sets.aftercast.TP,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
+            sets.aftercast.Engaged = get_engaged_set()
+            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
         else
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         end
