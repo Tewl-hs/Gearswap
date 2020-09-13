@@ -3,19 +3,20 @@ function get_sets()
 
     Macro_Book = '1'
     Macro_Page = '1'
-    send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
+	send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
+	send_command('input //equipviewer pos 1022 575')
 				
 	sets.precast = {}
 	sets.precast.FastCast = {
 		main		= "Daybreak",
-		sub			= "Genbu's Shield",
+		sub			= "Ammurapi Shield",
 		--ammo		= "",
 		head		= "Atrophy Chapeau +2",
 		body		= "Vitiation Tabard",
 		--hands		= "",
 		legs		= "Malignance Tights",
 		--feet		= "",
-		--neck		= "",
+		neck		= "Dls. Torque +2",
 		--waist		= "",
 		left_ear	= "Loquac. Earring",
 		right_ear	= "Malignance earring",
@@ -136,14 +137,14 @@ function get_sets()
 	}
 	sets.aftercast.idle = {
 		main		= "Daybreak",
-		sub			= "Genbu's Shield",
+		sub			= "Ammurapi Shield",
 		ammo		= "Homiliary",
 		head		= "Vitiation Chapeau +3",
 		body		= "Jhakri Robe +2",
 		hands		= "Chironic Gloves", 
 		legs		= "Chironic Hose",
 		feet		= "Chironic Slippers",
-		--neck		= "",
+		neck		= "Dls. Torque +2",
 		waist		= "Fucho-no-obi",
 		--left_ear	= "",
 		right_ear	= "Moonshade earring",
