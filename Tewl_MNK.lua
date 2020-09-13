@@ -139,6 +139,7 @@
             body        = "Adhemar Jacket +1",
             hands       = "Ken. Tekko +1",
             neck        = "Fotia Gorget",
+            right_ear   = "Mache Earring +1",
             back        = Capes.TP
         })
     
