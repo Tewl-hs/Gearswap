@@ -11,6 +11,18 @@ function get_sets()
     DebuffBloodPactWard = T{'Diamond Storm','Sleepga','Slowga','Tidal Roar','Shock Squall','Nightmare','Pavor Nocturnus','Ultimate Terror','Somnolence','Lunar Cry','Lunar Roar','Bitter Elegy','Lunatic Voice'}
     
     Macro_Book = '3'
+    Macro_Books = T{
+        ['Ramuh']       = '3',
+        ['Garuda']      = '3',
+        ['Titan']       = '3',
+        ['Ifrit']       = '3',
+        ['Leviathan']   = '3',
+        ['Shiva']       = '3',
+        ['Siren']       = '3',
+        ['Fenrir']      = '3',
+        ['Cait Sith']   = '3',
+        ['Diabolos']    = '4',
+    }
     Macro_Page = T{
         ['Ramuh']       = '1',
         ['Garuda']      = '2',
@@ -19,9 +31,9 @@ function get_sets()
         ['Leviathan']   = '5',
         ['Shiva']       = '6',
         ['Siren']       = '7',
-        ['Cait Sith']   = '8',
-        ['Diabolos']    = '9',
-        ['Fenrir']      = '10',
+        ['Fenrir']   	= '8',
+        ['Cait Sith']   = '9',     
+        ['Diabolos']    = '1',   
     }
     send_command('input /macro book '..Macro_Book)
 
@@ -79,7 +91,7 @@ function get_sets()
         right_ear   = "Meili Earring",
         body        = "Inyanga Jubbah +2",
         hands       = "Bokwus Gloves",
-        left_ring   = "Janniston Ring",
+        left_ring   = "Janniston Ring +1",
         right_ring  = "Menelaus's Ring",
         back        = "Altruistic Cape",
         waist       = "Austerity Belt",
@@ -264,8 +276,8 @@ function get_sets()
     end
     
     function pet_change(pet,gain)
-        if gain == true and Macro_Page[pet.name] then
-            send_command('input /macro set '..Macro_Page[pet.name])
+        if gain == true and Macro_Page[pet.name] and Macro_Books[pet.name] then
+            send_command('input /macro book '..Macro_Books[pet.name]..';wait 0.2;input /macro set '..Macro_Page[pet.name])
         else
             add_to_chat(8,pet.name..' has been released or died.')
         end

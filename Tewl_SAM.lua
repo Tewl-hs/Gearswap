@@ -190,6 +190,10 @@
 		head		= "Twilight helm",
 		body		= "Twilight mail"
 	}
+	sets.Ranged = {
+		range 		= Gear.Bow,
+		ammo		= Gear.Arrow
+	}
 	
 -- Aftercast/Idle Sets
 	sets.aftercast = {}
@@ -218,7 +222,7 @@ function precast(spell,action)
 	end
 	
 	if range_mode == true then -- if ranged mode, equip arrows
-		equip({ammo=Gear.Arrow})
+		equip(sets.Ranged)
 	end
 
 	-- Precast Code
@@ -246,7 +250,7 @@ function precast(spell,action)
 		end
 
 		if range_mode == true then -- if in ranged mode make sure ammo is equipped
-			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo=Gear.Arrow})
+			sets.WeaponSkill = set_combine(sets.WeaponSkill, sets.Ranged)
 		else -- otherwise equip the WS ammo
 			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo=Gear.WSAmmo})
 		end
@@ -292,62 +296,74 @@ function aftercast(spell,action)
 				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
 				sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.DTAmmo})
 			end
-			equip(sets.TP.Engaged)
 		else
 			if use_DT == true then
 				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
 			end
-			equip(set_combine(sets.TP.Engaged, {ammo=Gear.Arrow}))
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, Sets.Ranged)
 		end
-	else
+		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
+		end
+		equip(sets.TP.Engaged)
+	else	
+		local AfterCastGear = sets.aftercast.Idle
 		if range_mode == false then
-			equip(set_combine(sets.aftercast.Idle, {ammo=Gear.DTAmmo}))
+			AfterCastGear = set_combine(AfterCastGear, {ammo=Gear.DTAmmo})
 		else
-			equip(set_combine(sets.aftercast.Idle, {ammo=Gear.Arrow}))
+			AfterCastGear = set_combine(AfterCastGear, sets.Ranged)
 		end
+		
+		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+			AfterCastGear = set_combine(AfterCastGear,sets.Twilight)
+		end
+
+		equip(AfterCastGear)
 	end
 end
 
 -- Status change (spells, songs, etc.)
 function status_change(new,old)
 	if T{'Idle','Resting'}:contains(new) then
+		local AfterCastGear = sets.aftercast.Idle
 		if range_mode == false then
-			equip(set_combine(sets.aftercast.Idle, {ammo=Gear.DTAmmo}))
+			AfterCastGear = set_combine(AfterCastGear, {ammo=Gear.DTAmmo})
 		else
-			equip(set_combine(sets.aftercast.Idle, {ammo=Gear.Arrow}))
+			AfterCastGear = set_combine(AfterCastGear, sets.Ranged)
 		end
-	elseif new == 'Engaged' then
-		sets.TP.DD = sets.TP.Normal
-
-		if max_stp == true then 
-			sets.TP.DD = set_combine(sets.TP.DD, sets.TP.STP)
-		end
-
-		if range_mode == false then
-			sets.TP.DD = set_combine(sets.TP.DD, {ammo=Gear.TPAmmo})
-			if use_DT == true then
-				sets.TP.DD = set_combine(sets.TP.DD,sets.DT)
-				sets.TP.DD = set_combine(sets.TP.DD, {ammo=Gear.DTAmmo})
-			end
-		else
-			if use_DT == true then
-				sets.TP.DD = set_combine(sets.TP.DD,sets.DT)
-			end
-			sets.TP.DD = set_combine(sets.TP.DD, {ammo=Gear.Arrow})
-		end
-
-		if max_stp == true then 
-			sets.TP.DD = set_combine(sets.TP.DD, sets.TP.STP)
-		end
-
-		sets.TP.Engaged = sets.TP.DD
 		
 		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-			sets.aftercast.TP = set_combine(sets.TP.Engaged,sets.Twilight)
-		else
-			sets.aftercast.TP = sets.TP.Engaged
+			AftercastGear = set_combine(AftercastGear,sets.Twilight)
 		end
- 		equip(sets.aftercast.TP)
+		equip(AfterCastGear)
+	elseif new == 'Engaged' then
+		sets.TP.Engaged = sets.TP.Normal
+
+		if max_stp == true then 
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.TP.STP)
+		end
+
+		if range_mode == false then
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.TPAmmo})
+			if use_DT == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
+				sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.DTAmmo})
+			end
+		else
+			if use_DT == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
+			end
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.Ranged)
+		end
+
+		if max_stp == true then 
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.TP.STP)
+		end
+		
+		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
+		end
+ 		equip(sets.TP.Engaged)
 	end
 end
 
@@ -357,7 +373,7 @@ end
 
 -- Self commands 
 function SwapGear()
-	if player.status == 'Engaged' then
+	if player.status == 'Engaged' then	
 		sets.TP.Engaged = sets.TP.Normal
 		if max_stp == true then
 			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.TP.STP)
@@ -369,20 +385,32 @@ function SwapGear()
 				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
 				sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.DTAmmo})
 			end
-
+			
+			if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
+			end
 			equip(sets.TP.Engaged)
 		else
 			if use_DT == true then
 				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
 			end
-			equip(set_combine(sets.TP.Engaged, {range=Gear.Bow,ammo=Gear.Arrow}))
+			
+			if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
+			end
+			equip(set_combine(sets.TP.Engaged, sets.Ranged))
 		end
 	else
+		local AftercastGear = sets.aftercast.Idle
 		if range_mode == false then
-			equip(set_combine(sets.aftercast.Idle, {ammo=Gear.DTAmmo}))
+			AftercastGear = set_combine(AftercastGear, {ammo=Gear.DTAmmo})
 		else
-			equip(set_combine(sets.aftercast.Idle, {range=Gear.Bow,ammo=Gear.Arrow}))
+			AftercastGear = set_combine(AftercastGear,sets.Ranged)
 		end
+		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+			AftercastGear = set_combine(AftercastGear,sets.Twilight)
+		end
+		equip(AftercastGear)
 	end
 	update_status()
 end
@@ -441,16 +469,6 @@ function file_unload()
 	send_command('unbind ^F12')
 end
 
-function get_mob_by_name(name)
-    local mobs = windower.ffxi.get_mob_array()
-    for i, mob in pairs(mobs) do
-        if (mob.name == name) and (math.sqrt(mob.distance) < 6) then
-            return 'Found mob: '..mob.name.. ' Distance: '..math.sqrt(mob.distance)..' Id: '..mob.index
-        end
-	end
-	return 'Could not find mob: '..name
-end
-
 -- More code for displaying text -- Not finished 
 function update_status()
 	local clr = {
@@ -487,19 +505,19 @@ function update_status()
 	end
 	--stateBox:append(spc)
 	if range_mode or range_mode == nil then
-		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.h, 'Active', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Ranged', spc)
 	else
-		status_text = string.format("%s%sRanged Mode: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Ranged', spc)
 	end
 	if use_DT or use_DT == nil then
-		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.h, 'Active', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Damage Taken', spc)
 	else
-		status_text = string.format("%s%sDamage Taken: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Damage Taken', spc)
 	end
 	if use_twilight or use_twilight == nil then
-		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.h, 'Active', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Twilight Protection', spc)
 	else
-		status_text = string.format("%s%sTwilight: %s%s%s", status_text, clr.w, clr.Fire, 'Deactive', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Twilight Protection', spc)
 	end
 	stateBox:append(status_text)
     stateBox:show()

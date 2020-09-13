@@ -11,6 +11,9 @@
     function get_sets()		      
         include('Modes.lua') -- Using Motes meta tables for modes
 
+        
+	    send_command('bind ^f9 gs c cycle')
+
         -- Personal settings: Load macros and set equipviewer position
         send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
         send_command('input //equipviewer pos 1663 934')
@@ -67,7 +70,9 @@
         -- Augmented Gear
         Capes = {}
         Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
-        Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
+        Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
+        Capes.WSCrit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
+        Capes.WSD = { } -- Need to make this cape VIT,ACC/ATT,WSD
     
         -- Precast sets: Job Abilities, Fastcast, Weaponskills 
         sets.precast = {}
@@ -102,28 +107,39 @@
                 hands   = "Anchorite's Gloves +1"
             }
         }
-        sets.precast.WS = {
+        sets.precast.WS = { -- Raging Fists
             ammo        = "Knobkierrie",
             head        = "Adhemar Bonnet +1",
-            body		= "Ken. Samue +1", 
+            body        = "Adhemar Jacket +1",
             hands       = "Adhemar Wrist. +1",
             legs		= "Ken. Hakama +1",
             feet		= "Ken. Sune-Ate +1",
-            neck		= "Fotia Gorget",
+            neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
-            left_ear	= "Moonshade Earring",
-            right_ear	= "Sherida Earring",
+            left_ear	= "Sherida Earring",
+            right_ear	= "Moonshade Earring",
             left_ring	= "Epona's Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.WS
         }
         sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
+            body        = "Ken. Samue +1",
             hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
             feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
-            right_ear   = "Brutal Earring",
+            neck        = "Fotia Gorget",
+            back        = Capes.WSCrit
         })
+        sets.precast.WS["Victory Smite"].Impetus = {
+            body        = "Bhikku Cyclas +1",
+            right_ear   = "Brutal Earring",
+            back        = Capes.WS
+        }
         sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
+            head        = "Ken. Jinpachi +1",
             body        = "Adhemar Jacket +1",
+            hands       = "Ken. Tekko +1",
+            neck        = "Fotia Gorget",
+            back        = Capes.TP
         })
     
         -- Aftercast sets: TP, Idle
@@ -138,8 +154,8 @@
             feet		= "Anchorite's Gaiters +3",
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
-            left_ear	= "Telos Earring",
-            right_ear	= "Sherida Earring",
+            left_ear	= "Sherida Earring",
+            right_ear   = "Telos Earring",
             left_ring	= "Epona's Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
@@ -153,10 +169,10 @@
             feet        = "Malignance Boots",  -- 4/4
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
-            left_ear	= "Telos Earring",
-            right_ear	= "Sherida Earring",
+            left_ear	= "Sherida Earring",
+            right_ear   = "Telos Earring",
             left_ring	= "Defending Ring", -- 10/10
-            right_ring	= "Niqmaddu Ring",
+            right_ring	= "Gelatinous Ring +1", -- 7/-1
             back		= Capes.TP
         }
         sets.aftercast.TP.Hybrid = {
@@ -168,8 +184,8 @@
             feet        = "Malignance Boots",  -- 4/4
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
-            left_ear	= "Telos Earring",
-            right_ear	= "Sherida Earring",
+            left_ear	= "Sherida Earring",
+            right_ear   = "Telos Earring",
             left_ring	= "Defending Ring", -- 10/10
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
@@ -186,10 +202,15 @@
             left_ear	= "Genmei Earring", -- 2/0
             right_ear	= "Odnowa Earring +1", -- 0/2
             left_ring	= "Defending Ring", -- 10/10
-            right_ring	= "Gelatinous Ring +1", -- 7/-1
+            right_ring	= "Karieyh Ring",
             back		= "Moonlight Cape" -- 6/6
         }
         sets.aftercast.Engaged = {}
+    end
+    
+
+    function file_unload()     
+	    send_command('unbind ^F9')
     end
     
     function precast(spell,action)
@@ -229,7 +250,7 @@
                 equip(sets.precast.WS)
             end
             if spell.english == 'Victory Smite' and buffactive['Impetus'] then
-                equip(sets.precast.JA['Impetus'])
+                equip(sets.precast.WS["Victory Smite"].Impetus)
             end
         end
     end
@@ -307,6 +328,7 @@
         else
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         end
+        update_status()
     end
     
     mov = {counter=0}

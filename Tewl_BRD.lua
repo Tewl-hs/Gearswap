@@ -31,7 +31,7 @@ function get_sets()
 
     sets.precast = { }
     sets.precast.FastCast = { -- Current: 74% | 80% w/ Kali
-        --main        = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',}}, -- 7
+        main        = Kali.MACC, -- 7
         head        = "Nahtirah Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
         hands       = "Leyline Gloves", -- 7 (Max: 8)
@@ -47,7 +47,11 @@ function get_sets()
     }
     sets.precast.BardSong = set_combine(sets.precast.FastCast,{
         head        = "Fili Calot +1", -- 14 song
+        body        = "Brioso Justau. +3", --15 song
         feet        = "Bihu Slippers +3", -- 10 song
+        left_ear    = "Genmei Earring",
+        left_ring   = "Defending Ring",
+        right_ring  = "Gelatinous Ring +1",
     })
     sets.precast.DummySong = set_combine(sets.precast.BardSong,{ 
         range       = "Daurdabla",
@@ -126,7 +130,7 @@ function get_sets()
     sets.aftercast = { }
     sets.aftercast.Idle = {        
         main        = "Carnwenhan", --"Sangoma", 
-        sub         = "Ammurapi Shield", 
+        sub         = "Genmei Shield", 
         range       = "Gjallarhorn",
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
@@ -182,9 +186,6 @@ function get_sets()
 end
 
 function precast(spell)
-    if spell.type == 'Item' then
-        return
-    end
     if spell.action_type == 'Magic' then
         if buffactive.Silence then
             cancel_spell()
