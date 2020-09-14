@@ -72,7 +72,7 @@
         Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
         Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}}
         Capes.WSCrit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
-        Capes.WSD = { } -- Need to make this cape VIT,ACC/ATT,WSD
+        Capes.WSD = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%',}}
     
         -- Precast sets: Job Abilities, Fastcast, Weaponskills 
         sets.precast = {}
@@ -134,6 +134,13 @@
             right_ear   = "Brutal Earring",
             back        = Capes.WS
         }
+        sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
+            head        = "Ken. Jinpachi +1", -- Relic head +3
+            body        = "Ken. Samue +1",
+            hands       = "Ken. Tekko +1", -- AF hands +3
+            feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+            back        = Capes.WSD
+        })
         sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
             head        = "Ken. Jinpachi +1",
             body        = "Adhemar Jacket +1",
@@ -187,7 +194,7 @@
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",
             right_ear   = "Telos Earring",
-            left_ring	= "Defending Ring", -- 10/10
+            left_ring	= "Epona's Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
         }
