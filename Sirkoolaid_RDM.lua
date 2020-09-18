@@ -12,7 +12,7 @@ function get_sets()
 		sub			= "Ammurapi Shield",
 		ammo		= "Sapience Orb",
 		head		= "Atrophy Chapeau +3",
-		body		= "Vitiation Tabard",
+		body		= "Vitiation Tabard +2",
 		--hands		= "",
 		legs		= "Malignance Tights",
 		--feet		= "",

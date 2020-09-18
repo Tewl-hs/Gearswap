@@ -104,7 +104,7 @@
             },
             ["Boost"] = {
                 waist   = "Ask Sash",
-                hands   = "Anchorite's Gloves +1"
+                hands   = "Anchor. Gloves +3"
             }
         }
         sets.precast.WS = { -- Raging Fists
@@ -137,7 +137,7 @@
         sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
             head        = "Ken. Jinpachi +1", -- Relic head +3
             body        = "Ken. Samue +1",
-            hands       = "Ken. Tekko +1", -- AF hands +3
+            hands       = "Anchor. Gloves +3",
             feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
             back        = Capes.WSD
         })
