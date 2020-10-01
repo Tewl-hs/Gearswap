@@ -10,7 +10,6 @@
 --]]
     function get_sets()		      
         include('Modes.lua') -- Using Motes meta tables for modes
-
         
 	    send_command('bind ^f9 gs c cycle')
 
@@ -90,14 +89,14 @@
             ["Footwork"] = {},
             ["Counterstance"] = {},
             ["Chi Blast"] = {
-                head    = "Hesychast's Crown +1"
+                head    = "Hesychast's Crown +3"
             },
             ["Chakra"] = {
-                body    = "Anchorite's Cyclas +1",
+                body    = "Anchorite's Cyclas +2",
                 hands   = "Hesychast's Gloves +1"
             },
             ["Formless Strikes"] = {
-                body    = "Hesychast's Cyclas +1"
+                body    = "Hesychast's Cyclas +3"
             },
             ["Mantra"] = {
                 feet    = "Hesychast's Gaiters +1"
@@ -118,7 +117,7 @@
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",
             right_ear	= "Moonshade Earring",
-            left_ring	= "Epona's Ring",
+            left_ring	= "Gere Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.WS
         }
@@ -135,7 +134,7 @@
             back        = Capes.WS
         }
         sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
-            head        = "Ken. Jinpachi +1", -- Relic head +3
+            head        = "Hesychast's Crown +3",
             body        = "Ken. Samue +1",
             hands       = "Anchor. Gloves +3",
             feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
@@ -164,7 +163,7 @@
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",
             right_ear   = "Telos Earring",
-            left_ring	= "Epona's Ring",
+            left_ring	= "Gere Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
         }
@@ -194,7 +193,7 @@
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",
             right_ear   = "Telos Earring",
-            left_ring	= "Epona's Ring",
+            left_ring	= "Gere Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP
         }

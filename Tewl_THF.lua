@@ -40,7 +40,7 @@ function get_sets()
         left_ear    = "Sherida Earring",
         right_ear   = "Telos Earring",
         left_ring   = "Regal Ring",
-        right_ring  = "Epona's Ring",
+        right_ring  = "Gere Ring",
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     }
     sets.aftercast.Idle = {
@@ -55,7 +55,7 @@ function get_sets()
         left_ear    = "Sherida Earring",
         right_ear   = "Telos Earring",
         left_ring   = "Regal Ring",
-        right_ring  = "Epona's Ring",
+        right_ring  = "Gere Ring",
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     }
 end

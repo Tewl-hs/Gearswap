@@ -4,7 +4,7 @@ function get_sets()
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
     send_command('input //equipviewer pos 1022 550')
 
-    sets.MoveSpeed = { feet = "Geo. Sandals +1",}
+    sets.MoveSpeed = { feet = "Geo. Sandals +2",}
     
     -- Gear sets
     sets.idle = { 
@@ -48,7 +48,7 @@ function get_sets()
         right_ear   = "Loquac. Earring", -- 2
         body        = "Merlinic Jubbah", -- 12
         left_ring   = "Weather. Ring", -- 5
-        right_ring  = "Prolix Ring", -- 2
+        right_ring  = "Kishar Ring", -- 4
         back        = "Lifestream Cape", -- 7
         waist       = "Witful Belt", -- 3 
         hands       = "Merlinic Dastanas", -- 6
@@ -129,7 +129,7 @@ function get_sets()
         head        = "Bagua Galero +1",
         body        = "Geo. Tunic +1",
         Pants       = "Azimuth Tights +1",
-        waist       = "Austertiy Belt +1",
+        waist       = "Austerty Belt +1",
         neck        = "Erra Pendant"
     }
 
@@ -141,7 +141,7 @@ function get_sets()
         main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}}, -- Needs something here
         sub         = "Genbu's Shield",
         range       = "Dunna",
-        head        = "Yanya Hood",
+        head        = "Vanya Hood",
         body        = "Vanya Robe",
         hands       = "Vanya Cuffs",
         legs        = "Vanya Slops",

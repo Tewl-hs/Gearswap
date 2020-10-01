@@ -7,22 +7,15 @@ function get_sets()
 	send_command('input //equipviewer pos 1022 575')
 				
 	sets.precast = {}
-	sets.precast.FastCast = {
-		main		= "Daybreak",
-		sub			= "Ammurapi Shield",
-		ammo		= "Sapience Orb",
-		head		= "Atrophy Chapeau +3",
-		body		= "Vitiation Tabard +2",
-		--hands		= "",
-		legs		= "Malignance Tights",
-		--feet		= "",
-		neck		= "Dls. Torque +2",
-		--waist		= "",
-		left_ear	= "Loquac. Earring",
-		right_ear	= "Malignance earring",
-		left_ring	= "Kishar Ring",
-		right_ring	= "Weatherspoon Ring",
-		back		= "Sucello's Cape",
+	sets.precast.FastCast = { -- 53/50
+		ammo		= "Sapience Orb", -- 2
+		head		= "Atrophy Chapeau +3", -- 16
+		body		= "Vitiation Tabard +3", -- 15
+		waist		= "Embla Sash", -- 5
+		left_ear	= "Loquac. Earring", -- 2
+		right_ear	= "Malignance earring", -- 4
+		left_ring	= "Kishar Ring", -- 4
+		right_ring	= "Weatherspoon Ring", -- 5
 	}
 
 	sets.precast.JA = {}
@@ -33,6 +26,7 @@ function get_sets()
 	sets.midcast = {}	
 	sets.midcast.Cursna = {
 	}
+	
 	sets.midcast.Cure = {	
 		main		= "Daybreak",
 		sub			= "Ammurapi Shield",

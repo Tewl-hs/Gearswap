@@ -300,7 +300,7 @@ function aftercast(spell,action)
 			if use_DT == true then
 				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
 			end
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, Sets.Ranged)
+			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.Ranged)
 		end
 		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
 			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
@@ -515,9 +515,9 @@ function update_status()
 		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Damage Taken', spc)
 	end
 	if use_twilight or use_twilight == nil then
-		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Twilight Protection', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Twilight', spc)
 	else
-		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Twilight Protection', spc)
+		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Twilight', spc)
 	end
 	stateBox:append(status_text)
     stateBox:show()
