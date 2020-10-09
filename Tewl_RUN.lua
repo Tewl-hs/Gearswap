@@ -46,9 +46,9 @@ function get_sets()
         body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
         hands       = "Rawhide Gloves", -- 15
         legs        = "Carmine Cuisses +1", -- 20
-		feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
-		neck        = "Moonlight Necklace", --15
-		waist       = "Audumbla Sash", -- 10
+        feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
+        neck        = "Moonlight Necklace", --15
+        waist       = "Audumbla Sash", -- 10
         --left_ear    = "Cryptic Earring", -- Vagary
         right_ear   = "Halasz Earring", -- 5
         left_ring   = "Evanescence Ring", --5
