@@ -64,7 +64,7 @@ function get_sets()
         hands       = "Leyline Gloves", -- 7
         legs        = "Aya. Cosciales +2", -- 6
         feet        = "Carmine Greaves +1",  -- 8
-        neck		= "Orunmila's Torque", -- 5
+        neck        = "Orunmila's Torque", -- 5
         waist       = "Audumbla Sash", 
         left_ear    = "Etiolation Earring", -- 1
         right_ear   = "Loquac. Earring", -- 2
