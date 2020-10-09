@@ -105,7 +105,8 @@ function get_sets()
         right_ring  = "Mujin Band",
         waist       = "Eschan Stone",
         legs        = "Jhakri Slops +1",
-        feet        = "Jhakri Pigaches +2"            
+        feet        = "Jhakri Pigaches +2",
+        left_ear    = "Friomisi Earring",            
     } 
 
     sets.midcast['Enfeebling Magic'] = {

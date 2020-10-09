@@ -5,9 +5,13 @@ function get_sets()
     Macro_Page = '1'
 	send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
 	send_command('input //equipviewer pos 1022 575')
+
+	Capes = {}
+	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Cure" potency +10%','Spell interruption rate down-10%',}}
+	Capes.FastCast = { name="Sucellos's Cape", augments={'"Fast Cast"+10',}}
 				
 	sets.precast = {}
-	sets.precast.FastCast = { -- 53/50
+	sets.precast.FastCast = { -- 63/50
 		ammo		= "Sapience Orb", -- 2
 		head		= "Atrophy Chapeau +3", -- 16
 		body		= "Vitiation Tabard +3", -- 15
@@ -16,6 +20,7 @@ function get_sets()
 		right_ear	= "Malignance earring", -- 4
 		left_ring	= "Kishar Ring", -- 4
 		right_ring	= "Weatherspoon Ring", -- 5
+		back		= Capes.FastCast -- 10
 	}
 
 	sets.precast.JA = {}
@@ -42,12 +47,26 @@ function get_sets()
 		right_ear	= "Malignance Earring",
 		left_ring	= "Lebeche Ring",
 		right_ring	= "Stikini Ring +1",
-		back		= "Solemnity Cape"	
+		back		= Capes.MND	
 	}
 	sets.midcast.Healing = {
 	}
 	sets.midcast.Enfeebling = {
-
+        main		="Daybreak",
+        sub			="Ammurapi Shield",
+        ammo		="Regal Gem",
+        head		="Viti. Chapeau +3",
+        body		="Lethargy Sayon +1",
+        hands		="",
+        legs		="Chironic Hose",
+        feet		="Vitiation Boots +3",
+        neck		="Dls. Torque +2",
+        left_ear	="Malignance Earring",
+        right_ear	="Snotra Earring",
+        left_ring	="Kishar Ring",
+        right_ring	="Stikini Ring +1",
+		waist		="Luminary Sash",
+		back		= Capes.MND
 	}
 	sets.midcast.Enhancing = {	
 	}

@@ -11,105 +11,80 @@
 function get_sets()		      
     include('Modes.lua') -- Using Motes meta tables for modes
 
-    
-	send_command('bind ^f9 gs c cycle')
-
     -- Personal settings: Load macros and set equipviewer position
     send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 20')
     send_command('input //equipviewer pos 1663 934')
 
     EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'DT', 'Hybrid'}
 
-    --  NOT MY CODE! Testing content for displaying text under chat
-	texts = require('texts')
-	if stateBox then stateBox:destroy() end
-
-	local settings = windower.get_windower_settings()
-	local x,y
-
-	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
-	    x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
-	else
-	    x,y = 0, settings["ui_y_res"]-17 -- -285, -18
-	end
-
-	if displayx then x = displayx end
-	if displayy then y = displayy end
-
-	local font = displayfont or 'Arial'
-	local size = displaysize or 12
-	local bold = displaybold or true
-	local bg = displaybg or 0
-	local strokewidth = displaystroke or 2
-	local stroketransparancy = displaytransparancy or 192
-
-	stateBox = texts.new()
-	stateBox:pos(x,y)
-	stateBox:font(font)--Arial
-	stateBox:size(size)
-	stateBox:bold(bold)
-	stateBox:bg_alpha(bg)--128
-	stateBox:right_justified(false)
-	stateBox:stroke_width(strokewidth)
-	stateBox:stroke_transparency(stroketransparancy)
-
-	update_status()
-    -- End of display code
-
-    -- Variables for auto-skill chain. Only edit AutoWS 
-    AutoWS = 'Hard Slash'
-    WeaponSkills = T{'Ground Strike','Ground Strike'}
-    ws_order = 1
-
     sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
 
-    EnmitySpells = T{'Foil', 'Flash', 'Stun', 'Geist Wall', 'Sheep Song', 'Soporific', 'Blank Gaze', 'Jettatura'}
+    BlueSpells = T{'Geist Wall', 'Sheep Song', 'Soporific', 'Blank Gaze', 'Jettatura', 'Healing Breeze'}
+    EnmitySpells = T{'Foil', 'Flash', 'Stun'}
     
     -- Augmented Gear
     Capes = {}
     Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}}
+    Capes.SIRD = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
 
     sets.Enmity = {
-        neck        = "Moonbeam Necklace",
-        body        = "",
-        hands       = "Futhark Mitons +1",
+        head        = "Halitus Helm",
+        body        = "Emet Harness +1",
+        hands       = "Kurys Gloves",
         legs        = "Eri. Leg Guards +1",
-        feet        = "Erilaz Greaves +1",
-        left_ring   = "Moonlight Ring",
-        right_ring  = "Eihwaz Ring",
+        feet        = "Erilaz Greaves +1", -- "Ahosi Leggings" -- Schah
+        neck        = "Moonlight Necklace",
+        -- left_ear    = "Cryptic Earring", -- Vagary
+        -- right_ear   = "Trux Earring", -- HTB DM2
+        left_ring   = "Eihwaz Ring",
+        right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
-    
-    -- Precast sets: Job Abilities, Fastcast, Weaponskills 
-    sets.precast = {}
-    sets.precast.FC = {
-        ammo        = "Sapience Orb",
-        head        = "Carmine Mask +1", 
-        body        = "Vrikodara Jupon",  -- 9/9
-        hands       = "Leyline Gloves",  -- 5/5
-        legs        = "Aya. Cosciales +2",  -- 7/7
-        feet        = "Carmine Greaves +1",  -- 4/4
-        neck		= "Orunmila's Torque", -- 6/6
-        waist		= "Flume Belt +1", -- 6/6
-		left_ear    = "Etiolation Earring",
-		right_ear   = "Loquac. Earring",
-		left_ring   = "Kishar Ring",
-		right_ring  = "Moonlight Ring",
-        back		= Capes.Enmity
+    sets.Enmity.SIRD = { -- 110%
+        ammo        = "Staunch Tathlum +1", -- 11
+        head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}}, -- 10
+        body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
+        hands       = "Rawhide Gloves", -- 15
+        legs        = "Carmine Cuisses +1", -- 20
+		feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
+		neck        = "Moonlight Necklace", --15
+		waist       = "Audumbla Sash", -- 10
+        --left_ear    = "Cryptic Earring", -- Vagary
+        right_ear   = "Halasz Earring", -- 5
+        left_ring   = "Evanescence Ring", --5
+        right_ring  = "Moonlight Ring",
+        back        = Capes.SIRD -- 10
     }
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +1"})
+    
+    sets.precast = {}
+    sets.precast.FC = { -- 72%
+        ammo        = "Sapience Orb", -- 2
+        head        = "Carmine Mask +1", -- 14
+        body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}}, -- 9
+        hands       = "Leyline Gloves", -- 7
+        legs        = "Aya. Cosciales +2", -- 6
+        feet        = "Carmine Greaves +1",  -- 8
+        neck		= "Orunmila's Torque", -- 5
+		waist       = "Audumbla Sash", 
+		left_ear    = "Etiolation Earring", -- 1
+		right_ear   = "Loquac. Earring", -- 2
+		left_ring   = "Kishar Ring", -- 4
+		right_ring  = "Moonlight Ring",
+        back		= Capes.SIRD -- 10
+    }
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
 
     sets.precast.JA = {
         ['Vivacious Pulse'] = {head="Erilaz Galea +1",neck="Incanter's Torque",ring1="Stikini Ring",ring2="Stikini Ring",legs="Rune. Trousers +1"},
-        ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +1"}),
-        ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +1"}),
+        ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +3"}),
+        ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +3"}),
         ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +2"}),
-        ['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +1"}),
-        ['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat +1"}),
-        ['Gambit'] = set_combine(sets.Enmity,{hands="Runeist's Mitons +2"}),
-        ['Rayke'] = set_combine(sets.Enmity,{feet="Futhark Boots +1"}),
-        ['Elemental Sforzo'] = set_combine(sets.Enmity,{body="Futhark Coat +1"}),
-        ['Swordplay'] = set_combine(sets.Enmity,{hands="Futhark Mitons +1"}),
+        ['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +3"}),
+        ['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat +3"}),
+        ['Gambit'] = set_combine(sets.Enmity,{hands="Runeist's Mitons +3"}),
+        ['Rayke'] = set_combine(sets.Enmity,{feet="Futhark Boots +3"}),
+        ['Elemental Sforzo'] = set_combine(sets.Enmity,{body="Futhark Coat +3"}),
+        ['Swordplay'] = set_combine(sets.Enmity,{hands="Futhark Mitons +3"}),
         ['Embolden'] = set_combine(sets.Enmity,{}),
         ['One For All'] = set_combine(sets.Enmity,{}),
         ['Provoke'] = set_combine(sets.Enmity, {}),
@@ -123,20 +98,54 @@ function get_sets()
         ['Lunge'] = { }
     }
     sets.precast.WS = {
-
+        ammo        = "Knobkierrie",
+        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        body        = { name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Attack+20',}},
+        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+        legs        = { name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
+        feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+        neck        = "Fotia Gorget",
+        waist       = "Fotia Belt",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Brutal Earring",
+        left_ring   = "Epona's Ring",
+        right_ring  = "Karieyh Ring",
     }
-    sets.precast.WS["Ground Strike"] = set_combine(sets.precast.WS,{
-    
+    sets.midcast = {}
+    sets.midcast['Enhancing Magic'] = {}
+    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
+        ammo        = "Staunch Tathlum +1",
+        head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
+        body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
+        hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
+        legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
+        feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
+        neck        = { name="Futhark Torque +2", augments={'Path: A',}},
+        waist       = "Audumbla Sash",
+        -- left_ear    = "Tuisto Earring", -- 1k DI
+        right_ear   = "Odnowa Earring +1",
+        left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     })
-    sets.precast.WS["Resolution"] = {
-
-    }
     
     -- Aftercast sets: TP, Idle
     sets.aftercast = {}
     sets.aftercast.TP = { }
     sets.aftercast.TP.Normal = {
-
+        ammo="Staunch Tathlum +1",
+        head="Turms Cap +1",
+        body="Runeist's Coat +2",
+        hands="Turms Mittens +1",
+        legs="Eri. Leg Guards +1",
+        feet="Turms Leggings +1",
+        neck="Futhark torque +2",
+        waist="Flume belt +1",
+        left_ear="Genmei Earring",
+        right_ear="Odnowa Earring +1",
+        left_ring="Defending Ring",
+        right_ring="Moonlight Ring",
+        back={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     }
     sets.aftercast.TP.DT = {
 
@@ -145,18 +154,18 @@ function get_sets()
     
     }
     sets.aftercast.Idle = {
-        ammo		= "Staunch Tathlum +1", -- 3/3
-        head        = "Fu. Bandeau +1",  -- 6/6
-        body        = "Runeist's Coat +2",  -- 9/9
-        hands       = "Runeist's Mitons +2",  -- 5/5
-        legs        = "Eri. Leg Guards +1",  -- 7/7
-        feet        = "Erilaz Greaves +1",  -- 4/4
-        neck		= "Futhark Torque +2", -- 6/6
-        waist		= "Flume Belt +1", -- 6/6
-        left_ear	= "Genmei Earring", -- 2/0
-        right_ear	= "Odnowa Earring +1", -- 0/2
-        left_ring	= "Defending Ring", -- 10/10
-        right_ring	= "Gelatinous Ring +1",
+        ammo		= "Staunch Tathlum +1", 
+        head        = "Turms Cap +1", 
+        body        = "Runeist's Coat +2", 
+        hands       = "Turms Mittens +1", 
+        legs        = "Eri. Leg Guards +1",
+        feet        = "Turms Leggings +1",  
+        neck		= "Futhark Torque +2", 
+        waist		= "Flume Belt +1", 
+        left_ear	= "Genmei Earring", 
+        right_ear	= "Odnowa Earring +1",
+        left_ring	= "Defending Ring", 
+        right_ring	= "Moonlight Ring",
         back		= Capes.Enmity
     }
     sets.aftercast.Engaged = {
@@ -164,55 +173,39 @@ function get_sets()
     }
 end
     
-
-function file_unload()     
-	send_command('unbind ^F9')
-end
-    
-function precast(spell,action)    
-    Mob_ID = player.target.id
-	if Mob_ID ~= Old_Mob_ID then
-	    ws_order = 1
-	    Old_Mob_ID = Mob_ID
-    end
-    
-    if sets.precast.JA[spell.english] then
-        equip(sets.precast.JA[spell.english])
-    end
-
+function precast(spell,action)        
     if spell.type == 'WeaponSkill' then
-	    if spell.name == AutoWS then
-		    cancel_spell()
-		    send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
-		    ws_order = ws_order + 1
-		    if ws_order > table.getn(WeaponSkills) then
-			    ws_order = 1
-		    end
-		    return
-	    end
-        if sets.precast.WS[spell.english] then
-            equip(sets.precast.WS[spell.english])
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
         else
             equip(sets.precast.WS)
         end
     end
 
     if spell.action_type == 'Ability' then
-        equip(sets.Enmity.HP)
-        equip(sets.precast.JA[currentSpell])
+        equip(sets.Enmity)
+        if sets.precast.JA[spell.name] then
+            equip(sets.precast.JA[spell.name])
+        end    
     end
 
     if spell.action_type == 'Magic' then
-        equip(sets.precast.FC)
+        if sets.precast.FC[spell.skill] then
+            equip(sets.precast.FC[spell.skill])
+        else
+            equip(sets.precast.FC)
+        end
     end
 end
     
 function midcast(spell,action)
     if spell.action_type == 'Magic' then
-        if EnmitySpells:contains(spell.english) then
-        equip(sets.Enmity)
-        elseif spell.skill == 'Enhancing Magic' then
-        --equip(sets.midcast.EnhancingDuration)
+        if EnmitySpells:contains(spell.name) then
+            equip(sets.Enmity)
+        elseif BlueSpells:contains(spell.name) then
+            equip(sets.Enmity.SIRD)
+        elseif sets.midcast[spell.name] then
+            equip(sets.midcast[spell.name])
         end
     end
 end
@@ -260,7 +253,6 @@ function SwapGear()
     else
         equip(sets.aftercast.Idle)
     end
-    update_status()
 end
     
 mov = {counter=0}
@@ -295,49 +287,5 @@ windower.raw_register_event('prerender',function()
             mov.z = pl.z
         end
         mov.counter = 0
-    end
-end)
-
-    -- More code for displaying text -- Not finished 
-function update_status()
-	local clr = {
-        h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
-		w='\\cs(255,255,255)', -- White for labels and default modals
-        n='\\cs(192,192,192)', -- White for labels and default modals
-        s='\\cs(96,96,96)', -- Gray for inactive booleans
-		Fire='\\cs(255,80,80)', -- Red For Fire Element
-		Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
-		Wind='\\cs(110,255,110)', -- Light Green For Wind Element
-		Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
-		Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
-		Water='\\cs(110,110,255)', -- Blue For Water Element
-		Light='\\cs(255,255,155)', -- Light Yellow For Light Element
-		Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
-    }
-
-	local spc = '    '
-
-    stateBox:clear()
-	stateBox:append('   ')
-	local status_text = ''
-    
-	status_text = string.format("%sEngaged: %s%s%s", clr.w, clr.h, EngagedMode.value, spc)
-	stateBox:append(status_text)
-    stateBox:show()
-end
-
-function clear_job_states()
-    if stateBox then stateBox:destroy() end
-end
-
-windower.raw_register_event('outgoing chunk', function(id, data)
-    if id == 0x00D and stateBox then
-        stateBox:hide()
-    end
-end)
-
-windower.raw_register_event('incoming chunk', function(id, data)
-    if id == 0x00A and stateBox then
-        stateBox:show()
     end
 end)
