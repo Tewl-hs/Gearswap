@@ -131,8 +131,8 @@ function get_sets()
     
     -- Aftercast sets: TP, Idle
     sets.aftercast = {}
-    sets.aftercast.TP = { }
-    sets.aftercast.TP.Normal = {
+    sets.aftercast.Engaged = { }
+    sets.aftercast.Engaged.Normal = {
         ammo="Staunch Tathlum +1",
         head="Turms Cap +1",
         body="Runeist's Coat +2",
@@ -147,10 +147,10 @@ function get_sets()
         right_ring="Moonlight Ring",
         back={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     }
-    sets.aftercast.TP.DT = {
+    sets.aftercast.Engaged.DT = {
 
     }
-    sets.aftercast.TP.Hybrid = {
+    sets.aftercast.Engaged.Hybrid = {
     
     }
     sets.aftercast.Idle = {
@@ -167,9 +167,6 @@ function get_sets()
         left_ring	= "Defending Ring", 
         right_ring	= "Moonlight Ring",
         back		= Capes.Enmity
-    }
-    sets.aftercast.Engaged = {
-        
     }
 end
     
@@ -212,8 +209,7 @@ end
     
 function aftercast(spell,action)
     if player.status == 'Engaged' then
-        sets.aftercast.Engaged = get_engaged_set()
-        equip(sets.aftercast.Engaged)
+        equip(get_engaged_set())
     else
         equip(sets.aftercast.Idle)
     end
@@ -244,12 +240,12 @@ function self_command(commandArgs)
 end
 
 function get_engaged_set()
-    return sets.aftercast.TP[EngagedMode.value] or sets.aftercast.TP.Normal
+    return sets.aftercast.Engaged[EngagedMode.value] or sets.aftercast.Engaged.Normal
 end
 
 function SwapGear()
     if player.status == 'Engaged' then
-        equip(sets.aftercast.Engaged)
+        equip(get_engaged_set())
     else
         equip(sets.aftercast.Idle)
     end
