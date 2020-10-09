@@ -70,7 +70,7 @@ function get_sets()
         right_ear   = "Loquac. Earring", -- 2
         left_ring   = "Kishar Ring", -- 4
         right_ring  = "Moonlight Ring",
-        back		= Capes.SIRD -- 10
+        back        = Capes.SIRD -- 10
     }
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
 
@@ -133,19 +133,19 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
     sets.aftercast.Engaged.Normal = {
-        ammo="Staunch Tathlum +1",
-        head="Turms Cap +1",
-        body="Runeist's Coat +2",
-        hands="Turms Mittens +1",
-        legs="Eri. Leg Guards +1",
-        feet="Turms Leggings +1",
-        neck="Futhark torque +2",
-        waist="Flume belt +1",
-        left_ear="Genmei Earring",
-        right_ear="Odnowa Earring +1",
-        left_ring="Defending Ring",
-        right_ring="Moonlight Ring",
-        back={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+        ammo        = "Staunch Tathlum +1",
+        head        = "Turms Cap +1",
+        body        = "Runeist's Coat +2",
+        hands       = "Turms Mittens +1",
+        legs        = "Eri. Leg Guards +1",
+        feet        = "Turms Leggings +1",
+        neck        = "Futhark torque +2",
+        waist       = "Flume belt +1",
+        left_ear    = "Genmei Earring",
+        right_ear   = "Odnowa Earring +1",
+        left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     }
     sets.aftercast.Engaged.DT = {
 
@@ -154,19 +154,19 @@ function get_sets()
     
     }
     sets.aftercast.Idle = {
-        ammo		= "Staunch Tathlum +1", 
+        ammo        = "Staunch Tathlum +1", 
         head        = "Turms Cap +1", 
         body        = "Runeist's Coat +2", 
         hands       = "Turms Mittens +1", 
         legs        = "Eri. Leg Guards +1",
         feet        = "Turms Leggings +1",  
-        neck		= "Futhark Torque +2", 
-        waist		= "Flume Belt +1", 
-        left_ear	= "Genmei Earring", 
-        right_ear	= "Odnowa Earring +1",
-        left_ring	= "Defending Ring", 
-        right_ring	= "Moonlight Ring",
-        back		= Capes.Enmity
+        neck        = "Futhark Torque +2", 
+        waist       = "Flume Belt +1", 
+        left_ear    = "Genmei Earring", 
+        right_ear   = "Odnowa Earring +1",
+        left_ring   = "Defending Ring", 
+        right_ring  = "Moonlight Ring",
+        back        = Capes.Enmity
     }
 end
     
