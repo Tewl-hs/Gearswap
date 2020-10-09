@@ -65,11 +65,11 @@ function get_sets()
         legs        = "Aya. Cosciales +2", -- 6
         feet        = "Carmine Greaves +1",  -- 8
         neck		= "Orunmila's Torque", -- 5
-		waist       = "Audumbla Sash", 
-		left_ear    = "Etiolation Earring", -- 1
-		right_ear   = "Loquac. Earring", -- 2
-		left_ring   = "Kishar Ring", -- 4
-		right_ring  = "Moonlight Ring",
+        waist       = "Audumbla Sash", 
+        left_ear    = "Etiolation Earring", -- 1
+        right_ear   = "Loquac. Earring", -- 2
+        left_ring   = "Kishar Ring", -- 4
+        right_ring  = "Moonlight Ring",
         back		= Capes.SIRD -- 10
     }
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
