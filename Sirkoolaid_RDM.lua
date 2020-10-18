@@ -7,8 +7,7 @@ function get_sets()
 	send_command('input //equipviewer pos 1022 575')
 
 	Capes = {}
-	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Cure" potency +10%','Spell interruption rate down-10%',}}
-	Capes.FastCast = { name="Sucellos's Cape", augments={'"Fast Cast"+10',}}
+	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 				
 	sets.precast = {}
 	sets.precast.FastCast = { -- 63/50
@@ -18,9 +17,9 @@ function get_sets()
 		waist		= "Embla Sash", -- 5
 		left_ear	= "Loquac. Earring", -- 2
 		right_ear	= "Malignance earring", -- 4
-		left_ring	= "Kishar Ring", -- 4
-		right_ring	= "Weatherspoon Ring", -- 5
-		back		= Capes.FastCast -- 10
+		left_ring	= "Weatherspoon Ring", -- 5
+		right_ring	= "Kishar Ring", -- 4
+		back		= Capes.MND -- 10
 	}
 
 	sets.precast.JA = {}
@@ -45,27 +44,27 @@ function get_sets()
 		waist		= "Othila Sash",
 		left_ear	= "Magnetic Earring",
 		right_ear	= "Malignance Earring",
-		left_ring	= "Lebeche Ring",
-		right_ring	= "Stikini Ring +1",
+		left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
+		right_ring	= "Lebeche Ring",
 		back		= Capes.MND	
 	}
 	sets.midcast.Healing = {
 	}
 	sets.midcast.Enfeebling = {
-        main		="Daybreak",
-        sub			="Ammurapi Shield",
-        ammo		="Regal Gem",
-        head		="Viti. Chapeau +3",
-        body		="Lethargy Sayon +1",
-        hands		="",
-        legs		="Chironic Hose",
-        feet		="Vitiation Boots +3",
-        neck		="Dls. Torque +2",
-        left_ear	="Malignance Earring",
-        right_ear	="Snotra Earring",
-        left_ring	="Kishar Ring",
-        right_ring	="Stikini Ring +1",
-		waist		="Luminary Sash",
+        main		= "Daybreak",
+        sub			= "Ammurapi Shield",
+        ammo		= "Regal Gem",
+        head		= "Viti. Chapeau +3",
+        body		= "Lethargy Sayon +1",
+        hands		= "",
+        legs		= "Chironic Hose",
+        feet		= "Vitiation Boots +3",
+        neck		= "Dls. Torque +2",
+        left_ear	= "Malignance Earring",
+        right_ear	= "Snotra Earring",
+        left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
+        right_ring	= "Kishar Ring",
+		waist		= "Luminary Sash",
 		back		= Capes.MND
 	}
 	sets.midcast.Enhancing = {	
@@ -89,8 +88,8 @@ function get_sets()
 		waist		= "Fucho-no-obi",
 		left_ear	= "Halasz Earring",
 		right_ear	= "Moonshade earring",
-		left_ring	= "Stikini Ring +1",
-		right_ring	= "Stikini Ring +1",
+		left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
+		right_ring	= { name="Stikini Ring +1", bag="Wardrobe2" },
 		back		= "Solemnity Cape"
 	}
 end

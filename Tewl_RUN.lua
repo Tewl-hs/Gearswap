@@ -34,13 +34,13 @@ function get_sets()
         legs        = "Eri. Leg Guards +1",
         feet        = "Erilaz Greaves +1", -- "Ahosi Leggings" -- Schah
         neck        = "Moonlight Necklace",
-        -- left_ear    = "Cryptic Earring", -- Vagary
+        left_ear    = "Cryptic Earring",
         -- right_ear   = "Trux Earring", -- HTB DM2
         left_ring   = "Eihwaz Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
-    sets.Enmity.SIRD = { -- 110%
+    sets.Enmity.SIRD = { -- 105%
         ammo        = "Staunch Tathlum +1", -- 11
         head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}}, -- 10
         body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
@@ -49,9 +49,9 @@ function get_sets()
         feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
         neck        = "Moonlight Necklace", --15
         waist       = "Audumbla Sash", -- 10
-        --left_ear    = "Cryptic Earring", -- Vagary
+        left_ear    = "Cryptic Earring",
         right_ear   = "Halasz Earring", -- 5
-        left_ring   = "Evanescence Ring", --5
+        left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.SIRD -- 10
     }
@@ -75,9 +75,9 @@ function get_sets()
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
 
     sets.precast.JA = {
-        ['Vivacious Pulse'] = {head="Erilaz Galea +1",neck="Incanter's Torque",ring1="Stikini Ring",ring2="Stikini Ring",legs="Rune. Trousers +1"},
-        ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +3"}),
-        ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +2",legs="Futhark Trousers +3"}),
+        ['Vivacious Pulse'] = {head="Erilaz Galea +1",neck="Incanter's Torque",ring1="Stikini Ring +1",ring2="Stikini Ring +1",legs="Rune. Trousers +1"},
+        ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
+        ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
         ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +2"}),
         ['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +3"}),
         ['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat +3"}),
@@ -100,17 +100,34 @@ function get_sets()
     sets.precast.WS = {
         ammo        = "Knobkierrie",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
-        body        = { name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Attack+20',}},
+        body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
         hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
         legs        = { name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
         feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
         neck        = "Fotia Gorget",
         waist       = "Fotia Belt",
         left_ear    = "Moonshade Earring",
-        right_ear   = "Brutal Earring",
+        right_ear   = "Sherida Earring",
         left_ring   = "Epona's Ring",
         right_ring  = "Karieyh Ring",
+        back        = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}},
     }
+    sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
+        ammo        = "Seeth. Bomblet +1",
+        head        = { name="Lustratio Cap +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+        body        = { name="Lustr. Harness +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+        legs        = "Meg. Chausses +2",
+        feet        = { name="Lustra. Leggings +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+        neck        = "Fotia Gorget",
+        waist       = "Fotia Belt",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Sherida Earring",
+        left_ring   = "Regal Ring",
+        right_ring  = "Niqmaddu Ring",
+        back        = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}},
+    })
+
     sets.midcast = {}
     sets.midcast['Enhancing Magic'] = {}
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
@@ -133,9 +150,24 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
     sets.aftercast.Engaged.Normal = {
+        ammo        = "Ginsen",
+        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
+        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+		legs        = "Meg. Chausses +2",
+        feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+		neck        = "Anu Torque",
+		waist       = "Ioskeha Belt +1",
+		left_ear    = "Telos Earring",
+		right_ear   = "Sherida Earring",
+		left_ring   = "Epona's Ring",
+        right_ring  = "Niqmaddu Ring",
+        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+    }
+    sets.aftercast.Engaged.DT = {
         ammo        = "Staunch Tathlum +1",
         head        = "Turms Cap +1",
-        body        = "Runeist's Coat +2",
+        body        = "Runeist's Coat +3",
         hands       = "Turms Mittens +1",
         legs        = "Eri. Leg Guards +1",
         feet        = "Turms Leggings +1",
@@ -147,16 +179,25 @@ function get_sets()
         right_ring  = "Moonlight Ring",
         back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     }
-    sets.aftercast.Engaged.DT = {
-
-    }
     sets.aftercast.Engaged.Hybrid = {
-    
+        ammo        = "Staunch Tathlum +1",
+        head        = "Turms Cap +1",
+        body        = "Runeist's Coat +3",
+        hands       = "Turms Mittens +1",
+        legs        = "Eri. Leg Guards +1",
+        feet        = "Turms Leggings +1",
+        neck        = "Futhark torque +2",
+        waist       = "Flume belt +1",
+        left_ear    = "Genmei Earring",
+        right_ear   = "Odnowa Earring +1",
+        left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
     }
     sets.aftercast.Idle = {
         ammo        = "Staunch Tathlum +1", 
         head        = "Turms Cap +1", 
-        body        = "Runeist's Coat +2", 
+        body        = "Runeist's Coat +3", 
         hands       = "Turms Mittens +1", 
         legs        = "Eri. Leg Guards +1",
         feet        = "Turms Leggings +1",  
@@ -177,16 +218,12 @@ function precast(spell,action)
         else
             equip(sets.precast.WS)
         end
-    end
-
-    if spell.action_type == 'Ability' then
+    elseif spell.action_type == 'Ability' then
         equip(sets.Enmity)
         if sets.precast.JA[spell.name] then
             equip(sets.precast.JA[spell.name])
         end    
-    end
-
-    if spell.action_type == 'Magic' then
+    elseif spell.action_type == 'Magic' then
         if sets.precast.FC[spell.skill] then
             equip(sets.precast.FC[spell.skill])
         else
