@@ -169,14 +169,14 @@ function get_sets()
         else
             if spell.english == 'Dispelga' then
                 equip(set_combine(sets.precast.fastcast,{main="Daybreak",waist="Embla Sash"}))
-            else
+            elseif spell.action_type == 'Magic' then
                 equip(sets.precast.fastcast)
             end
         end
     end
     
     function midcast(spell)
-        if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+        if spell.action_type == 'Magic' then
             if spell.english:startswith('Cure') then
                 equip(sets.midcast.cure)
             elseif sets.midcast[spell.english] then
@@ -184,9 +184,6 @@ function get_sets()
             elseif sets.midcast[spell.skill] then
                 equip(sets.midcast[spell.skill])
             end
-        end
-        if sets.midcast[spell.skill] then
-            equip(sets.midcast[spell.skill])
         end
     end
     

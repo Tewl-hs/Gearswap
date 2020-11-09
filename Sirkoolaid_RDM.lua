@@ -86,7 +86,7 @@ function get_sets()
 		feet		= "Chironic Slippers",
 		neck		= "Dls. Torque +2",
 		waist		= "Fucho-no-obi",
-		left_ear	= "Halasz Earring",
+		left_ear	= "Etiolation Earring",
 		right_ear	= "Moonshade earring",
 		left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
 		right_ring	= { name="Stikini Ring +1", bag="Wardrobe2" },

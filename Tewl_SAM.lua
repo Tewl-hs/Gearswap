@@ -3,10 +3,12 @@
 	Files: SAM.lua 
 
 	Binds
-	CTRL+F9  : Toggle MAX STP/DefensiveAccuracy
-	CTRL+F10 : Toggle Ranged Mode
-	CTRL+F11 : Toggle DT SET
-	CTRL+F12 : Toggle Twilight set lock (Currently not functional. Needs adjustment)
+	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Relic', 'Aeonic', 'Polearm')
+
+	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)
+	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
+	CTRL+F11 : Toggle Ranged Mode (Disabled by default)
+	CTRL+F12 : Toggle Twilight (Disabled by default)
 
 	Not all of this is my code, some was copied and altered for my own preferences.
 	This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
@@ -14,23 +16,180 @@
 
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --]]
- function get_sets()			
---  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
-	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
-	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
---  Sets binds 
-	send_command('bind ^f9 gs c tstp')
-	send_command('bind ^f10 gs c tr')
-	send_command('bind ^f11 gs c tdt') 
-	-- Commented out because I needs rewrite
+function get_sets()
+	send_command('bind !f9 gs c cycle weapon')
+	send_command('bind ^f9 gs c cycle engaged')
+	send_command('bind ^f10 gs c cycle idle')
+	send_command('bind ^f11 gs c ranged') 
 	send_command('bind ^f12 gs c twilight')
 
-	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
+    --  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
+    send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
+    send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
+    
+    sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-	max_stp = true
-	range_mode = false
-	use_twilight = false
-	use_DT = false
+    include('Modes.lua') -- Using Motes meta tables for modes
+    EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'PDT', 'MDT', 'Hybrid'}
+    IdleMode = M{['description'] = 'Idle Mode', 'Normal', 'PDT', 'MDT'}
+	EquipWeapon = M{['description'] = 'Equipped Weapon', 'Empyrean', 'Relic', 'Aeonic', 'Polearm'}
+
+    Weapons = { } -- Thinking about doing Koga
+    Weapons.Empyrean	= "Masamune"
+    Weapons.Relic 		= "Amanomurakumo"
+    Weapons.Aeonic		= "Dojikiri Yasutsuna"
+	Weapons.Polearm		= "Shining One"
+
+    range_mode = false
+    use_twilight = false
+    
+    -- Initial setup variables
+    AutoWS = 'Tachi: Enpi'
+    WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
+    ws_order = 1
+-- Gearsets
+
+    Capes = {} 
+    Capes.TPCape    = { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+    Capes.WSCape    = { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
+    Capes.RACape    = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
+    Capes.RWSCape   = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+
+    sets.JA = {
+        ['Seigan'] = {
+            head		= "Kasuga Kabuto +1"
+        },
+        ['Meditate'] = {
+            head		= "Wakido Kabuto +3",
+            hands		= "Sakonji Kote +3",
+            back		= Capes.TPCape
+        },
+        ['Hasso'] = {
+            hands		= "Wakido Kote +3"
+        },
+        ['Sekkanoki'] = {
+            hands		= "Kasuga Kote +1"
+        },
+        ['Warding Circle'] = {
+            head		= "Wakido Kabuto +3"
+        },
+        ['Sengikori'] = {
+            feet		= "Kasuga Sune-Ate +1"
+        },
+        ['Blade Bash'] = {
+            hands		= "Sakonji Kote +3"
+        },
+        ['Meikyo Shisui'] = {
+            feet		= "Sak. Sune-Ate +3"
+        }
+    }
+    sets.FC = {
+        left_ear	= "Loquac. earring"
+    }
+    sets.RA = {
+        main        = Weapons[EquipWeapon.value],
+        sub         = "Utu Grip",
+        range 		= "Yoichinoyumi",
+        ammo		= "Yoichi's Arrow",
+        head        = "Sakonji Kabuto +3",
+		body		= "Ken. Samue +1", -- Need RA neck
+		hands		= "Wakido Kote +3",
+		legs		= "Ken. Hakama +1",
+        feet		= "Wakido Sune. +3",
+		neck		= "Sam. Nodowa +2",
+		waist		= "Eschan Stone", -- "Reiki Yotai"
+		left_ear	= "Telos earring",
+        right_ear	= "", -- "Enervating Earring",
+		left_ring	= "", -- "Hajduk Ring +1", 
+		right_ring	= "Regal Ring",
+        back        = Capes.RACape
+    }
+            
+    sets.WS = {}
+    sets.WS.Normal = {
+        main        = Weapons[EquipWeapon.value],
+        sub         = "Utu Grip",
+        ammo        = "Knobkierrie",
+		head		= { name="Valorous Mask", augments={'Attack+26','Weapon skill damage +3%','STR+15','Accuracy+13',}},
+		body		= "Sakonji Domaru +3",
+		hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
+		legs		= "Wakido Haidate +3",
+		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
+		neck		= "Sam. Nodowa +2",
+		waist		= "Sailfi Belt +1", --"Fotia Belt",
+		left_ear	= "Moonshade Earring",
+		right_ear	= "Thrud Earring",
+		left_ring	= "Epaminondas's Ring", -- Epaminondas's Ring -- Regal Ring
+		right_ring	= "Karieyh Ring",
+		back		= Capes.WSCape
+    }
+    sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { })
+    sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { })
+    sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { })
+    sets.WS['Tachi: Rana'] = set_combine(sets.WS.Normal, { })
+    sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, { })
+    sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Normal, { })            
+    sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, { })            
+    sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { })
+    
+    sets.Engaged = {}
+    sets.Engaged.Normal = {
+        main        = Weapons[EquipWeapon.value],
+        sub         = "Utu Grip",
+        ammo        = "Ginsen",
+        head		= "Flam. Zucchetto +2",
+        body		= "Kasuga Domaru +1",
+        legs		= "Ryuo Hakama +1",
+        feet		= "Ryuo Sune-Ate +1",
+		hands		= "Wakido Kote +3",
+		neck		= "Sam. Nodowa +2",
+		waist		= "Ioskeha belt +1",
+		left_ear	= "Telos earring",
+        right_ear	= "Dedition earring",
+		left_ring	= "Flamma Ring",
+		right_ring	= "Niqmaddu Ring",
+		back		= Capes.TPCape
+     }    
+    sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
+		body		= "Ken. Samue +1", 
+		legs		= "Ken. Hakama +1",
+		feet		= "Ken. Sune-Ate +1",
+		right_ear	= "Cessance earring",
+    })
+    sets.Engaged.PDT = set_combine(sets.Engaged.Normal, { })
+    sets.Engaged.MDT = set_combine(sets.Engaged.Normal, { })
+    sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, { })
+    
+    sets.Idle = { }
+    sets.Idle.Normal = {
+        main        = Weapons[EquipWeapon.value],
+        sub         = "Utu Grip",
+        ammo        = "Staunch Tathlum +1",
+		head		= "Wakido Kabuto +3",
+		body		= "Tartarus Platemail", --"Ken. Samue +1",
+		hands		= "Sakonji Kote +3",
+		legs		= "Ken. Hakama +1",
+		feet		= "Ken. Sune-Ate +1",
+		neck		= "Loricate Torque +1",
+		waist		= "Flume Belt +1",
+		left_ear	= "Genmei Earring",
+		right_ear	= "Odnowa Earring +1",
+		left_ring	= "Defending Ring",
+		right_ring	= "Karieyh Ring",
+		back		= Capes.TPCape
+    }
+    sets.Idle.PDT = set_combine(sets.Idle.Normal, {})
+    sets.Idle.MDT = set_combine(sets.Idle.Normal, {})
+
+    sets.Twilight = { 
+        head		= "Twilight helm",
+        body		= "Twilight mail"
+    }
+    sets.Ranged = {
+        range 		= "Yoichinoyumi",
+        ammo		= "Yoichi's Arrow"
+    }
+-- 
 
 --  NOT MY CODE! Testing content for displaying text under chat
 	texts = require('texts')
@@ -67,165 +226,21 @@
 
 	update_status()
 -- End of display code
-
--- Initial setup variables
-	AutoWS = 'Tachi: Enpi'
-	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
-	ws_order = 1
-
--- Variables for ranged/ammo/capes - These are not put into the sets because of mode changes and for augment shorthand 
-	Gear = {} 
-	Gear.Bow		= "Yoichinoyumi"
-	Gear.Arrow		= "Yoichi's Arrow"
-	Gear.DTAmmo		= "Staunch Tathlum +1"
-	Gear.TPAmmo		= "Ginsen"
-	Gear.WSAmmo		= "Knobkierrie"
-	Gear.TPCape		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
-	Gear.WSCape		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
-	Gear.RACape		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
-
--- JA Sets
-	sets.precast = {}
-	sets.precast['Seigan'] = {
-		head		= "Kasuga Kabuto +1"
-	}
-	sets.precast['Meditate'] = {
-		head		= "Wakido Kabuto +3",
-		hands		= "Sakonji Kote +3",
-		back		= Gear.TPCape
-	}
-	sets.precast['Hasso'] = {
-		hands		= "Wakido Kote +3"
-	}
-	sets.precast['Sekkanoki'] = {
-		hands		= "Kasuga Kote +1"
-	}
-	sets.precast['Warding Circle'] = {
-		head		= "Wakido Kabuto +3"
-	}
-	sets.precast['Sengikori'] = {
-		feet		= "Kasuga Sune-Ate +1"
-	}
-	sets.precast['Blade Bash'] = {
-		hands		= "Sakonji Kote +3"
-	}
-
--- Subjob JA Sets
-	sets.precast.FastCast = {
-		left_ear	= "Loquac. earring"
-	}
-		
--- WS Sets
-	sets.WS = {}
-	sets.WS.Normal = {
-		-- ammo ** SET THIS IN Gear.WSAmmo
-		head		= { name="Valorous Mask", augments={'Attack+26','Weapon skill damage +3%','STR+15','Accuracy+13',}},
-		body		= "Sakonji Domaru +3",
-		hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
-		legs		= "Wakido Haidate +3",
-		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
-		neck		= "Sam. Nodowa +2",
-		waist		= "Sailfi Belt +1", --"Fotia Belt",
-		left_ear	= "Moonshade Earring",
-		right_ear	= "Thrud Earring",
-		left_ring	= "Epaminondas's Ring", -- Epaminondas's Ring -- Regal Ring
-		right_ring	= "Karieyh Ring",
-		back		= Gear.WSCape
-	}
-	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, {
-		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
-	})
-		
-	sets.WS.Yochi = {
-		-- ammo ** SET THIS IN Gear.Arrow
-		head		= "Sakonji Kabuto +3",
-		hands		= "Kasuga Kote +1",
-		feet		= "Wakido Sune. +2",
-		neck		= "Fotia Gorget",
-		back		= Gear.RACape
-	}
-
--- TP Sets
-	sets.TP = {}
-	sets.TP.Normal = {
-		-- ammo ** SET THIS IN Gear.TPAmmo
-		head		= "Flam. Zucchetto +2",
-		body		= "Ken. Samue +1", 
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		hands		= "Wakido Kote +3",
-		neck		= "Sam. Nodowa +2",
-		waist		= "Ioskeha belt +1",
-		left_ear	= "Telos earring",
-		right_ear	= "Cessance earring",
-		left_ring	= "Flamma Ring",
-		right_ring	= "Niqmaddu Ring",
-		back		= Gear.TPCape
-	}
-
-	sets.TP.STP = {
-		body		= "Kasuga Domaru +1",
-		legs		= "Ryuo Hakama +1",
-		feet		= "Ryuo Sune-Ate +1",
-		right_ear	= "Dedition earring"
-	}
-	
--- Special Sets
-	sets.DT = {
-		-- ammo ** SET THIS IN Gear.DTAmmo
-		head		= "Ken. Jinpachi +1",
-		body		= "Tartarus Platemail", --"Ken. Samue +1",
-		hands		= "Sakonji Kote +3", -- Option: Kendatsuba Tekko +1 (MDT/MEVA)
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		neck		= "Loricate Torque +1",
-		waist		= "Flume Belt +1",
-		left_ear	= "Genmei Earring",
-		right_ear	= "Odnowa Earring +1",
-		left_ring	= "Defending Ring",
-		right_ring	= "Gelatinous Ring +1",
-		back		= "Moonlight Cape"
-	}
-	sets.Twilight = { 
-		head		= "Twilight helm",
-		body		= "Twilight mail"
-	}
-	sets.Ranged = {
-		range 		= Gear.Bow,
-		ammo		= Gear.Arrow
-	}
-	
--- Aftercast/Idle Sets
-	sets.aftercast = {}
-	sets.aftercast.TP = sets.TP.Engaged
-	sets.aftercast.Idle = {
-		-- ammo ** SET THIS IN Gear.DTAmmo
-		head		= "Wakido Kabuto +3",
-		body		= "Tartarus Platemail", --"Ken. Samue +1",
-		hands		= "Sakonji Kote +3",
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		neck		= "Loricate Torque +1",
-		waist		= "Flume Belt +1",
-		left_ear	= "Genmei Earring",
-		right_ear	= "Odnowa Earring +1",
-		left_ring	= "Defending Ring",
-		right_ring	= "Karieyh Ring",
-		back		= Gear.TPCape
-	}
 end
 
--- Precast/Midcast/Aftercast Functions
+function file_unload()  
+	send_command('unbind !F9')
+	send_command('unbind ^F9')
+	send_command('unbind ^F10')
+	send_command('unbind ^F11')
+	send_command('unbind ^F12')
+end
+
 function precast(spell,action)
 	if spell.english == 'Spectral Jig' then
 		send_command('cancel 71;')
 	end
-	
-	if range_mode == true then -- if ranged mode, equip arrows
-		equip(sets.Ranged)
-	end
 
-	-- Precast Code
 	Mob_ID = player.target.id
 	if Mob_ID ~= Old_Mob_ID then
 		ws_order = 1
@@ -243,36 +258,30 @@ function precast(spell,action)
 			return
 		end
 
-		sets.WeaponSkill = sets.WS.Normal -- Default weaponskill set
+		local ws = sets.WS.Normal -- Default weaponskill set
 
 		if sets.WS[spell.english] then -- Specific weaponskill sets
-			sets.WeaponSkill = sets.WS[spell.english]
+			ws = sets.WS[spell.english]
 		end
 
-		if range_mode == true then -- if in ranged mode make sure ammo is equipped
-			sets.WeaponSkill = set_combine(sets.WeaponSkill, sets.Ranged)
-		else -- otherwise equip the WS ammo
-			sets.WeaponSkill = set_combine(sets.WeaponSkill, {ammo=Gear.WSAmmo})
-		end
-		if spell.english == 'Namas Arrow' then -- Overwrite ws set with ranged ws gear
-			sets.WeaponSkill = set_combine(sets.WeaponSkill,sets.WS.Yochi)
+		if range_mode == true then
+			ws = set_combine(ws, sets.Ranged)
 		end
 		if buffactive['Sekkanoki'] then
-			sets.WeaponSkill = set_combine(sets.WeaponSkill, sets.precast['Sekkanoki'])
+			ws = set_combine(ws, sets.JA['Sekkanoki'])
 		end
-		if buffactive['reive mark'] then
-			sets.WeaponSkill = set_combine(sets.WeaponSkill, {neck="Ygnas's Resolve +1"})
+		if buffactive['Reive Mark'] then
+			ws = set_combine(ws, {neck="Ygnas's Resolve +1"})
 		end
 		if buffactive['Meikyo Shisui'] then
-			sets.WeaponSkill = set_combine(sets.WeaponSkill, {feet="Sak. Sune-Ate +3"})
-		end
-		equip(sets.WeaponSkill)
-	elseif string.find(spell.english,'Waltz') then
-		equip(sets.precast.Waltz)
-	elseif spell.type == "Ninjutsu" then
-		equip(sets.precast.FastCast)
-	elseif sets.precast[spell.english] then
-		equip(sets.precast[spell.english])
+			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
+        end
+        -- Write: Insert Lugra Earring +1 check
+        equip(ws)
+    elseif spell.action_type == 'Ranged Attack' and range_mode == true then
+        equip(sets.RA)
+	elseif spell.action_type == 'Magic' then
+		equip(sets.FC)
 	end
 end
 
@@ -285,133 +294,47 @@ function midcast(spell,action)
 end
 
 function aftercast(spell,action)
-	if player.status == 'Engaged' then
-		sets.TP.Engaged = sets.TP.Normal
-		if max_stp == true then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.TP.STP)
-		end
-		if range_mode == false then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.TPAmmo})
-			if use_DT == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
-				sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.DTAmmo})
-			end
-		else
-			if use_DT == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
-			end
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.Ranged)
-		end
-		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
-		end
-		equip(sets.TP.Engaged)
-	else	
-		local AfterCastGear = sets.aftercast.Idle
-		if range_mode == false then
-			AfterCastGear = set_combine(AfterCastGear, {ammo=Gear.DTAmmo})
-		else
-			AfterCastGear = set_combine(AfterCastGear, sets.Ranged)
-		end
-		
-		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-			AfterCastGear = set_combine(AfterCastGear,sets.Twilight)
-		end
-
-		equip(AfterCastGear)
-	end
+	if T{'Idle','Resting','Engaged'}:contains(new) then
+        equip_check()
+    end
 end
 
--- Status change (spells, songs, etc.)
 function status_change(new,old)
-	if T{'Idle','Resting'}:contains(new) then
-		local AfterCastGear = sets.aftercast.Idle
-		if range_mode == false then
-			AfterCastGear = set_combine(AfterCastGear, {ammo=Gear.DTAmmo})
-		else
-			AfterCastGear = set_combine(AfterCastGear, sets.Ranged)
-		end
-		
-		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-			AftercastGear = set_combine(AftercastGear,sets.Twilight)
-		end
-		equip(AfterCastGear)
-	elseif new == 'Engaged' then
-		sets.TP.Engaged = sets.TP.Normal
-
-		if max_stp == true then 
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.TP.STP)
-		end
-
-		if range_mode == false then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.TPAmmo})
-			if use_DT == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
-				sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.DTAmmo})
-			end
-		else
-			if use_DT == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
-			end
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.Ranged)
-		end
-
-		if max_stp == true then 
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, sets.TP.STP)
-		end
-		
-		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
-		end
- 		equip(sets.TP.Engaged)
-	end
+	if T{'Idle','Resting','Engaged'}:contains(new) then
+        equip_check()
+    end
 end
 
-function buff_change(status,gain_or_loss)
-	--
+function buff_change(status,gain)
+	
 end
 
--- Self commands 
-function SwapGear()
+function equip_check()
+    local eq = {}
 	if player.status == 'Engaged' then	
-		sets.TP.Engaged = sets.TP.Normal
-		if max_stp == true then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.TP.STP)
+		eq = set_combine(sets.Engaged.Normal, {main=Weapons[EquipWeapon.value]})
+        if sets.Engaged[EngagedMode.value] then
+            eq = set_combine(sets.Engaged[EngagedMode.value], {main=Weapons[EquipWeapon.value]})
+        end
+		if range_mode == true then
+			eq = set_combine(eq, sets.Ranged)
 		end
-		if range_mode == false then
-			sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.TPAmmo})
-			
-			if use_DT == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
-				sets.TP.Engaged = set_combine(sets.TP.Engaged, {ammo=Gear.DTAmmo})
-			end
-			
-			if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
-			end
-			equip(sets.TP.Engaged)
-		else
-			if use_DT == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.DT)
-			end
-			
-			if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-				sets.TP.Engaged = set_combine(sets.TP.Engaged,sets.Twilight)
-			end
-			equip(set_combine(sets.TP.Engaged, sets.Ranged))
+		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+			eq = set_combine(eq,sets.Twilight)
 		end
 	else
-		local AftercastGear = sets.aftercast.Idle
-		if range_mode == false then
-			AftercastGear = set_combine(AftercastGear, {ammo=Gear.DTAmmo})
-		else
-			AftercastGear = set_combine(AftercastGear,sets.Ranged)
+		eq = set_combine(sets.Idle.Normal, {main=Weapons[EquipWeapon.value]})
+        if sets.Idle[IdleMode.value] then
+            eq = set_combine(sets.Idle[IdleMode.value], {main=Weapons[EquipWeapon.value]})
+        end
+		if range_mode == true then
+			eq = set_combine(eq, sets.Ranged)
 		end
 		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
-			AftercastGear = set_combine(AftercastGear,sets.Twilight)
+			eq = set_combine(eq,sets.Twilight)
 		end
-		equip(AftercastGear)
-	end
+    end
+    equip(eq)
 	update_status()
 end
 
@@ -423,50 +346,35 @@ function self_command(commandArgs)
             return
         end
     end
-	if commandArgs[1] == 'SwapGear' then
-		SwapGear()
-	elseif commandArgs[1] == 'tr' then
+	if commandArgs[1] == 'equip_check' then
+		equip_check()
+	elseif commandArgs[1] == 'ranged' then
 		if range_mode == false then
 			range_mode = true
-			send_command('gs c SwapGear')
+            equip_check()
 		else
 			range_mode = false
-			send_command('gs c SwapGear')
+            equip_check()
 		end
-	elseif commandArgs[1] == 'tstp' then
-		if max_stp == false then
-			max_stp = true
-			send_command('gs c SwapGear')
-		else
-			max_stp = false
-			send_command('gs c SwapGear')
-		end
-	elseif commandArgs[1] == 'tdt' then
-		if use_DT == false then
-			use_DT = true
-			send_command('gs c SwapGear')
-		else
-			use_DT = false
-			send_command('gs c SwapGear')
-		end
+    elseif commandArgs[1] == 'cycle' then
+        if commandArgs[2] and commandArgs[2] == 'engaged' then
+            EngagedMode:cycle()
+        elseif commandArgs[2] and commandArgs[2] == 'weapon' then
+            EquipWeapon:cycle()
+        elseif commandArgs[2] and commandArgs[2] == 'idle' then
+            IdleMode:cycle()
+        end
+        equip_check()
 	elseif commandArgs[1] == 'twilight' then
 		if use_twilight == false then
 			use_twilight = true
-			send_command('gs c SwapGear')
 		else
 			use_twilight = false
-			send_command('gs c SwapGear')
-		end
+        end
+        equip_check()
 	elseif commandArgs[1] == 'update_status' then
 		update_status()
 	end
-end
-
-function file_unload()     
-	send_command('unbind ^F9')
-	send_command('unbind ^F10')
-	send_command('unbind ^F11')
-	send_command('unbind ^F12')
 end
 
 -- More code for displaying text -- Not finished 
@@ -490,31 +398,29 @@ function update_status()
 
     stateBox:clear()
 	stateBox:append('   ')
-	local status_text = ''
-	--max_stp = true
-	--range_mode = false
-	--use_twilight = false
-	--use_DT = false
+    local status_text = ''
+    
+    if EquipWeapon.value == 'Empyrean' then
+        status_text = string.format("%s%s%s", clr.Fire, Weapons[EquipWeapon.value], spc)
+    elseif EquipWeapon.value == 'Relic' then
+        status_text = string.format("%s%s%s", clr.h, Weapons[EquipWeapon.value], spc)
+    elseif EquipWeapon.value == 'Aeonic' then
+        status_text = string.format("%s%s%s", clr.Wind, Weapons[EquipWeapon.value], spc)
+    else
+        status_text = string.format("%s%s%s", clr.w, Weapons[EquipWeapon.value], spc)
+    end
 
-	if max_stp or max_stp == nil then
-		--stateBox:append(string.format("%sMode: %s%s", clr.w, clr.Ice, 'Normal'))
-		status_text = string.format("%s%s%s", clr.Ice, 'Store TP', spc)
-	else
-		--stateBox:append(string.format("%sMode: %s%s", clr.w, clr.h, 'Defensive'))
-		status_text = string.format(" %s%s%s", clr.h, 'Accuracy', spc)
-	end
+    status_text = string.format("%s%s %s%s%s%s", status_text, clr.w, 'Engaged: ', clr.Ice, EngagedMode.value, spc)
+    
+    status_text = string.format("%s%s %s%s%s%s", status_text, clr.w, 'Idle: ', clr.Ice, IdleMode.value, spc)
+
 	--stateBox:append(spc)
-	if range_mode or range_mode == nil then
+	if range_mode == true then
 		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Ranged', spc)
 	else
 		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Ranged', spc)
 	end
-	if use_DT or use_DT == nil then
-		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Damage Taken', spc)
-	else
-		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Damage Taken', spc)
-	end
-	if use_twilight or use_twilight == nil then
+	if use_twilight == true then
 		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Twilight', spc)
 	else
 		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Twilight', spc)
@@ -526,7 +432,6 @@ end
 function clear_job_states()
     if stateBox then stateBox:destroy() end
 end
-
 
 windower.raw_register_event('outgoing chunk', function(id, data)
     if id == 0x00D and stateBox then
@@ -562,7 +467,7 @@ windower.raw_register_event('prerender',function()
         		moving = true
 			elseif dist < 1 and moving then
 				if player.status ~= 'Engaged' then
-					send_command('gs c SwapGear')
+					send_command('gs c equip_check')
 				end
                 moving = false
             end

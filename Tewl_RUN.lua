@@ -26,16 +26,17 @@ function get_sets()
     Capes = {}
     Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}}
     Capes.SIRD = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
+    Capes.DA = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}}
 
     sets.Enmity = {
         head        = "Halitus Helm",
         body        = "Emet Harness +1",
         hands       = "Kurys Gloves",
         legs        = "Eri. Leg Guards +1",
-        feet        = "Erilaz Greaves +1", -- "Ahosi Leggings" -- Schah
+        feet        = "Ahosi Leggings",
         neck        = "Moonlight Necklace",
         left_ear    = "Cryptic Earring",
-        -- right_ear   = "Trux Earring", -- HTB DM2
+        right_ear   = "Trux Earring",
         left_ring   = "Eihwaz Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
@@ -49,8 +50,8 @@ function get_sets()
         feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
         neck        = "Moonlight Necklace", --15
         waist       = "Audumbla Sash", -- 10
-        left_ear    = "Cryptic Earring",
-        right_ear   = "Halasz Earring", -- 5
+        left_ear    = "Halasz Earring", -- 5
+        right_ear   = "Trux Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.SIRD -- 10
@@ -78,7 +79,7 @@ function get_sets()
         ['Vivacious Pulse'] = {head="Erilaz Galea +1",neck="Incanter's Torque",ring1="Stikini Ring +1",ring2="Stikini Ring +1",legs="Rune. Trousers +1"},
         ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
         ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
-        ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +2"}),
+        ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +3"}),
         ['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +3"}),
         ['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat +3"}),
         ['Gambit'] = set_combine(sets.Enmity,{hands="Runeist's Mitons +3"}),
@@ -110,7 +111,7 @@ function get_sets()
         right_ear   = "Sherida Earring",
         left_ring   = "Epona's Ring",
         right_ring  = "Karieyh Ring",
-        back        = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}},
+        back        = Capes.DA
     }
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
         ammo        = "Seeth. Bomblet +1",
@@ -125,7 +126,7 @@ function get_sets()
         right_ear   = "Sherida Earring",
         left_ring   = "Regal Ring",
         right_ring  = "Niqmaddu Ring",
-        back        = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}},
+        back        = Capes.DA
     })
 
     sets.midcast = {}
@@ -139,17 +140,17 @@ function get_sets()
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
         neck        = { name="Futhark Torque +2", augments={'Path: A',}},
         waist       = "Audumbla Sash",
-        -- left_ear    = "Tuisto Earring", -- 1k DI
+        left_ear    = "Tuisto Earring",
         right_ear   = "Odnowa Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
-        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+        back        = Capes.SIRD
     })
     
     -- Aftercast sets: TP, Idle
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
-    sets.aftercast.Engaged.Normal = {
+    sets.aftercast.Engaged.STP = {
         ammo        = "Ginsen",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
         body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
@@ -162,9 +163,9 @@ function get_sets()
 		right_ear   = "Sherida Earring",
 		left_ring   = "Epona's Ring",
         right_ring  = "Niqmaddu Ring",
-        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+        back        = Capes.Enmity
     }
-    sets.aftercast.Engaged.DT = {
+    sets.aftercast.Engaged.Normal = {
         ammo        = "Staunch Tathlum +1",
         head        = "Turms Cap +1",
         body        = "Runeist's Coat +3",
@@ -177,9 +178,9 @@ function get_sets()
         right_ear   = "Odnowa Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
-        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+        back        = Capes.Enmity
     }
-    sets.aftercast.Engaged.Hybrid = {
+    sets.aftercast.Engaged.Normall = {
         ammo        = "Staunch Tathlum +1",
         head        = "Turms Cap +1",
         body        = "Runeist's Coat +3",
@@ -187,12 +188,12 @@ function get_sets()
         legs        = "Eri. Leg Guards +1",
         feet        = "Turms Leggings +1",
         neck        = "Futhark torque +2",
-        waist       = "Flume belt +1",
-        left_ear    = "Genmei Earring",
-        right_ear   = "Odnowa Earring +1",
+		waist       = "Ioskeha Belt +1",
+		left_ear    = "Telos Earring",
+		right_ear   = "Sherida Earring",
         left_ring   = "Defending Ring",
-        right_ring  = "Moonlight Ring",
-        back        = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}},
+        right_ring  = "Niqmaddu Ring",
+        back        = Capes.DA
     }
     sets.aftercast.Idle = {
         ammo        = "Staunch Tathlum +1", 
@@ -200,7 +201,7 @@ function get_sets()
         body        = "Runeist's Coat +3", 
         hands       = "Turms Mittens +1", 
         legs        = "Eri. Leg Guards +1",
-        feet        = "Turms Leggings +1",  
+        feet        = "Ahosi Leggings",  
         neck        = "Futhark Torque +2", 
         waist       = "Flume Belt +1", 
         left_ear    = "Genmei Earring", 

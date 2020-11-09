@@ -65,6 +65,36 @@ function get_sets()
     sets.precast['Soul Voice'] = {
         legs        = "Bihu Cannions +3"
     }
+    sets.precast.WS = {
+        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
+        head        = "Bihu Roundlet +3",
+        body        = "Bihu Jstcorps. +3",
+        hands       = "Bihu Cuffs +3",
+        legs        = "Bihu Cannions +3",
+        feet        = "Bihu Slippers +3",
+        neck        = "Fotia Gorget",
+        waist       = "Fotia Belt",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Ishvara Earring",
+        left_ring   = "Epaminondas's Ring",
+        right_ring  = "Ilabrat Ring",
+        back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
+    }
+    sets.precast.WS["Mordant Rime"] = {
+        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
+        head        = "Bihu Roundlet +3",
+        body        = "Bihu Jstcorps. +3",
+        hands       = "Bihu Cuffs +3",
+        legs        = "Bihu Cannions +3",
+        feet        = "Bihu Slippers +3",
+        neck        = "Bard's Charm +2",
+        waist       = "Grunfeld Rope",
+        left_ear    = "Regal Earring",
+        right_ear   = "Ishvara Earring",
+        left_ring   = "Epaminondas's Ring",
+        right_ring  = "Metamor. Ring +1",
+        back        = { name="Intarabus's Cape", augments={'CHR+20','Accuracy+20 Attack+20','CHR+10','Weapon skill damage +10%',}},
+    }
 
     sets.midcast = { }
     sets.midcast.BardSong = {        
@@ -145,7 +175,7 @@ function get_sets()
         right_ring  = "Gelatinous Ring +1",
         back        = "Moonlight Cape"
     }
-    sets.Engaged = {
+    sets.aftercast.Engaged = {
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",
@@ -160,29 +190,6 @@ function get_sets()
         right_ring  = "Chirich Ring +1", 
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}},
     }
-    sets.WS = {
-        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
-        head        = "Bihu Roundlet +3",
-        body        = "Bihu Jstcorps. +3",
-        hands       = "Bihu Cuffs +3",
-        legs        = "Bihu Cannions +3",
-        feet        = "Bihu Slippers +3",
-        neck        = "Fotia Gorget",
-        waist       = "Fotia Belt",
-        left_ear    = "Moonshade Earring",
-        right_ear   = "Ishvara Earring",
-        left_ring   = "Epaminondas's Ring",
-        right_ring  = "Ilabrat Ring",
-        back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
-    }
-    sets.WS["Mordant Rime"] = set_combine(sets.WS,{
-        range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
-        neck        = "Bard's Charm +2",
-        waist       = "Grunfeld Rope",
-        left_ear    = "Regal Earring",
-        right_ring  = "Metamor. Ring +1",
-        back        = { name="Intarabus's Cape", augments={'CHR+20','Accuracy+20 Attack+20','CHR+10','Weapon skill damage +10%',}},
-    })
 end
 
 function precast(spell)
@@ -215,10 +222,10 @@ function precast(spell)
     elseif sets.precast[spell.name] then
         equip(sets.precast[spell.name])
     elseif spell.type == 'WeaponSkill' then
-        if sets.WS[spell.name] then
-            equip(sets.WS[spell.name])
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
         else
-            equip(sets.WS)
+            equip(sets.precast.WS)
         end
     end
 end
@@ -282,7 +289,7 @@ end
 function goIdle()
     local Aftercast = sets.aftercast.Idle
     if player.status == 'Engaged' then
-        Aftercast = sets.Engaged
+        Aftercast = sets.aftercast.Engaged
     end
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
         equip(set_combine(Aftercast,Offhand))
