@@ -294,9 +294,7 @@ function midcast(spell,action)
 end
 
 function aftercast(spell,action)
-	if T{'Idle','Resting','Engaged'}:contains(new) then
-        equip_check()
-    end
+	equip_check()
 end
 
 function status_change(new,old)
