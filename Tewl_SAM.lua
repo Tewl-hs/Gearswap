@@ -23,11 +23,11 @@ function get_sets()
 	send_command('bind ^f11 gs c ranged') 
 	send_command('bind ^f12 gs c twilight')
 
-    --  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
-    send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
-    send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
+	--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
+	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
+	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
     
-    sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
+ 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
     include('Modes.lua') -- Using Motes meta tables for modes
     EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'PDT', 'MDT', 'Hybrid'}
