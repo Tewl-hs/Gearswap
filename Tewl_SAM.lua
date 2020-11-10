@@ -200,7 +200,7 @@ function get_sets()
 	sets.Idle = { }
 	sets.Idle.Normal = {
 		main		= Weapons[EquipWeapon.value],
-		sub		 = "Utu Grip",
+		sub		= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Tartarus Platemail", --"Ken. Samue +1",
