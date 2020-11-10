@@ -92,16 +92,16 @@ function get_sets()
         range 		= "Yoichinoyumi",
         ammo		= "Yoichi's Arrow",
         head        = "Sakonji Kabuto +3",
-		body		= "Ken. Samue +1", -- Need RA neck
+		body		= "Ken. Samue +1",
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
         feet		= "Wakido Sune. +3",
-		neck		= "Sam. Nodowa +2",
+		neck		= "Sam. Nodowa +2", -- Need RA neck
 		waist		= "Eschan Stone", -- "Reiki Yotai"
 		left_ear	= "Telos earring",
-        right_ear	= "", -- "Enervating Earring",
-		left_ring	= "", -- "Hajduk Ring +1", 
-		right_ring	= "Regal Ring",
+        right_ear	= "Lugra Earring +1", -- "Enervating Earring",
+		left_ring	= "Regal Ring",
+		right_ring	= "Cacoethic ring +1",
         back        = Capes.RACape
     }
             
@@ -116,21 +116,57 @@ function get_sets()
 		legs		= "Wakido Haidate +3",
 		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 		neck		= "Sam. Nodowa +2",
-		waist		= "Sailfi Belt +1", --"Fotia Belt",
+		waist		= "Fotia Belt",
 		left_ear	= "Moonshade Earring",
 		right_ear	= "Thrud Earring",
-		left_ring	= "Epaminondas's Ring", -- Epaminondas's Ring -- Regal Ring
+		left_ring	= "Epaminondas's Ring", -- Regal Ring
 		right_ring	= "Karieyh Ring",
 		back		= Capes.WSCape
     }
-    sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { })
-    sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { })
-    sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { })
-    sets.WS['Tachi: Rana'] = set_combine(sets.WS.Normal, { })
-    sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, { })
-    sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Normal, { })            
-    sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, { })            
-    sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { })
+    sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { 
+		waist		= "Sailfi Belt +1",
+	})
+    sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Fudo, { })    
+    sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
+		head		= { name="Stinger Helm +1", augments={'Path: A',}},
+		waist		= "Sailfi Belt +1",
+	})
+    sets.WS['Tachi: Rana'] = set_combine(sets.WS.Shoha, { })
+    sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
+		body		= "Sacro Breastplate",
+		hands		= "Founder's Gauntlets",
+		feet		= "Founder's Greaves",
+		right_ear	= "Friomisi Earring",
+		left_ring	= "Regal Ring",
+		right_ring	= "Niqmaddu Ring",
+		waist		= "Eschan Stone",
+	})
+    sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
+		ammo		= "Pemphredo Tathlum",
+		head		= "Flam. Zucchetto +2",
+		body		= "Flamma Korazin +2",
+		hands		= "Flam. Manopolas +2",
+		legs		= "Flamma Dirs +2",
+		feet		= "Flam. Gambieras +2",
+		waist		= "Eschan Stone",
+	})        
+    sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
+		head		= "Sakonji Kabuto +3",
+        body		= "Kendatsuba Samue",
+		hands		= "Ryuo Tekko +1",
+        legs		= "Kendatsuba Hakama",
+		feet		= "Wakido Sune. +3",
+		neck		= "Fotia Gorget",
+		left_ring	= "Regal Ring",
+		right_ring	= "Ilabrat Ring",
+		left_ear	= "Ishvara Earring",
+		right_ear	= "Thrud Earring",
+		waist		= "Eschan Stone",
+		back		= Capes.RWSCape
+	 })            
+    sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
+		head		= "Blistering Sallet +1"
+	})
     
     sets.Engaged = {}
     sets.Engaged.Normal = {
@@ -178,8 +214,13 @@ function get_sets()
 		right_ring	= "Karieyh Ring",
 		back		= Capes.TPCape
     }
-    sets.Idle.PDT = set_combine(sets.Idle.Normal, {})
-    sets.Idle.MDT = set_combine(sets.Idle.Normal, {})
+    sets.Idle.PDT = set_combine(sets.Idle.Normal, {
+		head		= "Ken. Jinpachi +1",
+		right_ring	= "Gelatinous Ring +1"
+	})
+    sets.Idle.MDT = set_combine(sets.Idle.PDT, {
+		hands		= "Ken. Tekko +1"
+	})
 
     sets.Twilight = { 
         head		= "Twilight helm",
