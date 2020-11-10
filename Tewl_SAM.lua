@@ -434,7 +434,7 @@ function update_status()
 		Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
 	}
 
-	local spc = '	'
+	local spc = '   '
 
 	stateBox:clear()
 	stateBox:append('   ')
