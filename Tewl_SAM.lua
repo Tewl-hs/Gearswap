@@ -172,7 +172,7 @@ function get_sets()
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
 		main		= Weapons[EquipWeapon.value],
-		sub		 = "Utu Grip",
+		sub		= "Utu Grip",
 		ammo		= "Ginsen",
 		head		= "Flam. Zucchetto +2",
 		body		= "Kasuga Domaru +1",
