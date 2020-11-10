@@ -109,7 +109,7 @@ function get_sets()
 	sets.WS = {}
 	sets.WS.Normal = {
 		main		= Weapons[EquipWeapon.value],
-		sub		 = "Utu Grip",
+		sub		= "Utu Grip",
 		ammo		= "Knobkierrie",
 		head		= { name="Valorous Mask", augments={'Attack+26','Weapon skill damage +3%','STR+15','Accuracy+13',}},
 		body		= "Sakonji Domaru +3",
