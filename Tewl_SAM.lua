@@ -89,7 +89,7 @@ function get_sets()
 	}
 	sets.RA = {
 		main		= Weapons[EquipWeapon.value],
-		sub		 	= "Utu Grip",
+		sub		 = "Utu Grip",
 		range		= "Yoichinoyumi",
 		ammo		= "Yoichi's Arrow",
 		head		= "Sakonji Kabuto +3",
