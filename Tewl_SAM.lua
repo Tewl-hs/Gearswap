@@ -228,7 +228,7 @@ function get_sets()
 		body		= "Twilight mail"
 	}
 	sets.Ranged = {
-		range		 = "Yoichinoyumi",
+		range		= "Yoichinoyumi",
 		ammo		= "Yoichi's Arrow"
 	}
 -- 
