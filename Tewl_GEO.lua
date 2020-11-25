@@ -153,6 +153,7 @@ function get_sets()
     sets.midcast['Dark Magic'] = {
         head        = "Bagua Galero +3",
         neck        = "Incanter's Torque",
+        legs        = "Azimuth Tights +1",
         waist       = "Austertiy Belt +1"
     }
 
@@ -162,7 +163,7 @@ function get_sets()
 
     sets.midcast.Cure = { 
         main        = "Daybreak",
-        sub         = { name="Genbu's Shield", augments={'"Cure" potency +3%','Mag. Acc.+5','HP+24',}},
+        sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         neck        = "Nodens Gorget",
         left_ear    = "Mendicant's Earring",

@@ -98,7 +98,7 @@ function get_sets()
 
     sets.midcast = { }
     sets.midcast.BardSong = {        
-        main        = "Carnwenhan", --Kali.Skill, 
+        main        = "Carnwenhan", 
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Bihu Roundlet +3",
@@ -120,7 +120,7 @@ function get_sets()
         body        = "Mousai Manteel"
     }
     sets.midcast.Scherzo = {
-        feet        = "Fili cothurnes +1"
+        feet        = "Fili Cothurnes +1"
     }
     sets.midcast.Carol = {
         hands       = "Mousai Gages"
@@ -150,7 +150,7 @@ function get_sets()
         hands       = "Brioso Cuffs +3"
     }
     sets.midcast.Paeon = {
-        hands       = "Brioso Roundlet +3"
+        head       = "Brioso Roundlet +3"
     }
 
     sets.Weaponskill = { 

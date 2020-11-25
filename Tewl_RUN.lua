@@ -8,8 +8,11 @@
 
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --]]
+
 function get_sets()		      
     include('Modes.lua') -- Using Motes meta tables for modes
+    
+    res = require('resources')
 
     -- Personal settings: Load macros and set equipviewer position
     send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 20')
@@ -19,7 +22,9 @@ function get_sets()
 
     sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
 
-    BlueSpells = T{'Geist Wall', 'Sheep Song', 'Soporific', 'Blank Gaze', 'Jettatura', 'Healing Breeze'}
+    BlueSpells = T{'Grand Slam', 'Terror Touch', 'Healing Breeze', 'Cocoon', 'Pollen', 'Wild Carrot', 'Blank Gaze', 'Geist Wall', 'Soporific', 'Jettatura', 'Sheep Song', 'Metallic Body'}
+    BlueSpellSet = T{'Grand Slam', 'Terror Touch', 'Healing Breeze', 'Cocoon', 'Pollen', 'Wild Carrot', 'Blank Gaze', 'Geist Wall', 'Soporific', 'Jettatura', 'Sheep Song', 'Metallic Body'}
+
     EnmitySpells = T{'Foil', 'Flash', 'Stun'}
     
     -- Augmented Gear
@@ -147,7 +152,7 @@ function get_sets()
         back        = Capes.SIRD
     })
     
-    -- Aftercast sets: TP, Idle
+    -- Aftercast sets: Engaged, Idle
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
     sets.aftercast.Engaged.STP = {
@@ -180,7 +185,7 @@ function get_sets()
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
-    sets.aftercast.Engaged.Normall = {
+    sets.aftercast.Engaged.Hybrid = {
         ammo        = "Staunch Tathlum +1",
         head        = "Turms Cap +1",
         body        = "Runeist's Coat +3",
@@ -210,6 +215,74 @@ function get_sets()
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
+
+    check_spells()
+end
+-- 
+function sub_job_change(new, old)
+    if new == 'BLU' then
+        coroutine.schedule(function() check_spells() end,2)
+    end
+end
+
+function check_spells()
+    if windower.ffxi.get_player().sub_job_id ~= 16 then return nil end
+    if S(BlueSpellSet):map(string.lower) == S(get_current_spellset()) then
+        windower.add_to_chat(8,'[Blue Spells Equipped]')
+    else
+        windower.add_to_chat(8,'[Equipping Blue Spells]')
+        clear_spells()
+    end
+end
+
+function clear_spells()
+    windower.ffxi.reset_blue_magic_spells()
+    set_spells()
+end
+
+function set_spells()
+    local delay = 0.65
+    local i = 0
+    for k,v in pairs(BlueSpellSet) do
+        if v ~= nil then
+            local spellID = find_spell_id_by_name(v)
+            if spellID ~= nil then
+                i = i + 1
+                x = delay * i
+                set_spell:schedule(x, spellID, i)
+            end
+        end
+    end
+end
+
+function set_spell(id, slot)
+    windower.ffxi.set_blue_magic_spell(id, tonumber(slot))
+    if tonumber(slot) == table.getn(BlueSpellSet) then
+        windower.add_to_chat(8, '[Finished equipping spells.]')
+        windower.send_command('@timers c "Blue Magic Cooldown" 60 up')
+    end
+end
+
+function find_spell_id_by_name(spellname)
+    spells = res.spells:type('BlueMagic')
+
+    for spell in spells:it() do
+        if spell['english']:lower() == spellname:lower() then
+            return spell['id']
+        end
+    end
+    return nil
+end
+
+function get_current_spellset()
+    spells = res.spells:type('BlueMagic')
+    return T(windower.ffxi.get_sjob_data().spells)
+    -- Returns all values but 512
+    :filter(function(id) return id ~= 512 end)
+    -- Transforms them from IDs to lowercase English names
+    :map(function(id) return spells[id].english:lower() end)
+    -- Transform the keys from numeric x or xx to string 'slot0x' or 'slotxx'
+    :key_map(function(slot) return 'slot%02u':format(slot) end)
 end
     
 function precast(spell,action)        

@@ -30,7 +30,7 @@ function get_sets()
 	 sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
 	include('Modes.lua') -- Using Motes meta tables for modes
-	EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'PDT', 'MDT', 'Hybrid'}
+	EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'Accuracy', 'PDT', 'MDT', 'Hybrid'}
 	IdleMode = M{['description'] = 'Idle Mode', 'Normal', 'PDT', 'MDT'}
 	-- For each weapon you wish to toggle through add after the description
 	EquipWeapon = M{['description'] = 'Equipped Weapon', 'Empyrean', 'Relic', 'Aeonic', 'Polearm'}
@@ -88,7 +88,6 @@ function get_sets()
 		left_ear	= "Loquac. earring"
 	}
 	sets.RA = {
-		main		= Weapons[EquipWeapon.value],
 		sub		= "Utu Grip",
 		range		= "Yoichinoyumi",
 		ammo		= "Yoichi's Arrow",
@@ -108,8 +107,6 @@ function get_sets()
 			
 	sets.WS = {}
 	sets.WS.Normal = {
-		main		= Weapons[EquipWeapon.value],
-		sub		= "Utu Grip",
 		ammo		= "Knobkierrie",
 		head		= { name="Valorous Mask", augments={'Attack+26','Weapon skill damage +3%','STR+15','Accuracy+13',}},
 		body		= "Sakonji Domaru +3",
@@ -153,9 +150,9 @@ function get_sets()
 	})		
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
 		head		= "Sakonji Kabuto +3",
-		body		= "Kendatsuba Samue",
+		body		= "Ken. Samue +1",
 		hands		= "Ryuo Tekko +1",
-		legs		= "Kendatsuba Hakama",
+		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
 		neck		= "Fotia Gorget",
 		left_ring	= "Regal Ring",
@@ -171,7 +168,6 @@ function get_sets()
 	
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
-		main		= Weapons[EquipWeapon.value],
 		sub		= "Utu Grip",
 		ammo		= "Ginsen",
 		head		= "Flam. Zucchetto +2",
@@ -180,9 +176,9 @@ function get_sets()
 		feet		= "Ryuo Sune-Ate +1",
 		hands		= "Wakido Kote +3",
 		neck		= "Sam. Nodowa +2",
-		waist		= "Ioskeha belt +1",
-		left_ear	= "Telos earring",
-		right_ear	= "Dedition earring",
+		waist		= "Ioskeha Belt +1",
+		left_ear	= "Telos Earring",
+		right_ear	= "Dedition Earring",
 		left_ring	= "Flamma Ring",
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TPCape
@@ -191,15 +187,34 @@ function get_sets()
 		body		= "Ken. Samue +1", 
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
-		right_ear	= "Cessance earring",
+		right_ear	= "Cessance Earring",
 	})
-	sets.Engaged.PDT = set_combine(sets.Engaged.Normal, { })
-	sets.Engaged.MDT = set_combine(sets.Engaged.Normal, { })
+	sets.Engaged.PDT = {
+		sub		= "Utu Grip",
+		ammo		= "Staunch Tathlum +1",
+		head		= "Wakido Kabuto +3",
+		body		= "Tartarus Platemail", --"Ken. Samue +1",
+		hands		= "Sakonji Kote +3",
+		legs		= "Ken. Hakama +1",
+		feet		= "Ken. Sune-Ate +1",
+		neck		= "Loricate Torque +1",
+		waist		= "Flume Belt +1",
+		left_ear	= "Genmei Earring",
+		right_ear	= "Odnowa Earring +1",
+		left_ring	= "Defending Ring",
+		right_ring	= "Karieyh Ring",
+		back		= Capes.TPCape
+	}
+
+	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
+		head		= "Ken. Jinpachi +1",
+		body		= "Ken. Samue +1",
+		hands		= "Ken. Tekko +1"
+	 })
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, { })
 	
 	sets.Idle = { }
 	sets.Idle.Normal = {
-		main		= Weapons[EquipWeapon.value],
 		sub		= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
@@ -437,7 +452,7 @@ function update_status()
 	local spc = '   '
 
 	stateBox:clear()
-	stateBox:append('   ')
+	stateBox:append(spc)
 	local status_text = ''
 	
 	if EquipWeapon.value == 'Empyrean' then
