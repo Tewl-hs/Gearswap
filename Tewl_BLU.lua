@@ -9,6 +9,18 @@ function get_sets()
         send_command('input /macro book 4;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 6')
         send_command('input //equipviewer pos 1663 934')
 
+        BlueNukeSet = T{'Delta Thrust', 'Barbed Crescent', 'Memento Mori', 'Reactor Cool', 'Spectral Floe', 'Subduction', 'Erratic Flutter', 'Barrier Tusk', 'Entomb', 'Anvil Lightning', 'Magic Fruit',
+        'Magic Hammer', 'Dream Flower', 'Tenebral Crush', 'Eyes on Me', 'Cursed Sphere', 'Battery Charge', 'Cocoon'}
+
+        BlueSets = {
+            ['BLM'] = BlueNukeSet,
+            ['RDM'] = BlueNukeSet
+        }
+
+        res = require('resources')
+
+        current_sj = player.sub_job or nil
+
         sets.precast = { -- Fast Cast Current: 80% 
             ammo        = "Sapience Orb", -- 2
             head        = "Carmine Mask +1", -- 9
@@ -80,6 +92,73 @@ function get_sets()
             left_ring   = "Stikini Ring +1",
             right_ring  = "Stikini Ring +1",
         })
+
+        check_spells()
+    end
+    -- 
+    function sub_job_change(new, old)
+        coroutine.schedule(function() check_spells() end,2)
+    end
+
+    function check_spells()
+        if windower.ffxi.get_player().main_job_id ~= 16 then return nil end
+        current_sj = player.sub_job
+        if BlueSets[current_sj] then
+            if S(BlueSets[current_sj]):map(string.lower) == S(get_current_spellset()) then
+                windower.add_to_chat(8,'[Blue Spells Equipped]')
+            else
+                windower.add_to_chat(8,'[Equipping Blue Spells]')
+                clear_spells()
+            end
+        end
+    end
+
+    function clear_spells()
+        windower.ffxi.reset_blue_magic_spells()
+        set_spells()
+    end
+
+    function set_spells()
+        if BlueSets[current_sj] then
+            local sj = current_sj
+            local delay = 0.65
+            local i = 0
+            for k,v in pairs(BlueSets[sj]) do
+                if v ~= nil then
+                    local spellID = find_spell_id_by_name(v)
+                    if spellID ~= nil then
+                        i = i + 1
+                        x = delay * i
+                        set_spell:schedule(x, spellID, i, sj)
+                    end
+                end
+            end
+        end
+    end
+
+    function set_spell(id, slot, sj)
+        if sj ~= current_sj then return nil end
+        windower.ffxi.set_blue_magic_spell(id, tonumber(slot))
+        if tonumber(slot) == table.getn(BlueSets[current_sj]) then
+            windower.add_to_chat(8, '[Finished equipping spells.]')
+            windower.send_command('@timers c "Blue Magic Cooldown" 60 up')
+        end
+    end
+
+    function find_spell_id_by_name(spellname)
+        spells = res.spells:type('BlueMagic')
+
+        for spell in spells:it() do
+            if spell['english']:lower() == spellname:lower() then
+                return spell['id']
+            end
+        end
+        return nil
+    end
+
+    function get_current_spellset()
+        spells = res.spells:type('BlueMagic')
+        return T(windower.ffxi.get_mjob_data().spells)
     end
     
     function precast(spell)
