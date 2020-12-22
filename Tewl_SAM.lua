@@ -24,32 +24,27 @@ function get_sets()
 	send_command('bind ^f12 gs c twilight')
 
 	--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
-	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle when changing to SAM
+	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 19') -- Sets Macro set and lockstyle when changing to SAM
 	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
 	
-	 sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
+	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-	include('Modes.lua') -- Using Motes meta tables for modes
-	EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'Accuracy', 'PDT', 'MDT', 'Hybrid'}
-	IdleMode = M{['description'] = 'Idle Mode', 'Normal', 'PDT', 'MDT'}
-	-- For each weapon you wish to toggle through add after the description
-	EquipWeapon = M{['description'] = 'Equipped Weapon', 'Empyrean', 'Relic', 'Aeonic', 'Polearm'}
-	-- For each weapon you have above the weapon must have a variable in the Weapons array
-	Weapons = { }
-	Weapons.Empyrean	= "Masamune"
-	Weapons.Relic		= "Amanomurakumo"
-	Weapons.Aeonic		= "Dojikiri Yasutsuna"
-	Weapons.Polearm		= "Shining One"
+    EngagedMode = {'Normal', 'Accuracy', 'PDT', 'MDT', 'Hybrid'}
+    e = 1 -- Which set for initial setup in array.
+    IdleMode = {'Normal', 'PDT', 'MDT'}
+    i = 1
+    Weapons = {'Masamune', 'Amanomurakumo', 'Dojikiri Yasutsuna', 'Shining One'}
+    w = 1
 
 	range_mode = false
-	use_twilight = false
+	lock_twilight = false
 	
 	-- Initial setup variables
 	AutoWS = 'Tachi: Enpi'
 	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
-	ws_order = 1
--- Gearsets
-
+    ws_order = 1
+    
+    -- Gearsets
 	Capes = {} 
 	Capes.TPCape	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.WSCape	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
@@ -84,8 +79,19 @@ function get_sets()
 			feet	= "Sak. Sune-Ate +3"
 		}
 	}
-	sets.FC = {
-		left_ear	= "Loquac. earring"
+	sets.FC = { -- 35 / 51%
+		ammo		= "Sapience Orb", -- 2
+		head		= "Acro Helm", -- 3
+		neck		= "Orunmila's Torque", --5
+		body		= "Sacro Breastplate", -- 10
+		hands		= "Leyline Gloves", -- 7
+		--legs		= "Arjuna Breeches", -- 4 Zerde
+		feet		= "Acro Leggings", -- 3
+		left_ear	= "Loquac. Earring", -- 2
+		right_ear	= "Etiolation Earring", -- 1
+		left_ring	= "Prolix Ring", -- 2
+		--right_ring	= "Rahab Ring", -- 2 AA TT
+		--back		= Capes.FC -- 10
 	}
 	sets.RA = {
 		sub		= "Utu Grip",
@@ -117,11 +123,12 @@ function get_sets()
 		waist		= "Fotia Belt",
 		left_ear	= "Moonshade Earring",
 		right_ear	= "Thrud Earring",
-		left_ring	= "Epaminondas's Ring", -- Regal Ring
+		left_ring	= "Epaminondas's Ring",
 		right_ring	= "Karieyh Ring",
 		back		= Capes.WSCape
 	}
 	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { 
+		--head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
 		waist		= "Sailfi Belt +1",
 	})
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Fudo, { })	
@@ -131,12 +138,17 @@ function get_sets()
 	})
 	sets.WS['Tachi: Rana'] = set_combine(sets.WS.Shoha, { })
 	sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
+		ammo		= "Knobkierrie",
+		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
 		body		= "Sacro Breastplate",
 		hands		= "Founder's Gauntlets",
-		feet		= "Founder's Greaves",
+		legs		= "Wakido Haidate +3",
+		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 		right_ear	= "Friomisi Earring",
-		left_ring	= "Regal Ring",
-		right_ring	= "Niqmaddu Ring",
+		left_ear	= "Moonshade Earring",
+		left_ring	= "Epaminondas's Ring",
+		right_ring	= "Karieyh Ring",
+		--waist		= "Orpheus's Sash",
 		waist		= "Eschan Stone",
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
@@ -146,6 +158,8 @@ function get_sets()
 		hands		= "Flam. Manopolas +2",
 		legs		= "Flamma Dirs +2",
 		feet		= "Flam. Gambieras +2",
+		left_ring	= "Metamor. Ring +1",
+		right_ring	= "Stikini Ring +1",
 		waist		= "Eschan Stone",
 	})		
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
@@ -171,29 +185,34 @@ function get_sets()
 		sub		= "Utu Grip",
 		ammo		= "Ginsen",
 		head		= "Flam. Zucchetto +2",
-		body		= "Kasuga Domaru +1",
-		legs		= "Ryuo Hakama +1",
+		--body		= "Kasuga Domaru +1", -- ALT TP Set
+		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
+		--legs		= "Ryuo Hakama +1", -- ALT TP Set
 		feet		= "Ryuo Sune-Ate +1",
-		hands		= "Wakido Kote +3",
+		--hands		= "Wakido Kote +3", -- Equipped when hasso is up
+		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		neck		= "Sam. Nodowa +2",
 		waist		= "Ioskeha Belt +1",
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
-		left_ring	= "Flamma Ring",
+		--left_ring	= "Flamma Ring", -- ALT TP Set
+        left_ring   = "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TPCape
 	 }	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
-		body		= "Ken. Samue +1", 
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		right_ear	= "Cessance Earring",
+		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
+		right_ear	= "Cessance Earring", -- "Digni. Earring"
 	})
 	sets.Engaged.PDT = {
 		sub		= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
-		body		= "Tartarus Platemail", --"Ken. Samue +1",
+		body		= "Tartarus Platemail",
 		hands		= "Sakonji Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
@@ -218,7 +237,7 @@ function get_sets()
 		sub		= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
-		body		= "Tartarus Platemail", --"Ken. Samue +1",
+		body		= "Tartarus Platemail",
 		hands		= "Sakonji Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
@@ -253,8 +272,9 @@ function get_sets()
 	if stateBox then stateBox:destroy() end
 
 	local settings = windower.get_windower_settings()
-	local x,y
-
+    local x,y
+    
+    -- Adjust for screen resolution and positon of text on screen
 	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
 		x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
 	else
@@ -282,7 +302,7 @@ function get_sets()
 	stateBox:stroke_transparency(stroketransparancy)
 
 	update_status()
--- End of display code
+    -- End of display code
 end
 
 function file_unload()  
@@ -333,7 +353,9 @@ function precast(spell,action)
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
 		end
-		-- Write: Insert Lugra Earring +1 check
+		if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
+            ws = set_combine(ws,{left_ear="Lugra Earring +1"})
+        end
 		equip(ws)
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(sets.RA)
@@ -343,11 +365,7 @@ function precast(spell,action)
 end
 
 function midcast(spell,action)
-	if spell.english == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
-		send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
-	elseif spell.english == 'Monomi: Ichi' and buffactive['Sneak'] then
-		send_command('@wait 1.0; cancel 71')
-	end
+
 end
 
 function aftercast(spell,action)
@@ -360,32 +378,43 @@ function status_change(new,old)
 	end
 end
 
-function buff_change(status,gain)
-	
+function buff_change(buff,gain)
+	if player.status == 'Engaged' then
+		if buff == 'Hasso' then
+			if gain == true then
+				equip({hands="Wakido Kote +3"})
+			else
+				equip({hands="Tatena. Gote +1"})
+			end
+		end
+	end
 end
 
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
-		eq = set_combine(sets.Engaged.Normal, {main=Weapons[EquipWeapon.value]})
-		if sets.Engaged[EngagedMode.value] then
-			eq = set_combine(sets.Engaged[EngagedMode.value], {main=Weapons[EquipWeapon.value]})
+		eq = set_combine(sets.Engaged.Normal, {main=Weapons[w]})
+		if sets.Engaged[EngagedMode[e]] then
+			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=Weapons[w]})
+		end
+		if (buffactive['Hasso']) then
+			eq = set_combine(eq,{hands="Wakido Kote +3"})
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
 		end
-		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+		if (buffactive['Weakness'] or buffactive['Doom']) or lock_twilight == true then
 			eq = set_combine(eq,sets.Twilight)
 		end
 	else
-		eq = set_combine(sets.Idle.Normal, {main=Weapons[EquipWeapon.value]})
-		if sets.Idle[IdleMode.value] then
-			eq = set_combine(sets.Idle[IdleMode.value], {main=Weapons[EquipWeapon.value]})
+		eq = set_combine(sets.Idle.Normal, {main=Weapons[w]})
+		if sets.Idle[IdleMode[i]] then
+			eq = set_combine(sets.Idle[IdleMode[i]], {main=Weapons[w]})
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
 		end
-		if (buffactive['Weakness'] or buffactive['Doom']) and use_twilight == true then
+		if (buffactive['Weakness'] or buffactive['Doom']) or lock_twilight == true then
 			eq = set_combine(eq,sets.Twilight)
 		end
 	end
@@ -412,19 +441,22 @@ function self_command(commandArgs)
 			equip_check()
 		end
 	elseif commandArgs[1] == 'cycle' then
-		if commandArgs[2] and commandArgs[2] == 'engaged' then
-			EngagedMode:cycle()
+        if commandArgs[2] and commandArgs[2] == 'engaged' then
+            e = e + 1 
+            if (table.getn(EngagedMode) < e) then e = 1 end
 		elseif commandArgs[2] and commandArgs[2] == 'weapon' then
-			EquipWeapon:cycle()
+            w = w + 1 
+            if (table.getn(Weapons) < w) then w = 1 end
 		elseif commandArgs[2] and commandArgs[2] == 'idle' then
-			IdleMode:cycle()
+            i = i + 1 
+            if (table.getn(IdleMode) < i) then i = 1 end
 		end
 		equip_check()
 	elseif commandArgs[1] == 'twilight' then
-		if use_twilight == false then
-			use_twilight = true
+		if lock_twilight == false then
+			lock_twilight = true
 		else
-			use_twilight = false
+			lock_twilight = false
 		end
 		equip_check()
 	elseif commandArgs[1] == 'update_status' then
@@ -434,20 +466,12 @@ end
 
 -- More code for displaying text -- Not finished 
 function update_status()
-	local clr = {
-		h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
-		w='\\cs(255,255,255)', -- White for labels and default modals
-		n='\\cs(192,192,192)', -- White for labels and default modals
-		s='\\cs(96,96,96)', -- Gray for inactive booleans
-		Fire='\\cs(255,80,80)', -- Red For Fire Element
-		Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
-		Wind='\\cs(110,255,110)', -- Light Green For Wind Element
-		Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
-		Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
-		Water='\\cs(110,110,255)', -- Blue For Water Element
-		Light='\\cs(255,255,155)', -- Light Yellow For Light Element
-		Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
-	}
+	local yellow = '\\cs(255,192,0)'
+	local red = '\\cs(255,80,80)'
+	local green = '\\cs(110,255,110)'
+	local blue = '\\cs(140,160,255)'
+	local gray = '\\cs(96,96,96)'
+	local white = '\\cs(255,255,255)'
 
 	local spc = '   '
 
@@ -455,30 +479,29 @@ function update_status()
 	stateBox:append(spc)
 	local status_text = ''
 	
-	if EquipWeapon.value == 'Empyrean' then
-		status_text = string.format("%s%s%s", clr.Fire, Weapons[EquipWeapon.value], spc)
-	elseif EquipWeapon.value == 'Relic' then
-		status_text = string.format("%s%s%s", clr.h, Weapons[EquipWeapon.value], spc)
-	elseif EquipWeapon.value == 'Aeonic' then
-		status_text = string.format("%s%s%s", clr.Wind, Weapons[EquipWeapon.value], spc)
+	if w == 1 then
+		status_text = string.format("%s%s%s", red, Weapons[w], spc)
+	elseif w == 2 then
+		status_text = string.format("%s%s%s", yellow, Weapons[w], spc)
+	elseif w == 3 then
+		status_text = string.format("%s%s%s", green, Weapons[w], spc)
 	else
-		status_text = string.format("%s%s%s", clr.w, Weapons[EquipWeapon.value], spc)
+		status_text = string.format("%s%s%s", white, Weapons[w], spc)
 	end
 
-	status_text = string.format("%s%s %s%s%s%s", status_text, clr.w, 'Engaged: ', clr.Ice, EngagedMode.value, spc)
+	status_text = string.format("%s%s %s%s%s%s", status_text, white, 'Engaged: ', blue, EngagedMode[e], spc)
 	
-	status_text = string.format("%s%s %s%s%s%s", status_text, clr.w, 'Idle: ', clr.Ice, IdleMode.value, spc)
+	status_text = string.format("%s%s %s%s%s%s", status_text, white, 'Idle: ', blue, IdleMode[i], spc)
 
-	--stateBox:append(spc)
 	if range_mode == true then
-		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Ranged', spc)
+		status_text = string.format("%s%s %s%s", status_text, yellow, 'Ranged', spc)
 	else
-		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Ranged', spc)
+		status_text = string.format("%s%s %s%s", status_text, gray, 'Ranged', spc)
 	end
 	if use_twilight == true then
-		status_text = string.format("%s%s %s%s", status_text, clr.h, 'Twilight', spc)
+		status_text = string.format("%s%s %s%s", status_text, yellow, 'Twilight', spc)
 	else
-		status_text = string.format("%s%s %s%s", status_text, clr.s, 'Twilight', spc)
+		status_text = string.format("%s%s %s%s", status_text, gray, 'Twilight', spc)
 	end
 	stateBox:append(status_text)
 	stateBox:show()

@@ -14,7 +14,7 @@ function get_sets()
         neck        = "Bagua Charm +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
-        hands       = "Bagua Mitaines +1",
+        hands       = "Bagua Mitaines +3",
         legs        = "Assid. Pants +1",
         feet        = "Geo. Sandals +2",  
         back        = "Nantosuelta's Cape",
@@ -33,10 +33,10 @@ function get_sets()
         main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
         range       = "Dunna",
         head        = "Azimuth Hood +1",
-        hands       = "Geo. Mitaines +2",
+        hands       = "Geo. Mitaines +3",
         back        = "Nantosuelta's Cape",
         waist       = "Isa Belt",
-        feet        = "Bagua Sandals +1"            
+        feet        = "Bagua Sandals +3"            
     }
 
     sets.precast = {}
@@ -69,13 +69,13 @@ function get_sets()
         body        = "Geo. Tunic +1"
     }
     sets.precast.JA['Curative Reecantation'] = {
-        hands       = "Bagua Mitaines + 1"
+        hands       = "Bagua Mitaines + 3"
     }
     sets.precast.JA['Mending Halation'] = {
         legs        = "Bagua Pants +2"
     }
     sets.precast.JA['Radial Arcana'] = {
-        feet        = "Bagua Sandals +1"
+        feet        = "Bagua Sandals +3"
     }
 
     
@@ -86,7 +86,7 @@ function get_sets()
         head        = "Azimuth Hood +1",
         neck        = "Bagua Charm +1",
         body        = "Bagua Tunic +1",
-        hands       = "Geo. Mitaines +2",
+        hands       = "Geo. Mitaines +3",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         back        = "Lifestream Cape",
@@ -112,7 +112,7 @@ function get_sets()
     sets.midcast['Enfeebling Magic'] = {
         body        = "Vanya Robe",
         hands       = "Azimuth Gloves +1",
-        feet        = "Bagua Sandals +1",
+        feet        = "Bagua Sandals +2",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         waist       = "Luminary Sash"

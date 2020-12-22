@@ -97,6 +97,7 @@ function get_sets()
     end
     -- 
     function sub_job_change(new, old)
+        current_sj = new
         coroutine.schedule(function() check_spells() end,2)
     end
 
@@ -159,6 +160,10 @@ function get_sets()
     function get_current_spellset()
         spells = res.spells:type('BlueMagic')
         return T(windower.ffxi.get_mjob_data().spells)
+        -- Returns all values but 512
+        :filter(function(id) return id ~= 512 end)
+        -- Transforms them from IDs to lowercase English names
+        :map(function(id) return spells[id].english:lower() end)
     end
     
     function precast(spell)
