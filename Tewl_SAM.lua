@@ -5,6 +5,12 @@
 	Binds
 	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
 
+	WIN+A	 : Equip Dojikiri Yasutsuna
+	WIN+E	 : Equip Masamune
+	WIN+M	 : Equip Kogarasumaru
+	WIN+P	 : Equip Shining One
+	WIN+R	 : Equip Amanomurakumo
+
 	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)
 	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
 	CTRL+F11 : Toggle Ranged Mode (Disabled by default)
@@ -17,11 +23,11 @@
 function get_sets()
 	items = require('resources').items
 
-	send_command('bind !e gs c eqw empyrean')
-	send_command('bind !m gs c eqw mythic')
-	send_command('bind !r gs c eqw relic')
-	send_command('bind !a gs c eqw aeonic')
-	send_command('bind !p gs c eqw polearm')
+	send_command('bind @e gs c eqw empyrean')
+	send_command('bind @m gs c eqw mythic')
+	send_command('bind @r gs c eqw relic')
+	send_command('bind @a gs c eqw aeonic')
+	send_command('bind @p gs c eqw polearm')
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
@@ -339,6 +345,11 @@ function get_sets()
 end
 
 function file_unload()  
+	send_command('unbind @e gs c eqw empyrean')
+	send_command('unbind @m gs c eqw mythic')
+	send_command('unbind @r gs c eqw relic')
+	send_command('unbind @a gs c eqw aeonic')
+	send_command('unbind @p gs c eqw polearm')
 	send_command('unbind !F9')
 	send_command('unbind ^F9')
 	send_command('unbind ^F10')
