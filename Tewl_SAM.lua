@@ -13,8 +13,6 @@
 	Not all of this is my code, some was copied and altered for my own preferences.
 	This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
 	and to share with friends that might be interested or could help with it.
-
-	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --]]
 function get_sets()
 	items = require('resources').items
