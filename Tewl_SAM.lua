@@ -1,6 +1,6 @@
  --[[
 	Author: Tewl / Bismark
-	Files: SAM.lua 
+	Files: Tewl_SAM.lua 
 
 	Binds
 	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
