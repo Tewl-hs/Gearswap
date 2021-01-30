@@ -71,7 +71,7 @@ function get_sets()
 	-- Initial setup variables
 	AutoWS = 'Tachi: Enpi'
 	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
-    ws_order = 1
+	ws_order = 1
     
     -- Gearsets
 	Capes = {} 
@@ -294,16 +294,15 @@ function get_sets()
 		range		= "Yoichinoyumi",
 		ammo		= "Yoichi's Arrow"
 	}
--- 
 
---  NOT MY CODE! Testing content for displaying text under chat
+	--  NOT MY CODE! Testing content for displaying text under chat
 	texts = require('texts')
 	if stateBox then stateBox:destroy() end
 
 	local settings = windower.get_windower_settings()
-    local x,y
+	local x,y
     
-    -- Adjust for screen resolution and positon of text on screen
+	-- Adjust for screen resolution and positon of text on screen
 	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
 		x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
 	else
@@ -331,7 +330,6 @@ function get_sets()
 	stateBox:stroke_transparency(stroketransparancy)
 
 	update_status()
-    -- End of display code
 end
 
 function file_unload()  
