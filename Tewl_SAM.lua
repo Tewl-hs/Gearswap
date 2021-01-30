@@ -61,6 +61,9 @@ function get_sets()
 		['Dojikiri Yasutsuna'] = {
 			Color	= Colors.Green
 		},
+		['Shining One'] = {
+			Color	= Colors.White
+		}
 	}
 
 	range_mode = false
@@ -202,7 +205,7 @@ function get_sets()
 		right_ear	= "Thrud Earring",
 		waist		= "Eschan Stone",
 		back		= Capes.RWSCape
-	 })			
+	})			
 	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
 		head		= "Blistering Sallet +1"
 	})
@@ -227,7 +230,7 @@ function get_sets()
         left_ring   = "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TPCape
-	 }	
+	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
@@ -256,7 +259,7 @@ function get_sets()
 		head		= "Ken. Jinpachi +1",
 		body		= "Ken. Samue +1",
 		hands		= "Ken. Tekko +1"
-	 })
+	})
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, { })
 	
 	sets.Idle = { }
