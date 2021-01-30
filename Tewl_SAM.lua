@@ -51,16 +51,16 @@ function get_sets()
 	WeaponColor = Colors.Red
 
 	Weapon = { 
-        ['Masamune'] = {
+		['Masamune'] = {
 			Color	= Colors.Red
 		},
 		['Kogarasumaru'] = {
 			Color	= Colors.Blue
 		},
-        ['Amanomurakumo'] = {
+		['Amanomurakumo'] = {
 			Color	= Colors.Yellow
 		},
-        ['Dojikiri Yasutsuna'] = {
+		['Dojikiri Yasutsuna'] = {
 			Color	= Colors.Green
 		},
 	}
