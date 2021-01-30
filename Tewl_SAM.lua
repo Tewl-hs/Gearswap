@@ -31,11 +31,11 @@ function get_sets()
 	
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-    EngagedMode = {'Normal', 'Accuracy', 'PDT', 'MDT', 'Hybrid'}
-    e = 1 -- Which set for initial setup in array.
-    IdleMode = {'Normal', 'PDT', 'MDT'}
-    i = 1
-    Weapons = T{'Masamune', 'Kogarasumaru', 'Amanomurakumo', 'Dojikiri Yasutsuna', 'Shining One'}
+	EngagedMode = {'Normal', 'Accuracy', 'PDT', 'MDT', 'Hybrid'}
+	e = 1 -- Which set for initial setup in array.
+	IdleMode = {'Normal', 'PDT', 'MDT'}
+	i = 1
+	Weapons = T{'Masamune', 'Kogarasumaru', 'Amanomurakumo', 'Dojikiri Yasutsuna', 'Shining One'}
 	w = 1
 
 	Colors = {
