@@ -99,8 +99,7 @@ function get_sets()
         ['Berserk'] = set_combine(sets.Enmity, {}),
         ['Last Resort'] = set_combine(sets.Enmity, {}),
         ['Aggressor'] = set_combine(sets.Enmity, {}),
-        ['Animated Flourish'] = set_combine(sets.Enmity, {}),
-    
+        ['Animated Flourish'] = set_combine(sets.Enmity, {}),    
         ['Lunge'] = { }
     }
     sets.precast.WS = {

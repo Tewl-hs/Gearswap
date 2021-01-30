@@ -4,19 +4,19 @@ function get_sets()
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
     send_command('input //equipviewer pos 1022 550')
 
-    sets.MoveSpeed = { feet = "Geo. Sandals +2",}
+    sets.MoveSpeed = { feet = "Geo. Sandals +3",}
     
     -- Gear sets
     sets.idle = { 
         main        = "Daybreak",
-        sub         = "Genbu's Shield",
+        sub         = "Ammurapi Shield",
         range       = "Dunna",
         neck        = "Bagua Charm +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +3",
         legs        = "Assid. Pants +1",
-        feet        = "Geo. Sandals +2",  
+        feet        = "Geo. Sandals +3",  
         back        = "Nantosuelta's Cape",
         left_ear    = "Moonshade Earring",
         right_ear   = "Loquac. Earring",
@@ -97,6 +97,7 @@ function get_sets()
 
     sets.midcast['Elemental Magic'] = { 
         main        = "Daybreak",
+        sub         = "Ammurapi Shield",
         head        = "Jhakri Coronal +1",
         neck        = "Baetyl Pendant",
         body        = "Jhakri Robe +2",
@@ -110,9 +111,10 @@ function get_sets()
     } 
 
     sets.midcast['Enfeebling Magic'] = {
+        sub         = "Ammurapi Shield",
         body        = "Vanya Robe",
         hands       = "Azimuth Gloves +1",
-        feet        = "Bagua Sandals +2",
+        feet        = "Bagua Sandals +3",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         waist       = "Luminary Sash"
@@ -120,13 +122,16 @@ function get_sets()
 
     sets.midcast['Dispelga'] = set_combine(sets.midcast['Enfeebling Magic'],{
         main        = "Daybreak",
+        sub         = "Ammurapi Shield",
     })
 
     sets.midcast['Enhancing Magic'] = {
+        sub         = "Ammurapi Shield",
         waist       = "Embla Sash"
     }
 
     sets.midcast['Dark Magic'] = {
+        sub         = "Ammurapi Shield",
         head        = "Bagua Galero +1",
         body        = "Geo. Tunic +1",
         Pants       = "Azimuth Tights +1",
@@ -140,7 +145,7 @@ function get_sets()
 
     sets.midcast.Cure = { 
         main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}}, -- Needs something here
-        sub         = "Genbu's Shield",
+        sub         = "Ammurapi Shield",
         range       = "Dunna",
         head        = "Vanya Hood",
         body        = "Vanya Robe",

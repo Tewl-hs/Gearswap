@@ -68,20 +68,20 @@ function get_sets()
 		back		= Capes.MND
 	}
 	sets.midcast.Enhancing = {	
-        sub="Ammurapi Shield",
-        ammo="Regal Gem",
-        head="Befouled Crown",
-        body="Viti. Tabard +3",
-        hands="Atrophy Gloves +3",
-        legs="Atrophy Tights +3",
-        feet="Leth. Houseaux +1",
-        neck="Incanter's Torque",
-        ear1="Mimir Earring",
-        ear2="Andoaa Earring",
-        ring1={name="Stikini Ring +1", bag="wardrobe3"},
-        ring2={name="Stikini Ring +1", bag="wardrobe4"},
-        back="Ghostfyre Cape",
-        waist="Olympus Sash",
+        sub			= "Ammurapi Shield",
+        ammo		= "Regal Gem",
+        head		= "Befouled Crown",
+        body		= "Viti. Tabard +3",
+        hands		= "Atrophy Gloves +3",
+        legs		= "Atrophy Tights +3",
+        feet		= "Leth. Houseaux +1",
+        neck		= "Incanter's Torque",
+        left_ear	= "Mimir Earring",
+        right_ear	= "Andoaa Earring",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe2" },
+        back		= "Ghostfyre Cape",
+        waist		= "Olympus Sash",
 	}
 	sets.midcast.Elemental = {
 	}
@@ -102,8 +102,8 @@ function get_sets()
 		waist		= "Fucho-no-obi",
 		left_ear	= "Etiolation Earring",
 		right_ear	= "Moonshade earring",
-		left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
-		right_ring	= { name="Stikini Ring +1", bag="Wardrobe2" },
+        left_ring	={ name="Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= {name="Stikini Ring +1", bag="wardrobe2" },
 		back		= "Solemnity Cape"
 	}
 end

@@ -199,12 +199,14 @@ function get_sets()
     end
     
     function aftercast(spell)
-        equip(sets.aftercast.Idle)
+        equip(sets.aftercast.Refresh)
     end
     
     function status_change(new,old)
-        if T{'Idle','Resting'}:contains(new) then
-            equip(sets.aftercast.Idle)
+        if new == 'Idle' then
+            equip(sets.aftercast.Refresh)
+        elseif new == 'Resting' then
+            equip(sets.aftercast.Refresh)
         end
     end
     

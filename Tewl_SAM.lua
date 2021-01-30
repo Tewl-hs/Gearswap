@@ -17,6 +17,8 @@
 	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --]]
 function get_sets()
+	items = require('resources').items
+
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
@@ -33,8 +35,35 @@ function get_sets()
     e = 1 -- Which set for initial setup in array.
     IdleMode = {'Normal', 'PDT', 'MDT'}
     i = 1
-    Weapons = {'Masamune', 'Amanomurakumo', 'Dojikiri Yasutsuna', 'Shining One'}
-    w = 1
+    Weapons = T{'Masamune', 'Kogarasumaru', 'Amanomurakumo', 'Dojikiri Yasutsuna', 'Shining One'}
+	w = 1
+
+	Colors = {
+		Yellow = '\\cs(255,192,0)',
+		Red = '\\cs(255,80,80)',
+		Green = '\\cs(110,255,110)',
+		Blue = '\\cs(140,160,255)',
+		Gray = '\\cs(96,96,96)',
+		White = '\\cs(255,255,255)'
+	}
+
+	CurrentWeapon = 'Masamune'
+	WeaponColor = Colors.Red
+
+	Weapon = { 
+        ['Masamune'] = {
+			Color	= Colors.Red
+		},
+		['Kogarasumaru'] = {
+			Color	= Colors.Blue
+		},
+        ['Amanomurakumo'] = {
+			Color	= Colors.Yellow
+		},
+        ['Dojikiri Yasutsuna'] = {
+			Color	= Colors.Green
+		},
+	}
 
 	range_mode = false
 	lock_twilight = false
@@ -234,7 +263,7 @@ function get_sets()
 	
 	sets.Idle = { }
 	sets.Idle.Normal = {
-		sub		= "Utu Grip",
+		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Tartarus Platemail",
@@ -313,6 +342,15 @@ function file_unload()
 	send_command('unbind ^F12')
 end
 
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return index
+        end
+    end
+    return table.getn(tab)
+end
+
 function precast(spell,action)
 	if spell.english == 'Spectral Jig' then
 		send_command('cancel 71;')
@@ -354,7 +392,11 @@ function precast(spell,action)
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
 		end
 		if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
-            ws = set_combine(ws,{left_ear="Lugra Earring +1"})
+			if player.tp > 2750 then
+				ws = set_combine(ws,{left_ear="Lugra Earring +1"})
+			else
+				ws = set_combine(ws,{right_ear="Lugra Earring +1"})
+			end
         end
 		equip(ws)
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
@@ -393,9 +435,9 @@ end
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
-		eq = set_combine(sets.Engaged.Normal, {main=Weapons[w]})
+		eq = set_combine(sets.Engaged.Normal, {main=CurrentWeapon})
 		if sets.Engaged[EngagedMode[e]] then
-			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=Weapons[w]})
+			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=CurrentWeapon})
 		end
 		if (buffactive['Hasso']) then
 			eq = set_combine(eq,{hands="Wakido Kote +3"})
@@ -403,18 +445,18 @@ function equip_check()
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
 		end
-		if (buffactive['Weakness'] or buffactive['Doom']) or lock_twilight == true then
+		if (buffactive['Weakness'] or buffactive['Doom']) and lock_twilight == true then
 			eq = set_combine(eq,sets.Twilight)
 		end
 	else
-		eq = set_combine(sets.Idle.Normal, {main=Weapons[w]})
+		eq = set_combine(sets.Idle.Normal, {main=CurrentWeapon})
 		if sets.Idle[IdleMode[i]] then
-			eq = set_combine(sets.Idle[IdleMode[i]], {main=Weapons[w]})
+			eq = set_combine(sets.Idle[IdleMode[i]], {main=CurrentWeapon})
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
 		end
-		if (buffactive['Weakness'] or buffactive['Doom']) or lock_twilight == true then
+		if (buffactive['Weakness'] or buffactive['Doom']) and lock_twilight == true then
 			eq = set_combine(eq,sets.Twilight)
 		end
 	end
@@ -446,7 +488,8 @@ function self_command(commandArgs)
             if (table.getn(EngagedMode) < e) then e = 1 end
 		elseif commandArgs[2] and commandArgs[2] == 'weapon' then
             w = w + 1 
-            if (table.getn(Weapons) < w) then w = 1 end
+			if (table.getn(Weapons) < w) then w = 1 end
+			CurrentWeapon = Weapons[w]
 		elseif commandArgs[2] and commandArgs[2] == 'idle' then
             i = i + 1 
             if (table.getn(IdleMode) < i) then i = 1 end
@@ -464,44 +507,51 @@ function self_command(commandArgs)
 	end
 end
 
+function Equip_Change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	local ew = items[item['id']].name
+	if ew ~= CurrentWeapon then -- If weapon changed
+		if ew == 'Gil' then
+			CurrentWeapon = 'Empty'
+			WeaponColor = Colors.Gray
+		else
+			CurrentWeapon = ew
+			if Weapon[ew] then
+				WeaponColor = Weapon[ew].Color
+			else
+				WeaponColor = Colors.White
+			end
+		end	
+		w = has_value(Weapons, CurrentWeapon)
+	end
+	equip_check()
+end
+
 -- More code for displaying text -- Not finished 
 function update_status()
-	local yellow = '\\cs(255,192,0)'
-	local red = '\\cs(255,80,80)'
-	local green = '\\cs(110,255,110)'
-	local blue = '\\cs(140,160,255)'
-	local gray = '\\cs(96,96,96)'
-	local white = '\\cs(255,255,255)'
-
 	local spc = '   '
 
 	stateBox:clear()
 	stateBox:append(spc)
 	local status_text = ''
 	
-	if w == 1 then
-		status_text = string.format("%s%s%s", red, Weapons[w], spc)
-	elseif w == 2 then
-		status_text = string.format("%s%s%s", yellow, Weapons[w], spc)
-	elseif w == 3 then
-		status_text = string.format("%s%s%s", green, Weapons[w], spc)
-	else
-		status_text = string.format("%s%s%s", white, Weapons[w], spc)
-	end
+	status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
-	status_text = string.format("%s%s %s%s%s%s", status_text, white, 'Engaged: ', blue, EngagedMode[e], spc)
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, EngagedMode[e], spc)
 	
-	status_text = string.format("%s%s %s%s%s%s", status_text, white, 'Idle: ', blue, IdleMode[i], spc)
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[i], spc)
 
 	if range_mode == true then
-		status_text = string.format("%s%s %s%s", status_text, yellow, 'Ranged', spc)
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
 	else
-		status_text = string.format("%s%s %s%s", status_text, gray, 'Ranged', spc)
+		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Ranged', spc)
 	end
-	if use_twilight == true then
-		status_text = string.format("%s%s %s%s", status_text, yellow, 'Twilight', spc)
+	if lock_twilight == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Twilight', spc)
 	else
-		status_text = string.format("%s%s %s%s", status_text, gray, 'Twilight', spc)
+		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Twilight', spc)
 	end
 	stateBox:append(status_text)
 	stateBox:show()
@@ -515,11 +565,17 @@ windower.raw_register_event('outgoing chunk', function(id, data)
 	if id == 0x00D and stateBox then
 		stateBox:hide()
 	end
+	if (id == 0x1A or id == 0x50) then
+		Equip_Change()
+	end
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
+	end
+	if (id == 0x37 or id == 0x1D) then
+		Equip_Change()
 	end
 end)
 -- End of Display Code

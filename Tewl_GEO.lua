@@ -86,17 +86,17 @@ function get_sets()
     }
 
     
-    sets.midcast = {}
-    sets.midcast['Geomancy'] = { 
+    sets.midcast = {} -- 515+459
+    sets.midcast['Geomancy'] = { -- [425]+90 Geo skill / Handbell skill [425]+34
         main        = "Solstice",
-        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
-        head        = "Azimuth Hood +1",
-        neck        = "Incanter's Torque",
-        body        = "Bagua Tunic +3",
-        hands       = "Geo. Mitaines +3",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
-        back        = "Lifestream Cape",
+        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
+        head        = "Azimuth Hood +1", -- 15
+        neck        = "Incanter's Torque", -- 10
+        body        = "Bagua Tunic +3", -- 16
+        hands       = "Geo. Mitaines +3", -- 19
+        left_ring   = "Stikini Ring +1", -- 8/8
+        right_ring  = "Stikini Ring +1", -- 8/8
+        back        = "Lifestream Cape", -- 14
         waist       = "Austertiy Belt +1",
         legs        = "Bagua Pants +3",   
         feet        = "Azimuth Gaiters +1"  
