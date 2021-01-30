@@ -507,7 +507,7 @@ function self_command(commandArgs)
 	end
 end
 
-function Equip_Change()
+function equip_change()
 	local inventory = windower.ffxi.get_items();
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
@@ -529,7 +529,6 @@ function Equip_Change()
 	equip_check()
 end
 
--- More code for displaying text -- Not finished 
 function update_status()
 	local spc = '   '
 
@@ -566,7 +565,7 @@ windower.raw_register_event('outgoing chunk', function(id, data)
 		stateBox:hide()
 	end
 	if (id == 0x1A or id == 0x50) then
-		Equip_Change()
+		equip_change()
 	end
 end)
 
@@ -575,11 +574,11 @@ windower.raw_register_event('incoming chunk', function(id, data)
 		stateBox:show()
 	end
 	if (id == 0x37 or id == 0x1D) then
-		Equip_Change()
+		equip_change()
 	end
 end)
--- End of Display Code
 
+-- MOVEMENT SPEED SWAP
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
 	mov.x = windower.ffxi.get_mob_by_index(player.index).x
