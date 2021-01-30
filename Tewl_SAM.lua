@@ -3,7 +3,7 @@
 	Files: SAM.lua 
 
 	Binds
-	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Relic', 'Aeonic', 'Polearm')
+	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
 
 	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)
 	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
