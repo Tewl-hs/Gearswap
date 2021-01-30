@@ -17,6 +17,11 @@
 function get_sets()
 	items = require('resources').items
 
+	send_command('bind !e gs c eqw empyrean')
+	send_command('bind !m gs c eqw mythic')
+	send_command('bind !r gs c eqw relic')
+	send_command('bind !a gs c eqw aeonic')
+	send_command('bind !p gs c eqw polearm')
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
@@ -501,6 +506,12 @@ function self_command(commandArgs)
 			lock_twilight = false
 		end
 		equip_check()
+	elseif commandArgs[1] == 'eqw' and  commandArgs[2] then
+		if commandArgs[2] ==  'empyrean' then equip({main=Weapons[1]}) end
+		if commandArgs[2] ==  'mythic' then equip({main=Weapons[2]}) end
+		if commandArgs[2] ==  'relic' then equip({main=Weapons[3]}) end
+		if commandArgs[2] ==  'aeonic' then equip({main=Weapons[4]}) end
+		if commandArgs[2] ==  'polearm' then equip({main=Weapons[5]}) end
 	elseif commandArgs[1] == 'update_status' then
 		update_status()
 	end
