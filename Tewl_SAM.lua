@@ -410,7 +410,7 @@ function precast(spell,action)
 			else
 				ws = set_combine(ws,{right_ear="Lugra Earring +1"})
 			end
-        end
+		end
 		equip(ws)
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(sets.RA)
