@@ -21,11 +21,11 @@
 function get_sets()
 	items = require('resources').items
 
-	send_command('bind @e gs c eqw empyrean')
-	send_command('bind @m gs c eqw mythic')
-	send_command('bind @r gs c eqw relic')
-	send_command('bind @a gs c eqw aeonic')
-	send_command('bind @p gs c eqw polearm')
+	send_command("bind @e input /equip main 'Masamune'")
+	send_command("bind @m input /equip main 'Kogarasumaru'")
+	send_command("bind @r input /equip main 'Amanomurakumo'")
+	send_command("bind @a input /equip main 'Dojikiri Yasutsuna'")
+	send_command("bind @p input /equip main 'Shining One'")
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
@@ -343,11 +343,11 @@ function get_sets()
 end
 
 function file_unload()  
-	send_command('unbind @e gs c eqw empyrean')
-	send_command('unbind @m gs c eqw mythic')
-	send_command('unbind @r gs c eqw relic')
-	send_command('unbind @a gs c eqw aeonic')
-	send_command('unbind @p gs c eqw polearm')
+	send_command('unbind @e')
+	send_command('unbind @m')
+	send_command('unbind @r')
+	send_command('unbind @a')
+	send_command('unbind @p')
 	send_command('unbind !F9')
 	send_command('unbind ^F9')
 	send_command('unbind ^F10')
@@ -515,12 +515,6 @@ function self_command(commandArgs)
 			lock_twilight = false
 		end
 		equip_check()
-	elseif commandArgs[1] == 'eqw' and  commandArgs[2] then
-		if commandArgs[2] ==  'empyrean' then equip({main=Weapons[1]}) end
-		if commandArgs[2] ==  'mythic' then equip({main=Weapons[2]}) end
-		if commandArgs[2] ==  'relic' then equip({main=Weapons[3]}) end
-		if commandArgs[2] ==  'aeonic' then equip({main=Weapons[4]}) end
-		if commandArgs[2] ==  'polearm' then equip({main=Weapons[5]}) end
 	elseif commandArgs[1] == 'update_status' then
 		update_status()
 	end
@@ -530,22 +524,24 @@ function equip_change()
 	local inventory = windower.ffxi.get_items();
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-	local ew = items[item['id']].name
-	if ew ~= CurrentWeapon then -- If weapon changed
-		if ew == 'Gil' then
-			CurrentWeapon = 'Empty'
-			WeaponColor = Colors.Gray
-		else
-			CurrentWeapon = ew
-			if Weapon[ew] then
-				WeaponColor = Weapon[ew].Color
+	if item and items[item['id']] then 
+		local ew = items[item['id']].name
+		if ew ~= CurrentWeapon then -- If weapon changed
+			if ew == 'Gil' then
+				CurrentWeapon = 'Empty'
+				WeaponColor = Colors.Gray
 			else
-				WeaponColor = Colors.White
-			end
-		end	
-		w = has_value(Weapons, CurrentWeapon)
+				CurrentWeapon = ew
+				if Weapon[ew] then
+					WeaponColor = Weapon[ew].Color
+				else
+					WeaponColor = Colors.White
+				end
+			end	
+			w = has_value(Weapons, CurrentWeapon)
+		end
+		equip_check()
 	end
-	equip_check()
 end
 
 function update_status()
