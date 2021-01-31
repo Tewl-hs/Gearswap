@@ -236,7 +236,7 @@ function get_sets()
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
 		--left_ring	= "Flamma Ring", -- ALT TP Set
-        left_ring   = "Chirich Ring +1", 
+		left_ring   = "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TPCape
 	}	
