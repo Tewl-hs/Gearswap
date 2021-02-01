@@ -478,10 +478,7 @@ function equip_check()
 end
 
 function self_command(...)
-	local args = T{...}
-	if #args == 0 then
-		return
-	end	
+	local args = T(...:split(' '))
 	if args[1] == 'cycle' and args[2] then
         if args[2] == 'engaged' then
             e = e + 1 
@@ -517,6 +514,7 @@ function self_command(...)
 				equip_check()
 			end
 		end
+		update_status()
 	elseif args[1] == 'equip_check' then
 		equip_check()
 	elseif args[1] == 'update_status' then
