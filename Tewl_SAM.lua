@@ -35,8 +35,8 @@ function get_sets()
 	send_command('bind ^f12 gs c toggle twilight')
 
 	--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
-	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 19') -- Sets Macro set and lockstyle when changing to SAM
-	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer when I change to SAM
+	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 19') -- Sets Macro set and lockstyle
+	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer
 	
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
