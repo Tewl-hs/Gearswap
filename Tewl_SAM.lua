@@ -27,10 +27,11 @@ function get_sets()
 	send_command("bind @a input /equip main 'Dojikiri Yasutsuna'")
 	send_command("bind @p input /equip main 'Shining One'")
 	send_command('bind !f9 gs c cycle weapon')
+	-- send_commad('bind !f10 gs c toggle autows') 
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
-	send_command('bind ^f11 gs c ranged') 
-	send_command('bind ^f12 gs c twilight')
+	send_command('bind ^f11 gs c toggle ranged') 
+	send_command('bind ^f12 gs c toggle twilight')
 
 	--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
 	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 19') -- Sets Macro set and lockstyle when changing to SAM
@@ -79,9 +80,11 @@ function get_sets()
 	lock_twilight = false
 	
 	-- Initial setup variables
+	AWSEnabled = false
 	AutoWS = 'Tachi: Enpi'
 	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
 	ws_order = 1
+	last_target = nil
     
     -- Gearsets
 	Capes = {} 
@@ -329,7 +332,7 @@ function get_sets()
 	local strokewidth = displaystroke or 2
 	local stroketransparancy = displaytransparancy or 192
 
-	stateBox = texts.new()
+	stateBox = texts.new({flags = {draggable=false}})
 	stateBox:pos(x,y)
 	stateBox:font(font)--Arial
 	stateBox:size(size)
@@ -349,6 +352,9 @@ function file_unload()
 	send_command('unbind @a')
 	send_command('unbind @p')
 	send_command('unbind !F9')
+	send_command('unbind !F10')
+	send_command('unbind !F11')
+	send_command('unbind !F12')
 	send_command('unbind ^F9')
 	send_command('unbind ^F10')
 	send_command('unbind ^F11')
@@ -365,18 +371,14 @@ function has_value (tab, val)
 end
 
 function precast(spell,action)
-	if spell.english == 'Spectral Jig' then
-		send_command('cancel 71;')
-	end
-
-	Mob_ID = player.target.id
-	if Mob_ID ~= Old_Mob_ID then
+	local target = player.target.id
+	if target ~= last_target then
 		ws_order = 1
-		Old_Mob_ID = Mob_ID
+		last_target = target
 	end
 
 	if spell.type == 'WeaponSkill' then
-		if spell.name == AutoWS then
+		if spell.name == AutoWS and AWSEnabled == true then
 			cancel_spell()
 			send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
 			ws_order = ws_order + 1
@@ -397,9 +399,6 @@ function precast(spell,action)
 		end
 		if buffactive['Sekkanoki'] then
 			ws = set_combine(ws, sets.JA['Sekkanoki'])
-		end
-		if buffactive['Reive Mark'] then
-			ws = set_combine(ws, {neck="Ygnas's Resolve +1"})
 		end
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
@@ -485,17 +484,7 @@ function self_command(commandArgs)
 			return
 		end
 	end
-	if commandArgs[1] == 'equip_check' then
-		equip_check()
-	elseif commandArgs[1] == 'ranged' then
-		if range_mode == false then
-			range_mode = true
-			equip_check()
-		else
-			range_mode = false
-			equip_check()
-		end
-	elseif commandArgs[1] == 'cycle' then
+	if commandArgs[1] == 'cycle' then
         if commandArgs[2] and commandArgs[2] == 'engaged' then
             e = e + 1 
             if (table.getn(EngagedMode) < e) then e = 1 end
@@ -508,12 +497,34 @@ function self_command(commandArgs)
             if (table.getn(IdleMode) < i) then i = 1 end
 		end
 		equip_check()
-	elseif commandArgs[1] == 'twilight' then
-		if lock_twilight == false then
-			lock_twilight = true
+	elseif commandArgs[1] == 'toggle' then
+		if commandArgs[2] then
+			if commandArgs[2] == 'twilight' then
+				if lock_twilight == false then
+					lock_twilight = true
+				else
+					lock_twilight = false
+				end
+			elseif commandArgs[2] == 'autows' then
+				if AWSEnabled == false then
+					AWSEnabled = true
+				else
+					AWSEnabled = false
+				end
+			elseif commandArgs[2] == 'ranged' then
+				if range_mode == false then
+					range_mode = true
+					equip_check()
+				else
+					range_mode = false
+					equip_check()
+				end
+			end
 		else
-			lock_twilight = false
+			add_to_chat(8, "Missing 'toggle' parameter")
 		end
+		equip_check()
+	elseif commandArgs[1] == 'equip_check' then
 		equip_check()
 	elseif commandArgs[1] == 'update_status' then
 		update_status()
@@ -549,9 +560,8 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	local status_text = ''
 	
-	status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, EngagedMode[e], spc)
 	
@@ -566,6 +576,9 @@ function update_status()
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Twilight', spc)
 	else
 		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Twilight', spc)
+	end
+	if AWSEnabled == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoWS: ', Colors.Yellow, AutoWS, spc)
 	end
 	stateBox:append(status_text)
 	stateBox:show()
@@ -609,13 +622,13 @@ windower.raw_register_event('prerender',function()
 		if pl and pl.x and mov.x then
 			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
 			if dist > 1 and not moving then
-				if player.status ~= 'Engaged' then
+				if player.status ~= 'Engaged' then -- When not engaged and moving equip movement speed
 					send_command('gs equip sets.MoveSpeed')
 				end
 				moving = true
-			elseif dist < 1 and moving then
+			elseif dist < 1 and moving then -- When stopping and not engaged, equip idle set
 				if player.status ~= 'Engaged' then
-					send_command('gs c equip_check')
+					send_command('gs c equip_check') -- Custom command for changing gear.
 				end
 				moving = false
 			end
