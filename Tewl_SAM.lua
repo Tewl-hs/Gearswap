@@ -4,6 +4,7 @@
 
 	Binds
 	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
+	ALT+F10  : Toggle AutowS Mode
 
 	WIN+A	 : Equip Dojikiri Yasutsuna
 	WIN+E	 : Equip Masamune
@@ -27,7 +28,7 @@ function get_sets()
 	send_command("bind @a input /equip main 'Dojikiri Yasutsuna'")
 	send_command("bind @p input /equip main 'Shining One'")
 	send_command('bind !f9 gs c cycle weapon')
-	-- send_commad('bind !f10 gs c toggle autows') 
+	send_command('bind !f10 gs c toggle autows') 
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
 	send_command('bind ^f11 gs c toggle ranged') 
@@ -476,57 +477,49 @@ function equip_check()
 	update_status()
 end
 
-function self_command(commandArgs)
-	local originalCommand = commandArgs
-	if type(commandArgs) == 'string' then
-		commandArgs = T(commandArgs:split(' '))
-		if #commandArgs == 0 then
-			return
-		end
-	end
-	if commandArgs[1] == 'cycle' then
-        if commandArgs[2] and commandArgs[2] == 'engaged' then
+function self_command(...)
+	local args = T{...}
+	if #args == 0 then
+		return
+	end	
+	if args[1] == 'cycle' and args[2] then
+        if args[2] == 'engaged' then
             e = e + 1 
             if (table.getn(EngagedMode) < e) then e = 1 end
-		elseif commandArgs[2] and commandArgs[2] == 'weapon' then
+		elseif args[2] == 'weapon' then
             w = w + 1 
 			if (table.getn(Weapons) < w) then w = 1 end
 			CurrentWeapon = Weapons[w]
-		elseif commandArgs[2] and commandArgs[2] == 'idle' then
+		elseif args[2] == 'idle' then
             i = i + 1 
             if (table.getn(IdleMode) < i) then i = 1 end
 		end
 		equip_check()
-	elseif commandArgs[1] == 'toggle' then
-		if commandArgs[2] then
-			if commandArgs[2] == 'twilight' then
-				if lock_twilight == false then
-					lock_twilight = true
-				else
-					lock_twilight = false
-				end
-			elseif commandArgs[2] == 'autows' then
-				if AWSEnabled == false then
-					AWSEnabled = true
-				else
-					AWSEnabled = false
-				end
-			elseif commandArgs[2] == 'ranged' then
-				if range_mode == false then
-					range_mode = true
-					equip_check()
-				else
-					range_mode = false
-					equip_check()
-				end
+	elseif args[1] == 'toggle' and args[2] then
+		if args[2] == 'twilight' then
+			if lock_twilight == false then
+				lock_twilight = true
+			else
+				lock_twilight = false
 			end
-		else
-			add_to_chat(8, "Missing 'toggle' parameter")
+		elseif args[2] == 'autows' then
+			if AWSEnabled == false then
+				AWSEnabled = true
+			else
+				AWSEnabled = false
+			end
+		elseif args[2] == 'ranged' then
+			if range_mode == false then
+				range_mode = true
+				equip_check()
+			else
+				range_mode = false
+				equip_check()
+			end
 		end
+	elseif args[1] == 'equip_check' then
 		equip_check()
-	elseif commandArgs[1] == 'equip_check' then
-		equip_check()
-	elseif commandArgs[1] == 'update_status' then
+	elseif args[1] == 'update_status' then
 		update_status()
 	end
 end
