@@ -89,10 +89,11 @@ function get_sets()
     
     -- Gearsets
 	Capes = {} 
-	Capes.TPCape	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
-	Capes.WSCape	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
-	Capes.RACape	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
-	Capes.RWSCape   = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+	Capes.TP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+	Capes.WS	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
+	Capes.RA	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
+	Capes.RWS   = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 
 	sets.JA = {
 		['Seigan'] = {
@@ -101,7 +102,7 @@ function get_sets()
 		['Meditate'] = {
 			head	= "Wakido Kabuto +3",
 			hands	= "Sakonji Kote +3",
-			back	= Capes.TPCape
+			back	= Capes.TP
 		},
 		['Hasso'] = {
 			hands	= "Wakido Kote +3"
@@ -122,7 +123,7 @@ function get_sets()
 			feet	= "Sak. Sune-Ate +3"
 		}
 	}
-	sets.FC = { -- 35 / 51%
+	sets.FC = { -- 45 / 51%
 		ammo		= "Sapience Orb", -- 2
 		head		= "Acro Helm", -- 3
 		neck		= "Orunmila's Torque", --5
@@ -134,7 +135,7 @@ function get_sets()
 		right_ear	= "Etiolation Earring", -- 1
 		left_ring	= "Prolix Ring", -- 2
 		--right_ring	= "Rahab Ring", -- 2 AA TT
-		--back		= Capes.FC -- 10
+		back		= Capes.FC
 	}
 	sets.RA = {
 		sub		= "Utu Grip",
@@ -145,13 +146,13 @@ function get_sets()
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
-		neck		= "Sam. Nodowa +2", -- Need RA neck
+		neck		= "Sam. Nodowa +2", -- "Combatant's Torque"
 		waist		= "Eschan Stone", -- "Reiki Yotai"
 		left_ear	= "Telos earring",
-		right_ear	= "Lugra Earring +1", -- "Enervating Earring",
+		right_ear	= "Enervating Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Cacoethic ring +1",
-		back		= Capes.RACape
+		back		= Capes.RA
 	}
 			
 	sets.WS = {}
@@ -168,11 +169,18 @@ function get_sets()
 		right_ear	= "Thrud Earring",
 		left_ring	= "Epaminondas's Ring",
 		right_ring	= "Karieyh Ring",
-		back		= Capes.WSCape
+		back		= Capes.WS
 	}
+	sets.WS.Normal.Accuracy = set_combine(sets.WS.Normal, { 
+		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
+		left_ring	= "Regal Ring",
+	})
 	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { 
 		--head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
 		waist		= "Sailfi Belt +1",
+	})
+	sets.WS['Tachi: Fudo'].Accuracy = set_combine(sets.WS['Tachi: Fudo'], { 
+		
 	})
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Fudo, { })	
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
@@ -191,8 +199,7 @@ function get_sets()
 		left_ear	= "Moonshade Earring",
 		left_ring	= "Epaminondas's Ring",
 		right_ring	= "Karieyh Ring",
-		--waist		= "Orpheus's Sash",
-		waist		= "Eschan Stone",
+		waist		= "Eschan Stone", -- "Orpheus's Sash",
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
@@ -217,7 +224,7 @@ function get_sets()
 		left_ear	= "Ishvara Earring",
 		right_ear	= "Thrud Earring",
 		waist		= "Eschan Stone",
-		back		= Capes.RWSCape
+		back		= Capes.RWS
 	})			
 	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
 		head		= "Blistering Sallet +1"
@@ -228,28 +235,24 @@ function get_sets()
 		sub		= "Utu Grip",
 		ammo		= "Ginsen",
 		head		= "Flam. Zucchetto +2",
-		--body		= "Kasuga Domaru +1", -- ALT TP Set
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
-		--legs		= "Ryuo Hakama +1", -- ALT TP Set
 		feet		= "Ryuo Sune-Ate +1",
-		--hands		= "Wakido Kote +3", -- Equipped when hasso is up
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		neck		= "Sam. Nodowa +2",
 		waist		= "Ioskeha Belt +1",
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
-		--left_ring	= "Flamma Ring", -- ALT TP Set
 		left_ring   = "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TPCape
+		back		= Capes.TP
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
-		right_ear	= "Cessance Earring", -- "Digni. Earring"
+		right_ear	= "Digni. Earring",
 	})
 	sets.Engaged.PDT = {
 		sub		= "Utu Grip",
@@ -265,7 +268,7 @@ function get_sets()
 		right_ear	= "Odnowa Earring +1",
 		left_ring	= "Defending Ring",
 		right_ring	= "Karieyh Ring",
-		back		= Capes.TPCape
+		back		= Capes.TP
 	}
 
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
@@ -290,7 +293,7 @@ function get_sets()
 		right_ear	= "Odnowa Earring +1",
 		left_ring	= "Defending Ring",
 		right_ring	= "Karieyh Ring",
-		back		= Capes.TPCape
+		back		= Capes.TP
 	}
 	sets.Idle.PDT = set_combine(sets.Idle.Normal, {
 		head		= "Ken. Jinpachi +1",
@@ -309,7 +312,6 @@ function get_sets()
 		ammo		= "Yoichi's Arrow"
 	}
 
-	--  NOT MY CODE! Testing content for displaying text under chat
 	texts = require('texts')
 	if stateBox then stateBox:destroy() end
 
@@ -323,25 +325,15 @@ function get_sets()
 		x,y = 0, settings["ui_y_res"]-17 -- -285, -18
 	end
 
-	if displayx then x = displayx end
-	if displayy then y = displayy end
-
-	local font = displayfont or 'Arial'
-	local size = displaysize or 12
-	local bold = displaybold or true
-	local bg = displaybg or 0
-	local strokewidth = displaystroke or 2
-	local stroketransparancy = displaytransparancy or 192
-
 	stateBox = texts.new({flags = {draggable=false}})
 	stateBox:pos(x,y)
-	stateBox:font(font)--Arial
-	stateBox:size(size)
-	stateBox:bold(bold)
-	stateBox:bg_alpha(bg)--128
+	stateBox:font('Arial')
+	stateBox:size(12)
+	stateBox:bold(true)
+	stateBox:bg_alpha(0)--128
 	stateBox:right_justified(false)
-	stateBox:stroke_width(strokewidth)
-	stateBox:stroke_transparency(stroketransparancy)
+	stateBox:stroke_width(2)
+	stateBox:stroke_transparency(192)
 
 	update_status()
 end
@@ -477,8 +469,8 @@ function equip_check()
 	update_status()
 end
 
-function self_command(...)
-	local args = T(...:split(' '))
+function self_command(cmd)
+	local args = T(cmd:split(' '))
 	if args[1] == 'cycle' and args[2] then
         if args[2] == 'engaged' then
             e = e + 1 
