@@ -92,7 +92,7 @@ function get_sets()
 	Capes.TP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.WS	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
 	Capes.RA	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
-	Capes.RWS   = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+	Capes.RWS	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
 	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 
 	sets.JA = {
@@ -243,7 +243,7 @@ function get_sets()
 		waist		= "Ioskeha Belt +1",
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
-		left_ring   = "Chirich Ring +1", 
+		left_ring	= "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TP
 	}	
@@ -476,7 +476,7 @@ function self_command(cmd)
             e = e + 1 
             if (table.getn(EngagedMode) < e) then e = 1 end
 		elseif args[2] == 'weapon' then
-            w = w + 1 
+			w = w + 1 
 			if (table.getn(Weapons) < w) then w = 1 end
 			CurrentWeapon = Weapons[w]
 		elseif args[2] == 'idle' then
