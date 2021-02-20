@@ -480,8 +480,8 @@ function self_command(cmd)
 			if (table.getn(Weapons) < w) then w = 1 end
 			CurrentWeapon = Weapons[w]
 		elseif args[2] == 'idle' then
-            i = i + 1 
-            if (table.getn(IdleMode) < i) then i = 1 end
+			i = i + 1 
+			if (table.getn(IdleMode) < i) then i = 1 end
 		end
 		equip_check()
 	elseif args[1] == 'toggle' and args[2] then
