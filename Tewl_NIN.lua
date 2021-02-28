@@ -4,9 +4,11 @@ function get_sets()
     send_command('input //equipviewer pos 1663 934')
 
     -- Variables for auto-skill chain. Only edit AutoWS 
-    AutoWS = 'Blade: Ei'
-    WeaponSkills = T{'Blade: Shun'}
-    ws_order = 1
+	AWSEnabled = false
+	AutoWS = 'Blade: Ei'
+	WeaponSkills = T{'Blade: Hi', 'Blade: Hi'}
+	ws_order = 1
+	last_target = nil
 
     buffs = {}
 
@@ -14,10 +16,20 @@ function get_sets()
 
     -- Augmented Gear
     Capes = {}
+    Capes.TP = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
 
-    -- Precast sets: Job Abilities, Fastcast, Weaponskills 
+    sets.Enmity = {
+        ammo        = "Sapience Orb", --2
+        body        = "Emet Harness +1", --10
+        hands       = "Kurys Gloves", --9
+        neck        = "Moonlight Necklace", --15
+        right_ring  = "Cryptic Earring", --4
+        left_ring   = "Trux Earring", --5
+        right_ring  = "Eihwaz Ring", --5
+    }
     sets.precast = {}
     sets.precast.FC = {
+        ammo        = "Sapience Orb", --2
         hands       = "Leyline Gloves", --7
         legs        = "Rawhide Trousers", --5
         neck        = "Orunmila's Torque", --5
@@ -27,21 +39,15 @@ function get_sets()
         right_ring  = "Prolix Ring",
         waist       = "Sailfi Belt +1",
     }
-    sets.precast.JA = {
-        
-    }
+    sets.precast.JA = { }
+    sets.precast.JA['Provoke'] = sets.Enmity
     sets.precast.WS = {
-        ammo        = "Seeth. Bomblet +1",
-        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
-        body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
-        hands       = { name="Tatena. Gote +1", augments= {'Path: A',}},
-        legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
-        feet        = { name="Tatena. Sune. +1", augments={'Path: A',}},
-        --head        = "Ken. Jinpachi +1",
-        --body        = "Ken. Samue +1",
-        --hands       = "Ken. Tekko +1",
-        --legs        = "Samnuha Tights",
-        --feet        = "Ken. Sune-Ate +1",
+        ammo        = "C. Palug Stone",
+        head        = "Ken. Jinpachi +1",
+        body        = "Ken. Samue +1",
+        hands       = "Ken. Tekko +1",
+        legs        = "Samnuha Tights",
+        feet        = "Ken. Sune-Ate +1",
         left_ear    = "Mache Earring +1",
         right_ear   = "Lugra Earring +1",
         left_ring   = "Gere Ring",
@@ -49,60 +55,58 @@ function get_sets()
         neck        = "Fotia Gorget",
         waist       = "Fotia Belt",
     }
-
-    -- Aftercast sets: TP, Idle
+    sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, {
+        
+	})
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         ammo        = "Ginsen",
-        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        head        = "Ken. Jinpachi +1",
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
         hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
-		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
-		feet		= "Ryuo Sune-Ate +1",
+		legs		= "Ken. Hakama +1",
+		feet		= "Hiza. Sune-Ate +2",
         neck        = "Moonbeam Nodowa",
         left_ear    = "Cessance Earring",
         right_ear   = "Eabani Earring", --5
         left_ring   = "Gere Ring",
         right_ring  = "Epona's Ring",
-        waist       = "Sailfi Belt +1"
+        waist       = "Sailfi Belt +1",
+        back        = Capes.TP
     }
-    sets.aftercast.Idle = { 
-        ammo		= "Staunch Tathlum +1", -- 3/3
+    sets.aftercast.Idle = {  -- 65/61
+        ammo        = "Staunch Tathlum +1", -- 3/3
         head        = "Malignance Chapeau",  -- 6/6
         body        = "Malignance Tabard",  -- 9/9
         hands       = "Malignance Gloves",  -- 5/5
         legs        = "Malignance Tights",  -- 7/7
         feet        = "Malignance Boots",  -- 4/4
         neck		= "Loricate Torque +1", -- 6/6
-        waist		= "Moonbow Belt +1", -- 6/6
+        waist		= "Flume Belt +1", -- 4/0
         left_ear	= "Genmei Earring", -- 2/0
-        right_ear	= "Odnowa Earring +1", -- 0/2
+        right_ear	= "Odnowa Earring +1", -- 3/5
         left_ring	= "Defending Ring", -- 10/10
         right_ring	= "Karieyh Ring",
-        --back		= "Moonlight Cape" -- 6/6
+        back		= "Moonlight Cape" -- 6/6
     }
 end
 
-function precast(spell,action)
-    if spell.english == 'Spectral Jig' then
-        send_command('cancel 71;')
-    end
-    
-    Mob_ID = player.target.id
-    if Mob_ID ~= Old_Mob_ID then
-        ws_order = 1
-        Old_Mob_ID = Mob_ID
-    end
+function precast(spell,action)    
+	local target = player.target.id
+	if target ~= last_target then
+		ws_order = 1
+		last_target = target
+	end
 
     if spell.type == 'WeaponSkill' then
-        if spell.name == AutoWS then
-            cancel_spell()
-            send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
-            ws_order = ws_order + 1
-            if ws_order > table.getn(WeaponSkills) then
-                ws_order = 1
-            end
-            return
+		if spell.name == AutoWS and AWSEnabled == true then
+			cancel_spell()
+			send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
+			ws_order = ws_order + 1
+			if ws_order > table.getn(WeaponSkills) then
+				ws_order = 1
+			end
+			return
         end
         if sets.precast.WS[spell.english] then
             equip(sets.precast.WS[spell.english])
