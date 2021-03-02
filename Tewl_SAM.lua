@@ -83,7 +83,7 @@ function get_sets()
 	-- Initial setup variables
 	AWSEnabled = false
 	AutoWS = 'Tachi: Enpi'
-	WeaponSkills = T{'T achi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
+	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
 	ws_order = 1
 	last_target = nil
     

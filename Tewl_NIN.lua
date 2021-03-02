@@ -1,6 +1,6 @@
 function get_sets()	
     -- Personal settings: Load macros and set equipviewer position
-    send_command('input /macro book 10;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
+    send_command('input /macro book 10;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 16')
     send_command('input //equipviewer pos 1663 934')
 
     -- Variables for auto-skill chain. Only edit AutoWS 
@@ -17,15 +17,22 @@ function get_sets()
     -- Augmented Gear
     Capes = {}
     Capes.TP = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+    Capes.FC = { }
+    Capes.Enmity = { }
+    Capes.DEX = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%'}}
+    Capes.AGI = { name="Andartia's Mantle", augments={'AGI+20','Accuracy+20 Attack+20','AGI+10','Weapon skill damage +10%',}}
+    Capes.STR = { name="Andartia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
 
     sets.Enmity = {
         ammo        = "Sapience Orb", --2
         body        = "Emet Harness +1", --10
         hands       = "Kurys Gloves", --9
+        legs        = "Arjuna Breeches",
         neck        = "Moonlight Necklace", --15
         right_ring  = "Cryptic Earring", --4
         left_ring   = "Trux Earring", --5
         right_ring  = "Eihwaz Ring", --5
+        back        = Capes.Enmity
     }
     sets.precast = {}
     sets.precast.FC = {
@@ -38,25 +45,51 @@ function get_sets()
         left_ring   = "Kishar Ring", --4
         right_ring  = "Prolix Ring",
         waist       = "Sailfi Belt +1",
+        back        = Capes.FC
     }
+    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, { neck="Magoraga Beads", body="Mochizuki Chainmail +3" })
     sets.precast.JA = { }
     sets.precast.JA['Provoke'] = sets.Enmity
     sets.precast.WS = {
-        ammo        = "C. Palug Stone",
+        ammo        = "Seeth. Bomblet +1",
+        head        = "Hachiya Hatsu. +3",
         head        = "Ken. Jinpachi +1",
         body        = "Ken. Samue +1",
         hands       = "Ken. Tekko +1",
         legs        = "Samnuha Tights",
         feet        = "Ken. Sune-Ate +1",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Ishvara Earring",
+		left_ring	= "Epaminondas's Ring",
+		right_ring	= "Karieyh Ring",
+        neck        = "Fotia Gorget",
+        waist       = "Fotia Belt",
+        back        = Capes.DEX
+    }
+    sets.precast.WS['Blade: Shun'] = set_combine(sets.precast.WS, {
+        ammo        = "C. Palug Stone",
+        head        = "Ken. Jinpachi +1",
+        body        = "Ken. Samue +1",
+        hands       = "Ken. Tekko +1",
+        legs        = "Jokushu Haidate",
+        feet        = "Ken. Sune-Ate +1",
         left_ear    = "Mache Earring +1",
         right_ear   = "Lugra Earring +1",
         left_ring   = "Gere Ring",
         right_ring  = "Ilabrat Ring",
-        neck        = "Fotia Gorget",
-        waist       = "Fotia Belt",
-    }
+        back        = Capes.DEX 
+	})
     sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, {
-        
+        ammo        = "Yetshila +1",
+        head        = {name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        body        = "Ken. Samue +1",
+        hands       = "Mummu Wrists +2",
+        feet        = "Mummu Gamash. +2",
+        neck        = "Ninja Nodowa +2",
+        left_ear    = "Odr Earring",
+        right_ear   = "Lugra Earring +1",
+        left_ring   = "Gere Ring",
+        back        = Capes.AGI
 	})
     sets.aftercast = {}
     sets.aftercast.Engaged = {
@@ -66,7 +99,7 @@ function get_sets()
         hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
 		legs		= "Ken. Hakama +1",
 		feet		= "Hiza. Sune-Ate +2",
-        neck        = "Moonbeam Nodowa",
+        neck        = "Moonbeam Nodowa", -- "Ninja Nodowa +2"
         left_ear    = "Cessance Earring",
         right_ear   = "Eabani Earring", --5
         left_ring   = "Gere Ring",
@@ -108,10 +141,22 @@ function precast(spell,action)
 			end
 			return
         end
-        if sets.precast.WS[spell.english] then
-            equip(sets.precast.WS[spell.english])
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
         else
             equip(sets.precast.WS)
+        end
+    elseif spell.action_type == 'Ability' then
+        if sets.precast.JA[spell.name] then
+            equip(sets.precast.JA[spell.name])
+        end    
+    elseif spell.action_type == 'Magic' then
+        if sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
+        elseif sets.precast.FC[spell.skill] then
+            equip(sets.precast.FC[spell.skill])
+        else
+            equip(sets.precast.FC)
         end
     end
 end
