@@ -153,10 +153,6 @@ function get_sets()
         head       = "Brioso Roundlet +3"
     }
 
-    sets.Weaponskill = { 
-        body        = "Bihu Jstcorps. +3"
-    }
-
     sets.aftercast = { }
     sets.aftercast.Idle = {        
         main        = "Carnwenhan", --"Sangoma", 
@@ -312,6 +308,10 @@ function buff_change(buff,gain)
             add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
         end
     end
+end
+
+function buff_refresh(name,buff_details)
+
 end
 
 -- Code for equiping movement speed when in motion. I did not write this.

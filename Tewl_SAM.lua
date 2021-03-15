@@ -29,6 +29,7 @@ function get_sets()
 	send_command("bind @p input /equip main 'Shining One'")
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind !f10 gs c toggle autows') 
+	send_command('bind !f11 gs c toggle wsacc')
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
 	send_command('bind ^f11 gs c toggle ranged') 
@@ -79,6 +80,7 @@ function get_sets()
 
 	range_mode = false
 	lock_twilight = false
+	ws_accuracy = false
 	
 	-- Initial setup variables
 	AWSEnabled = false
@@ -147,7 +149,7 @@ function get_sets()
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
 		neck		= "Sam. Nodowa +2", -- "Combatant's Torque"
-		waist		= "Eschan Stone", -- "Reiki Yotai"
+		waist		= "Reiki Yotai",
 		left_ear	= "Telos earring",
 		right_ear	= "Enervating Earring",
 		left_ring	= "Regal Ring",
@@ -180,7 +182,8 @@ function get_sets()
 		waist		= "Sailfi Belt +1",
 	})
 	sets.WS['Tachi: Fudo'].Accuracy = set_combine(sets.WS['Tachi: Fudo'], { 
-		
+		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
+		waist		= "Fotia Belt"
 	})
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Fudo, { })	
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
@@ -300,7 +303,8 @@ function get_sets()
 		right_ring	= "Gelatinous Ring +1"
 	})
 	sets.Idle.MDT = set_combine(sets.Idle.PDT, {
-		hands		= "Ken. Tekko +1"
+		hands		= "Ken. Tekko +1",
+		right_ring	= "Karieyh Ring",
 	})
 
 	sets.Twilight = { 
@@ -384,7 +388,11 @@ function precast(spell,action)
 		local ws = sets.WS.Normal -- Default weaponskill set
 
 		if sets.WS[spell.english] then -- Specific weaponskill sets
-			ws = sets.WS[spell.english]
+			if ws_accuracy == true and sets.WS[spell.english].Accuracy then
+				ws = sets.WS[spell.english].Accuracy
+			else
+				ws = sets.WS[spell.english]
+			end
 		end
 
 		if range_mode == true then
@@ -497,6 +505,14 @@ function self_command(cmd)
 			else
 				AWSEnabled = false
 			end
+		elseif args[2] == 'wsacc' then
+			if ws_accuracy == false then
+				ws_accuracy = true
+				add_to_chat(122, 'Weaponskill Accuracy Mode Enabled')
+			else
+				ws_accuracy = false
+				add_to_chat(122, 'Weaponskill Accuracy Mode Disabled')
+			end
 		elseif args[2] == 'ranged' then
 			if range_mode == false then
 				range_mode = true
@@ -550,16 +566,20 @@ function update_status()
 	
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[i], spc)
 
+	if ws_accuracy == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
+	else
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)
+	end
+	
 	if range_mode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
-	else
-		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Ranged', spc)
 	end
+
 	if lock_twilight == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Twilight', spc)
-	else
-		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Twilight', spc)
 	end
+
 	if AWSEnabled == true then
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoWS: ', Colors.Yellow, AutoWS, spc)
 	end
