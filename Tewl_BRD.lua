@@ -21,7 +21,7 @@ function get_sets()
     Kali.MACC       = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',} }
 
     Offhand = {
-        sub         = "Taming Sari" -- Offhand weapon when dual weilding
+        sub         = "Ternion Dagger +1" -- Offhand weapon when dual weilding
     }
 
     -- DummySongs
@@ -172,6 +172,8 @@ function get_sets()
         back        = "Moonlight Cape"
     }
     sets.aftercast.Engaged = {
+        main        = "Carnwenhan", --"Sangoma", 
+        sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",

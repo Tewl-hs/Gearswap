@@ -16,8 +16,6 @@
 	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
 	CTRL+F11 : Toggle Ranged Mode (Disabled by default)
 	CTRL+F12 : Toggle Twilight (Disabled by default)
-
-	Not all of this is my code, some was copied and altered for my own preferences.
 --]]
 function get_sets()
 	items = require('resources').items
@@ -97,13 +95,15 @@ function get_sets()
 	Capes.RWS	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
 	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 
+	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Shoha', 'Tachi: Rana', 'Tachi: Kaiten', 'Impulse Drive'}
+
 	sets.JA = {
 		['Seigan'] = {
 			head	= "Kasuga Kabuto +1"
 		},
 		['Meditate'] = {
 			head	= "Wakido Kabuto +3",
-			hands	= "Sakonji Kote +3",
+			hands	= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
 			back	= Capes.TP
 		},
 		['Hasso'] = {
@@ -119,13 +119,13 @@ function get_sets()
 			feet	= "Kasuga Sune-Ate +1"
 		},
 		['Blade Bash'] = {
-			hands	= "Sakonji Kote +3"
+			hands	= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
 		},
 		['Meikyo Shisui'] = {
-			feet	= "Sak. Sune-Ate +3"
+			feet	= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
 		}
 	}
-	sets.FC = { -- 45 / 51%
+	sets.FC = { -- 46 / 52%
 		ammo		= "Sapience Orb", -- 2
 		head		= "Acro Helm", -- 3
 		neck		= "Orunmila's Torque", --5
@@ -134,40 +134,39 @@ function get_sets()
 		--legs		= "Arjuna Breeches", -- 4 Zerde
 		feet		= "Acro Leggings", -- 3
 		left_ear	= "Loquac. Earring", -- 2
-		right_ear	= "Etiolation Earring", -- 1
+		right_ear	= "Enchntr. Earring +1", -- 2
 		left_ring	= "Prolix Ring", -- 2
 		--right_ring	= "Rahab Ring", -- 2 AA TT
-		back		= Capes.FC
+		back		= Capes.FC -- 10
 	}
 	sets.RA = {
-		sub		= "Utu Grip",
-		range		= "Yoichinoyumi",
+		sub			= "Utu Grip",
+		range		= { name="Yoichinoyumi", augments={'Path: A',}},
 		ammo		= "Yoichi's Arrow",
-		head		= "Sakonji Kabuto +3",
+		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
 		body		= "Ken. Samue +1",
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
-		neck		= "Sam. Nodowa +2", -- "Combatant's Torque"
-		waist		= "Reiki Yotai",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		waist		= "Reiki Yotai", -- Yemaya Belt
 		left_ear	= "Telos earring",
 		right_ear	= "Enervating Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Cacoethic ring +1",
 		back		= Capes.RA
 	}
-			
 	sets.WS = {}
 	sets.WS.Normal = {
 		ammo		= "Knobkierrie",
-		head		= { name="Valorous Mask", augments={'Attack+26','Weapon skill damage +3%','STR+15','Accuracy+13',}},
-		body		= "Sakonji Domaru +3",
+		head		= "Mpaca's Cap",
+		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
 		hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
 		legs		= "Wakido Haidate +3",
 		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
-		neck		= "Sam. Nodowa +2",
-		waist		= "Fotia Belt",
-		left_ear	= "Moonshade Earring",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		right_ear	= "Thrud Earring",
 		left_ring	= "Epaminondas's Ring",
 		right_ring	= "Karieyh Ring",
@@ -177,20 +176,22 @@ function get_sets()
 		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
 		left_ring	= "Regal Ring",
 	})
-	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { 
-		--head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
-		waist		= "Sailfi Belt +1",
-	})
+	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { })
 	sets.WS['Tachi: Fudo'].Accuracy = set_combine(sets.WS['Tachi: Fudo'], { 
-		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
-		waist		= "Fotia Belt"
+		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
+		feet		= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
+		right_ear	= "Telos Earring",
+		left_ring	= "Regal Ring",
+		waist		= "Fotia Belt" -- Kentarch Belt +1
 	})
-	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS.Fudo, { })	
+	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'], { })
+	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
-		head		= { name="Stinger Helm +1", augments={'Path: A',}},
-		waist		= "Sailfi Belt +1",
+		right_ear	= { name="Lugra Earring +1", augments={'Path: A',}},
+		right_ring	= "Niqmaddu Ring",
+		feet		= "Flam. Gambieras +2"
 	})
-	sets.WS['Tachi: Rana'] = set_combine(sets.WS.Shoha, { })
+	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], { })
 	sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
 		ammo		= "Knobkierrie",
 		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
@@ -199,51 +200,57 @@ function get_sets()
 		legs		= "Wakido Haidate +3",
 		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 		right_ear	= "Friomisi Earring",
-		left_ear	= "Moonshade Earring",
+		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		left_ring	= "Epaminondas's Ring",
 		right_ring	= "Karieyh Ring",
 		waist		= "Eschan Stone", -- "Orpheus's Sash",
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
-		head		= "Flam. Zucchetto +2",
+		head		= { name="Blistering Sallet +1", augments={'Path: A',}},
 		body		= "Flamma Korazin +2",
 		hands		= "Flam. Manopolas +2",
 		legs		= "Flamma Dirs +2",
 		feet		= "Flam. Gambieras +2",
+		neck		= "Sanctity Necklace",
+		left_ear	= "Gwati Earring",
+		right_ear	= "Digni. Earring",
 		left_ring	= "Metamor. Ring +1",
 		right_ring	= "Stikini Ring +1",
 		waist		= "Eschan Stone",
 	})		
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
-		head		= "Sakonji Kabuto +3",
-		body		= "Ken. Samue +1",
-		hands		= "Ryuo Tekko +1",
+		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
+		hands		= "Kasuga Kote +1",
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
-		neck		= "Fotia Gorget",
-		left_ring	= "Regal Ring",
-		right_ring	= "Ilabrat Ring",
-		left_ear	= "Ishvara Earring",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		right_ring	= "Regal Earring",
+		left_ear	= "Telos Earring",
 		right_ear	= "Thrud Earring",
-		waist		= "Eschan Stone",
+		waist		= "Fotia Belt",
 		back		= Capes.RWS
 	})			
 	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
-		head		= "Blistering Sallet +1"
+		hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
 	})
-	
+	sets.WS['Stardiver'] = set_combine(sets.WS.Normal, { 
+		hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
+		right_ear	= { name="Lugra Earring +1", augments={'Path: A',}},
+		left_ring	= "Regal Ring",
+		right_ring	= "Niqmaddu Ring",
+	})
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
-		sub		= "Utu Grip",
-		ammo		= "Ginsen",
+		sub			= "Utu Grip",
+		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+		hands		= "Wakido Kote +3",
 		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
-		feet		= "Ryuo Sune-Ate +1",
-		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
-		neck		= "Sam. Nodowa +2",
-		waist		= "Ioskeha Belt +1",
+		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
 		left_ring	= "Chirich Ring +1", 
@@ -255,64 +262,64 @@ function get_sets()
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
+		waist		= "Ioskeha Belt +1",
+		right_ring	= "Regal Earring",
 		right_ear	= "Digni. Earring",
 	})
-	sets.Engaged.PDT = {
-		sub		= "Utu Grip",
-		ammo		= "Staunch Tathlum +1",
-		head		= "Wakido Kabuto +3",
-		body		= "Tartarus Platemail",
-		hands		= "Sakonji Kote +3",
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		neck		= "Loricate Torque +1",
-		waist		= "Flume Belt +1",
-		left_ear	= "Genmei Earring",
-		right_ear	= "Odnowa Earring +1",
-		left_ring	= "Defending Ring",
+	sets.Engaged.PDT = { -- 50/32
+		sub			= "Utu Grip",
+		ammo		= "Staunch Tathlum +1", -- 3/3
+		head		= "Mpaca's Cap",
+		body		= "Wakido Domaru +3", -- 8/8
+		hands		= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}}, --6/0
+		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
+		waist		= "Flume Belt +1", -- 4/0
+		left_ear	= "Tuisto Earring", 
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 3/5
+		left_ring	= "Defending Ring", -- 10/10
 		right_ring	= "Karieyh Ring",
-		back		= Capes.TP
+		back		= Capes.TP -- 10/0
 	}
-
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
 		head		= "Ken. Jinpachi +1",
 		body		= "Ken. Samue +1",
-		hands		= "Ken. Tekko +1"
+		hands		= "Ken. Tekko +1",
+		legs		= "Ken. Hakama +1",
+		feet		= "Ken. Sune-Ate +1",
 	})
-	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, { })
-	
+	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, {
+		legs		= "Ken. Hakama +1",
+		feet		= "Ken. Sune-Ate +1",
+	 })
 	sets.Idle = { }
 	sets.Idle.Normal = {
 		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Tartarus Platemail",
-		hands		= "Sakonji Kote +3",
+		hands		= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
-		neck		= "Loricate Torque +1",
+		neck		= { name="Loricate Torque +1", augments={'Path: A',}},
 		waist		= "Flume Belt +1",
-		left_ear	= "Genmei Earring",
-		right_ear	= "Odnowa Earring +1",
+		left_ear	= "Tuisto Earring", 
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Defending Ring",
 		right_ring	= "Karieyh Ring",
 		back		= Capes.TP
 	}
-	sets.Idle.PDT = set_combine(sets.Idle.Normal, {
-		head		= "Ken. Jinpachi +1",
-		right_ring	= "Gelatinous Ring +1"
-	})
-	sets.Idle.MDT = set_combine(sets.Idle.PDT, {
-		hands		= "Ken. Tekko +1",
-		right_ring	= "Karieyh Ring",
-	})
+	sets.Idle.PDT = sets.Engaged.PDT
+	sets.Idle.MDT = sets.Engaged.MDT
+	sets.Idle.Hybrid = sets.Engaged.Hybrid
 
 	sets.Twilight = { 
 		head		= "Twilight helm",
 		body		= "Twilight mail"
 	}
 	sets.Ranged = {
-		range		= "Yoichinoyumi",
+		range		= { name="Yoichinoyumi", augments={'Path: A',}},
 		ammo		= "Yoichi's Arrow"
 	}
 
@@ -404,11 +411,13 @@ function precast(spell,action)
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
 		end
-		if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
-			if player.tp > 2750 then
-				ws = set_combine(ws,{left_ear="Lugra Earring +1"})
-			else
-				ws = set_combine(ws,{right_ear="Lugra Earring +1"})
+		if LugraWS:contains(spell.english) and ws_accuracy == false then
+			if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
+				if player.tp > 2750 then
+					ws = set_combine(ws,{left_ear="Lugra Earring +1"})
+				else
+					ws = set_combine(ws,{right_ear="Lugra Earring +1"})
+				end
 			end
 		end
 		equip(ws)
@@ -435,10 +444,8 @@ end
 
 function buff_change(buff,gain)
 	if player.status == 'Engaged' then
-		if buff == 'Hasso' then
+		if buff == 'Seigan' then
 			if gain == true then
-				equip({hands="Wakido Kote +3"})
-			else
 				equip({hands="Tatena. Gote +1"})
 			end
 		end
@@ -452,8 +459,8 @@ function equip_check()
 		if sets.Engaged[EngagedMode[e]] then
 			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=CurrentWeapon})
 		end
-		if (buffactive['Hasso']) then
-			eq = set_combine(eq,{hands="Wakido Kote +3"})
+		if (buffactive['Seigan']) then
+			eq = set_combine(eq,{hands="Tatena. Gote +1"})
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
@@ -609,7 +616,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
 	end
 end)
 
--- MOVEMENT SPEED SWAP
+-- MOVEMENT SPEED SWAP / Taken from Motes
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
 	mov.x = windower.ffxi.get_mob_by_index(player.index).x
