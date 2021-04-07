@@ -95,7 +95,7 @@ function get_sets()
 	Capes.RWS	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
 	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 
-	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Yukikaze', 'Tachi: Kaiten', 'Impulse Drive'}
+	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Yukikaze', 'Tachi: Gekko', 'Tachi: Kaiten', 'Impulse Drive'}
 
 	sets.JA = {
 		['Seigan'] = {
