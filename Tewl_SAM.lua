@@ -4,7 +4,7 @@
 
 	Binds
 	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
-	ALT+F10  : Toggle AutowS Mode
+	ALT+F10  : Toggle SkillChain Mode
 
 	WIN+A	 : Equip Dojikiri Yasutsuna
 	WIN+E	 : Equip Masamune
@@ -34,12 +34,12 @@ function get_sets()
 	send_command('bind ^f12 gs c toggle twilight')
 
 	--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
-	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 19') -- Sets Macro set and lockstyle
-	send_command('input //equipviewer pos 1663 934') -- Repositions my equipviewer
+	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle
+	send_command('input //equipviewer pos 1663 935') -- Repositions my equipviewer
 	
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-	EngagedMode = {'Normal', 'Accuracy', 'PDT', 'MDT', 'Hybrid'}
+	EngagedMode = {'Normal', 'PDT', 'MDT', 'Hybrid'}
 	e = 1 -- Which set for initial setup in array.
 	IdleMode = {'Normal', 'PDT', 'MDT'}
 	i = 1
@@ -78,7 +78,7 @@ function get_sets()
 
 	range_mode = false
 	lock_twilight = false
-	ws_accuracy = false
+	acc_mode = false
 	
 	-- Initial setup variables
 	AWSEnabled = false
@@ -125,13 +125,13 @@ function get_sets()
 			feet	= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
 		}
 	}
-	sets.FC = { -- 46 / 52%
+	sets.FC = { -- 50 / 52%
 		ammo		= "Sapience Orb", -- 2
 		head		= "Acro Helm", -- 3
 		neck		= "Orunmila's Torque", --5
 		body		= "Sacro Breastplate", -- 10
 		hands		= "Leyline Gloves", -- 7
-		--legs		= "Arjuna Breeches", -- 4 Zerde
+		legs		= "Arjuna Breeches", -- 4 Zerde
 		feet		= "Acro Leggings", -- 3
 		left_ear	= "Loquac. Earring", -- 2
 		right_ear	= "Enchntr. Earring +1", -- 2
@@ -169,7 +169,7 @@ function get_sets()
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		right_ear	= "Thrud Earring",
 		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring",
+		right_ring	= "Karieyh Ring +1",
 		back		= Capes.WS
 	}
 	sets.WS.Normal.Accuracy = set_combine(sets.WS.Normal, { 
@@ -185,7 +185,7 @@ function get_sets()
 		waist		= "Fotia Belt" -- Kentarch Belt +1
 	})
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'], { })
-	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
+	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
 		right_ear	= { name="Lugra Earring +1", augments={'Path: A',}},
 		right_ring	= "Niqmaddu Ring",
@@ -202,7 +202,7 @@ function get_sets()
 		right_ear	= "Friomisi Earring",
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring",
+		right_ring	= "Karieyh Ring +1",
 		waist		= "Eschan Stone", -- "Orpheus's Sash",
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
@@ -259,27 +259,27 @@ function get_sets()
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
-		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+		hands		= "Wakido Kote +3",
 		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		waist		= "Ioskeha Belt +1",
 		right_ring	= "Regal Earring",
 		right_ear	= "Digni. Earring",
 	})
-	sets.Engaged.PDT = { -- 50/32
+	sets.Engaged.PDT = { -- DT 51/32
 		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1", -- 3/3
-		head		= "Mpaca's Cap",
+		head		= "Mpaca's Cap", -- 7/0
 		body		= "Wakido Domaru +3", -- 8/8
-		hands		= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}}, --6/0
-		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
-		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		hands		= "Wakido Kote +3",
+		legs		= "Ken. Hakama +1",
+		feet		= "Ken. Sune-Ate +1",
 		neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
 		waist		= "Flume Belt +1", -- 4/0
-		left_ear	= "Tuisto Earring", 
+		left_ear	= "Tuisto Earring",
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 3/5
 		left_ring	= "Defending Ring", -- 10/10
-		right_ring	= "Karieyh Ring",
+		right_ring	= "Chirich Ring +1",
 		back		= Capes.TP -- 10/0
 	}
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
@@ -289,9 +289,21 @@ function get_sets()
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
 	})
-	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, {
+	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, { -- DT 38/21 EVA 333 MEVA 512 MDB 36
+		sub			= "Utu Grip",
+		ammo		= "Staunch Tathlum +1", -- 3/3
+		head		= "Mpaca's Cap", -- 7/0
+		body		= "Wakido Domaru +3", -- 8/8
+		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}}, 
+		waist		= "Ioskeha Belt +1",
+		left_ear	= "Telos Earring",
+		right_ear	= "Dedition Earring",
+		left_ring	= "Defending Ring", -- 10/10
+		right_ring	= "Chirich Ring +1",
+		back		= Capes.TP -- 10/0
 	 })
 	sets.Idle = { }
 	sets.Idle.Normal = {
@@ -307,7 +319,7 @@ function get_sets()
 		left_ear	= "Tuisto Earring", 
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Defending Ring",
-		right_ring	= "Karieyh Ring",
+		right_ring	= "Karieyh Ring +1",
 		back		= Capes.TP
 	}
 	sets.Idle.PDT = sets.Engaged.PDT
@@ -395,7 +407,7 @@ function precast(spell,action)
 		local ws = sets.WS.Normal -- Default weaponskill set
 
 		if sets.WS[spell.english] then -- Specific weaponskill sets
-			if ws_accuracy == true and sets.WS[spell.english].Accuracy then
+			if acc_mode == true and sets.WS[spell.english].Accuracy then
 				ws = sets.WS[spell.english].Accuracy
 			else
 				ws = sets.WS[spell.english]
@@ -411,7 +423,7 @@ function precast(spell,action)
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
 		end
-		if LugraWS:contains(spell.english) and ws_accuracy == false then
+		if LugraWS:contains(spell.english) and acc_mode == false then
 			if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
 				if player.tp > 2750 then
 					ws = set_combine(ws,{left_ear="Lugra Earring +1"})
@@ -443,24 +455,20 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	if player.status == 'Engaged' then
-		if buff == 'Seigan' then
-			if gain == true then
-				equip({hands="Tatena. Gote +1"})
-			end
-		end
-	end
+	
 end
 
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
 		eq = set_combine(sets.Engaged.Normal, {main=CurrentWeapon})
-		if sets.Engaged[EngagedMode[e]] then
+		if acc_mode == true and sets.Engaged[EngagedMode[e]].Accuracy then
+			eq = set_combine(sets.Engaged[EngagedMode[e]].Accuracy, {main=CurrentWeapon})
+		elseif sets.Engaged[EngagedMode[e]] then
 			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=CurrentWeapon})
 		end
-		if (buffactive['Seigan']) then
-			eq = set_combine(eq,{hands="Tatena. Gote +1"})
+		if Weapons:contains(CurrentWeapon) then
+			eq = set_combine(eq, {sub='Utu Grip'})
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
@@ -472,6 +480,9 @@ function equip_check()
 		eq = set_combine(sets.Idle.Normal, {main=CurrentWeapon})
 		if sets.Idle[IdleMode[i]] then
 			eq = set_combine(sets.Idle[IdleMode[i]], {main=CurrentWeapon})
+		end
+		if Weapons:contains(CurrentWeapon) then
+			eq = set_combine(eq, {sub='Utu Grip'})
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
@@ -513,12 +524,12 @@ function self_command(cmd)
 				AWSEnabled = false
 			end
 		elseif args[2] == 'wsacc' then
-			if ws_accuracy == false then
-				ws_accuracy = true
-				add_to_chat(122, 'Weaponskill Accuracy Mode Enabled')
+			if acc_mode == false then
+				acc_mode = true
+				add_to_chat(122, 'Accuracy Mode: High')
 			else
-				ws_accuracy = false
-				add_to_chat(122, 'Weaponskill Accuracy Mode Disabled')
+				acc_mode = false
+				add_to_chat(122, 'Accuracy Mode: Normal')
 			end
 		elseif args[2] == 'ranged' then
 			if range_mode == false then
@@ -573,7 +584,7 @@ function update_status()
 	
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[i], spc)
 
-	if ws_accuracy == true then
+	if acc_mode == true then
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
 	else
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)

@@ -23,15 +23,14 @@ function get_sets()
 
     Capes = {}
     Capes.DA = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%',}}
-    Capes.STP = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}} -- Needs dye
-    Capes.EVA = { name="Andartia's Mantle", augments={'AGI+20','Eva.+20 /Mag. Eva.+20','Evasion+10','"Dual Wield"+10','Evasion+15','Damage taken-5%',}} -- Need
-    Capes.FC = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10','Spell interruption rate down-10%',}} -- Need dye
+    Capes.STP = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}}
+    Capes.FC = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
     Capes.Enmity = { name="Andartia's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Enmity+10','Damage taken-5%',}}
     Capes.DEX = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%'}}
-    Capes.AGI = { name="Andartia's Mantle", augments={'AGI+20','Accuracy+20 Attack+20','AGI+10','Weapon skill damage +10%',}}
-    Capes.STR = { name="Andartia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+    Capes.AGI = { name="Andartia's Mantle", augments={'AGI+20','Accuracy+20 Attack+20','AGI+10','Weapon skill damage +10%','Damage taken-5%',}}
+    Capes.STR = { name="Andartia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
+    Capes.EVA = { name="Andartia's Mantle", augments={'AGI+20','Eva.+20 /Mag. Eva.+20','Evasion+10','"Dual Wield"+10','Evasion+15','Damage taken-5%',}}
     Capes.MAB = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Damage taken-5%',}} -- Need
-    Capes.MACC = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','Damage taken-5%',}} -- Need
 
     sets.Enmity = {
         ammo        = "Date Shuriken", -- 3
@@ -75,7 +74,7 @@ function get_sets()
         left_ear    = { name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}},
         right_ear   = "Ishvara Earring",
 		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring",
+		right_ring	= "Karieyh Ring +1",
         neck        = "Fotia Gorget",
         waist       = "Fotia Belt",
         back        = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%'}}
@@ -205,7 +204,7 @@ function get_sets()
         left_ring   = "Gere Ring",
         right_ring  = "Epona's Ring",
         waist       = "Reiki Yotai", -- 7 -- Gerdr Belt +1 -- 4
-        back        = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}} -- Needs dye
+        back        = { name="Andartia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}} 
     }
     sets.aftercast.Idle = {  -- 65/61
         ammo        = "Staunch Tathlum +1", -- 3/3
@@ -219,7 +218,7 @@ function get_sets()
         left_ear	= "Genmei Earring", -- 2/0
         right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 3/5
         left_ring	= "Defending Ring", -- 10/10
-        right_ring	= "Karieyh Ring",
+        right_ring	= "Karieyh Ring +1",
         back		= "Moonlight Cape" -- 6/6
     }
 end

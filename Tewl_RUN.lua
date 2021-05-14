@@ -114,7 +114,7 @@ function get_sets()
         left_ear    = "Moonshade Earring",
         right_ear   = "Sherida Earring",
         left_ring   = "Epona's Ring",
-        right_ring  = "Karieyh Ring",
+        right_ring  = "Karieyh Ring +1",
         back        = Capes.DA
     }
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
@@ -154,21 +154,6 @@ function get_sets()
     -- Aftercast sets: Engaged, Idle
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
-    sets.aftercast.Engaged.STP = {
-        ammo        = "Ginsen",
-        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
-        body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
-        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
-		legs        = "Meg. Chausses +2",
-        feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
-		neck        = "Anu Torque",
-		waist       = "Ioskeha Belt +1",
-		left_ear    = "Telos Earring",
-		right_ear   = "Sherida Earring",
-		left_ring   = "Epona's Ring",
-        right_ring  = "Niqmaddu Ring",
-        back        = Capes.Enmity
-    }
     sets.aftercast.Engaged.Normal = {
         ammo        = "Staunch Tathlum +1",
         head        = "Turms Cap +1",
@@ -183,6 +168,21 @@ function get_sets()
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
+    }
+    sets.aftercast.Engaged.DTLite = {
+        ammo        = "Yamarang",
+        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
+        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+		legs        = "Meg. Chausses +2",
+        feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+		neck        = "Futhark Torque +2",
+		waist       = "Ioskeha Belt +1",
+		left_ear    = "Telos Earring",
+		right_ear   = "Sherida Earring",
+        left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+        back        = Capes.DA
     }
     sets.aftercast.Engaged.Hybrid = {
         ammo        = "Staunch Tathlum +1",
@@ -208,7 +208,7 @@ function get_sets()
         feet        = "Ahosi Leggings",  
         neck        = "Futhark Torque +2", 
         waist       = "Flume Belt +1", 
-        left_ear    = "Genmei Earring", 
+        left_ear    = "Tuisto Earring", 
         right_ear   = "Odnowa Earring +1",
         left_ring   = "Defending Ring", 
         right_ring  = "Moonlight Ring",

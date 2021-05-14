@@ -130,7 +130,7 @@
         })
         sets.precast.WS["Victory Smite"].Impetus = {
             body        = "Bhikku Cyclas +1",
-            right_ear   = "Brutal Earring",
+            right_ear   = "Schere Earring",
             back        = Capes.WS
         }
         sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
@@ -211,7 +211,7 @@
             left_ear	= "Genmei Earring", -- 2/0
             right_ear	= "Odnowa Earring +1", -- 0/2
             left_ring	= "Defending Ring", -- 10/10
-            right_ring	= "Karieyh Ring",
+            right_ring	= "Karieyh Ring +1",
             back		= "Moonlight Cape" -- 6/6
         }
         sets.aftercast.Engaged = {}

@@ -47,7 +47,7 @@ function get_sets()
         neck        = "Baetyl Pendant", -- 4
         right_ear   = "Loquac. Earring", -- 2
         body        = "Merlinic Jubbah", -- 12
-        left_ring   = "Weather. Ring", -- 5
+        left_ring   = "Weather. Ring +1", -- 5
         right_ring  = "Kishar Ring", -- 4
         back        = "Lifestream Cape", -- 7
         waist       = "Witful Belt", -- 3 
@@ -151,7 +151,8 @@ function get_sets()
         body        = "Vanya Robe",
         hands       = "Vanya Cuffs",
         legs        = "Vanya Slops",
-        feet        = "Vanya Clogs"         
+        feet        = "Vanya Clogs",
+        left_ring   = "Naji's Loop"         
     }
 
     end

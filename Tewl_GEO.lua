@@ -2,9 +2,9 @@ function get_sets()
 
     -- Load Macros
     send_command('input /macro book 20;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 2')
-    send_command('input //equipviewer pos 1663 915')
+    send_command('input //equipviewer pos 1663 912')
 
-    sets.MoveSpeed = { feet = "Geomancy Sandals +3",}
+    sets.MoveSpeed = { feet = "Geo. Sandals +3",}
     
     -- Gear sets
     sets.idle = { 
@@ -36,7 +36,7 @@ function get_sets()
     }
 
     sets.luopan = { 
-        main        = "Sucellus", -- Solstice: Pet: Regen -3, DT +1
+        main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Azimuth Hood +1",
         hands       = "Geo. Mitaines +3",
@@ -46,9 +46,8 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.FC = { -- FC 81/80 QC: 7/10
+    sets.precast.FC = { -- FC 79/80 QC: 7/10
         main        = "Solstice", -- 5
-        ammo        = "Impatiens", -- 0|2
         head        = "Nahtirah Hat", -- 10
         neck        = "Orunmila's Torque", -- 5
         left_ear    = "Malignance Earring", -- 4
@@ -88,7 +87,7 @@ function get_sets()
     
     sets.midcast = {} -- 515+459
     sets.midcast['Geomancy'] = { -- [425]+90 Geo skill / Handbell skill [425]+34
-        main        = "Solstice",
+        main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
         head        = "Azimuth Hood +1", -- 15
         neck        = "Incanter's Torque", -- 10
@@ -105,7 +104,7 @@ function get_sets()
     sets.midcast['Elemental Magic'] = { 
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        ammo        = "Pemphredo Tathlum",
+        --ammo        = "Pemphredo Tathlum",
         head        = "Jhakri Coronal +2",--"Bagua Galero +3",
         neck        = "Baetyl Pendant",
         left_ear    = "Malignance Earring",
