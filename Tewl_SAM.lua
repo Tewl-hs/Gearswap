@@ -126,6 +126,7 @@ function get_sets()
 		}
 	}
 	sets.FC = { -- 50 / 52%
+		sub			= "Utu Grip",
 		ammo		= "Sapience Orb", -- 2
 		head		= "Acro Helm", -- 3
 		neck		= "Orunmila's Torque", --5
@@ -158,10 +159,12 @@ function get_sets()
 	}
 	sets.WS = {}
 	sets.WS.Normal = {
+		sub			= "Utu Grip",
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap",
 		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
-		hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
+		--hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
+		hands		= { name="Valorous Mitts", augments={'Attack+28','Pet: INT+2','Weapon skill damage +9%','Accuracy+18 Attack+18','Mag. Acc.+3 "Mag.Atk.Bns."+3',}},
 		legs		= "Wakido Haidate +3",
 		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -283,11 +286,14 @@ function get_sets()
 		back		= Capes.TP -- 10/0
 	}
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
-		head		= "Ken. Jinpachi +1",
+		--head		= "Ken. Jinpachi +1",
+		head		= "Mpaca's Cap", -- 7/0
 		body		= "Ken. Samue +1",
 		hands		= "Ken. Tekko +1",
 		legs		= "Ken. Hakama +1",
 		feet		= "Ken. Sune-Ate +1",
+		left_ear	= "Etiolation Earring",
+		waist		= "Ioskeha Belt +1",
 	})
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, { -- DT 38/21 EVA 333 MEVA 512 MDB 36
 		sub			= "Utu Grip",
@@ -455,7 +461,22 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	
+	if (buff == 'Poison' or buff == 'Paralyze') and gain =='True' then
+		if player.inventory['Remedy'] then
+			send_command('@input /item "Remedy" <me>')
+			add_to_chat(123,'=== Debuff: '..buff..' ===')	
+		else
+			add_to_chat(123,'=== Out of Remedies ===')	
+		end
+	end
+	if buff == "Choke" and gain =="True" then
+		if player.inventory['Panacea'] then
+			add_to_chat(123,'=== Debuff: '..buff..' ===')	
+			send_command('@input /item "Panacea" <me>')
+		else
+			add_to_chat(123,'=== Out of Panacea ===')	
+		end
+	end
 end
 
 function equip_check()
@@ -570,6 +591,7 @@ function equip_change()
 		end
 		equip_check()
 	end
+	--]]
 end
 
 function update_status()
@@ -603,10 +625,6 @@ function update_status()
 	end
 	stateBox:append(status_text)
 	stateBox:show()
-end
-
-function clear_job_states()
-	if stateBox then stateBox:destroy() end
 end
 
 windower.raw_register_event('outgoing chunk', function(id, data)

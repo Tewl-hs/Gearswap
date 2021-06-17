@@ -94,7 +94,7 @@ function get_sets()
 		feet		= "Vanya Clogs"
 	})	
 	
-	sets.midcast.Cure = set_combine(sets.Idle,{
+	sets.midcast.Cure = set_combine(sets.midcast.Healing,{
 		main		= "Queller Rod",
 		ammo		= "Hydrocera",
 		head		= "Ebers cap +1",
@@ -110,6 +110,10 @@ function get_sets()
 		legs		= "Ebers Pantaloons +1",
 		feet		= "Piety duckbills +3"
 	})	
+
+	sets.midcast.Cura = set_combine(sets.midcast.Cure,{
+		main		= "Raetic Rod +1",
+	})
 	
 	sets.midcast.Enhancing = set_combine(sets.Idle,{
 		main		= { name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
@@ -234,7 +238,9 @@ function midcast(spell,action)
 		if spell.skill == 'Healing Magic' then
 			if spell.english == 'Cursna' then
 				equipx(sets.midcast.Cursna)
-			elseif spell.english:startswith('Cur') then
+			elseif spell.english:startswith('Cura') then
+				equipx(sets.midcast.Cura)
+			elseif spell.english:startswith('Cure') then
 				equipx(sets.midcast.Cure)
 			else
 				equipx(sets.midcast.Healing)

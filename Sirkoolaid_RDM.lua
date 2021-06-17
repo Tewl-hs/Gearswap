@@ -6,35 +6,41 @@ function get_sets()
 	send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
 	send_command('input //equipviewer pos 1022 575')
 
+	-- Any enfeebles not listed below should use default set which should be focused on enfeebling skill+
+	IntEnf = T{'Blind', 'Blind II', 'Bind', 'Distract', 'Distract II', 'Distract III', 'Poison', 'Poison II', 'Poisonga'}
+	MndEnf = T{'Silence', 'Paralyze', 'Paralyze II', 'Slow', 'Slow II', 'Addle', 'Addle II', 'Dia', 'Dia II', 'Dia III', 'Frazzle', 'Frazzle II', 'Frazzle III',}
+
 	Capes = {}
 	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
+	Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
 				
 	sets.precast = {}
-	sets.precast.FastCast = { -- 63/50
+	sets.precast.FastCast = { -- 81
 		ammo		= "Sapience Orb", -- 2
 		head		= "Atrophy Chapeau +3", -- 16
 		body		= "Vitiation Tabard +3", -- 15
+		hands		= "Leyline Gloves", -- 5
+		legs		= "Psycloth Lappas", -- 7
+		feet		= "Merlinic Crackows", -- 5
 		waist		= "Embla Sash", -- 5
 		left_ear	= "Loquac. Earring", -- 2
 		right_ear	= "Malignance earring", -- 4
-		left_ring	= "Weatherspoon Ring", -- 5
+		left_ring	= "Weather. Ring +1", -- 6
 		right_ring	= "Kishar Ring", -- 4
 		back		= Capes.MND -- 10
 	}
-
-	sets.precast.JA = {}
-	sets.precast.JA["Composure"] = {
-
+	sets.precast.JA = {
+        ['Composure'] = { },
+		['Saboteur'] = {hands = "Leth. Gantherots +1",},
 	}
 	
 	sets.midcast = {}	
 	sets.midcast.Cursna = {
-	}
-	
+
+	}	
 	sets.midcast.Cure = {	
 		main		= "Daybreak",
 		sub			= "Ammurapi Shield",
-		ammo		= "",
 		head		= "Vanya Hood",
 		body		= "Artsieq Jubbah",
 		hands		= "Vanya Cuffs",
@@ -44,50 +50,63 @@ function get_sets()
 		waist		= "Othila Sash",
 		left_ear	= "Magnetic Earring",
 		right_ear	= "Malignance Earring",
-		left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
+		left_ring	= "Naji's Loop",
 		right_ring	= "Lebeche Ring",
-		back		= Capes.MND	
+		back		= "Solemnity Cape"
 	}
 	sets.midcast.Healing = {
+
 	}
 	sets.midcast.Enfeebling = {
         main		= "Daybreak",
         sub			= "Ammurapi Shield",
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
-        body		= "Lethargy Sayon +1",
-        hands		= "",
+        body		= "Atrophy Tabard +3",
+        hands		= "Leth. Gantherots +1",
         legs		= "Chironic Hose",
         feet		= "Vitiation Boots +3",
         neck		= "Dls. Torque +2",
-        left_ear	= "Malignance Earring",
+        left_ear	= "Regal Earring",
         right_ear	= "Snotra Earring",
         left_ring	= { name="Stikini Ring +1", bag="Wardrobe1" },
         right_ring	= "Kishar Ring",
 		waist		= "Luminary Sash",
 		back		= Capes.MND
 	}
+	sets.midcast.Enfeebling.MND = set_combine(sets.midcast.Enfeebling, { 
+		back		= Capes.MND
+	})
+	sets.midcast.Enfeebling.INT = set_combine(sets.midcast.Enfeebling, { 
+		back		= Capes.INT
+	})
 	sets.midcast.Enhancing = {	
         sub			= "Ammurapi Shield",
-        ammo		= "Regal Gem",
-        head		= "Befouled Crown",
+        head		= "Telchine Cap",
         body		= "Viti. Tabard +3",
         hands		= "Atrophy Gloves +3",
-        legs		= "Atrophy Tights +3",
+        legs		= "Telchine Braconi",
         feet		= "Leth. Houseaux +1",
-        neck		= "Incanter's Torque",
+        neck		= "Dls. Torque +2",
         left_ear	= "Mimir Earring",
         right_ear	= "Andoaa Earring",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
         right_ring	= { name="Stikini Ring +1", bag="wardrobe2" },
         back		= "Ghostfyre Cape",
-        waist		= "Olympus Sash",
+        waist		= "Embla Sash",
 	}
 	sets.midcast.Elemental = {
+		back		= Capes.INT
 	}
-
+	sets.midcast.Dark =  { -- Bio, Drain, Aspir, Stun
+		back		= Capes.INT
+	}
+	sets.midcast.Divine = { -- Banish, Flash, Repose
+		back		= Capes.MND
+	}
 	sets.aftercast = {}
 	sets.aftercast.engaged = {
+
 	}
 	sets.aftercast.idle = {
 		main		= "Daybreak",
@@ -102,8 +121,8 @@ function get_sets()
 		waist		= "Fucho-no-obi",
 		left_ear	= "Etiolation Earring",
 		right_ear	= "Moonshade earring",
-        left_ring	={ name="Stikini Ring +1", bag="wardrobe1" },
-        right_ring	= {name="Stikini Ring +1", bag="wardrobe2" },
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe2" },
 		back		= "Solemnity Cape"
 	}
 end
@@ -132,23 +151,59 @@ function midcast(spell,action)
 	if spell.action_type == 'Magic' then
 		if spell.skill == 'Healing Magic' then
 			if spell.english == 'Cursna' then
-				-- equip(sets.midcast.Cursna)
+				equip(sets.midcast.Cursna)
 			elseif spell.english:startswith('Cur') then
 				equip(sets.midcast.Cure)
 			else
-				equip(sets.midcast.Healing)
+				if sets.midcast.Healing[spell.name] then
+					equip(sets.midcast.Healing[spell.name])
+				else
+					equip(sets.midcast.Healing)
+				end
 			end
 		elseif spell.skill == 'Enfeebling Magic' then
-			if sets.midcast.Enfeebling[spell.name] then
-				equip(sets.midcast.Enfeebling[spell.name])
+			if IntEnf:contains(spell.name) then
+				if sets.midcast.Enfeebling.INT[spell.name] then
+					equip(sets.midcast.Enfeebling.INT[spell.name])
+				else
+					equip(sets.midcast.Enfeebling.INT)
+				end
+			elseif MndEnf:contains(spell.name) then
+				if sets.midcast.Enfeebling.MND[spell.name] then
+					equip(sets.midcast.Enfeebling.MND[spell.name])
+				else
+					equip(sets.midcast.Enfeebling.MND)
+				end
 			else
-				equip(sets.midcast.Enfeebling)
+				if sets.midcast.Enfeebling[spell.name] then
+					equip(sets.midcast.Enfeebling[spell.name])
+				else
+					equip(sets.midcast.Enfeebling)
+				end
 			end
 		elseif spell.skill == 'Enhancing Magic' then
 			if sets.midcast.Enhancing[spell.name] then
 				equip(sets.midcast.Enhancing[spell.name])
 			else
 				equip(sets.midcast.Enhancing)
+			end
+		elseif spell.skill == 'Elemental Magic' then
+			if sets.midcast.Elemental[spell.name] then
+				equip(sets.midcast.Elemental[spell.name])
+			else
+				equip(sets.midcast.Elemental)
+			end
+		elseif spell.skill == 'Dark Magic' then
+			if sets.midcast.Dark[spell.name] then
+				equip(sets.midcast.Dark[spell.name])
+			else
+				equip(sets.midcast.Dark)
+			end
+		elseif spell.skill == 'Divine Magic' then
+			if sets.midcast.Divine[spell.name] then
+				equip(sets.midcast.Divine[spell.name])
+			else
+				equip(sets.midcast.Divine)
 			end
 		end
 	end
@@ -163,7 +218,7 @@ function aftercast(spell)
 end
 
 function status_change(new,old)
-	if T{'Idle','Resting'}:contains(new) then
+	if T{'Idle','Resting', 'Engaged'}:contains(new) then
 		if player.status == 'Engaged' then
 			equip(set_combine(sets.aftercast.idle,sets.aftercast.engaged))
 		else

@@ -307,7 +307,6 @@
                 SwapGear()
             end
         end
-
     end
     
     function self_command(commandArgs)

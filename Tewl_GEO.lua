@@ -27,7 +27,7 @@ function get_sets()
 
     sets.idle.DT = { -- Full DT items
         sub         = "Genmei Shield",
-        neck        = "Loricate Torque +1",
+        neck        = "Bagua Charm +2",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
         left_ring   = "Defending Ring",
@@ -39,15 +39,15 @@ function get_sets()
         main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Azimuth Hood +1",
+        neck        = "Bagua Charm +2",
         hands       = "Geo. Mitaines +3",
-        back        = "Nantosuelta's Cape",
+        back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
         waist       = "Isa Belt",
         feet        = "Bagua Sandals +3"            
     }
 
     sets.precast = {}
     sets.precast.FC = { -- FC 79/80 QC: 7/10
-        main        = "Solstice", -- 5
         head        = "Nahtirah Hat", -- 10
         neck        = "Orunmila's Torque", -- 5
         left_ear    = "Malignance Earring", -- 4
@@ -55,7 +55,7 @@ function get_sets()
         body        = "Merlinic Jubbah", -- 11
         left_ring   = "Kishar Ring", -- 4
         right_ring  = "Lebeche Ring", -- 0|2
-        back        = "Lifestream Cape", -- 7
+        back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
         waist       = "Witful Belt", -- 3|3
         hands       = "Merlinic Dastanas", -- 6
         legs        = "Geomancy Pants +3", -- 15
@@ -72,7 +72,8 @@ function get_sets()
         body        = "Bagua Tunic +3"
     }
     sets.precast.JA['Life Cycle'] = {
-        body        = "Geomancy Tunic +2"
+        body        = "Geomancy Tunic +2",
+        back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
     }
     sets.precast.JA['Curative Reecantation'] = {
         hands       = "Bagua Mitaines +3"
@@ -85,20 +86,20 @@ function get_sets()
     }
 
     
-    sets.midcast = {} -- 515+459
-    sets.midcast['Geomancy'] = { -- [425]+90 Geo skill / Handbell skill [425]+34
+    sets.midcast = {} -- 505+449
+    sets.midcast['Geomancy'] = { -- [425]+80 Geo skill / Handbell skill [425]+24
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
         head        = "Azimuth Hood +1", -- 15
-        neck        = "Incanter's Torque", -- 10
+        neck        = "Bagua Charm +2",
         body        = "Bagua Tunic +3", -- 16
         hands       = "Geo. Mitaines +3", -- 19
+        legs        = "Bagua Pants +3",   
+        feet        = "Azimuth Gaiters +1",
         left_ring   = "Stikini Ring +1", -- 8/8
         right_ring  = "Stikini Ring +1", -- 8/8
-        back        = "Lifestream Cape", -- 14
-        waist       = "Austertiy Belt +1",
-        legs        = "Bagua Pants +3",   
-        feet        = "Azimuth Gaiters +1"  
+        back        = { name="Lifestream Cape", augments={'Geomancy Skill +9','Indi. eff. dur. +19','Pet: Damage taken -4%','Damage taken-4%',}}, -- 14
+        waist       = "Austerity Belt +1",
     }
 
     sets.midcast['Elemental Magic'] = { 
@@ -111,11 +112,12 @@ function get_sets()
         right_ear   = "Barkaro. Earring",
         body        = "Amalric Doublet +1", -- "Jhakri Robe +2",
         hands       = "Amalric Gages +1",--"Bagua Mitaines +3",
+        legs        = "Amalric Slops +1",--"Azimuth Tights +1",
+        feet        = "Amalric Nails +1",    
         left_ring   = "Mujin Band", -- Shiva Ring +1 if not bursting
         right_ring  = "Shiva Ring +1",
-        waist       = "Eschan Stone",
-        legs        = "Amalric Slops +1",--"Azimuth Tights +1",
-        feet        = "Amalric Nails +1"            
+        back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
+        waist       = "Eschan Stone",        
     } 
 
     sets.midcast['Enfeebling Magic'] = {
@@ -206,13 +208,13 @@ function get_sets()
     function midcast(spell)
         if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
             if sets.midcast[spell.english] then
-                    equip (sets.midcast[spell.english])
+                    equip(sets.midcast[spell.english])
             elseif sets.midcast[spell.skill] then
-                equip (sets.midcast[spell.skill])
+                equip(sets.midcast[spell.skill])
             end
         end
         if sets.midcast[spell.skill] then
-            equip (sets.midcast[spell.skill])
+            equip(sets.midcast[spell.skill])
         end
     end
     
