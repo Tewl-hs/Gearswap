@@ -26,9 +26,9 @@ function get_sets()
     -- Gear sets
 
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 74% | 80% w/ Kali
-        main        = Kali.MACC, -- 7
-        head        = "Nahtirah Hat", -- 10
+    sets.precast.FastCast = { -- Current: 79% 
+        range       = { name="Linos", augments={'"Fast Cast"+5',}}, -- 5
+        head        = "Bunzi's Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
         hands       = "Leyline Gloves", -- 7 (Max: 8)
         legs        = "Aya. Cosciales +2", -- 6
@@ -71,7 +71,7 @@ function get_sets()
         neck        = "Fotia Gorget",
         waist       = "Fotia Belt",
         left_ear    = "Moonshade Earring",
-        right_ear   = "Ishvara Earring",
+        right_ear   = "Brutal Earring",
         left_ring   = "Epaminondas's Ring",
         right_ring  = "Ilabrat Ring",
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
@@ -84,13 +84,20 @@ function get_sets()
         legs        = "Bihu Cannions +3",
         feet        = "Bihu Slippers +3",
         neck        = "Bard's Charm +2",
-        waist       = "Grunfeld Rope",
+        waist       = { name="Kentarch Belt +1", augments={'Path: A',}},
         left_ear    = "Regal Earring",
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
         right_ring  = "Metamor. Ring +1",
         back        = { name="Intarabus's Cape", augments={'CHR+20','Accuracy+20 Attack+20','CHR+10','Weapon skill damage +10%',}},
     }
+    sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS,{
+        head        = { name="Lustratio Cap +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+        feet        = { name="Lustra. Leggings +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+        neck        = "Bard's Charm +2",
+        waist       = { name="Kentarch Belt +1", augments={'Path: A',}},
+        right_ear   = "Ishvara Earring",
+    })
 
     sets.midcast = { }
     sets.midcast.BardSong = {        
@@ -106,29 +113,29 @@ function get_sets()
         waist       = "Luminary Sash",
         left_ear    = "Musical Earring",
         right_ear   = "Enchntr. Earring +1",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring	= { "Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= { "Stikini Ring +1", bag="wardrobe4" },
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
 
     -- Need to upgrade to Mousai +1
     sets.midcast.Threnody = {
-        body        = "Mousai Manteel"
+        body        = "Mous. Manteel +1"
     }
     sets.midcast.Scherzo = {
         feet        = "Fili Cothurnes +1"
     }
     sets.midcast.Carol = {
-        hands       = "Mousai Gages"
+        hands       = "Mousai Gages +1"
     }
     sets.midcast.Minne = {
-        legs        = "Mousai Seraweels"
+        legs        = "Mous. Seraweels +1"
     }
     sets.midcast.Etude = {
-        head        = "Mousai Turban"
+        head        = "Mousai Turban +1"
     }
     sets.midcast.Mambo = {
-        feet        = "Mousai Crackows"
+        feet        = "Mou. Crackows +1"
     }
     sets.midcast.Ballad = {
         legs        = "Fili Rhingrave +1"
@@ -150,26 +157,26 @@ function get_sets()
     }
 
     sets.aftercast = { }
-    sets.aftercast.Idle = {        
-        main        = "Carnwenhan", --"Sangoma", 
-        sub         = "Genmei Shield", 
+    sets.aftercast.Idle = {    -- DT 60    
+        main        = "Carnwenhan",
+        sub         = "Ammurapi Shield", -- "Genmei Shield",  --
         range       = "Gjallarhorn",
-        head        = "Aya. Zucchetto +2",
-        body        = "Ayanmo Corazza +2",
-        hands       = "Aya. Manopolas +2",
-        legs        = "Aya. Cosciales +2",
-        feet        = "Aya. Gambieras +2",
-        neck        = "Loricate Torque +1",
-        waist       = "Flume Belt +1",
-        left_ear    = "Genmei Earring",
-        right_ear   = "Etiolation Earring",
-        left_ring   = "Defending Ring",
-        right_ring  = "Gelatinous Ring +1",
-        back        = "Moonlight Cape"
+        head        = "Bunzi's Hat", -- 7
+        body        = "Bunzi's Robe", -- 10
+        hands       = "Bunzi's Gloves", -- 8
+        legs        = "Bunzi's Pants", -- 9
+        feet        = "Bunzi's Sabots", -- 6
+        neck        = "Warder's Charm +1", -- 6
+        waist       = "Slipor Sash", 
+        left_ear    = "Hearty Earring",
+        right_ear   = "Odnowa Earring +1", -- 3
+        left_ring   = "Moonlight Ring", -- 5
+        right_ring  = "Shadow Ring",
+        back        = "Moonlight Cape" -- 6
     }
     sets.aftercast.Engaged = {
-        main        = "Carnwenhan", --"Sangoma", 
-        sub         = "Genmei Shield", 
+        main        = "Carnwenhan",
+        sub         = "Ammurapi Shield", -- "Genmei Shield",  --
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",

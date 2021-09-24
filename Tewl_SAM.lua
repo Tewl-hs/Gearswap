@@ -20,11 +20,11 @@
 function get_sets()
 	items = require('resources').items
 
-	send_command("bind @e input /equip main 'Masamune'")
-	send_command("bind @m input /equip main 'Kogarasumaru'")
-	send_command("bind @r input /equip main 'Amanomurakumo'")
-	send_command("bind @a input /equip main 'Dojikiri Yasutsuna'")
-	send_command("bind @p input /equip main 'Shining One'")
+	send_command("bind @e input //gs equip sets.Weapons['Masamune']")
+	send_command("bind @m input //gs equip sets.Weapons['Kogarasumaru']")
+	send_command("bind @r input //gs equip sets.Weapons['Amanomurakumo']")
+	send_command("bind @a input //gs equip sets.Weapons['Dojikiri Yasutsuna']")
+	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind !f10 gs c toggle autows') 
 	send_command('bind !f11 gs c toggle wsacc')
@@ -39,7 +39,7 @@ function get_sets()
 	
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-	EngagedMode = {'Normal', 'PDT', 'MDT', 'Hybrid'}
+	EngagedMode = {'Normal', 'PDT', 'MDT', 'Subtle Blow', 'Hybrid'}
 	e = 1 -- Which set for initial setup in array.
 	IdleMode = {'Normal', 'PDT', 'MDT'}
 	i = 1
@@ -59,21 +59,11 @@ function get_sets()
 	WeaponColor = Colors.Red
 
 	Weapon = { 
-		['Masamune'] = {
-			Color	= Colors.Red
-		},
-		['Kogarasumaru'] = {
-			Color	= Colors.Blue
-		},
-		['Amanomurakumo'] = {
-			Color	= Colors.Yellow
-		},
-		['Dojikiri Yasutsuna'] = {
-			Color	= Colors.Green
-		},
-		['Shining One'] = {
-			Color	= Colors.White
-		}
+		['Masamune'] = { Color = Colors.Red },
+		['Kogarasumaru'] = { Color = Colors.Blue },
+		['Amanomurakumo'] = { Color	= Colors.Yellow },
+		['Dojikiri Yasutsuna'] = { Color = Colors.Green },
+		['Shining One'] = { Color = Colors.White }
 	}
 
 	range_mode = false
@@ -90,6 +80,7 @@ function get_sets()
     -- Gearsets
 	Capes = {} 
 	Capes.TP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+	Capes.STP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',} }
 	Capes.WS	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
 	Capes.RA	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
 	Capes.RWS	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
@@ -97,13 +88,20 @@ function get_sets()
 
 	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Yukikaze', 'Tachi: Gekko', 'Tachi: Kaiten', 'Impulse Drive'}
 
+	sets.Weapons = {
+		['Masamune'] = {main='Masamune',sub='Utu Grip'},
+		['Kogarasumaru'] = {main='Kogarasumaru',sub='Utu Grip'},
+		['Amanomurakumo'] = {main='Amanomurakumo',sub='Utu Grip'},
+		['Dojikiri Yasutsuna'] = {main='Dojikiri Yasutsuna',sub='Utu Grip'},
+		['Shining One'] = {main='Shining One',sub='Utu Grip'},
+	}
 	sets.JA = {
 		['Seigan'] = {
 			head	= "Kasuga Kabuto +1"
 		},
 		['Meditate'] = {
 			head	= "Wakido Kabuto +3",
-			hands	= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
+			hands	= "Sakonji Kote +3",
 			back	= Capes.TP
 		},
 		['Hasso'] = {
@@ -119,14 +117,13 @@ function get_sets()
 			feet	= "Kasuga Sune-Ate +1"
 		},
 		['Blade Bash'] = {
-			hands	= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
+			hands	= "Sakonji Kote +3"
 		},
 		['Meikyo Shisui'] = {
-			feet	= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
+			feet	= "Sak. Sune-Ate +3"
 		}
 	}
 	sets.FC = { -- 50 / 52%
-		sub			= "Utu Grip",
 		ammo		= "Sapience Orb", -- 2
 		head		= "Acro Helm", -- 3
 		neck		= "Orunmila's Torque", --5
@@ -137,29 +134,42 @@ function get_sets()
 		left_ear	= "Loquac. Earring", -- 2
 		right_ear	= "Enchntr. Earring +1", -- 2
 		left_ring	= "Prolix Ring", -- 2
-		--right_ring	= "Rahab Ring", -- 2 AA TT
+		--right_ring	= "Rahab Ring", -- 2 [AA TT]
 		back		= Capes.FC -- 10
 	}
+	sets.Enmity = {
+		ammo		= "Sapience Orb", 
+		head		= "Loess Barbuta +1",
+		-- neck		= "Unmoving Collar +1", -- [UNM]
+		body		= "Emet Harness +1",
+		--hands		= "Acro Gauntlets", -- [Skirmish]
+		--legs		= "Acro Breeches", -- [Skirmish]
+		--feet		= "Acro Leggings", -- [Skirmish]
+		left_ear	= "Trux Earring",
+		right_ear	= "Cryptic Earring +1",
+		left_ring	= "Eihwaz Ring",
+		--right_ring	= "Supershear Ring", -- [Titan Prime II]
+		--back		= Capes.Enmity -- [Ambuscade]
+
+	}
 	sets.RA = {
-		sub			= "Utu Grip",
 		range		= { name="Yoichinoyumi", augments={'Path: A',}},
 		ammo		= "Yoichi's Arrow",
-		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
-		body		= "Ken. Samue +1",
+		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
+		body		= "Wakido Domaru +3",
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
-		waist		= "Reiki Yotai", -- Yemaya Belt
-		left_ear	= "Telos earring",
-		right_ear	= "Enervating Earring",
+		waist		= "Reiki Yotai", -- Yemaya Belt [Duke Vesper]
+    	left_ear   	= "Telos Earring", 
+    	right_ear   = "Crep. Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Cacoethic ring +1",
 		back		= Capes.RA
 	}
 	sets.WS = {}
 	sets.WS.Normal = {
-		sub			= "Utu Grip",
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap",
 		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
@@ -185,7 +195,7 @@ function get_sets()
 		feet		= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
 		right_ear	= "Telos Earring",
 		left_ring	= "Regal Ring",
-		waist		= "Fotia Belt" -- Kentarch Belt +1
+		waist		= "Kentarch Belt +1"
 	})
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'], { })
 	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
@@ -196,27 +206,23 @@ function get_sets()
 	})
 	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], { })
 	sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
-		ammo		= "Knobkierrie",
 		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
 		body		= "Sacro Breastplate",
 		hands		= "Founder's Gauntlets",
-		legs		= "Wakido Haidate +3",
 		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
 		right_ear	= "Friomisi Earring",
-		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
-		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring +1",
-		waist		= "Eschan Stone", -- "Orpheus's Sash",
+		waist		= "Orpheus's Sash",
+		--waist "Eschan Stone",
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
 		head		= { name="Blistering Sallet +1", augments={'Path: A',}},
-		body		= "Flamma Korazin +2",
-		hands		= "Flam. Manopolas +2",
-		legs		= "Flamma Dirs +2",
-		feet		= "Flam. Gambieras +2",
+		body		= "Mpaca's Doublet",
+		hands		= "Mpaca's Gloves",
+    	legs        = "Mpaca's Hose", 
+    	feet        = "Mpaca's Boots", 
 		neck		= "Sanctity Necklace",
-		left_ear	= "Gwati Earring",
+    	left_ear    = "Crep. Earring",
 		right_ear	= "Digni. Earring",
 		left_ring	= "Metamor. Ring +1",
 		right_ring	= "Stikini Ring +1",
@@ -246,7 +252,8 @@ function get_sets()
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
 		sub			= "Utu Grip",
-		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
+		ammo		= "Aurgelmir Orb +1",
+		--ammo { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= "Wakido Kote +3",
@@ -279,7 +286,7 @@ function get_sets()
 		feet		= "Ken. Sune-Ate +1",
 		neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
 		waist		= "Flume Belt +1", -- 4/0
-		left_ear	= "Tuisto Earring",
+		left_ear	= "Telos Earring",
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 3/5
 		left_ring	= "Defending Ring", -- 10/10
 		right_ring	= "Chirich Ring +1",
@@ -295,6 +302,22 @@ function get_sets()
 		left_ear	= "Etiolation Earring",
 		waist		= "Ioskeha Belt +1",
 	})
+	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 3 PDT 32 Haste 26 SB1 27 SB2 10 STP 46
+    	sub         = "Utu Grip",
+    	ammo        = "Staunch Tathlum +1", -- 0 0 3
+    	head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
+    	body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
+    	hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
+    	legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
+    	feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
+    	neck        = { name="Sam. Nodowa +2", augments={'Path: A',}}, -- STP 14
+    	waist       = "Ioskeha Belt +1", -- Haste 8
+    	left_ear   	= "Telos Earring", -- STP 5
+    	right_ear   = "Crep. Earring", -- STP 5
+    	left_ring   = "Niqmaddu Ring", -- SB2 5
+    	right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
+    	back        = Capes.STP
+	}
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, { -- DT 38/21 EVA 333 MEVA 512 MDB 36
 		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1", -- 3/3
@@ -310,16 +333,16 @@ function get_sets()
 		left_ring	= "Defending Ring", -- 10/10
 		right_ring	= "Chirich Ring +1",
 		back		= Capes.TP -- 10/0
-	 })
+	})
 	sets.Idle = { }
-	sets.Idle.Normal = {
+	sets.Idle.Normal = { -- PDT 20 DT 15+19+10+3 MDT 2 68/49
 		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Tartarus Platemail",
 		hands		= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
 		neck		= { name="Loricate Torque +1", augments={'Path: A',}},
 		waist		= "Flume Belt +1",
 		left_ear	= "Tuisto Earring", 
@@ -398,8 +421,23 @@ function precast(spell,action)
 		ws_order = 1
 		last_target = target
 	end
+	if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
+        add_to_chat(123,'Unabled to perform action: Status effect (Terror, Petrify, Sleep, Stun)')
+        cancel_spell()
+        return
+    end
 
 	if spell.type == 'WeaponSkill' then
+		if buffactive.amnesia or buffactive.impairment then
+            add_to_chat(123,'Abort: Status effect (Amnesia, Impairment)')
+            cancel_spell()
+            return
+        end
+        if player.tp < 1000 then
+            add_to_chat(123,'Unable to use: '..spell.english..' (TP:'..player.tp..')')
+            cancel_spell()
+            return
+        end
 		if spell.name == AutoWS and AWSEnabled == true then
 			cancel_spell()
 			send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
@@ -439,9 +477,42 @@ function precast(spell,action)
 			end
 		end
 		equip(ws)
+	elseif spell.action_type == 'Ability' then
+		if buffactive.amnesia or buffactive.impairment then
+            add_to_chat(123,'Unabled to perform action: Status effect (Amnesia, Impairment)')
+            cancel_spell()
+            return
+        end
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		if abil_recasts[spell.recast_id] > 0 then
+			cancel_spell()
+			add_to_chat(121,'['..spell.name..'] '..abil_recasts[spell.recast_id]..'s')
+			return
+		end
+		if sets.JA[spell.name] then
+			equip(sets.JA[spell.name])
+		end
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(sets.RA)
 	elseif spell.action_type == 'Magic' then
+        if buffactive.silence or buffactive.mute or buffactive.Omerta then
+            add_to_chat(123,'Unabled to perform action: Status effect (Silence, Mute, Omerta)')
+            cancel_spell()
+            return
+        end
+        local spellCost = actual_cost(spell)
+        if player.mp < spellCost then
+            add_to_chat(123,'Unable to cast: '..spell.english..'. Not enough MP. ('..player.mp..'/'..spellCost..')')
+            cancel_spell()
+            return
+        end
+        local spell_recasts = windower.ffxi.get_spell_recasts()
+        local sr = math.floor(spell_recasts[spell.recast_id]/60)
+        if sr > 0 then
+			cancel_spell()
+			add_to_chat(121,'['..spell.name..'] '..sr..'s')
+            return
+        end
 		equip(sets.FC)
 	end
 end
@@ -461,22 +532,7 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	if (buff == 'Poison' or buff == 'Paralyze') and gain =='True' then
-		if player.inventory['Remedy'] then
-			send_command('@input /item "Remedy" <me>')
-			add_to_chat(123,'=== Debuff: '..buff..' ===')	
-		else
-			add_to_chat(123,'=== Out of Remedies ===')	
-		end
-	end
-	if buff == "Choke" and gain =="True" then
-		if player.inventory['Panacea'] then
-			add_to_chat(123,'=== Debuff: '..buff..' ===')	
-			send_command('@input /item "Panacea" <me>')
-		else
-			add_to_chat(123,'=== Out of Panacea ===')	
-		end
-	end
+
 end
 
 function equip_check()
@@ -538,6 +594,7 @@ function self_command(cmd)
 			else
 				lock_twilight = false
 			end
+			equip_check()
 		elseif args[2] == 'autows' then
 			if AWSEnabled == false then
 				AWSEnabled = true
@@ -588,10 +645,9 @@ function equip_change()
 				end
 			end	
 			w = has_value(Weapons, CurrentWeapon)
+			equip_check()
 		end
-		equip_check()
 	end
-	--]]
 end
 
 function update_status()
@@ -680,3 +736,25 @@ windower.raw_register_event('prerender',function()
 		mov.counter = 0
 	end
 end)
+
+function actual_cost(spell)
+    local cost = spell.mp_cost
+	if spell.type=="WhiteMagic" then
+        if buffactive["Penury"] then
+            return cost*.5
+        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
+            return cost*.9
+        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
+            return cost*1.1
+        end
+    elseif spell.type=="BlackMagic" then
+        if buffactive["Parsimony"] then
+            return cost*.5
+        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
+            return cost*.9
+        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
+            return cost*1.1
+        end
+    end
+    return cost
+end

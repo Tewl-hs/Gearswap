@@ -1,59 +1,23 @@
--- Testing Motes, work in progress
+ --[[
+	File: Keanne_BLM.lua 
+--]]
 function get_sets()
-    mote_include_version = 2
-    include('Mote-Include.lua')
-end
+	send_command('bind ^f9 gs c toggle burst') 
 
-function user_setup()
-    state.CastingMode:options('Default', 'MagicBurst')
-    state.IdleMode:options('Normal','PDT')
-end
+    Macro_Book = '2'
+    Macro_Page = '1'
+    send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
 
-	
-function init_gear_sets()
-    --  NOT MY CODE! Testing content for displaying text under chat
-    texts = require('texts')
-    if stateBox then stateBox:destroy() end
+	BurstMode = false
 
-    local settings = windower.get_windower_settings()
-    local x,y
-
-    if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
-        x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
-    else
-        x,y = 0, settings["ui_y_res"]-17 -- -285, -18
-    end
-
-    if displayx then x = displayx end
-    if displayy then y = displayy end
-
-    local font = displayfont or 'Arial'
-    local size = displaysize or 12
-    local bold = displaybold or true
-    local bg = displaybg or 0
-    local strokewidth = displaystroke or 2
-    local stroketransparancy = displaytransparancy or 192
-
-    stateBox = texts.new()
-    stateBox:pos(x,y)
-    stateBox:font(font)--Arial
-    stateBox:size(size)
-    stateBox:bold(bold)
-    stateBox:bg_alpha(bg)--128
-    stateBox:right_justified(false)
-    stateBox:stroke_width(strokewidth)
-    stateBox:stroke_transparency(stroketransparancy)
-
-    update_status()
-    -- End of display code
-
-    sets.MoveSpeed = { feet = "Herald's Gaiters", } 
+    -- Gearsets
+    sets = {}
+    sets.MoveSpeed = {feet="Herald's Gaiters"} 
+    sets.Impact = {head=empty,body="Twilight Cloak"}
+    sets.Dispelga = {main="Daybreak",sub="Ammurapi Shield"}
 
     sets.precast = {}
-    sets.precast.JA = {}
-    sets.precast.JA['Mana Wall'] = { }
-	
-	sets.precast.FC = { -- 85
+    sets.precast.FC = {
         main        = "Sucellus", -- 5
         sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
@@ -70,8 +34,18 @@ function init_gear_sets()
         left_ring   = "Prolix Ring", -- 2
         back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
     }
-    sets.precast.Stoneskin = set_combine(sets.precast.Fastcast,{waist="Siegel Sash"})
-	
+    sets.precast.FC.Impact = set_combine(sets.precast.FC,sets.Impact)
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,sets.Dispelga)
+
+    sets.precast.JA = {
+        ['Mana Wall'] = { },
+        ['Manafont'] = { },
+        ['Elemental Seal'] = { },
+        ['Cascade'] = { },
+        ['Manawell'] = { },
+        ['Subtle Sorcery'] = { },
+    }
+
     sets.midcast = {}
     sets.midcast['Elemental Magic'] = {
         main        = "Daybreak",
@@ -92,18 +66,25 @@ function init_gear_sets()
         right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
      }
-	sets.midcast['Elemental Magic'].MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
-        head        = "Ea Hat",
-        body        = "Ea Houppelande",
-        legs        = "Ea Slops",
-        --neck        = "Mizu. Kubikazari",
-        --feet        = "Ea Pigaches +1",
-        left_ring   = "Mujin Band"
+    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        head		= "Ea Hat +1",
+        body		= "Ea Houppe. +1",
+        legs		= "Ea Slops +1",
+        neck		= "Mizu. Kubikazari",
+        waist		= "Skrymir Cord",
+        left_ear	= "Regal Earring",
+        right_ring	= "Mujin Band",
     })
-	
-    sets.midcast['Dark Magic'] = {  }  
     sets.midcast['Enfeebling Magic'] = { }
-	sets.midcast['Healing Magic'] = { }
+    sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
+    sets.midcast['Dark Magic'] = { }
+    sets.midcast['Healing Magic'] = { }
+    sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
+
+    })
+    sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {
+        
+    })
     sets.midcast['Enhancing Magic'] = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield", -- 10
@@ -116,12 +97,13 @@ function init_gear_sets()
         neck        = "Incanter's Torque",
         waist       = "Embla Sash", -- 10
     }
-	sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
+    sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head        = "Amalric Coif +1",
         feet        = "Inspirited Boots"
     })
-    
-    sets.idle = {
+
+    sets.aftercast = {}
+    sets.aftercast.Idle = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
@@ -136,141 +118,289 @@ function init_gear_sets()
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring	= "Stikini Ring +1",
+        right_ring	= "Stikini Ring +1",
         back        = "Moonlight Cape"
     }
-end
+    sets.aftercast.Engaged = { }
+    sets.aftercast.Resting = set_combine(sets.aftercast.Idle, {
+        --  Using Idle set for resting, add gear here to make changes
+    })
 
-function job_pretarget(spell)
+    ---------------------------------
+    --------- DISPLAY  CODE ---------
+    -- DO NOT EDIT BELOW THIS LINE --
+    ---------------------------------
+	Colors = {
+		Yellow = '\\cs(255,192,0)',
+		Red = '\\cs(255,80,80)',
+		Green = '\\cs(110,255,110)',
+		Blue = '\\cs(140,160,255)',
+		Gray = '\\cs(96,96,96)',
+		White = '\\cs(255,255,255)'
+	}
 
-end
+	texts = require('texts')
+	if stateBox then stateBox:destroy() end
 
-function job_precast(spell)
-
-end
-
-function job_post_precast(spell, action, spellMap, eventArgs)
-
-end
-
-function job_midcast(spell, action, spellMap, eventArgs)
-
-end
-
-function job_post_midcast(spell, action, spellMap, eventArgs)
-
-end        
-
-function job_aftercast(spell)
+	local settings = windower.get_windower_settings()
+	local x,y
     
+	-- Adjust for screen resolution and positon of text on screen
+	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
+		x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
+	else
+		x,y = 0, settings["ui_y_res"]-17 -- -285, -18
+	end
+
+	stateBox = texts.new({flags = {draggable=false}})
+	stateBox:pos(x,y)
+	stateBox:font('Arial')
+	stateBox:size(12)
+	stateBox:bold(true)
+	stateBox:bg_alpha(0)--128
+	stateBox:right_justified(false)
+	stateBox:stroke_width(2)
+	stateBox:stroke_transparency(192)
+
+	update_status()
 end
 
-function job_aftercast(spell, action, spellMap, eventArgs)
-
+function file_unload()  
+	send_command('unbind ^F9')
 end
 
-function status_change(new,old)
-    
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return index
+        end
+    end
+    return table.getn(tab)
 end
 
-function job_state_change(stateField, newValue, oldValue)
-    update_status()
-end
-
-function equip_aftercast()
-    equip(sets.idle)
-end
-
-function job_self_command(cmdParams, eventArgs)
-	if cmdParams[1] == 'idle' then
-		equip_aftercast()
+function precast(spell)
+    if spell.interrupted == true or spell.target.hpp == 0 then
+        cancel_spell()
+        return
+    end
+    if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
+        add_to_chat(123,'Unabled to perform action: Status effect (Terror, Petrify, Sleep, Stun)')
+        cancel_spell()
+        return
+    end
+    if spell.action_type == 'Magic' then
+        if buffactive.silence or buffactive.mute or buffactive.Omerta then
+            add_to_chat(123,'Unabled to perform action: Status effect (Silence, Mute, Omerta)')
+            cancel_spell()
+            return
+        end
+        local spellCost = actual_cost(spell)
+        if player.mp < spellCost then
+            add_to_chat(123,'Unable to cast: '..spell.english..'. Not enough MP. ('..player.mp..'/'..spellCost..')')
+            cancel_spell()
+            return
+        end
+		equip(sets.precast.FC)
+    elseif spell.type == 'WeaponSkill' then
+		if buffactive.amnesia or buffactive.impairment then
+            add_to_chat(123,'Abort: Status effect (Amnesia, Impairment)')
+            cancel_spell()
+            return
+        end
+        if player.tp < 1000 then
+            add_to_chat(123,'Unable to use: '..spell.english..'. Not enough TP.')
+        end
+	elseif spell.action_type == 'Ability' then
+		if buffactive.amnesia or buffactive.impairment then
+            add_to_chat(123,'Unabled to perform action: Status effect (Amnesia, Impairment)')
+            cancel_spell()
+            return
+        end
+		if sets.precast.JA[spell.name] then
+			equip(sets.precast.JA[spell.name])
+		end
 	end
 end
 
--- More code for displaying text -- Not finished 
-function update_status()
-	local clr = {
-        h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
-		w='\\cs(255,255,255)', -- White for labels and default modals
-        n='\\cs(192,192,192)', -- White for labels and default modals
-        s='\\cs(96,96,96)', -- Gray for inactive booleans
-		Fire='\\cs(255,80,80)', -- Red For Fire Element
-		Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
-		Wind='\\cs(110,255,110)', -- Light Green For Wind Element
-		Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
-		Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
-		Water='\\cs(110,110,255)', -- Blue For Water Element
-		Light='\\cs(255,255,155)', -- Light Yellow For Light Element
-		Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
-    }
-
-    local info = {}
-    local orig = {}
-	local spc = '    '
-	
-	local labels = {
-		Weapons = "Weapons",
-        OffenseMode = "Offense",
-		RangedMode = "Ranged",
-        DefenseMode = "Defense",
-        HybridMode = "Hybrid",
-        IdleMode = "Idle",
-    }
-
-    stateBox:clear()
-	stateBox:append('   ')
-	stateBox:append(string.format("%sMode: %s%s", clr.w, clr.h, state.CastingMode.value))
-	stateBox:append(spc)
-
-    stateBox:update(info)
-    stateBox:show()
+function midcast(spell)
+    if spell.skill == 'Elemental Magic' and BurstMode ~= false then
+        if spell.name == 'Impact' then
+            equip(set_combine(sets.midcast[spell.skill].Burst,sets.Impact))
+        else
+            equip(sets.midcast[spell.skill].Burst)
+        end
+    elseif spell.skill == 'Enhancing Magic' then
+        if spell.name:startswith('Refresh') and spell.target.type == 'SELF' and sets.midcast[spell.skill].Refresh then
+            equip(sets.midcast[spell.skill].Refresh)
+        elseif sets.midcast[spell.skill][spell.name] then
+            equip(sets.midcast[spell.skill][spell.name])
+        else
+            equip(sets.midcast[spell.skill])
+        end
+    elseif spell.skill == 'Enfeebling Magic' then
+        if spell.name == 'Dispelga' then
+            equip(sets.midcast[spell.skill].Dispelga)
+        elseif sets.midcast[spell.skill][spell.name] then
+            equip(sets.midcast[spell.skill][spell.name])
+        else
+           equip(sets.midcast[spell.skill])
+        end
+    elseif spell.skill == 'Healing Magic' then
+        if spell.name == 'Cursna' and sets.midcast[spell.skill].Cursna then
+            equip(sets.midcast[spell.skill].Cursna)
+        elseif spell.name ~= Cursna and spell.name:startswith('Cur') and sets.midcast[spell.skill].Cure then
+            equip(sets.midcast[spell.skill].Cure)
+        elseif sets.midcast[spell.skill][spell.name] then
+            equip(sets.midcast[spell.skill][spell.name])
+        else
+            equip(sets.midcast[spell.skill])
+        end
+    elseif sets.midcast[spell.skill] then
+        if sets.midcast[spell.skill][spell.name] then
+            equip(sets.midcast[spell.skill][spell.name])
+        else
+           equip(sets.midcast[spell.skill])
+        end
+    end
+    if spell.interrupted == true or spell.target.hpp == 0 then
+        cancel_spell()
+        return
+    end
 end
 
-function clear_job_states()
-    if stateBox then stateBox:destroy() end
+function aftercast(spell)
+	equip_check()
+end
+
+function status_change(new,old)
+	if T{'Idle','Resting','Engaged'}:contains(new) then
+		equip_check()
+	end
+end
+
+function buff_change(buff,gain)
+    
+end
+
+function equip_check()
+	local eq = {}
+	if player.status == 'Engaged' then	
+		eq = sets.aftercast.Engaged
+    elseif player.status == 'Resting' then	
+		eq = sets.aftercast.Resting
+	else
+		eq = sets.aftercast.Idle
+	end
+	equip(eq)
+	update_status()
+end
+
+function self_command(cmd)
+	local args = T(cmd:split(' '))
+	if args[1] == 'toggle' and args[2] then
+		if args[2] == 'burst' then
+			if BurstMode == false then
+				BurstMode = true
+			else
+				BurstMode = false
+			end
+			equip_check()
+        end
+		update_status()
+	elseif args[1] == 'equip_check' then
+		equip_check()
+	elseif args[1] == 'update_status' then
+		update_status()
+	end
+end
+
+function update_status()
+	local spc = '   '
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = ''
+
+	if BurstMode == true then
+		status_text = string.format("%s%s%s%s", 'CastingMode: ',  Colors.Yellow, 'Burst', spc)
+	else
+		status_text = string.format("%s%s%s%s", 'CastingMode: ',  Colors.Blue, 'Normal', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
 end
 
 windower.raw_register_event('outgoing chunk', function(id, data)
-    if id == 0x00D and stateBox then
-        stateBox:hide()
-    end
+	if id == 0x00D and stateBox then
+		stateBox:hide()
+	end
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
-    if id == 0x00A and stateBox then
-        stateBox:show()
-    end
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+    
 end)
--- End of Display Code
 
+-- Copied from Motes
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-    mov.x = windower.ffxi.get_mob_by_index(player.index).x
-    mov.y = windower.ffxi.get_mob_by_index(player.index).y
-    mov.z = windower.ffxi.get_mob_by_index(player.index).z
+	mov.x = windower.ffxi.get_mob_by_index(player.index).x
+	mov.y = windower.ffxi.get_mob_by_index(player.index).y
+	mov.z = windower.ffxi.get_mob_by_index(player.index).z
 end
  
 moving = false
 windower.raw_register_event('prerender',function()
-    mov.counter = mov.counter + 1;
-    if mov.counter>15 then
-        local pl = windower.ffxi.get_mob_by_index(player.index)
-        if pl and pl.x and mov.x then
-            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-            if dist > 1 and not moving then
-                send_command('gs equip sets.MoveSpeed')
-                moving = true
-            elseif dist < 1 and moving then
-                send_command('gs c idle')
-                moving = false
-            end
-        end
-        if pl and pl.x then
-            mov.x = pl.x
-            mov.y = pl.y
-            mov.z = pl.z
-        end
-        mov.counter = 0
-    end
+	mov.counter = mov.counter + 1;
+	if mov.counter>15 then
+		local pl = windower.ffxi.get_mob_by_index(player.index)
+		if pl and pl.x and mov.x then
+			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+			if dist > 1 and not moving then
+				if player.status ~= 'Engaged' then -- When not engaged and moving equip movement speed
+					send_command('gs equip sets.MoveSpeed')
+				end
+				moving = true
+			elseif dist < 1 and moving then -- When stopping and not engaged, equip idle set
+				if player.status ~= 'Engaged' then
+					send_command('gs c equip_check') -- Custom command for changing gear.
+				end
+				moving = false
+			end
+		end
+		if pl and pl.x then
+			mov.x = pl.x
+			mov.y = pl.y
+			mov.z = pl.z
+		end
+		mov.counter = 0
+	end
 end)
+
+function actual_cost(spell)
+    local cost = spell.mp_cost
+	if buffactive["Manafont"] or buffactive["Manawell"]
+		then return 0
+    elseif spell.type=="WhiteMagic" then
+        if buffactive["Penury"] then
+            return cost*.5
+        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
+            return cost*.9
+        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
+            return cost*1.1
+        end
+    elseif spell.type=="BlackMagic" then
+        if buffactive["Parsimony"] then
+            return cost*.5
+        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
+            return cost*.9
+        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
+            return cost*1.1
+        end
+    end
+    return cost
+end

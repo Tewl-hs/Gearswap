@@ -66,7 +66,6 @@ function get_sets()
     Capes.DA = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}}
 
     sets.Enmity = {
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         head        = "Halitus Helm",
         body        = "Emet Harness +1",
@@ -74,6 +73,7 @@ function get_sets()
         legs        = "Eri. Leg Guards +1",
         feet        = "Ahosi Leggings",
         neck        = "Moonlight Necklace",
+        waist       = "Kasiri Belt",
         left_ear    = "Cryptic Earring",
         right_ear   = "Trux Earring",
         left_ring   = "Eihwaz Ring",
@@ -81,7 +81,6 @@ function get_sets()
         back        = Capes.Enmity
     }
     sets.Enmity.SIRD = { -- 105%
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 11
         head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}}, -- 10
@@ -100,7 +99,6 @@ function get_sets()
     
     sets.precast = {}
     sets.precast.FC = { -- 73%
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         ammo        = "Sapience Orb", -- 2
         head        = "Carmine Mask +1", -- 14
@@ -141,7 +139,6 @@ function get_sets()
         ['Lunge'] = { }
     }
     sets.precast.WS = {
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         ammo        = "Knobkierrie",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
@@ -172,11 +169,19 @@ function get_sets()
         right_ring  = "Niqmaddu Ring",
         back        = Capes.DA
     })
-
+    sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS,{
+        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
+        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
+        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
+        legs        = "Nyame Flanchard", -- 8 0 0
+        feet        = "Nyame Sollerets", -- 7 0 0
+        waist       = "Kentarch Belt +1",
+        left_ear    = "Telos Earring",
+        right_ear   = "Digni. Earring",
+    })
     sets.midcast = {}
     sets.midcast['Enhancing Magic'] = {}
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1",
         head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
@@ -196,7 +201,6 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
     sets.aftercast.Engaged.Normal = { -- DT (52) PDT (29) MDT (2)
-        main        = "Epeolatry", -- 0 25 0
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
@@ -213,7 +217,6 @@ function get_sets()
         back        = Capes.Enmity -- 5 0 0
     }
     sets.aftercast.Engaged.DTLite = {
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         ammo        = "Yamarang",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
@@ -230,7 +233,6 @@ function get_sets()
         back        = Capes.DA
     }
     sets.aftercast.Engaged.Hybrid = { -- DT 33 PDT 25
-        main        = "Epeolatry",
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Turms Cap +1",
@@ -247,7 +249,6 @@ function get_sets()
         back        = Capes.DA -- 5 0 0
     }
     sets.aftercast.Idle = { -- DT 55 PDT 29 MDT 2
-        main        = "Epeolatry", -- 0 25 0
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Turms Cap +1", 
@@ -335,16 +336,34 @@ end
     
 function precast(spell,action)        
     if spell.type == 'WeaponSkill' then
+        if player.tp < 1000 then
+			cancel_spell()
+            return
+        end
         if sets.precast.WS[spell.name] then
             equip(sets.precast.WS[spell.name])
         else
             equip(sets.precast.WS)
         end
     elseif spell.action_type == 'Ability' then
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		if abil_recasts[spell.recast_id] and abil_recasts[spell.recast_id] > 0 then
+			cancel_spell()
+			add_to_chat(121,'['..spell.name..'] '..abil_recasts[spell.recast_id]..'s')
+			return
+		end
+
         if sets.precast.JA[spell.name] then
             equip(sets.precast.JA[spell.name])
         end    
     elseif spell.action_type == 'Magic' then
+        local spell_recasts = windower.ffxi.get_spell_recasts()
+        local sr = math.floor(spell_recasts[spell.recast_id]/60)
+        if sr > 0 then
+			cancel_spell()
+			add_to_chat(121,'['..spell.name..'] '..sr..'s')
+            return
+        end
         if sets.precast.FC[spell.skill] then
             equip(sets.precast.FC[spell.skill])
         else

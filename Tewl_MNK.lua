@@ -108,11 +108,11 @@
         }
         sets.precast.WS = { -- Raging Fists
             ammo        = "Knobkierrie",
-            head        = "Adhemar Bonnet +1",
+            head        = "Ken. Jinpachi +1",
             body        = "Adhemar Jacket +1",
             hands       = "Adhemar Wrist. +1",
-            legs		= "Ken. Hakama +1",
-            feet		= "Ken. Sune-Ate +1",
+            legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
+            feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",
@@ -122,28 +122,29 @@
             back		= Capes.WS
         }
         sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
+            head        = "Adhemar Bonnet +1",
             body        = "Ken. Samue +1",
             hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
+            legs		= "Ken. Hakama +1",
             feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
-            neck        = "Fotia Gorget",
+            right_ear   = "Odr Earring",
             back        = Capes.WSCrit
         })
-        sets.precast.WS["Victory Smite"].Impetus = {
+        sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"],{
             body        = "Bhikku Cyclas +1",
-            right_ear   = "Schere Earring",
             back        = Capes.WS
-        }
+        })
         sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
             head        = "Hesychast's Crown +3",
-            body        = "Ken. Samue +1",
+            body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
             hands       = "Anchor. Gloves +3",
             feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
             back        = Capes.WSD
         })
         sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
-            head        = "Ken. Jinpachi +1",
-            body        = "Adhemar Jacket +1",
-            hands       = "Ken. Tekko +1",
+            ammo		= "Aurgelmir Orb +1", -- { name="Coiste Bodhar", augments={'Path: A',}},
+            body        = "Malignance Tabard",  -- 9/9
+            hands       = "Malignance Gloves",  -- 5/5
             neck        = "Fotia Gorget",
             right_ear   = "Mache Earring +1",
             back        = Capes.TP
@@ -153,7 +154,7 @@
         sets.aftercast = {}
         sets.aftercast.TP = { }
         sets.aftercast.TP.Normal = {
-            ammo        = "Ginsen",
+            ammo		= "Aurgelmir Orb +1", -- { name="Coiste Bodhar", augments={'Path: A',}},
             head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
             hands		= "Adhemar Wrist. +1",
@@ -185,7 +186,7 @@
             back		= Capes.TP
         }
         sets.aftercast.TP.Hybrid = {
-            ammo        = "Ginsen",
+            ammo		= "Aurgelmir Orb +1", -- { name="Coiste Bodhar", augments={'Path: A',}},
             head        = "Malignance Chapeau",  -- 6/6
             body        = "Malignance Tabard",  -- 9/9
             hands       = "Malignance Gloves",  -- 5/5

@@ -21,7 +21,8 @@ function get_sets()
 
         current_sj = player.sub_job or nil
 
-        sets.precast = { -- Fast Cast Current: 80% 
+        sets.precast = {}
+        sets.precast.FC = { -- Fast Cast Current: 80% 
             ammo        = "Sapience Orb", -- 2
             head        = "Carmine Mask +1", -- 9
             body        = "Pinga Tunic", -- 13 Option: Pinga Tunic +1 (15%)
@@ -45,7 +46,7 @@ function get_sets()
             legs        = "Amalric Slops +1",
             feet        = "Amalric Nails +1",
             neck        = "Baetyl Pendant",
-            waist       = "Eschan Stone",
+            waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
             right_ear   = "Regal Earring",
             left_ring   = "Metamor. Ring +1", -- "Shiva Ring +1",
@@ -65,8 +66,8 @@ function get_sets()
             neck        = "Incanter's Torque",
             waist       = "Luminary Sash",
             back        = "Rosmerta's Cape",
-            left_ring   = "Stikini Ring +1",
-            right_ring  = "Stikini Ring +1"
+            left_ring	= { "Stikini Ring +1", bag="wardrobe1" },
+            right_ring	= { "Stikini Ring +1", bag="wardrobe4" },
          }
 
     
@@ -89,8 +90,8 @@ function get_sets()
 
         sets.aftercast.Refresh = set_combine(sets.aftercast.Idle,{
             body        = "Jhakri Robe +2",
-            left_ring   = "Stikini Ring +1",
-            right_ring  = "Stikini Ring +1",
+            left_ring	= "Stikini Ring +1",
+            right_ring	= "Stikini Ring +1"
         })
 
         check_spells()
@@ -180,7 +181,7 @@ function get_sets()
                 end
                 return
             end
-            equip(sets.precast)    
+            equip(sets.precast.FC)    
         end
     end
     
@@ -199,12 +200,12 @@ function get_sets()
     end
     
     function aftercast(spell)
-        equip(sets.aftercast.Refresh)
+        equip(sets.aftercast.Idle)
     end
     
     function status_change(new,old)
         if new == 'Idle' then
-            equip(sets.aftercast.Refresh)
+            equip(sets.aftercast.Idle)
         elseif new == 'Resting' then
             equip(sets.aftercast.Refresh)
         end

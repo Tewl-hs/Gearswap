@@ -1,4 +1,5 @@
 function get_sets()	
+	items = require('resources').items
     -- Personal settings: Load macros and set equipviewer position
     send_command('input /macro book 10;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 16')
     send_command('input //equipviewer pos 1663 934')
@@ -10,7 +11,24 @@ function get_sets()
 	WeaponSkills = T{'Blade: Hi', 'Blade: Hi'}
 	ws_order = 1
 	last_target = nil
-    -- 
+
+    -- Display stuff
+	EngagedMode = {'Normal'}
+	e = 1 -- Which set for initial setup in array.
+	IdleMode = {'Normal'}
+	i = 1
+
+    MainWeapon = 'Kannagi'
+    SubWeapon = 'Ternion Dagger +1'
+
+	Colors = {
+		Yellow = '\\cs(255,192,0)',
+		Red = '\\cs(255,80,80)',
+		Green = '\\cs(110,255,110)',
+		Blue = '\\cs(140,160,255)',
+		Gray = '\\cs(96,96,96)',
+		White = '\\cs(255,255,255)'
+	} 
 
     ElementalSpells = T{'Katon: Ichi', 'Katon: Ni', 'Katon: San', 'Hyoton: Ichi', 'Hyoton: Ni', 'Hyoton: San', 'Huton: Ichi', 'Huton: Ni', 'Huton: San',
                     'Doton: Ichi', 'Doton: Ni', 'Doton: San', 'Raiton: Ichi', 'Raiton: ni', 'Raiton: San', 'Suiton: Ichi', 'Suiton: Ni', 'Suiton: San'}
@@ -221,6 +239,31 @@ function get_sets()
         right_ring	= "Karieyh Ring +1",
         back		= "Moonlight Cape" -- 6/6
     }
+    
+	texts = require('texts')
+	if stateBox then stateBox:destroy() end
+
+	local settings = windower.get_windower_settings()
+	local x,y
+    
+	-- Adjust for screen resolution and positon of text on screen
+	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
+		x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
+	else
+		x,y = 0, settings["ui_y_res"]-17 -- -285, -18
+	end
+
+	stateBox = texts.new({flags = {draggable=false}})
+	stateBox:pos(x,y)
+	stateBox:font('Arial')
+	stateBox:size(12)
+	stateBox:bold(true)
+	stateBox:bg_alpha(0)--128
+	stateBox:right_justified(false)
+	stateBox:stroke_width(2)
+	stateBox:stroke_transparency(192)
+
+	update_status()
 end
 
 function precast(spell,action)    
@@ -318,6 +361,94 @@ function SwapGear()
         equip(sets.aftercast.Idle)
     end
 end
+
+function equip_check()
+	local eq = {}
+	if player.status == 'Engaged' then	
+		eq = set_combine(sets.aftercast.Engaged.Normal, {main=MainWeapon,sub=SubWeapon})
+		if acc_mode == true and sets.aftercast.Engaged[EngagedMode[e]].Accuracy then
+			eq = set_combine(sets.aftercast.Engaged[EngagedMode[e]].Accuracy, {main=MainWeapon,sub=SubWeapon})
+		elseif sets.aftercast.Engaged[EngagedMode[e]] then
+			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=MainWeapon,sub=SubWeapon})
+		end
+	else
+		eq = set_combine(sets.aftercast.Idle.Normal, {main=MainWeapon,sub=SubWeapon})
+		if sets.aftercast.Idle[IdleMode[i]] then
+			eq = set_combine(sets.aftercast.Idle[IdleMode[i]], {main=MainWeapon,sub=SubWeapon})
+		end
+	end
+	equip(eq)
+	update_status()
+end
+
+function equip_change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	local sitem = windower.ffxi.get_items(equipment["main_bag"],equipment["sub"])
+	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then 
+		local mw = items[item['id']].name
+        local sw = items[sitem['id']].name
+		if mw ~= MainWeapon then 
+			if mw == 'Gil' then -- No idea why? 
+				MainWeapon = 'Empty'
+			else
+				MainWeapon = mw
+			end	
+		end
+        if sw ~= SubWeapon then 
+			if sw == 'Gil' then -- No idea why? 
+				SubWeapon = 'Empty'
+			else
+				SubWeapon = sw
+			end	
+		end
+		equip_check()
+	end
+end
+
+function update_status()
+	local spc = '   '
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s", Colors.White, MainWeapon..' / '..SubWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, EngagedMode[e], spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[i], spc)
+
+	if acc_mode == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
+	else
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)
+	end
+	
+	if range_mode == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
+end
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+	if id == 0x00D and stateBox then
+		stateBox:hide()
+	end
+	if (id == 0x1A or id == 0x50) then
+		equip_change()
+	end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+	if (id == 0x37 or id == 0x1D) then
+		equip_change()
+	end
+end)
 
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
