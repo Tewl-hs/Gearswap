@@ -251,7 +251,6 @@ function get_sets()
 	})
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
-		sub			= "Utu Grip",
 		ammo		= "Aurgelmir Orb +1",
 		--ammo { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
@@ -277,7 +276,6 @@ function get_sets()
 		right_ear	= "Digni. Earring",
 	})
 	sets.Engaged.PDT = { -- DT 51/32
-		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1", -- 3/3
 		head		= "Mpaca's Cap", -- 7/0
 		body		= "Wakido Domaru +3", -- 8/8
@@ -303,7 +301,6 @@ function get_sets()
 		waist		= "Ioskeha Belt +1",
 	})
 	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 3 PDT 32 Haste 26 SB1 27 SB2 10 STP 46
-    	sub         = "Utu Grip",
     	ammo        = "Staunch Tathlum +1", -- 0 0 3
     	head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
     	body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
@@ -319,7 +316,6 @@ function get_sets()
     	back        = Capes.STP
 	}
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, { -- DT 38/21 EVA 333 MEVA 512 MDB 36
-		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1", -- 3/3
 		head		= "Mpaca's Cap", -- 7/0
 		body		= "Wakido Domaru +3", -- 8/8
@@ -336,7 +332,6 @@ function get_sets()
 	})
 	sets.Idle = { }
 	sets.Idle.Normal = { -- PDT 20 DT 15+19+10+3 MDT 2 68/49
-		sub			= "Utu Grip",
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Tartarus Platemail",
