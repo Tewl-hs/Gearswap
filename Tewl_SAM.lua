@@ -552,14 +552,15 @@ end
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
-		eq = set_combine(sets.Engaged.Normal, {main=CurrentWeapon})
-		if acc_mode == true and sets.Engaged[EngagedMode[e]].Accuracy then
-			eq = set_combine(sets.Engaged[EngagedMode[e]].Accuracy, {main=CurrentWeapon})
-		elseif sets.Engaged[EngagedMode[e]] then
-			eq = set_combine(sets.Engaged[EngagedMode[e]], {main=CurrentWeapon})
+		eq = sets.Engaged.Normal
+		
+		if sets.Weapons[CurrentWeapon] then
+			eq = set_combine(eq, sets.Weapons[CurrentWeapon])
 		end
-		if Weapons:contains(CurrentWeapon) then
-			eq = set_combine(eq, {sub='Utu Grip'})
+		if acc_mode == true and sets.Engaged[EngagedMode[e]].Accuracy then
+			eq = set_combine(eq,sets.Engaged[EngagedMode[e]].Accuracy)
+		elseif sets.Engaged[EngagedMode[e]] then
+			eq = set_combine(eq,sets.Engaged[EngagedMode[e]])
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
@@ -568,12 +569,13 @@ function equip_check()
 			eq = set_combine(eq,sets.Twilight)
 		end
 	else
-		eq = set_combine(sets.Idle.Normal, {main=CurrentWeapon})
-		if sets.Idle[IdleMode[i]] then
-			eq = set_combine(sets.Idle[IdleMode[i]], {main=CurrentWeapon})
+		eq = sets.Idle.Normal
+		
+		if sets.Weapons[CurrentWeapon] then
+			eq = set_combine(eq, sets.Weapons[CurrentWeapon])
 		end
-		if Weapons:contains(CurrentWeapon) then
-			eq = set_combine(eq, {sub='Utu Grip'})
+		if sets.Idle[IdleMode[i]] then
+			eq = set_combine(eq,sets.Idle[IdleMode[i]])
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
