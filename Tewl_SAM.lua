@@ -214,7 +214,7 @@ function get_sets()
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
 		right_ear	= { name="Lugra Earring +1", augments={'Path: A',}},
 		right_ring	= "Niqmaddu Ring",
-		feet		= "Flam. Gambieras +2"
+		feet		= "Nyame Sollerets"
 	})
 	sets.WS['Tachi: Shoha'].Accuracy = set_combine(sets.WS['Tachi: Shoha'], { })
 	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], { })
@@ -252,11 +252,7 @@ function get_sets()
 		right_ear	= "Thrud Earring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
-	})			
-	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
-		--hands     = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
-		--hands		= { name="Ryuo Tekko +1", augments={'DEX+12','Accuracy+25','"Dbl.Atk."+4',}},
-	})
+	})		
 	sets.WS['Stardiver'] = set_combine(sets.WS.Normal, { 
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
