@@ -210,7 +210,7 @@ function get_sets()
 		waist		= "Kentarch Belt +1"
 	})
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'], { })
-	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Kaiten'], { })
+	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
 		right_ring	= "Niqmaddu Ring",
 		feet		= "Nyame Sollerets"
