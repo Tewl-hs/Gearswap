@@ -18,6 +18,10 @@ function get_sets()
     sets.Impact = {head=empty,body="Twilight Cloak"}
     sets.Dispelga = {main="Daybreak",sub="Ammurapi Shield"}
 
+	
+    sets.LightArts = { legs="Acad. Pants +3", feet="Acad. Loafers +3" }
+    sets.DarkArts = { body="Acad. Gown +3", feet="Acad. Loafers +3" }
+
     sets.precast = {}
     sets.precast.FC = {
 		main		= { name="Gada", augments={'"Fast Cast"+5',}},
@@ -40,9 +44,18 @@ function get_sets()
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,sets.Dispelga)
 
     sets.precast.JA = {
-		['Perpetuance'] = { hands = "Arbatel Bracers +1", }
+		['Rapture'] = { head="Arbatel Bonnet +1" },
+		['Perpetuance'] = { hands = "Arbatel Bracers +1", },
+		['Ebullience'] = { head = "Arbatel Bonnet +1" },
+		['Penury'] = { legs = "Arbatel Pants +1" },
+		['Parsimony'] = { legs = "Arbatel Pants +1" },
+		['Celerity'] = { feet = "Peda. Loafers +3" },
+		['Alacrity'] = { feet = "Peda. Loafers +3" },
+		['Immanence'] = { 
+			hands	= "Arbatel Bracers +1",
+			back	= { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
+		}
     }
-
     sets.midcast = {}
     sets.midcast['Elemental Magic'] = {
         main        = "Bunzi's Rod",
@@ -65,15 +78,15 @@ function get_sets()
         
     })
     sets.midcast['Elemental Magic'].Helix = {
-        main        = "Bunzi's Rod",
+        main        = "Bunzi's Rod", -- MBI:10
         sub         = "Ammurapi Shield",
         ammo        = "Pemphredo Tathlum",
-        head        = "Agwu's Cap",
-        body        = "Agwu's Robe",
-        hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-        legs        = "Agwu's Slops",
+        head        = "Agwu's Cap", -- MBI:7
+        body        = "Agwu's Robe", -- MBI:10
+        hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}}, -- MBII:6
+        legs        = "Agwu's Slops", -- MBI:9
         feet        = { name="Amalric Nails +1", augments={'Mag. Acc.+20','"Mag.Atk.Bns."+20','"Conserve MP"+7',}},
-        neck        = { name="Argute Stole +2", augments={'Path: A',}},
+        neck        = { name="Argute Stole +2", augments={'Path: A',}}, -- MBI:10
         waist       = "Skrymir Cord",
         left_ear    = "Malignance Earring",
         right_ear   = "Regal Earring",
@@ -311,6 +324,11 @@ function midcast(spell)
             equip(sets.midcast[spell.skill][spell.name])
         else
            equip(sets.midcast[spell.skill])
+        end
+		if spell.type == "WhiteMagic" and (buffactive["Light Arts"] or buffactive["Addendum: White"]) then
+            equip(sets.LightArts)
+        elseif spell.type == "BlackMagic" and (buffactive["Dark Arts"] or buffactive["Addendum: Black"]) then
+            equip(sets.DarkArts)
         end
     elseif spell.skill == 'Healing Magic' then
         if spell.name == 'Cursna' and sets.midcast[spell.skill].Cursna then

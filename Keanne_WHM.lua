@@ -1,4 +1,6 @@
-function get_sets()			
+function get_sets()		
+	items = require('resources').items	
+	send_command('bind ^f9 gs c cycle idle')	
 	-- Tables
 	BarElement = T{'Barfire', 'Barfira', 'Barblizzard', 'Barblizzara', 'Baraero', 'Baraera', 'Barstone', 'Barstonra', 'Barthunder', 'Barthundra', 'Barwater', 'Barwatera'}
 
@@ -8,14 +10,21 @@ function get_sets()
     Macro_Page = '1'
     send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
 	
+	Colors = {
+		Yellow = '\\cs(255,192,0)',
+		Red = '\\cs(255,80,80)',
+		Green = '\\cs(110,255,110)',
+		Blue = '\\cs(140,160,255)',
+		Gray = '\\cs(96,96,96)',
+		White = '\\cs(255,255,255)'
+	}
 	IdleMode = {'Normal', 'PDT'} i = 1
-	CurrentWeapon = 'Empty'
-	WeaponColor = Colors.Gray
+	CurrentWeapon = ''
 	
 	sets.Idle = { }
 	sets.Idle.Normal = {
 		main		= "Queller Rod",
-		sub			= "Ammurapi Shield",
+		sub		= "Ammurapi Shield",
 		ammo		= "Homiliary",
 		head		= "Chironic Hat",
 		neck		= "Cleric's torque",
@@ -31,7 +40,7 @@ function get_sets()
 		feet		= "Chironic Slippers"
 	}
 
-	sets.Idle.DT = set_combine(sets.Idle,{
+	sets.Idle.PDT = set_combine(sets.Idle,{
     	head		= "Bunzi's Hat",
     	body		= "Bunzi's Robe",
     	hands		= "Bunzi's Gloves",
@@ -132,7 +141,7 @@ function get_sets()
 		main		= { name="Gada", augments={'Enh. Mag. eff. dur. +5','"Mag.Atk.Bns."+3',}},
 		sub			= "Ammurapi Shield",
 		head		= "Telchine Cap",
-		neck		= "Melic Torque",
+		neck		= "Incanter's Torque",
 		left_ear	= "Mimir Earring",
 		right_ear	= "Andoaa Earring",
 		body		= "Telchine chasuble",
@@ -161,7 +170,7 @@ function get_sets()
 		sub			= "Ammurapi Shield",
 		ammo		= "Incantor Stone",
 		head		= "Ebers Cap +1",
-		neck		= "Melic Torque",
+		neck		= "Incanter's Torque",
 		left_ear	= "Andoaa Earring",
 		right_ear	= "Mimir Earring",
 		body		= "Ebers bliaut +1",
@@ -189,7 +198,7 @@ function get_sets()
 		waist		= "Luminary Sash",
 		legs		= "Th. Pant. +3",
 		feet		= "Theophany Duckbills +3",
-		neck		= "Henic Torque"
+		neck		= "Incanter's Torque"
 	}
 	
 	sets.midcast.Divine = {
@@ -213,17 +222,6 @@ function get_sets()
 	--------------------------------------------------------------------------
 	-- THIS CODE IS FOR THE ONSCREEN DISPLAY
 	--------------------------------------------------------------------------
-
-	Colors = {
-		Yellow = '\\cs(255,192,0)',
-		Red = '\\cs(255,80,80)',
-		Green = '\\cs(110,255,110)',
-		Blue = '\\cs(140,160,255)',
-		Gray = '\\cs(96,96,96)',
-		White = '\\cs(255,255,255)'
-	}
-	
-	items = require('resources').items
 
 	texts = require('texts')
 	if stateBox then stateBox:destroy() end
@@ -249,6 +247,10 @@ function get_sets()
 	stateBox:stroke_transparency(192)
 
 	update_status()
+end
+
+function file_unload()  
+	send_command('unbind ^F9')
 end
 
 function precast(spell)
@@ -313,7 +315,7 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	if buff == "silence" and gain == "True" then
+	if name == "silence" and gain == "True" then
 		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
@@ -338,25 +340,20 @@ function equip_change()
 	local ew = get_weapon()
 	if ew ~= CurrentWeapon then -- If weapon changed
 		CurrentWeapon = ew
-		if CurrentWeapon == 'Empty' then
-			WeaponColor = Colors.Gray
-		else
-			if CurrentWeapon == 'Yagrush' then
-				WeaponColor = Colors.Blue
-			else
-				WeaponColor = Colors.White
-			end
-		end	
 		equip_check()
 	end
 end
 
 function get_weapon()
-	if windower.ffxi.get_items().equipment.main > 0 and items[windower.ffxi.get_items().inventory[windower.ffxi.get_items().equipment.main].id].english then
-		return items[windower.ffxi.get_items().inventory[windower.ffxi.get_items().equipment.main].id].english
-	else
-		return 'Empty'
+    local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	if item and items[item['id']] then 
+		if items[item['id']].name ~= 'Gil' then
+			return items[item['id']].name
+        end
 	end
+    return 'Empty'
 end
 
 function self_command(cmd)
@@ -380,6 +377,17 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
+
+    CurrentWeapon = get_weapon()
+    local WeaponColor = Colors.Gray
+    
+	if CurrentWeapon ~= 'Empty' then
+	    if CurrentWeapon == 'Yagrush' then
+			WeaponColor = Colors.Blue
+		else
+			WeaponColor = Colors.White
+		end
+	end	
 
 	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 	

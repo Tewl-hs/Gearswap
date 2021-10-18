@@ -7,7 +7,7 @@ function get_sets()
     sets.MoveSpeed = { feet = "Geo. Sandals +3",}
     
     -- Gear sets
-    sets.idle = { 
+    sets.idle2 = { 
         main        = "Daybreak",
         sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
@@ -25,6 +25,24 @@ function get_sets()
         feet        = "Geomancy Sandals +3"            
     }
 
+    sets.idle = {
+        main="Idris",
+        sub="Genmei Shield",
+        ammo="Staunch Tathlum +1",
+        head="Nyame Helm",
+        body="Nyame Mail",
+        hands="Geo. Mitaines +3",
+        legs="Nyame Flanchard",
+        feet={ name="Bagua Sandals +3", augments={'Enhances "Radial Arcana" effect',}},
+        neck={ name="Bagua Charm +2", augments={'Path: A',}},
+        waist="Isa belt",
+        left_ear="Etiolation Earring",
+        right_ear="Genmei Earring",
+        left_ring="Defending Ring",
+        right_ring="Stikini Ring +1",
+        back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
+    }
+
     sets.idle.DT = { -- Full DT items
         sub         = "Genmei Shield",
         neck        = "Bagua Charm +2",
@@ -36,14 +54,14 @@ function get_sets()
     }
 
     sets.luopan = { 
-        main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
-        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
-        head        = "Azimuth Hood +1",
-        neck        = "Bagua Charm +2",
-        hands       = "Geo. Mitaines +3",
-        back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
-        waist       = "Isa Belt",
-        feet        = "Bagua Sandals +3"            
+        --main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
+        --range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
+        --head        = "Azimuth Hood +1",
+        --neck        = "Bagua Charm +2",
+        --hands       = "Geo. Mitaines +3",
+        --back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
+        --waist       = "Isa Belt",
+        --feet        = "Bagua Sandals +3"            
     }
 
     sets.precast = {}
@@ -176,6 +194,13 @@ function get_sets()
         feet        = "Vanya Clogs"         
     }
 
+    sets.Engaged = {
+
+    }
+
+    sets.WS = {
+
+    }
     end
     
     function precast(spell)
@@ -214,7 +239,11 @@ function get_sets()
             end
         end
         if sets.midcast[spell.skill] then
-            equip(sets.midcast[spell.skill])
+           if spell.skill == 'Geomancy' and spell.name:startswith('Indi-') then
+                equip(sets.midcast[spell.skill])
+           else
+                equip(sets.midcast[spell.skill])
+           end
         end
     end
     
@@ -239,6 +268,8 @@ function get_sets()
             else
                 add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
             end
+        elseif buff == 'Bolster' and not gain then
+            add_to_chat(123, '[Bolster] OFF') 
         end
     end
     -- Determine what idle set to equip if a luopan is out

@@ -157,6 +157,25 @@ function get_sets()
     }
 
     sets.aftercast = { }
+
+    sets.aftercast.Idle2 = {
+        main        = { name="Carnwenhan", augments={'Path: A',}},
+        sub         = "Ammurapi Shield",
+        range       = "Lu Shang's F. Rod",
+        --range     = "Ebisu F. Rod +1",
+        head        = "Tlahtlamah Glasses",
+        body        = "Fisherman's Smock",
+        hands       = "Angler's Gloves",
+        legs        = "Angler's Hose",
+        feet        = "Waders",
+        neck        = "Fisher's Torque",
+        waist       = "Fisherman's Belt",
+        left_ear    = "Hearty Earring",
+        right_ear   = { name="Odnowa Earring +1", augments={'Path: A',}},
+        left_ring   = "Noddy Ring",
+        right_ring  = "Puffin Ring",
+        back        = "Moonlight Cape",
+    }
     sets.aftercast.Idle = {    -- DT 60    
         main        = "Carnwenhan",
         sub         = "Ammurapi Shield", -- "Genmei Shield",  --

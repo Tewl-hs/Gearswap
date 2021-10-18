@@ -25,10 +25,6 @@ function get_sets()
         waist       = "Fucho-no-Obi",
     }
 
-    sets.idle.DT = {
-    
-    }
-
     sets.luopan = { 
         main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
         range       = "Dunna",
