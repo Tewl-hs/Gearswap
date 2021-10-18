@@ -291,21 +291,22 @@ function get_sets()
 		right_ear	= "Digni. Earring",
 	})
 	sets.Engaged.PDT = { -- DT 51/32
-		ammo		= "Staunch Tathlum +1", -- 3/3
+		ammo		= "Aurgelmir Orb +1",
 		head		= "Mpaca's Cap", -- 7/0
 		body		= "Wakido Domaru +3", -- 8/8
 		hands		= "Wakido Kote +3",
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
-		waist		= "Flume Belt +1", -- 4/0
+		legs		= "Mpaca's Hose",
+		feet		= "Mpaca's Boots",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		waist		= "Ioskeha Belt +1", -- 4/0
 		left_ear	= "Telos Earring",
-		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 3/5
+		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring", -- 10/10
-		right_ring	= "Chirich Ring +1",
+		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TP -- 10/0
 	}
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
+		ammo		= "Staunch Tathlum +1", -- 3/3
 		--head		= "Ken. Jinpachi +1",
 		head		= "Mpaca's Cap", -- 7/0
 		body		= "Ken. Samue +1",
@@ -330,21 +331,21 @@ function get_sets()
     	right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
     	back        = Capes.TP
 	}
-	sets.Engaged.Hybrid = set_combine(sets.Engaged.PDT, { -- DT 38/21 EVA 333 MEVA 512 MDB 36
-		ammo		= "Staunch Tathlum +1", -- 3/3
-		head		= "Mpaca's Cap", -- 7/0
+	sets.Engaged.Hybrid = { 
+		ammo		= "Aurgelmir Orb +1",
+		head		= "Flam. Zucchetto +2",
 		body		= "Wakido Domaru +3", -- 8/8
 		hands		= "Wakido Kote +3",
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
+    	legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
+		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}}, 
 		waist		= "Ioskeha Belt +1",
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring", -- 10/10
-		right_ring	= "Chirich Ring +1",
+    	left_ring   = "Niqmaddu Ring", -- SB2 5
 		back		= Capes.TP -- 10/0
-	})
+	}
 	sets.Idle = { }
 	sets.Idle.Normal = { -- PDT 20 DT 47 MDT 2 68/49
 		ammo		= "Staunch Tathlum +1",
