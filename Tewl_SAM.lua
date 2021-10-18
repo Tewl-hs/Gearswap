@@ -88,7 +88,7 @@ function get_sets()
 	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 	Capes.Enmity = { name="Smertrios's Mantle", augments={'HP+60','Enmity+10',}}
 
-	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Yukikaze', 'Tachi: Gekko', 'Tachi: Kaiten', 'Impulse Drive'}
+	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Yukikaze', 'Tachi: Gekko', 'Tachi: Shoha', 'Tachi: Kaiten', 'Impulse Drive'}
 
 	sets.Weapons = {
 		['Masamune'] = {main='Masamune',sub='Utu Grip'},
@@ -212,12 +212,13 @@ function get_sets()
 	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'], { })
 	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Kaiten'], { })
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
-		right_ear	= { name="Lugra Earring +1", augments={'Path: A',}},
 		right_ring	= "Niqmaddu Ring",
 		feet		= "Nyame Sollerets"
 	})
 	sets.WS['Tachi: Shoha'].Accuracy = set_combine(sets.WS['Tachi: Shoha'], { })
-	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], { })
+	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], {
+		waist		= "Fotia Belt",
+	 })
 	sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
 		head		= "Nyame Helm",
 		body		= "Nyame Mail",
