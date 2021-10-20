@@ -154,11 +154,11 @@ function get_sets()
 		back		= Capes.Enmity
 	}
 	sets.Preshot = {
-		--head		= "Acro Helm", -- [Skirmish]
+		head		= { name="Acro Helm", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		--body		= "Acro Surcoat", -- [Skirmish]
-		--hands		= "Acro Gauntlets", -- [Skirmish]
+    	hands		= { name="Acro Gauntlets", augments={'"Rapid Shot"+4','"Snapshot"+5',}},
 		--legs		= "Acro Breeches", -- [Skirmish]
-		--feet		= "Acro Leggings", -- [Skirmish]
+    	feet		= { name="Acro Leggings", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		left_ring	= "Crepuscular Ring",
 		waist		= "Yemaya Belt",
 		back		= Capes.Snapshot
@@ -166,8 +166,8 @@ function get_sets()
 	sets.RA = {
 		range		= { name="Yoichinoyumi", augments={'Path: A',}},
 		ammo		= "Yoichi's Arrow",
+		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
 		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
-		body		= "Wakido Domaru +3",
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
@@ -344,7 +344,7 @@ function get_sets()
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring", -- 10/10
-    	left_ring   = "Niqmaddu Ring", -- SB2 5
+    	right_ring  = "Niqmaddu Ring", -- SB2 5
 		back		= Capes.TP -- 10/0
 	}
 	sets.Idle = { }

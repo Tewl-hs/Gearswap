@@ -93,7 +93,7 @@ function get_sets()
         body        = "Geomancy Tunic +2",
         back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
     }
-    sets.precast.JA['Curative Reecantation'] = {
+    sets.precast.JA['Curative Recantation'] = {
         hands       = "Bagua Mitaines +3"
     }
     sets.precast.JA['Mending Halation'] = {
