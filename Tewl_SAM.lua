@@ -259,7 +259,7 @@ function get_sets()
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= { name="Ryuo Tekko +1", augments={'DEX+12','Accuracy+25','"Dbl.Atk."+4',}},
 		legs		= "Mpaca's Hose",
-		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
+		feet		= { name="Valorous Greaves", augments={'Attack+9','Crit. hit damage +4%','STR+8','Accuracy+3',}},
 		right_ear	= "Schere Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Niqmaddu Ring",
