@@ -181,8 +181,6 @@
             right_ear   = "Telos Earring",
             left_ring	= "Gere Ring",
             right_ring	= "Niqmaddu Ring",
-            --left_ring	= "Defending Ring", -- 10/10
-            --right_ring	= "Gelatinous Ring +1", -- 7/-1
             back		= Capes.TP
         }
         sets.aftercast.TP.Hybrid = {

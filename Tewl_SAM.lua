@@ -184,8 +184,6 @@ function get_sets()
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap",
 		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
-		--hands		= { name="Valorous Mitts", augments={'Accuracy+23','Weapon skill damage +3%','STR+15','Attack+7',}},
-		--hands		= { name="Valorous Mitts", augments={'Attack+28','Pet: INT+2','Weapon skill damage +9%','Accuracy+18 Attack+18','Mag. Acc.+3 "Mag.Atk.Bns."+3',}},
 		hands		= "Nyame Gauntlets",
 		legs		= "Wakido Haidate +3",
 		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
@@ -198,14 +196,15 @@ function get_sets()
 		back		= Capes.WS
 	}
 	sets.WS.Normal.Accuracy = set_combine(sets.WS.Normal, { 
-		head		= { name="Valorous Mask", augments={'"Cure" potency +2%','Weapon Skill Acc.+11','Weapon skill damage +7%','Accuracy+6 Attack+6','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
+		head		= "Nyame Helm",
 		left_ring	= "Regal Ring",
 	})
 	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { })
 	sets.WS['Tachi: Fudo'].Accuracy = set_combine(sets.WS['Tachi: Fudo'], { 
 		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
 		feet		= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
-		right_ear	= "Telos Earring",
+		left_ear	= "Telos Earring",
+		right_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		left_ring	= "Regal Ring",
 		waist		= "Kentarch Belt +1"
 	})
@@ -228,6 +227,7 @@ function get_sets()
 		right_ear	= "Friomisi Earring",
 		waist		= "Orpheus's Sash",
 	})
+	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
 		head		= { name="Blistering Sallet +1", augments={'Path: A',}},
@@ -263,6 +263,7 @@ function get_sets()
 		right_ear	= "Schere Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Niqmaddu Ring",
+		waist		= "Fotia Belt",
 		back		= Capes.DA,
 	})
 	sets.Engaged = {}
@@ -482,9 +483,9 @@ function precast(spell,action)
 		if LugraWS:contains(spell.english) and acc_mode == false then
 			if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
 				if player.tp > 2750 then
-					ws = set_combine(ws,{left_ear="Lugra Earring +1"})
+					ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
 				else
-					ws = set_combine(ws,{right_ear="Lugra Earring +1"})
+					ws = set_combine(ws,{head="Nyame Helm",right_ear="Lugra Earring +1"})
 				end
 			end
 		end
