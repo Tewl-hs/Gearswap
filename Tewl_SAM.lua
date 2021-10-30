@@ -431,15 +431,23 @@ function precast(spell,action)
 		ws_order = 1
 		last_target = target
 	end
-	if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
-        add_to_chat(123,'Status effect (Terror, Petrify, Sleep, or Stun)')
+	if buffactive.terror or buffactive.stun then
+        add_to_chat(123,'Unable to perform action: [Terrorized, Stunned]')
+        cancel_spell()
+        return
+	elseif buffactive.petrification then
+        add_to_chat(123,'Unable to perform action: [Petrified]')
+        cancel_spell()
+        return
+	elseif buffactive.sleep or buffactive.Lullaby then
+        add_to_chat(123,'Unable to perform action: [Slept]')
         cancel_spell()
         return
     end
 
 	if spell.type == 'WeaponSkill' then
 		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Status effect (Amnesia, Impairment)')
+            add_to_chat(123,'Unable to perform action: [Amnesia, Impairment]')
             cancel_spell()
             return
         end
@@ -489,7 +497,7 @@ function precast(spell,action)
 		equip(ws)
 	elseif spell.action_type == 'Ability' then
 		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Abort: Status effect (Amnesia, Impairment)')
+            add_to_chat(123,'Unable to perform action: [Amnesia, Impairment]')
             cancel_spell()
             return
         end
@@ -505,14 +513,18 @@ function precast(spell,action)
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(sets.Preshot)
 	elseif spell.action_type == 'Magic' then
-        if buffactive.silence or buffactive.mute or buffactive.Omerta then
-            add_to_chat(123,'Abort: Status effect (Silence, Mute, Omerta)')
+        if buffactive.silence then
+            add_to_chat(123,'Unable to cast: [Silenced]')
+            cancel_spell()
+            return
+		elseif buffactive.mute or buffactive.Omerta then
+            add_to_chat(123,'Unable to cast: [Mute, Omerta]')
             cancel_spell()
             return
         end
         local spellCost = actual_cost(spell)
         if player.mp < spellCost then
-            add_to_chat(123,'Abort: '..spell.english..'. Not enough MP. ('..player.mp..'/'..spellCost..')')
+            add_to_chat(123,'Unable to cast: Not enough MP. ('..player.mp..'/'..spellCost..')')
             cancel_spell()
             return
         end
