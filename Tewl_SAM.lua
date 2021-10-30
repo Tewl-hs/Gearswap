@@ -186,7 +186,7 @@ function get_sets()
 		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
 		hands		= "Nyame Gauntlets",
 		legs		= "Wakido Haidate +3",
-		feet		= { name="Valorous Greaves", augments={'"Dbl.Atk."+1','STR+5','Weapon skill damage +8%','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
+		feet		= "Nyame Sollerets",
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
@@ -201,10 +201,8 @@ function get_sets()
 	})
 	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { })
 	sets.WS['Tachi: Fudo'].Accuracy = set_combine(sets.WS['Tachi: Fudo'], { 
-		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
-		feet		= { name="Sak. Sune-Ate +3", augments={'Enhances "Meikyo Shisui" effect',}},
-		left_ear	= "Telos Earring",
-		right_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+		head		= "Nyame Helm",
+		right_ear	= "Telos Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Kentarch Belt +1"
 	})
@@ -309,7 +307,6 @@ function get_sets()
 	}
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
 		ammo		= "Staunch Tathlum +1", -- 3/3
-		--head		= "Ken. Jinpachi +1",
 		head		= "Mpaca's Cap", -- 7/0
 		body		= "Ken. Samue +1",
 		hands		= "Ken. Tekko +1",

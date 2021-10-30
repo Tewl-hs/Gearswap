@@ -7,7 +7,7 @@ function get_sets()
     sets.MoveSpeed = { feet = "Geo. Sandals +3",}
     
     -- Gear sets
-    sets.idle2 = { 
+    sets.idle = { 
         main        = "Daybreak",
         sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
@@ -17,51 +17,34 @@ function get_sets()
         right_ear   = "Etiolation Earring",
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +3",
-        left_ring   = "Defending Ring",
-        right_ring  = "Gelatinous Ring +1",
+        left_ring   = "Stikini Ring +1",
+        right_ring  = "Stikini Ring +1",
         back        = "Moonlight Cape",
         waist       = "Fucho-no-Obi",
         legs        = "Assid. Pants +1",
         feet        = "Geomancy Sandals +3"            
     }
 
-    sets.idle = {
-        main="Idris",
-        sub="Genmei Shield",
-        ammo="Staunch Tathlum +1",
-        head="Nyame Helm",
-        body="Nyame Mail",
-        hands="Geo. Mitaines +3",
-        legs="Nyame Flanchard",
-        feet={ name="Bagua Sandals +3", augments={'Enhances "Radial Arcana" effect',}},
-        neck={ name="Bagua Charm +2", augments={'Path: A',}},
-        waist="Isa belt",
-        left_ear="Etiolation Earring",
-        right_ear="Genmei Earring",
-        left_ring="Defending Ring",
-        right_ring="Stikini Ring +1",
-        back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
-    }
-
-    sets.idle.DT = { -- Full DT items
-        sub         = "Genmei Shield",
-        neck        = "Bagua Charm +2",
-        left_ear    = "Genmei Earring",
-        right_ear   = "Etiolation Earring",
+    sets.idle.DT = {
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        legs        = "Nyame Flanchard",
+        left_ear    = "Etiolation Earring",
+        right_ear   = "Genmei Earring",
         left_ring   = "Defending Ring",
-        right_ring  = "Gelatinous Ring +1",
-        back        = "Moonlight Cape"
     }
 
     sets.luopan = { 
-        --main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
-        --range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
-        --head        = "Azimuth Hood +1",
-        --neck        = "Bagua Charm +2",
-        --hands       = "Geo. Mitaines +3",
-        --back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
-        --waist       = "Isa Belt",
-        --feet        = "Bagua Sandals +3"            
+        main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
+        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
+        head        = "Azimuth Hood +1",
+        neck        = "Bagua Charm +2",
+        hands       = "Geo. Mitaines +3",
+        right_ring  = "Stikini Ring +1",
+        back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
+        waist       = "Isa Belt",
+        feet        = "Bagua Sandals +3"            
     }
 
     sets.precast = {}
@@ -112,31 +95,45 @@ function get_sets()
         neck        = "Bagua Charm +2",
         body        = "Bagua Tunic +3", -- 16
         hands       = "Geo. Mitaines +3", -- 19
-        legs        = "Bagua Pants +3",   
-        feet        = "Azimuth Gaiters +1",
+        legs        = "Vanya Slops",   
+        feet        = "Medium's Sabots",
         left_ring   = "Stikini Ring +1", -- 8/8
         right_ring  = "Stikini Ring +1", -- 8/8
-        back        = { name="Lifestream Cape", augments={'Geomancy Skill +9','Indi. eff. dur. +19','Pet: Damage taken -4%','Damage taken-4%',}}, -- 14
+        back        = { name="Lifestream Cape", augments={'Geomancy Skill +6','Indi. eff. dur. +20','Pet: Damage taken -3%',}},
         waist       = "Austerity Belt +1",
+    }
+    sets.midcast['Geomancy'].Indi = {
+        main        = "Gada",
+        neck        = "Incanter's Torque",
+        legs        = "Bagua Pants +3",   
+        feet        = "Azimuth Gaiters +1",
     }
 
     sets.midcast['Elemental Magic'] = { 
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        --ammo        = "Pemphredo Tathlum",
-        head        = "Jhakri Coronal +2",--"Bagua Galero +3",
+        ammo        = "Pemphredo Tathlum",
+        head        = "Jhakri Coronal +2",
         neck        = "Baetyl Pendant",
         left_ear    = "Malignance Earring",
         right_ear   = "Barkaro. Earring",
-        body        = "Amalric Doublet +1", -- "Jhakri Robe +2",
-        hands       = "Amalric Gages +1",--"Bagua Mitaines +3",
-        legs        = "Amalric Slops +1",--"Azimuth Tights +1",
+        body        = "Amalric Doublet +1", 
+        hands       = "Amalric Gages +1",
+        legs        = "Amalric Slops +1",
         feet        = "Amalric Nails +1",    
-        left_ring   = "Mujin Band", -- Shiva Ring +1 if not bursting
+        left_ring   = "Freke Ring",
         right_ring  = "Shiva Ring +1",
         back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
         waist       = "Eschan Stone",        
     } 
+    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        head		= "Ea Hat +1",
+        body		= "Ea Houppe. +1",
+        legs		= "Ea Slops +1",
+        neck		= "Mizukage-no-Kubikazari",
+        waist		= "Skrymir Cord +1",
+        right_ring	= "Mujin Band",
+    })
 
     sets.midcast['Enfeebling Magic'] = {
         sub         = "Ammurapi Shield",
@@ -240,7 +237,7 @@ function get_sets()
         end
         if sets.midcast[spell.skill] then
            if spell.skill == 'Geomancy' and spell.name:startswith('Indi-') then
-                equip(sets.midcast[spell.skill])
+                equip(sets.midcast[spell.skill].Indi)
            else
                 equip(sets.midcast[spell.skill])
            end
