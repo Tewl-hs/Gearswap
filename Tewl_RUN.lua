@@ -349,7 +349,7 @@ function precast(spell,action)
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if abil_recasts[spell.recast_id] and abil_recasts[spell.recast_id] > 0 then
 			cancel_spell()
-			add_to_chat(121,'['..spell.name..'] '..abil_recasts[spell.recast_id]..'s')
+			add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id]))
 			return
 		end
 
@@ -361,7 +361,7 @@ function precast(spell,action)
         local sr = math.floor(spell_recasts[spell.recast_id]/60)
         if sr > 0 then
 			cancel_spell()
-			add_to_chat(121,'['..spell.name..'] '..sr..'s')
+			add_to_chat(121,'['..spell.name..'] '..disp_time(sr))
             return
         end
         if sets.precast.FC[spell.skill] then
@@ -516,3 +516,14 @@ windower.raw_register_event('incoming chunk', function(id, data)
     end
 end)
 -- End of Display Code
+
+function disp_time(time)
+	local hours = math.floor(math.mod(time, 86400)/3600)
+	local minutes = math.floor(math.mod(time,3600)/60)
+	local seconds = math.floor(math.mod(time,60))
+	if hours > 0 then
+		return string.format("%02d:%02d:%02d",hours,minutes,seconds)
+	else
+		return string.format("%02d:%02d",minutes,seconds)
+	end
+end
