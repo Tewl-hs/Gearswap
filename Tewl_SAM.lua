@@ -490,7 +490,7 @@ function precast(spell,action)
 				if player.tp > 2750 then
 					ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
 				else
-					ws = set_combine(ws,{head="Nyame Helm",right_ear="Lugra Earring +1"})
+					ws = set_combine(ws,{right_ear="Lugra Earring +1"})
 				end
 			end
 		end
