@@ -535,7 +535,12 @@ function precast(spell,action)
 			add_to_chat(123,'['..spell.name..'] '..disp_time(sr))
             return
         end
-		equip(sets.FC)
+
+		if range_mode == true then
+			equip(sets.FC,sets.Ranged)
+		else
+			equip(sets.FC)
+		end
 	end
 end
 
