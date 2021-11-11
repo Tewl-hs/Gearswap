@@ -244,10 +244,6 @@ function has_value (tab, val)
 end
 
 function precast(spell)
-    if spell.interrupted == true or spell.target.hpp == 0 then
-        cancel_spell()
-        return
-    end
     if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
         add_to_chat(123,'Unabled to perform action: Status effect (Terror, Petrify, Sleep, Stun)')
         cancel_spell()
@@ -346,10 +342,6 @@ function midcast(spell)
         else
            equip(sets.midcast[spell.skill])
         end
-    end
-    if spell.interrupted == true or spell.target.hpp == 0 then
-        cancel_spell()
-        return
     end
 end
 

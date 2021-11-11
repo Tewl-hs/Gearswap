@@ -4,7 +4,12 @@ function get_sets()
     send_command('input /macro book 20;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 2')
     send_command('input //equipviewer pos 1663 912')
 
+	send_command('bind ^f10 gs c cycle idle')
+
     sets.MoveSpeed = { feet = "Geo. Sandals +3",}
+    
+	IdleMode = {'Normal', 'DT'}
+	i = 1
     
     -- Gear sets
     sets.idle = { 
@@ -25,7 +30,8 @@ function get_sets()
         feet        = "Geomancy Sandals +3"            
     }
 
-    sets.idle.DT = {
+    sets.idle.DT = set_combine(sets.idle, {
+        range       = empty,
         ammo        = "Staunch Tathlum +1",
         head        = "Nyame Helm",
         body        = "Nyame Mail",
@@ -33,11 +39,12 @@ function get_sets()
         left_ear    = "Etiolation Earring",
         right_ear   = "Genmei Earring",
         left_ring   = "Defending Ring",
-    }
+    })
 
     sets.luopan = { 
         main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
+        ammo        = empty,
         head        = "Azimuth Hood +1",
         neck        = "Bagua Charm +2",
         hands       = "Geo. Mitaines +3",
@@ -199,6 +206,17 @@ function get_sets()
 
     }
     end
+
+    function file_unload()  
+	    send_command('unbind !F9')
+	    send_command('unbind !F10')
+	    send_command('unbind !F11')
+	    send_command('unbind !F12')
+	    send_command('unbind ^F9')
+	    send_command('unbind ^F10')
+	    send_command('unbind ^F11')
+	    send_command('unbind ^F12')
+    end
     
     function precast(spell)
         if spell.type == 'JobAbility' then
@@ -271,15 +289,25 @@ function get_sets()
     end
     -- Determine what idle set to equip if a luopan is out
     function goIdle()
+        local idleSet = sets.idle.DT
+        if sets.idle[IdleMode[i]] then 
+            idleSet = sets.idle[IdleMode[i]]
+        end
         if pet.isvalid then
-            equip(set_combine(sets.idle,sets.luopan))
+            equip(set_combine(idleSet,sets.luopan))
         else
-            equip(sets.idle)
+            equip(idleSet)
         end
     end
 
-    function self_command(commandArgs)
-        if commandArgs == 'goIdle' then
+    function self_command(cmd)
+        local args = T(cmd:split(' '))
+        if args[1] == 'cycle' and args[2] then
+            if args[2] == 'idle' then
+                i = i + 1 
+                if (table.getn(IdleMode) < i) then i = 1 end
+            end
+        elseif args[1] == 'goIdle' then
             goIdle()
         end
     end
