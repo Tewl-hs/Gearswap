@@ -180,7 +180,11 @@ function get_sets()
         right_ear   = "Digni. Earring",
     })
     sets.midcast = {}
-    sets.midcast['Enhancing Magic'] = {}
+    sets.midcast['Enhancing Magic'] = {
+        head="Erilaz Galea +1",
+        hands="Regal Gauntlets",
+        legs="Futhark Trousers +3",
+    }
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1",

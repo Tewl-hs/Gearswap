@@ -3,14 +3,24 @@
 function get_sets()		
     send_command('input /macro book 18;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 8')
     send_command('input //equipviewer pos 1663 934')
+
+    LockTH = false
     
     sets.MoveSpeed = { feet = "Fajin Boots",} 
+
+    sets.TH = {
+        ammo        = "Per. Lucky Egg",
+        head        = "Wh. Rarab Cap +1",
+        hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
+        feet        = "Skulk. Poulaines +1",
+        waist       = "Chaac Belt",
+    }
 
     sets.precast = {}
     sets.precast.JA = { }
 
     sets.precast.WS = {
-        ammo        = "Yetshila",
+        ammo        = "Aurgelmir Orb +1",
         head        = "Adhemar Bonnet +1",
         body        = "Adhemar Jacket +1",
         hands       = "Meg. Gloves +2",
@@ -24,10 +34,28 @@ function get_sets()
         right_ring  = "Epaminondas's Ring",
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
     }
-    
+    sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
+        neck        = "Asn. Gorget +1",
+        left_ear    = "Sherida Earring",
+        waist       = "Kentarch Belt +1",
+    })
+    sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS['Evisceration'], {
+        ammo        = "Yetshila +1",
+        head        = "Plun. Bonnet +3",
+        body        = "Pillager's Vest +3",
+        hands       = "Mummu Wrists +2",
+        legs        = "Zoar Subligar +1",
+        feet        = "Plun. Poulaines +3",
+        left_ear    = "Sherida Earring",
+        right_ear   = "Mache Earring +1",
+        left_ring   = "Begrudging Ring",
+        right_ring  = "Mummu Ring",
+        --back        = gear.THF_WS2_Cape,
+    })
+
     sets.aftercast = { }
     sets.aftercast.Engaged = {
-        ammo        = "Ginsen",
+        ammo        = "Aurgelmir Orb +1",
         head        = "Malignance Chapeau",
         body        = "Malignance Tabard",
         --hands       = "Malignance Gloves",
@@ -44,7 +72,7 @@ function get_sets()
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     }
     sets.aftercast.Idle = {
-        ammo        = "Ginsen",
+        ammo        = "Staunch Tathlum +1",
         head        = "Malignance Chapeau",
         body        = "Malignance Tabard",
         hands       = "Malignance Gloves",
@@ -66,10 +94,18 @@ function precast(spell,action)
     end
     
     if spell.type=="WeaponSkill" then
-        if sets.precast.WS[spell.english] then
-            equip(sets.precast.WS[spell.english])
-        else
-            equip(sets.precast.WS)
+        if sets.precast.WS[spell.english] then            
+            if LockTH ~= false then
+                equip(set_combine(sets.precast.WS[spell.english],sets.TH))
+            else
+                equip(sets.precast.WS[spell.english])
+            end
+        else            
+            if LockTH == true then
+                equip(set_combine(sets.precast.WS,sets.TH))
+            else
+                equip(sets.precast.WS)
+            end
         end
     end
 end
@@ -83,27 +119,40 @@ function midcast(spell,action)
 end
     
 function aftercast(spell,action)
-    if player.status == 'Engaged' then
-        equip(sets.aftercast.Engaged)
-    else
-        equip(sets.aftercast.Idle)
-    end
+    equip_check()
 end
     
 function status_change(new,old)
-    if T{'Idle','Resting'}:contains(new) then
-        equip(sets.aftercast.Idle)
-    elseif new == 'Engaged' then
-        equip(sets.aftercast.Engaged)
-    end
+    equip_check()
 end
     
 function buff_change(status,gain_or_loss)
     --
 end
     
-function self_command(command)
-    -- 
+function self_command(commandArgs)
+    local originalCommand = commandArgs
+    if type(commandArgs) == 'string' then
+        commandArgs = T(commandArgs:split(' '))
+        if #commandArgs == 0 then
+        return
+        end
+    end
+    if commandArgs[1] == 'equip_check' then
+        equip_check()
+    end
+end
+
+function equip_check()
+    if player.status == 'Engaged' then
+        if LockTH ~= false then
+            equip(set_combine(sets.aftercast.Engaged,sets.TH))
+        else
+            equip(sets.aftercast.Engaged)
+        end
+    else
+        equip(sets.aftercast.Idle)
+    end
 end
     
 mov = {counter=0}
@@ -126,11 +175,7 @@ windower.raw_register_event('prerender',function()
                 end
                 moving = true
             elseif dist < 1 and moving then
-                if player.status ~= 'Engaged' then
-                    send_command('gs equip sets.aftercast.Idle')
-                else
-                    send_command('gs equip sets.aftercast.Engaged')
-                end
+                send_command('gs c equip_check')
                 moving = false
             end
         end

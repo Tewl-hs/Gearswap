@@ -2,6 +2,8 @@
 	File: Keanne_BLM.lua 
 --]]
 function get_sets()
+    include('Mote-Mappings')
+
 	send_command('bind ^f9 gs c toggle burst') 
 
     Macro_Book = '2'
@@ -15,9 +17,9 @@ function get_sets()
     sets.MoveSpeed = {feet="Herald's Gaiters"} 
     sets.Impact = {head=empty,body="Twilight Cloak"}
     sets.Dispelga = {main="Daybreak",sub="Ammurapi Shield"}
+	sets.Obi = {waist="Hachirin-no-Obi"}
 
-    sets.precast = {}
-    sets.precast.FC = {
+    sets.FC = {
         main        = "Sucellus", -- 5
         sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
@@ -34,10 +36,8 @@ function get_sets()
         left_ring   = "Prolix Ring", -- 2
         back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
     }
-    sets.precast.FC.Impact = set_combine(sets.precast.FC,sets.Impact)
-    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,sets.Dispelga)
 
-    sets.precast.JA = {
+    sets.JA = {
         ['Mana Wall'] = { },
         ['Manafont'] = { },
         ['Elemental Seal'] = { },
@@ -50,8 +50,6 @@ function get_sets()
     sets.midcast['Elemental Magic'] = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
-        --sub         = "Enki Strap",
         ammo        = "Pemphredo Tathlum",
         head        = "Arch. Petasos +3",
         body        = { name="Amalric Doublet +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
@@ -75,9 +73,15 @@ function get_sets()
         left_ear	= "Regal Earring",
         right_ring	= "Mujin Band",
     })
-    sets.midcast['Enfeebling Magic'] = { }
+    sets.midcast['Enfeebling Magic'] = {
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        legs        = "Psycloth Lappas"
+    }
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
-    sets.midcast['Dark Magic'] = { }
+    sets.midcast['Dark Magic'] = {
+        neck        ="Erra Pendant",
+    }
     sets.midcast['Healing Magic'] = { }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
 
@@ -102,12 +106,9 @@ function get_sets()
         feet        = "Inspirited Boots"
     })
 
-    sets.aftercast = {}
-    sets.aftercast.Idle = {
+    sets.Idle = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        --main        = { name="Lathi", augments={'MP+80','INT+20','"Mag.Atk.Bns."+20',}},
-        --sub         = "Enki Strap",
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
@@ -122,8 +123,8 @@ function get_sets()
         right_ring	= "Stikini Ring +1",
         back        = "Moonlight Cape"
     }
-    sets.aftercast.Engaged = { }
-    sets.aftercast.Resting = set_combine(sets.aftercast.Idle, {
+    sets.Engaged = { }
+    sets.Resting = set_combine(sets.Idle, {
         --  Using Idle set for resting, add gear here to make changes
     })
 
@@ -201,7 +202,13 @@ function precast(spell)
             cancel_spell()
             return
         end
-		equip(sets.precast.FC)
+        if spell.name == 'Impact' then
+            equip(sets.FC,sets.Impact)
+        elseif spell.name == 'Dispelga' then 
+            equip(sets.FC,sets.Dispelga)
+        else
+		    equip(sets.FC)
+        end
     elseif spell.type == 'WeaponSkill' then
 		if buffactive.amnesia or buffactive.impairment then
             add_to_chat(123,'Abort: Status effect (Amnesia, Impairment)')
@@ -217,8 +224,8 @@ function precast(spell)
             cancel_spell()
             return
         end
-		if sets.precast.JA[spell.name] then
-			equip(sets.precast.JA[spell.name])
+		if sets.JA[spell.name] then
+			equip(sets.JA[spell.name])
 		end
 	end
 end
@@ -229,6 +236,17 @@ function midcast(spell)
             equip(set_combine(sets.midcast[spell.skill].Burst,sets.Impact))
         else
             equip(sets.midcast[spell.skill].Burst)
+        end
+        if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
+            equip(sets.Obi)
+        elseif spell.target.distance < (1.7 + spell.target.model_size) then
+            equip({waist="Orpheus's Sash"})
+        elseif spell.element == world.day_element and spell.element == world.weather_element then
+            equip(sets.Obi)
+        elseif spell.target.distance < (8 + spell.target.model_size) then
+            equip({waist="Orpheus's Sash"})
+        elseif spell.element == world.day_element or spell.element == world.weather_element then
+            equip(sets.Obi)
         end
     elseif spell.skill == 'Enhancing Magic' then
         if spell.name:startswith('Refresh') and spell.target.type == 'SELF' and sets.midcast[spell.skill].Refresh then
@@ -286,11 +304,11 @@ end
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
-		eq = sets.aftercast.Engaged
+		eq = sets.Engaged
     elseif player.status == 'Resting' then	
-		eq = sets.aftercast.Resting
+		eq = sets.Resting
 	else
-		eq = sets.aftercast.Idle
+		eq = sets.Idle
 	end
 	equip(eq)
 	update_status()
@@ -380,6 +398,10 @@ windower.raw_register_event('prerender',function()
 		mov.counter = 0
 	end
 end)
+
+function get_weather_intensity()
+    return gearswap.res.weather[world.weather_id].intensity
+end
 
 function actual_cost(spell)
     local cost = spell.mp_cost

@@ -167,9 +167,7 @@ function get_sets()
 		right_ring	= "Stikini Ring +1",
 		back		= { name="Bookworm's Cape", augments={'INT+1','MND+2','Helix eff. dur. +16','"Regen" potency+10',}},
     })
-
-    sets.aftercast = {}
-    sets.aftercast.Idle = {
+    sets.Idle = {
 		main		= "Daybreak",
 		sub			= "Ammurapi Shield",
 		ammo		= "Homiliary",
@@ -186,8 +184,11 @@ function get_sets()
 		right_ring	= "Stikini Ring +1",
 		back		= "Fi Follet Cape +1",
     }
-    sets.aftercast.Engaged = { }
-    sets.aftercast.Resting = set_combine(sets.aftercast.Idle, {
+	sets.Sublimation = set_combine(sets.Idle, {
+        --  Using Idle set for resting, add gear here to make changes
+    })
+    sets.Engaged = { }
+    sets.Resting = set_combine(sets.Idle, {
         --  Using Idle set for resting, add gear here to make changes
     })
 
@@ -355,18 +356,28 @@ function status_change(new,old)
 	end
 end
 
-function buff_change(buff,gain)
-    
+function buff_change(buff, gain)
+    if buff == "Sublimation: Activated" then
+		if gain then
+			equip(sets.Sublimation)
+		else
+			equip_check()
+		end
+    end
 end
 
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
-		eq = sets.aftercast.Engaged
+		eq = sets.Engaged
     elseif player.status == 'Resting' then	
-		eq = sets.aftercast.Resting
+		eq = sets.Resting
 	else
-		eq = sets.aftercast.Idle
+		if buffactive["Sublimation: Activated"] then
+			eq = sets.Sublimation
+		else
+			eq = sets.Idle
+		end
 	end
 	equip(eq)
 	update_status()

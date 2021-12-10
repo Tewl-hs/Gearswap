@@ -1,5 +1,4 @@
 function get_sets()
-
     -- Load Macros
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1')
     send_command('input //equipviewer pos 1022 550')
@@ -20,23 +19,24 @@ function get_sets()
         back        = "Nantosuelta's Cape",
         left_ear    = "Moonshade Earring",
         right_ear   = "Loquac. Earring",
-        left_ring   = "Stikini Ring +1", -- Need to buy/borrow
+        left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         waist       = "Fucho-no-Obi",
     }
 
     sets.luopan = { 
-        main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
-        range       = "Dunna",
+        main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
+        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
+        ammo        = empty,
         head        = "Azimuth Hood +1",
         hands       = "Geo. Mitaines +3",
         back        = "Nantosuelta's Cape",
         waist       = "Isa Belt",
-        feet        = "Bagua Sandals +3"            
+        feet        = "Bagua Sandals +3"           
     }
 
     sets.precast = {}
-    sets.precast.fastcast = { -- 83/80
+    sets.precast.FC = { -- 83/80
         main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}}, -- 5
         range       = "Dunna", -- 3
         head        = "Merlinic Hood", -- 14
@@ -77,7 +77,7 @@ function get_sets()
     
     sets.midcast = {}
     sets.midcast['Geomancy'] = { 
-        main        = { name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
+        main        = "Idris",
         range       = "Dunna",
         head        = "Azimuth Hood +1",
         neck        = "Bagua Charm +1",
@@ -87,8 +87,14 @@ function get_sets()
         right_ring  = "Stikini Ring +1",
         back        = "Lifestream Cape",
         waist       = "Austerity Belt +1",
-        legs        = "Bagua Pants +2",   
+        legs        = "Vanya Slops",   
         feet        = "Azimuth Gaiters +1"  
+    }
+    sets.midcast['Geomancy'].Indi = {
+        main        = "Gada",
+        neck        = "Incanter's Torque",
+        legs        = "Bagua Pants +3",   
+        feet        = "Azimuth Gaiters +1",
     }
 
     sets.midcast['Elemental Magic'] = { 
@@ -98,7 +104,7 @@ function get_sets()
         neck        = "Baetyl Pendant",
         body        = "Jhakri Robe +2",
         hands       = "Jhakri Cuffs +1",
-        left_ring   = "Shiva Ring +1", -- Need to buy/borrow
+        left_ring   = "Shiva Ring +1",
         right_ring  = "Mujin Band",
         waist       = "Eschan Stone",
         legs        = "Jhakri Slops +1",
@@ -148,58 +154,69 @@ function get_sets()
         hands       = "Vanya Cuffs",
         legs        = "Vanya Slops",
         feet        = "Vanya Clogs",
-        left_ring   = "Naji's Loop"         
+        left_ear    = "Mendi. Earring",  
+        left_ring   = "Naji's Loop" ,      
     }
 
     end
     
-    function precast(spell)        
-        if buffactive.Silence and spell.action_type == 'Magic' then
-            cancel_spell()
-            if player.inventory['Echo Drops'] then
-                send_command('@input /item "Echo Drops" <me>')
-            else
-                add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
-            end
-            return
-        end
-
+    function precast(spell)   
         if spell.type == 'JobAbility' then
-            if sets.precast.JA[spell.english] then
-                equip(sets.precast.JA[spell.english])
+            if sets.precast.JA[spell.name] then
+                equip(sets.precast.JA[spell.name])
             end
-        else
-            if spell.english == 'Dispelga' then
-                equip(set_combine(sets.precast.fastcast,{main="Daybreak",waist="Embla Sash"}))
-            elseif spell.action_type == 'Magic' then
-                equip(sets.precast.fastcast)
+        elseif spell.action_type == 'Magic' then
+            if buffactive.Silence then
+                cancel_spell()
+                if player.inventory['Echo Drops'] then
+                    send_command('@input /item "Echo Drops" <me>')
+                else
+                    add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+                end
+                return
+            end
+            if spell.name == 'Dispelga' then
+                equip(set_combine(sets.precast.FC,{main="Daybreak"}))
+            else
+                equip(sets.precast.FC)
             end
         end
     end
     
     function midcast(spell)
-        if spell.action_type == 'Magic' then
-            if spell.english:startswith('Cure') then
-                equip(sets.midcast.cure)
-            elseif sets.midcast[spell.english] then
-                equip(sets.midcast[spell.english])
+        if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
+            if sets.midcast[spell.name] then
+                equip(sets.midcast[spell.name])
             elseif sets.midcast[spell.skill] then
                 equip(sets.midcast[spell.skill])
             end
         end
+        if spell.action_type == 'Magic' then
+            if spell.skill == 'Geomancy' and spell.name:startswith('Indi-') then
+                equip(sets.midcast[spell.skill].Indi)
+            else
+                if spell.name:startswith('Cure') then
+                    equip(sets.midcast.cure)
+                elseif sets.midcast[spell.name] then
+                    equip(sets.midcast[spell.name])
+                elseif sets.midcast[spell.skill] then
+                    equip(sets.midcast[spell.skill])
+                end
+           end
+        end
     end
     
     function aftercast(spell)
-        goIdle()
+        equip_check()
     end
 
     function pet_change()
-        goIdle()
+        equip_check()
     end
     
     function status_change(new,old)
         if T{'Idle','Resting'}:contains(new) then
-            goIdle()
+            equip_check()
         end
     end
     
@@ -214,7 +231,7 @@ function get_sets()
     end
     
     -- Determine what idle set to equip if a luopan is out
-    function goIdle()
+    function equip_check()
         if pet.isvalid then
             equip(set_combine(sets.idle,sets.luopan))
         else
@@ -223,8 +240,8 @@ function get_sets()
     end
 
     function self_command(commandArgs)
-        if commandArgs == 'goIdle' then
-            goIdle()
+        if commandArgs == 'equip_check' then
+            equip_check()
         elseif commandArgs == 'doDispel' then
             send_command('input /ma Dispel <bt>')
         end
@@ -251,7 +268,7 @@ function get_sets()
         		    moving = true
 			    elseif dist < 1 and moving then
 				    if player.status ~= 'Engaged' then
-					    send_command('gs c goIdle')
+					    send_command('gs c equip_check')
 				    end
                     moving = false
                 end

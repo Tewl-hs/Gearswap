@@ -84,6 +84,7 @@ function get_sets()
 	Capes.DA	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.RA	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
 	Capes.RWS	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+	Capes.EWS	= { name="Smertrios's Mantle", augments={'STR+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
 	Capes.Snapshot = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Snapshot"+10',}}
 	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 	Capes.Enmity = { name="Smertrios's Mantle", augments={'HP+60','Enmity+10',}}
@@ -224,6 +225,7 @@ function get_sets()
 		feet		= "Nyame Sollerets",
 		right_ear	= "Friomisi Earring",
 		waist		= "Orpheus's Sash",
+		back		= Capes.EWS
 	})
 	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
@@ -241,14 +243,11 @@ function get_sets()
 		waist		= "Eschan Stone",
 	})		
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
-		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
-		hands		= "Kasuga Kote +1",
-		legs		= "Ken. Hakama +1",
-		feet		= "Wakido Sune. +3",
-		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
-		right_ring	= "Regal Earring",
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
 		left_ear	= "Telos Earring",
 		right_ear	= "Thrud Earring",
+		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
 	})		
@@ -440,7 +439,7 @@ function precast(spell,action)
         cancel_spell()
         return
 	elseif buffactive.sleep or buffactive.Lullaby then
-        add_to_chat(123,'Unable to perform action: [Slept]')
+        add_to_chat(123,'Unable to perform action: [Asleep]')
         cancel_spell()
         return
     end
