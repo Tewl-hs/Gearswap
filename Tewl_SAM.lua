@@ -330,19 +330,19 @@ function get_sets()
 		waist		= "Ioskeha Belt +1",
 	})
 	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 3 PDT 32 Haste 26 SB1 27 SB2 10 STP 46
-    	ammo        = "Staunch Tathlum +1", -- 0 0 3
-    	head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
-    	body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
-    	hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
-    	legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
-    	feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
-    	neck        = { name="Sam. Nodowa +2", augments={'Path: A',}}, -- STP 14
-    	waist       = "Ioskeha Belt +1", -- Haste 8
-    	left_ear   	= "Telos Earring", -- STP 5
-    	right_ear   = "Crep. Earring", -- STP 5
-    	left_ring   = "Niqmaddu Ring", -- SB2 5
-    	right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
-    	back        = Capes.TP
+		ammo        = "Staunch Tathlum +1", -- 0 0 3
+		head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
+		body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
+		hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
+		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
+		feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
+		neck        = { name="Sam. Nodowa +2", augments={'Path: A',}}, -- STP 14
+		waist       = "Ioskeha Belt +1", -- Haste 8
+		left_ear   	= "Telos Earring", -- STP 5
+		right_ear   = "Crep. Earring", -- STP 5
+		left_ring   = "Niqmaddu Ring", -- SB2 5
+		right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
+		back        = Capes.TP
 	}
 	sets.Engaged.Hybrid = { 
 		ammo		= "Aurgelmir Orb +1",
