@@ -172,9 +172,9 @@ function get_sets()
 	sets.Preshot = {
 		head		= { name="Acro Helm", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		body		= { name="Acro Surcoat", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
-    	hands		= { name="Acro Gauntlets", augments={'"Rapid Shot"+4','"Snapshot"+5',}},
+		hands		= { name="Acro Gauntlets", augments={'"Rapid Shot"+4','"Snapshot"+5',}},
 		legs		= { name="Acro Breeches", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
-    	feet		= { name="Acro Leggings", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
+		feet		= { name="Acro Leggings", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		left_ring	= "Crepuscular Ring",
 		waist		= "Yemaya Belt",
 		back		= Capes.Snapshot
@@ -189,8 +189,8 @@ function get_sets()
 		feet		= "Wakido Sune. +3",
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= "Yemaya Belt",
-    	left_ear   	= "Telos Earring", 
-    	right_ear   = "Crep. Earring",
+		left_ear   	= "Telos Earring", 
+		right_ear   = "Crep. Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Cacoethic ring +1",
 		back		= Capes.RA
@@ -349,14 +349,14 @@ function get_sets()
 		head		= "Flam. Zucchetto +2",
 		body		= "Wakido Domaru +3", -- 8/8
 		hands		= "Wakido Kote +3",
-    	legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
+		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
 		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}}, 
 		waist		= "Ioskeha Belt +1",
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring", -- 10/10
-    	right_ring  = "Niqmaddu Ring", -- SB2 5
+		right_ring  = "Niqmaddu Ring", -- SB2 5
 		back		= Capes.TP -- 10/0
 	}
 	sets.Idle = { }
