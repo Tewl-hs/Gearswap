@@ -6,7 +6,7 @@ function get_sets()
 
     LockTH = false
     
-    sets.MoveSpeed = { feet = "Fajin Boots",} 
+    sets.MoveSpeed = { feet = "Pill. Poulaines +3",} 
 
     sets.TH = {
         ammo        = "Per. Lucky Egg",
@@ -17,7 +17,9 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.JA = { }
+    sets.precast.JA = {
+        ["Flee"] = { feet = "Pill. Poulaines +3",} 
+     }
 
     sets.precast.WS = {
         ammo        = "Aurgelmir Orb +1",
@@ -107,6 +109,21 @@ function precast(spell,action)
                 equip(sets.precast.WS)
             end
         end
+    elseif spell.action_type == 'Ability' then
+		if buffactive.amnesia or buffactive.impairment then
+            add_to_chat(123,'Unable to perform action: [Amnesia, Impairment]')
+            cancel_spell()
+            return
+        end
+		local abil_recasts = windower.ffxi.get_ability_recasts()
+		if abil_recasts[spell.recast_id] > 0 then
+			cancel_spell()
+			add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id]))
+			return
+		end
+		if sets.precast.JA[spell.name] then
+			equip(sets.precast.JA[spell.name])
+		end
     end
 end
     
@@ -187,3 +204,14 @@ windower.raw_register_event('prerender',function()
         mov.counter = 0
     end
 end)
+
+function disp_time(time)
+	local hours = math.floor(math.mod(time, 86400)/3600)
+	local minutes = math.floor(math.mod(time,3600)/60)
+	local seconds = math.floor(math.mod(time,60))
+	if hours > 0 then
+		return string.format("%02d:%02d:%02d",hours,minutes,seconds)
+	else
+		return string.format("%02d:%02d",minutes,seconds)
+	end
+end

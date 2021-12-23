@@ -40,11 +40,3 @@ luac.out
 *.hex
 
 export/
-RNG.lua
-Keanne_SCH.lua
-Tafion_GEO.lua
-Keanne_BLM.lua
-Keanne_RDM.lua
-Keanne_WHM.lua
-Keanne_SMN.lua
-Sirkoolaid_RDM.lua

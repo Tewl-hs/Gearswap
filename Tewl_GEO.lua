@@ -65,9 +65,9 @@ function get_sets()
         right_ring  = "Lebeche Ring", -- 0|2
         back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
         waist       = "Witful Belt", -- 3|3
-        hands       = "Merlinic Dastanas", -- 6
+        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}},
         legs        = "Geomancy Pants +3", -- 15
-        feet        = "Merlinic Crackows" -- 11       
+        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}},    
     }
     sets.precast.JA = {}
     sets.precast.JA['Primeval Zeal'] = {

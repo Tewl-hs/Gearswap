@@ -20,6 +20,21 @@
 function get_sets()
 	items = require('resources').items
 
+	range_mult = {
+        [0] = 0,
+        [2] = 1.70,
+        [3] = 1.490909,
+        [4] = 1.44,
+        [5] = 1.377778,
+        [6] = 1.30,
+        [7] = 1.20,
+        [8] = 1.30,
+        [9] = 1.377778,
+        [10] = 1.45,
+        [11] = 1.490909,
+        [12] = 1.70,
+    }
+
 	send_command("bind @e input //gs equip sets.Weapons['Masamune']")
 	send_command("bind @m input //gs equip sets.Weapons['Kogarasumaru']")
 	send_command("bind @r input //gs equip sets.Weapons['Amanomurakumo']")
@@ -156,9 +171,9 @@ function get_sets()
 	}
 	sets.Preshot = {
 		head		= { name="Acro Helm", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
-		--body		= "Acro Surcoat", -- [Skirmish]
+		body		= { name="Acro Surcoat", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
     	hands		= { name="Acro Gauntlets", augments={'"Rapid Shot"+4','"Snapshot"+5',}},
-		--legs		= "Acro Breeches", -- [Skirmish]
+		legs		= { name="Acro Breeches", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
     	feet		= { name="Acro Leggings", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		left_ring	= "Crepuscular Ring",
 		waist		= "Yemaya Belt",
@@ -455,6 +470,11 @@ function precast(spell,action)
             cancel_spell()
             return
         end
+		if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
+            add_to_chat(123,'['..spell.name..'] Target out of range.')
+			cancel_spell()
+			return
+		end
 		if spell.name == AutoWS and AWSEnabled == true then
 			cancel_spell()
 			send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
@@ -560,7 +580,13 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-
+	if buff == 'sleep' and player.status == 'Engaged' then
+		if gain then 
+			equip({neck='Vim Torque'})
+		else
+			equip_check()
+		end
+	end
 end
 
 function equip_check()
