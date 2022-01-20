@@ -112,7 +112,7 @@ function get_sets()
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
-        hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
         legs        = "Assid. Pants +1",
         feet        = "Inspirited Boots",
         neck        = "Loricate Torque +1",

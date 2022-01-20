@@ -102,7 +102,6 @@ function get_sets()
     sets.midcast = { }
     -- When you summon an avatar. Spell interruption rate down, any gear that enhances a level
     sets.midcast.SummoningMagic = {
-
     }
     -- Cure potency 
     sets.midcast.Cure = {
@@ -234,7 +233,7 @@ function get_sets()
     	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
     	hands		= { name="Merlinic Dastanas", augments={'Potency of "Cure" effect received+2%','Mag. Acc.+2','"Refresh"+2','Accuracy+12 Attack+12',}},
     	legs		= "Assid. Pants +1",
-    	feet		= "Baaya. Sabots +1",
+        feet		= "Baaya. Sabots +1",
     	neck		= "Caller's Pendant",
     	waist		= "Klouskap Sash +1",
     	left_ear	= "C. Palug Earring",

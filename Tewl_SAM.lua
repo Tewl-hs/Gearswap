@@ -570,6 +570,9 @@ function midcast(spell,action)
 end
 
 function aftercast(spell,action)
+	if spell.name == 'Tachi: Ageha' then
+		windower.send_command('@timers c "Defense Down" 180 up')
+	end
 	equip_check()
 end
 

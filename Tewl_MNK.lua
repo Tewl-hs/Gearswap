@@ -111,7 +111,7 @@
             head        = "Ken. Jinpachi +1",
             body        = "Adhemar Jacket +1",
             hands       = "Adhemar Wrist. +1",
-            legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
+            legs		= "Mpaca's Hose",
             feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
@@ -125,7 +125,6 @@
             head        = "Adhemar Bonnet +1",
             body        = "Ken. Samue +1",
             hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
-            legs		= "Ken. Hakama +1",
             feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
             right_ear   = "Odr Earring",
             back        = Capes.WSCrit
@@ -184,16 +183,16 @@
             back		= Capes.TP
         }
         sets.aftercast.TP.Hybrid = {
-            ammo		= "Aurgelmir Orb +1", -- { name="Coiste Bodhar", augments={'Path: A',}},
-            head        = "Malignance Chapeau",  -- 6/6
-            body        = "Malignance Tabard",  -- 9/9
-            hands       = "Malignance Gloves",  -- 5/5
-            legs        = "Malignance Tights",  -- 7/7
-            feet        = "Malignance Boots",  -- 4/4
+            ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
+            head		= "Mpaca's Cap",
+            body		= "Mpaca's Doublet",
+            hands		= "Mpaca's Gloves",
+            legs        = "Mpaca's Hose", 
+            feet        = "Mpaca's Boots", 
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",
-            right_ear   = "Telos Earring",
+            right_ear   = "Schere Earring",
             left_ring	= "Gere Ring",
             right_ring	= "Niqmaddu Ring",
             back		= Capes.TP

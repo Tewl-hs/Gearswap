@@ -53,45 +53,81 @@ function get_sets()
     sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
 
     sets.precast = { }
-    sets.precast.FC = {
-        main        = "Grioavolr",
-        sub         = "Clerisy Strap +1",
+    sets.precast.JA = {
+        ['Astral Flow'] = {head="Glyphic Horn +3"},
+        ['Elemental Siphon'] = {
+            main        = "Espiritus",
+            sub         = "Vox Grip",
+            ammo        = "Esper Stone +1",
+            --head        = "Telchine Cap", -- "Elemental Siphon"
+            --body        = "Telchine Chasuble", -- "Elemental Siphon"
+            hands       = "Baayami Cuffs",
+            --legs        = "Telchine Braconi", -- "Elemental Siphon"
+            feet        = "Beck. Pigaches +1",
+            neck        = "Incanter's Torque",
+            left_ear    = "Andoaa Earring",
+            right_ear   = "Gifted Earring",
+            left_ring   = "Evoker's Ring",
+            right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+            --waist       = "Kobo Obi",
+            back        = "Conveyance Cape",
+        },
+        ['Mana Cede'] = {hands="Beckoner's Bracers"},
+    }
+
+    sets.precast.FC = { -- 80
         ammo        = "Sancus Sachet +1",
         head        = "Bunzi's Hat", -- 10
-        body        = "Inyanga Jubbah +2",
-        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}},
-        legs        = { name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}},
-        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}},
-        neck        = "Orunmila's Torque",
-        left_ear    = "Malignance Earring",
-        right_ear   = "Loquacious Earring", 
-        left_ring   = "Kishar Ring",
-        right_ring  = "Prolix Ring",	
-        waist       = "Embla Sash",
-        back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
+        body        = "Inyanga Jubbah +2", -- 14
+        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
+        legs        = { name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, -- 7
+        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
+        neck        = "Orunmila's Torque", -- 5
+        left_ear    = "Malignance Earring", -- 4
+        right_ear   = "Loquacious Earring", -- 2
+        left_ring   = "Kishar Ring", -- 4
+        right_ring  = "Prolix Ring", -- 2
+        waist       = "Embla Sash", -- 5
+        back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}}, -- 10
     }
     sets.precast.BloodPact = {
-        main        = "Espiritus",
+        main        = "Nirvana",
         sub         = "Elan Strap +1",
         ammo        = "Sancus Sachet +1",
         head        = "Beckoner's Horn +1",
         body        = "Convoker's Doublet +2",
         hands       = "Glyphic Bracers +3",		
-        legs        = "Glyphic Spats", --"Baayami Slops",
-        --feet        = "Baayami Sabots +1"
+        legs        = "Baayami Slops",
+        feet        = "Baayami Sabots +1",
         neck        = "Caller's Pendant",
         left_ear    = "Evan's Earring",
         right_ear   = "Andoaa Earring",
         left_ring   = "Evoker's Ring",
-        right_ring  = "Stikini Ring +1",
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
         waist       = "Lucidity Sash",		
-        back        = "Conveyance Cape",
+        back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}},
+    }
+    sets.precast.WS = {}
+    sets.precast.WS['Garland of Bliss'] = {
+        ammo        = "Pemphredo Tathlum",
+        head        = { name="Nyame Helm", augments={'Path: B',}},
+        body        = { name="Nyame Mail", augments={'Path: B',}},
+        hands       = { name="Nyame Gauntlets", augments={'Path: B',}},
+        legs        = { name="Nyame Flanchard", augments={'Path: B',}},
+        feet        = { name="Nyame Sollerets", augments={'Path: B',}},
+        neck        = "Sanctity Necklace",
+        waist       = "Orpheus's Sash",
+        left_ear    = "Malignance Earring",
+        right_ear   = "Friomisi Earring",
+        left_ring   = "Epaminondas's Ring",
+        right_ring  = "Karieyh Ring +1",
+        back        = "Moonlight Cape",
     }
 
     sets.midcast = { }
     -- When you summon an avatar. Spell interruption rate down, any gear that enhances a level
     sets.midcast.SummoningMagic = {
-        -- body="Baayami Robe +1"
+        body        = "Baayami Robe",
     }
     -- Cure potency 
     sets.midcast.Cure = {
@@ -116,7 +152,13 @@ function get_sets()
     }
     -- Enhancing spells gear: Protect, Shell, Stoneskin, Phalanx, ect...
     sets.midcast.Enhancing = {
-
+        head        = "Telchine Cap", --10
+        body        = "Telchine Chas.", -- 8
+        hands       = "Telchine Gloves", -- 10
+        legs        = "Telchine Braconi", -- 10
+        feet        = "Telchine Pigaches",  -- 8
+        neck        = "Incanter's Torque",
+        waist       = "Embla Sash", -- 10
     }
     -- Additional spell specific enhancing gear
     sets.midcast["Stoneskin"] = set_combine(sets.midcast.Enhancing, {
@@ -124,13 +166,14 @@ function get_sets()
     })
 
     sets.midcast.PhysicalBP = {
-        main		= "Gridarvor",
+        main        = "Nirvana",
         sub         = "Elan Strap +1",
         ammo        = "Sancus Sachet +1",
-        --head        = { name="Apogee Crown +1", augments={'Pet: Attack+25','Pet: "Mag.Atk.Bns."+25','Blood Pact Dmg.+8',}},
+        head        = { name="Apogee Crown +1", augments={'Pet: Attack+25','Pet: "Mag.Atk.Bns."+25','Blood Pact Dmg.+8',}},
         body        = "Con. Doublet +2",
-        --hands       = "Merlinic Dastanas",
-        --legs        = { name="Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}},
+        hands       = { name="Merlinic Dastanas", augments={'Pet: Accuracy+15 Pet: Rng. Acc.+15','Blood Pact Dmg.+10','Pet: STR+7','Pet: Mag. Acc.+10',}},
+        legs        = { name="Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}},
+        feet        = "Convo. Pigaches +3",
         --feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: Attack+35','Blood Pact Dmg.+8',}},
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Incarnation Sash",
@@ -143,14 +186,14 @@ function get_sets()
     }
 
     sets.midcast.MagicalBP = {
-        main        = "Espiritus",
+        main        = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: VIT+6','Pet: Mag. Acc.+22','Pet: "Mag.Atk.Bns."+13','DMG:+15',}},
         sub         = "Elan Strap +1",
         ammo        = "Sancus Sachet +1",
-        --head        = { name="Apogee Crown +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
-        --body        = { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
-        --hands       = "Merlinic Dastanas",
-        --legs        = { name="Apogee Slacks +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
-        --feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+        head        = { name="Apogee Crown +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+        body        = { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+        hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+10','Pet: INT+5','Pet: Mag. Acc.+14','Pet: "Mag.Atk.Bns."+10',}},
+        legs        = { name="Apogee Slacks +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+        feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Regal Belt",
         left_ear    = "Lugalbanda Earring",
@@ -159,23 +202,23 @@ function get_sets()
         right_ring  = "Varar Ring +1",
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
     }
-    -- Pet buffs
+    
     sets.midcast.PetBuff = {
         main        = "Espiritus",
         sub         = "Vox Grip",
         ammo        = "Sancus Sachet +1",
         head        = "Beckoner's Horn +1",
         body        = "Beckoner's Doublet +1",
-        --hands       = "Baayami Cuffs",
-        --legs        = "Baayami Slops",
-        --feet        = "Baayami Sabots +1",
+        hands       = "Baayami Cuffs",
+        legs        = "Baayami Slops",
+        feet        = "Baayami Sabots +1",
         neck        = "Incanter's Torque",
         --waist       = "Kobo Obi",
         left_ear    = "Andoaa Earring",
-        --right_ear   = "Gifted Earring",
+        right_ear   = "Gifted Earring",
         left_ring   = "Evoker's Ring",
-        right_ring  = "Stikini Ring +1",
-        back        = "Conveyance Cape",
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+        back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}},
     }
 
     sets.midcast.PetDebuff = {
@@ -184,65 +227,72 @@ function get_sets()
         ammo        = "Sancus Sachet +1",
         head        = "Beckoner's Horn +1",
         body        = "Beckoner's Doublet +1",
-        --hands       = "Merlinic Dastanas",
-        --legs        = "Baayami Slops",
-        --feet        = "Baayami Sabots +1",
+        hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+9','Blood Pact Dmg.+10','Pet: INT+7','Pet: "Mag.Atk.Bns."+10',}},
+        legs        = "Baayami Slops",
+        feet        = "Baayami Sabots +1",
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         --waist       = "Kobo Obi",
         left_ear    = "Andoaa Earring",
         right_ear   = "Enmerkar Earring",
         left_ring   = "Evoker's Ring",
-        right_ring  = "Stikini Ring +1",
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
     }
 
     sets.aftercast = { }
-    -- Default set to equip after spell or JA
     sets.aftercast.Idle = {  
-        main        = "Contemplator +1",
+        main        = "Nirvana",
         sub         = "Oneiros Grip",
         ammo        = "Sancus Sachet +1",
         head        = "Convoker's Horn +2",
-        body        = "Shomonjijoe +1",
-        hands       = "Bunzi's Gloves",
+    	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+        hands       = { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
         legs        = "Assid. Pants +1",
-        feet        = "Bunzi's Sabots",
+    	feet		= "Baaya. Sabots +1",
         neck        = "Smn. Collar +2",
         waist       = "Fucho-no-Obi",
         left_ear    = "C. Palug Earring",
         right_ear   = "Etiolation Earring",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe1", priority=2},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
         back        = "Moonlight Cape",
     }
     sets.aftercast.Avatar = {
-        main		= "Gridarvor",
+        main        = "Nirvana",
     	sub		    = "Elan Strap +1",
     	ammo		= "Sancus Sachet +1",
     	head		= "Glyphic Horn +3",
-    	body		= "Glyphic Doublet +3",
-    	hands		= "Beck. Bracers +1",
+    	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+    	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
     	legs		= "Assid. Pants +1",
-    	feet		= "Beck. Pigaches +1",
+    	feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+    	--feet		= "Baaya. Sabots +1",
     	neck		= "Caller's Pendant",
-    	waist		= "Klouskap Sash", -- sash
+    	waist		= "Klouskap Sash +1",
     	left_ear	= "C. Palug Earring",
     	right_ear	= "Evans Earring",
     	left_ring	= "Evoker's Ring",
-    	right_ring	= "Stikini Ring +1",
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
     	back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
     }
 
-    -- If you want certain gear equiped for a specific avatar use this template
-    sets.aftercast.Avatar['Insert Avatar Name Here'] = set_combine(sets.aftercast.Avatar, {
-        main        = "", 
-    })
-
-     -- Gear you want locked when engaged
     sets.Engaged = {
-        main        = "Espiritus",
-        sub         = "Elan Strap +1"
-     }
+        main        = "Nirvana",
+    	sub		    = "Elan Strap +1",
+        ammo        = "Sancus Sachet +1",
+        head        = "Bunzi's Hat",
+        body        = "Bunzi's Robe",
+        hands       = "Bunzi's Gloves",
+        legs        = "Bunzi's Pants",
+        feet        = "Bunzi's Sabots",
+        neck        = "Sanctity Necklace",
+        waist       = "Grunfeld Rope",
+        left_ear    = "Telos Earring",
+        right_ear   = "Dedition Earring",
+        left_ring   = "Chirich Ring +1",
+        right_ring  = "Chirich Ring +1",
+        back        = "Moonlight Cape",
+    }
     end
     
     function precast(spell)
@@ -250,7 +300,33 @@ function get_sets()
             return
         end
         if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
-            equip(sets.precast.BloodPact)
+            if buffactive['Astral Conduit'] then
+                if spell.type == "BloodPactWard" then
+                    if DebuffBloodPactWard:contains(spell.name) then
+                        equip(sets.midcast.PetDebuff)
+                    else
+                        equip(sets.midcast.PetBuff)
+                    end
+                elseif spell.type == "BloodPactRage" then
+                    if MagicalBloodPactRage:contains(spell.name) then
+                        equip(sets.midcast.MagicalBP)
+                    else
+                        equip(sets.midcast.PhysicalBP)
+                    end
+                end
+            else
+                equip(sets.precast.BloodPact)
+            end
+        elseif spell.type == 'WeaponSkill' then
+            if sets.precast.WS[spell.name] then
+                equip(sets.precast.WS[spell.name])
+            else
+                equip(sets.precast.WS)
+            end
+        elseif spell.action_type == 'Ability' then
+            if sets.precast.JA[spell.name] then
+                equip(sets.JA[spell.name])
+            end
         elseif spell.action_type == "Magic" then     
             if spell.name=="Stoneskin" then
                 equip(sets.precast.FC,{waist="Siegel Sash"})
@@ -386,7 +462,6 @@ function get_sets()
         end
     end
     
-    -- This function will equip your aftercast/idle set
     function equip_aftercast()
         sets.AC = sets.aftercast.Idle
         if pet.isvalid then
@@ -410,7 +485,6 @@ function get_sets()
         end
     end
 
-    -- Code to Swap to movement speed equipment while moving
     mov = {counter=0}
     if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
         mov.x = windower.ffxi.get_mob_by_index(player.index).x

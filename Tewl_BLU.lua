@@ -37,6 +37,21 @@ function get_sets()
             left_ring   = "Prolix Ring", -- 2
             back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}}, -- 10
         }
+        sets.precast.WS = {
+            ammo		= "Aurgelmir Orb +1",
+            head		= "Nyame Helm",
+            body		= "Nyame Mail",
+            hands		= "Nyame Gauntlets",
+            legs		= "Nyame Flanchard",
+            feet		= "Nyame Sollerets",
+            neck        = "Fotia Gorget", -- 5
+            waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+            left_ear    = "Regal Earring",
+            right_ear   = "Schere Earring",
+            left_ring   = "Epaminondas's Ring",
+            right_ring  = "Karieyh Ring +1",
+            back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}}, -- 10
+        }
     
         sets.midcast = { -- Focus Cleaving 
             ammo        = "Pemphredo Tathlum",
@@ -75,7 +90,8 @@ function get_sets()
         sets.aftercast.Idle = { 
             ammo        = "Staunch Tathlum +1", -- 3/3
             head        = "Malignance Chapeau",  -- 6/6
-            body        = "Malignance Tabard",  -- 9/9
+            --body        = "Malignance Tabard",  -- 9/9
+            body        = "Jhakri Robe +2",
             hands       = "Malignance Gloves",  -- 5/5
             legs        = "Carmine Cuisses +1",  --
             feet        = "Malignance Boots",  -- 4/4
@@ -182,6 +198,9 @@ function get_sets()
                 return
             end
             equip(sets.precast.FC)    
+        end
+        if spell.type == 'WeaponSkill' then
+            equip(sets.precast.WS)  
         end
     end
     
