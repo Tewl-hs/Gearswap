@@ -55,8 +55,8 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.FC = { -- FC 79/80 QC: 7/10
-        head        = "Nahtirah Hat", -- 10
+    sets.precast.FC = { -- FC 80/80 QC: 7/10
+        head        = "Amalric Coif +1", -- 11
         neck        = "Orunmila's Torque", -- 5
         left_ear    = "Malignance Earring", -- 4
         right_ear   = "Loquac. Earring", -- 2

@@ -17,6 +17,8 @@
 	CTRL+F11 : Toggle Ranged Mode (Disabled by default)
 	CTRL+F12 : Toggle Twilight (Disabled by default)
 --]]
+require('vectors')
+
 function get_sets()
 	items = require('resources').items
 
@@ -126,7 +128,7 @@ function get_sets()
 			hands	= "Wakido Kote +3"
 		},
 		['Sekkanoki'] = {
-			hands	= "Kasuga Kote +1"
+			--hands	= "Kasuga Kote +1"
 		},
 		['Warding Circle'] = {
 			head	= "Wakido Kabuto +3"
@@ -341,7 +343,7 @@ function get_sets()
 		left_ear   	= "Telos Earring", -- STP 5
 		right_ear   = "Crep. Earring", -- STP 5
 		left_ring   = "Niqmaddu Ring", -- SB2 5
-		right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
+		right_ring  = "Chirich Ring +1", -- SB1 10 STP 66
 		back        = Capes.TP
 	}
 	sets.Engaged.Hybrid = { 
@@ -513,6 +515,9 @@ function precast(spell,action)
 				end
 			end
 		end
+		if check_facing() == false then
+			ws = set_combine(ws,{body="Nyame Mail"})
+		end
 		equip(ws)
 	elseif spell.action_type == 'Ability' then
 		if buffactive.amnesia or buffactive.impairment then
@@ -571,7 +576,7 @@ end
 
 function aftercast(spell,action)
 	if spell.name == 'Tachi: Ageha' then
-		windower.send_command('@timers c "Defense Down" 180 up')
+		windower.send_command('@timers c "Tachi: Ageha/Defense Down " 180 up')
 	end
 	equip_check()
 end
@@ -678,6 +683,8 @@ function self_command(cmd)
 			end
 		end
 		update_status()
+	elseif args[1] == 'cf' then
+		add_to_chat(1,'Check Facing: '..tostring(check_facing()))
 	elseif args[1] == 'equip_check' then
 		equip_check()
 	elseif args[1] == 'update_status' then
@@ -827,5 +834,21 @@ function disp_time(time)
 	else
 		return string.format("%02d:%02d",minutes,seconds)
 	end
+end
+
+function check_facing()
+    local target = windower.ffxi.get_mob_by_target('t')
+	if target == nil then return nil end
+    local player = windower.ffxi.get_mob_by_target('me')
+    local dir_target = V{player.x, player.y} - V{target.x, target.y}
+    local dir_player = V{target.x, target.y} - V{player.x, player.y}
+    local player_heading = V{}.from_radian(player.facing)
+    local target_heading = V{}.from_radian(target.facing)
+    local player_angle = V{}.angle(dir_player, player_heading):degree():abs()
+    local target_angle = V{}.angle(dir_target, target_heading):degree():abs()
+    if player_angle < 45 and target_angle < 45 then
+        return true
+    end
+    return false
 end
   

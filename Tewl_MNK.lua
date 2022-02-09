@@ -69,9 +69,9 @@
         -- Augmented Gear
         Capes = {}
         Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
-        Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}}
-        Capes.WSCrit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
-        Capes.WSD = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%',}}
+        Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+        Capes.WSCrit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10','Phys. dmg. taken-10%',}}
+        Capes.WSD = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
     
         -- Precast sets: Job Abilities, Fastcast, Weaponskills 
         sets.precast = {}
@@ -122,6 +122,11 @@
             back		= Capes.WS
         }
         sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
+            --head		= "Nyame Helm",
+            --body		= "Nyame Mail",
+            --hands		= "Nyame Gauntlets",
+            --legs		= "Nyame Flanchard",
+            --feet		= "Nyame Sollerets",
             head        = "Adhemar Bonnet +1",
             body        = "Ken. Samue +1",
             hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
@@ -199,11 +204,11 @@
         }
         sets.aftercast.Idle = {
             ammo		= "Staunch Tathlum +1", -- 3/3
-            head        = "Malignance Chapeau",  -- 6/6
-            body        = "Malignance Tabard",  -- 9/9
-            hands       = "Malignance Gloves",  -- 5/5
-            legs        = "Malignance Tights",  -- 7/7
-            feet        = "Malignance Boots",  -- 4/4
+            head		= "Mpaca's Cap",
+            body		= "Mpaca's Doublet",
+            hands		= "Mpaca's Gloves",
+            legs        = "Mpaca's Hose", 
+            feet        = "Mpaca's Boots", 
             neck		= "Loricate Torque +1", -- 6/6
             waist		= "Moonbow Belt +1", -- 6/6
             left_ear	= "Genmei Earring", -- 2/0

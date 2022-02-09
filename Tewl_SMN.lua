@@ -244,7 +244,7 @@ function get_sets()
         main        = "Nirvana",
         sub         = "Oneiros Grip",
         ammo        = "Sancus Sachet +1",
-        head        = "Convoker's Horn +2",
+        head        = "Convoker's Horn +3",
     	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         hands       = { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
         legs        = "Assid. Pants +1",
@@ -275,6 +275,9 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
     	back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
     }
+    sets.aftercast.Avatar.Engaged = set_combine(sets.aftercast.Avatar,{
+        neck        = "Shulmanu Collar",
+    })
 
     sets.Engaged = {
         main        = "Nirvana",
@@ -325,7 +328,7 @@ function get_sets()
             end
         elseif spell.action_type == 'Ability' then
             if sets.precast.JA[spell.name] then
-                equip(sets.JA[spell.name])
+                equip(sets.precast.JA[spell.name])
             end
         elseif spell.action_type == "Magic" then     
             if spell.name=="Stoneskin" then
@@ -442,8 +445,10 @@ function get_sets()
         end
     end
 
-    function pet_status_change(a,b)
-        --windower.add_to_chat(8,'Pet status is now '..tostring(b)) -- Useful for knowing when you got aggroed
+    function pet_status_change(old,new)
+        if pet.isvalid and not pet_midaction() and (new == 'Engaged' or old == 'Engaged') then
+            equip_aftercast()
+        end
     end
     
     function status_change(new,old)
@@ -466,13 +471,18 @@ function get_sets()
         sets.AC = sets.aftercast.Idle
         if pet.isvalid then
             if sets.aftercast.Avatar[pet.name] then
-                sets.AC = sets.aftercast.Avatar[pet.name]
+                if pet.status == 'Engaged' and sets.aftercast.Avatar[pet.name].Engaged then
+                    sets.AC = sets.aftercast.Avatar[pet.name].Engaged
+                else
+                    sets.AC = sets.aftercast.Avatar[pet.name]
+                end
             else
-                sets.AC = sets.aftercast.Avatar
+                if pet.status == 'Engaged' then
+                    sets.AC = sets.aftercast.Avatar.Engaged
+                else
+                    sets.AC = sets.aftercast.Avatar
+                end
             end
-        end
-        if player.status == "Engaged" then
-            sets.AC = set_combine(sets.AC,sets.Engaged)
         end
         equip(sets.AC)
     end

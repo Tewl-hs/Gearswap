@@ -24,6 +24,17 @@ function get_sets()
         waist       = "Fucho-no-Obi",
     }
 
+    sets.idle.DT = set_combine(sets.idle, {
+        range       = empty,
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        legs        = "Nyame Flanchard",
+        left_ear    = "Etiolation Earring",
+        right_ear   = "Genmei Earring",
+        left_ring   = "Defending Ring",
+    })
+
     sets.luopan = { 
         main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
