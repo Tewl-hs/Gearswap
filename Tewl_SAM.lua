@@ -379,7 +379,7 @@ function get_sets()
 	}
 	sets.Idle.PDT = sets.Engaged.PDT
 	sets.Idle.MDT = sets.Engaged.MDT
-	sets.Idle.Hybrid = sets.Engaged.Hybrid
+	sets.Idle.Hybrid = sets.Engaged.Hybrid7487444
 
 	sets.Twilight = { 
 		head		= "Twilight helm",
@@ -683,8 +683,6 @@ function self_command(cmd)
 			end
 		end
 		update_status()
-	elseif args[1] == 'cf' then
-		add_to_chat(1,'Check Facing: '..tostring(check_facing()))
 	elseif args[1] == 'equip_check' then
 		equip_check()
 	elseif args[1] == 'update_status' then
