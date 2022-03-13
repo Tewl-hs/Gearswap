@@ -2,9 +2,16 @@
 	Author: Tewl / Bismark
 	Files: Tewl_SAM.lua 
 
+	Note:
+		I assembled this lua. Mostly written by me but portions taking from other's work such as Motes/Selindriles as well as posts found on forums.
+		This lua was written for my SAM and based on the gear I have and how I wanted to use that gear. However I have been trying to make it easy for
+		other people to edit/use if they like. If you run across any bugs let me know and I will sort this ASAP.
+
 	Binds
 	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
 	ALT+F10  : Toggle SkillChain Mode
+	ATL+F11	 : Toggle Accuracy Mode
+	ALT+F12  : Toggle Auto Hasso (Enabled by default)
 
 	WIN+A	 : Equip Dojikiri Yasutsuna
 	WIN+E	 : Equip Masamune
@@ -45,6 +52,7 @@ function get_sets()
 	send_command('bind !f9 gs c cycle weapon')
 	send_command('bind !f10 gs c toggle autows') 
 	send_command('bind !f11 gs c toggle wsacc')
+	send_command('bind !f12 gs c toggle autohs')
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
 	send_command('bind ^f11 gs c toggle ranged') 
@@ -86,12 +94,13 @@ function get_sets()
 	range_mode = false
 	lock_twilight = false
 	acc_mode = false
+	auto_hasso = true
 	
 	-- Initial setup variables
 	AWSEnabled = false
-	AutoWS = 'Tachi: Enpi'
-	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
-	ws_order = 1
+	AutoWS = 'Tachi: Enpi' -- Dummy Weaponskill
+	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'} -- Skillchain order
+	ws_order = 1 -- Don't change this
 	last_target = nil
     
     -- Gearsets
@@ -141,7 +150,35 @@ function get_sets()
 		},
 		['Meikyo Shisui'] = {
 			feet	= "Sak. Sune-Ate +3"
-		}
+		},
+		['Provoke'] = {
+			ammo		= "Sapience Orb", 
+			head		= "Loess Barbuta +1",
+			neck		= "Unmoving Collar +1",
+			body		= "Emet Harness +1",
+			hands		= { name="Acro Gauntlets", augments={'Enmity+10',}},
+			legs		= { name="Acro Breeches", augments={'Enmity+10',}},
+			feet		= { name="Acro Leggings", augments={'Enmity+10',}},
+			left_ear	= "Trux Earring",
+			right_ear	= "Cryptic Earring +1",
+			left_ring	= "Eihwaz Ring",
+			right_ring	= "Supershear Ring",
+			back		= Capes.Enmity
+		},
+		['Warcry'] = {
+			ammo		= "Sapience Orb", 
+			head		= "Loess Barbuta +1",
+			neck		= "Unmoving Collar +1",
+			body		= "Emet Harness +1",
+			hands		= { name="Acro Gauntlets", augments={'Enmity+10',}},
+			legs		= { name="Acro Breeches", augments={'Enmity+10',}},
+			feet		= { name="Acro Leggings", augments={'Enmity+10',}},
+			left_ear	= "Trux Earring",
+			right_ear	= "Cryptic Earring +1",
+			left_ring	= "Eihwaz Ring",
+			right_ring	= "Supershear Ring",
+			back		= Capes.Enmity
+		},
 	}
 	sets.FC = { -- 52%
 		ammo		= "Sapience Orb", -- 2
@@ -156,20 +193,6 @@ function get_sets()
 		left_ring	= "Prolix Ring", -- 2
 		right_ring	= "Rahab Ring", -- 2
 		back		= Capes.FC -- 10
-	}
-	sets.Enmity = {
-		ammo		= "Sapience Orb", 
-		head		= "Loess Barbuta +1",
-		neck		= "Unmoving Collar +1",
-		body		= "Emet Harness +1",
-		hands		= { name="Acro Gauntlets", augments={'Enmity+10',}},
-		legs		= { name="Acro Breeches", augments={'Enmity+10',}},
-		feet		= { name="Acro Leggings", augments={'Enmity+10',}},
-		left_ear	= "Trux Earring",
-		right_ear	= "Cryptic Earring +1",
-		left_ring	= "Eihwaz Ring",
-		right_ring	= "Supershear Ring",
-		back		= Capes.Enmity
 	}
 	sets.Preshot = {
 		head		= { name="Acro Helm", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
@@ -245,6 +268,7 @@ function get_sets()
 		back		= Capes.EWS
 	})
 	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
+	sets.WS['Tachi: Kagero'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
 		head		= { name="Blistering Sallet +1", augments={'Path: A',}},
@@ -331,20 +355,22 @@ function get_sets()
 		left_ear	= "Etiolation Earring",
 		waist		= "Ioskeha Belt +1",
 	})
-	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 3 PDT 32 Haste 26 SB1 27 SB2 10 STP 46
+	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 3 PDT 42 Haste 26 SB1 27 SB2 10 STP 56
 		ammo        = "Staunch Tathlum +1", -- 0 0 3
 		head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
-		body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
+		body		= "Ken. Samue +1",
+		--body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
 		hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
 		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
 		feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
 		neck        = { name="Sam. Nodowa +2", augments={'Path: A',}}, -- STP 14
 		waist       = "Ioskeha Belt +1", -- Haste 8
 		left_ear   	= "Telos Earring", -- STP 5
-		right_ear   = "Crep. Earring", -- STP 5
+		right_ear   = "Schere Earring", -- SB 3
+		--right_ear	= "Crep. Earring", -- STP 5
 		left_ring   = "Niqmaddu Ring", -- SB2 5
-		right_ring  = "Chirich Ring +1", -- SB1 10 STP 66
-		back        = Capes.TP
+		right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
+		back        = Capes.TP -- PDT 10 STP 10
 	}
 	sets.Engaged.Hybrid = { 
 		ammo		= "Aurgelmir Orb +1",
@@ -385,6 +411,7 @@ function get_sets()
 		head		= "Twilight helm",
 		body		= "Twilight mail"
 	}
+
 	sets.Ranged = {
 		range		= { name="Yoichinoyumi", augments={'Path: A',}},
 		ammo		= "Yoichi's Arrow"
@@ -532,7 +559,11 @@ function precast(spell,action)
 			return
 		end
 		if sets.JA[spell.name] then
-			equip(sets.JA[spell.name])
+			if range_mode == true then
+				equip(set_combine(sets.JA[spell.name], sets.Ranged))
+			else
+				equip(sets.JA[spell.name])
+			end
 		end
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(sets.Preshot)
@@ -576,7 +607,7 @@ end
 
 function aftercast(spell,action)
 	if spell.name == 'Tachi: Ageha' then
-		windower.send_command('@timers c "Tachi: Ageha/Defense Down " 180 up')
+		windower.send_command('@timers c "[Ageha] Defense Down " 180 up')
 	end
 	equip_check()
 end
