@@ -76,6 +76,17 @@ function get_sets()
         right_ring  = "Ilabrat Ring",
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
     }
+    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
+        neck        = "Bard's Charm +2",
+		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+        right_ear   = "Ishvara Earring",
+		right_ring	= "Karieyh Ring +1",
+    })
     sets.precast.WS["Mordant Rime"] = {
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Bihu Roundlet +3",
@@ -157,25 +168,6 @@ function get_sets()
     }
 
     sets.aftercast = { }
-
-    sets.aftercast.Idle2 = {
-        main        = { name="Carnwenhan", augments={'Path: A',}},
-        sub         = "Ammurapi Shield",
-        range       = "Lu Shang's F. Rod",
-        --range     = "Ebisu F. Rod +1",
-        head        = "Tlahtlamah Glasses",
-        body        = "Fisherman's Smock",
-        hands       = "Angler's Gloves",
-        legs        = "Angler's Hose",
-        feet        = "Waders",
-        neck        = "Fisher's Torque",
-        waist       = "Fisherman's Belt",
-        left_ear    = "Hearty Earring",
-        right_ear   = { name="Odnowa Earring +1", augments={'Path: A',}},
-        left_ring   = "Noddy Ring",
-        right_ring  = "Puffin Ring",
-        back        = "Moonlight Cape",
-    }
     sets.aftercast.Idle = {    -- DT 60    
         main        = "Carnwenhan",
         sub         = "Ammurapi Shield", -- "Genmei Shield",  --
@@ -195,7 +187,9 @@ function get_sets()
     }
     sets.aftercast.Engaged = {
         main        = "Carnwenhan",
-        sub         = "Ammurapi Shield", -- "Genmei Shield",  --
+        --sub         = "Ammurapi Shield",
+        --main        = "Naegling",
+        sub         = "Genmei Shield",  --
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Aya. Zucchetto +2",
         body        = "Ayanmo Corazza +2",

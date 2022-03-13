@@ -68,7 +68,7 @@ function get_sets()
             left_ear    = "Andoaa Earring",
             right_ear   = "Gifted Earring",
             left_ring   = "Evoker's Ring",
-            right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+            right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
             --waist       = "Kobo Obi",
             back        = "Conveyance Cape",
         },
@@ -95,7 +95,7 @@ function get_sets()
         sub         = "Elan Strap +1",
         ammo        = "Sancus Sachet +1",
         head        = "Beckoner's Horn +1",
-        body        = "Convoker's Doublet +2",
+        body        = "Con. Doublet +3",
         hands       = "Glyphic Bracers +3",		
         legs        = "Baayami Slops",
         feet        = "Baayami Sabots +1",
@@ -103,7 +103,7 @@ function get_sets()
         left_ear    = "Evan's Earring",
         right_ear   = "Andoaa Earring",
         left_ring   = "Evoker's Ring",
-        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         waist       = "Lucidity Sash",		
         back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}},
     }
@@ -170,7 +170,7 @@ function get_sets()
         sub         = "Elan Strap +1",
         ammo        = "Sancus Sachet +1",
         head        = { name="Apogee Crown +1", augments={'Pet: Attack+25','Pet: "Mag.Atk.Bns."+25','Blood Pact Dmg.+8',}},
-        body        = "Con. Doublet +2",
+        body        = "Con. Doublet +3",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Accuracy+15 Pet: Rng. Acc.+15','Blood Pact Dmg.+10','Pet: STR+7','Pet: Mag. Acc.+10',}},
         legs        = { name="Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}},
         feet        = "Convo. Pigaches +3",
@@ -217,7 +217,7 @@ function get_sets()
         left_ear    = "Andoaa Earring",
         right_ear   = "Gifted Earring",
         left_ring   = "Evoker's Ring",
-        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}},
     }
 
@@ -235,7 +235,7 @@ function get_sets()
         left_ear    = "Andoaa Earring",
         right_ear   = "Enmerkar Earring",
         left_ring   = "Evoker's Ring",
-        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
     }
 
@@ -253,8 +253,8 @@ function get_sets()
         waist       = "Fucho-no-Obi",
         left_ear    = "C. Palug Earring",
         right_ear   = "Etiolation Earring",
-        left_ring   = { name="Stikini Ring +1", bag="wardrobe1", priority=2},
-        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Moonlight Cape",
     }
     sets.aftercast.Avatar = {
@@ -266,13 +266,19 @@ function get_sets()
     	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
     	legs		= "Assid. Pants +1",
     	feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
-    	--feet		= "Baaya. Sabots +1",
+    	feet		= "Baaya. Sabots +1",
+        --head		= "Nyame Helm",
+		--body		= "Nyame Mail",
+		--hands		= "Nyame Gauntlets",
+		--legs		= "Nyame Flanchard",
+		--feet		= "Nyame Sollerets",
     	neck		= "Caller's Pendant",
     	waist		= "Klouskap Sash +1",
     	left_ear	= "C. Palug Earring",
     	right_ear	= "Evans Earring",
     	left_ring	= "Evoker's Ring",
-        right_ring  = { name="Stikini Ring +1", bag="wardrobe4", priority=1},
+        --left_ring	= "Defending Ring",
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
     	back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
     }
     sets.aftercast.Avatar.Engaged = set_combine(sets.aftercast.Avatar,{

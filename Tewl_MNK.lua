@@ -122,11 +122,6 @@
             back		= Capes.WS
         }
         sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
-            --head		= "Nyame Helm",
-            --body		= "Nyame Mail",
-            --hands		= "Nyame Gauntlets",
-            --legs		= "Nyame Flanchard",
-            --feet		= "Nyame Sollerets",
             head        = "Adhemar Bonnet +1",
             body        = "Ken. Samue +1",
             hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
@@ -158,7 +153,7 @@
         sets.aftercast = {}
         sets.aftercast.TP = { }
         sets.aftercast.TP.Normal = {
-            ammo		= "Aurgelmir Orb +1", -- { name="Coiste Bodhar", augments={'Path: A',}},
+            ammo		= "Aurgelmir Orb +1",
             head		= "Ken. Jinpachi +1",
             body		= "Ken. Samue +1", 
             hands		= "Adhemar Wrist. +1",
@@ -189,11 +184,11 @@
         }
         sets.aftercast.TP.Hybrid = {
             ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
-            head		= "Mpaca's Cap",
+            head		= "Ken. Jinpachi +1",
             body		= "Mpaca's Doublet",
             hands		= "Mpaca's Gloves",
             legs        = "Mpaca's Hose", 
-            feet        = "Mpaca's Boots", 
+            feet        = "Malignance Boots",  -- 4/4
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",

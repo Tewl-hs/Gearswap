@@ -1,14 +1,23 @@
  --[[
 	File: Keanne_SCH.lua 
+
+    Binds:
+        CTRL+F9  - Cycle Idle Sets (Normal/PDT)
+        CTRL+F10 - Toggle Burst Mode (Normal/Burst)
 --]]
 function get_sets()
     include('Mote-Mappings')
+	items = require('resources').items	
 
-	send_command('bind ^f9 gs c toggle burst') 
+	send_command('bind ^f9 gs c cycle idle')
+	send_command('bind ^f10 gs c toggle burst') 
 
     Macro_Book = '7'
     Macro_Page = '1'
     send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)	
+
+	IdleMode = {'Normal', 'PDT'} i = 1
+	CurrentWeapon = ''
 
 	BurstMode = false
 
@@ -18,7 +27,6 @@ function get_sets()
     sets.Impact = {head=empty,body="Twilight Cloak"}
     sets.Dispelga = {main="Daybreak",sub="Ammurapi Shield"}
 
-	
     sets.LightArts = { legs="Acad. Pants +3", feet="Acad. Loafers +3" }
     sets.DarkArts = { body="Acad. Gown +3", feet="Acad. Loafers +3" }
 
@@ -168,8 +176,8 @@ function get_sets()
 		back		= { name="Bookworm's Cape", augments={'INT+1','MND+2','Helix eff. dur. +16','"Regen" potency+10',}},
     })
 
-    sets.aftercast = {}
-    sets.aftercast.Idle = {
+    sets.Idle = {}
+    sets.Idle.Normal = {
 		main		= "Daybreak",
 		sub			= "Ammurapi Shield",
 		ammo		= "Homiliary",
@@ -186,8 +194,17 @@ function get_sets()
 		right_ring	= "Stikini Ring +1",
 		back		= "Fi Follet Cape +1",
     }
-    sets.aftercast.Engaged = { }
-    sets.aftercast.Resting = set_combine(sets.aftercast.Idle, {
+	sets.Idle.PDT =  set_combine(sets.Idle, {
+    	head		= "Bunzi's Hat",
+    	body		= "Bunzi's Robe",
+    	hands		= "Bunzi's Gloves",
+    	legs		= "Bunzi's Pants",
+    	feet		= "Bunzi's Sabots", -- 6
+		neck		= "Loricate Torque +1", -- 6
+		left_ring	= "Defending Ring", -- 10
+    })
+    sets.Engaged = { }
+    sets.Resting = set_combine(sets.Idle, {
         --  Using Idle set for resting, add gear here to make changes
     })
 
@@ -358,20 +375,45 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-    
+	if name == "silence" and gain == "True" then
+		if player.inventory['Echo Drops'] then
+			send_command('@input /item "Echo Drops" <me>')
+		else
+			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+		end
+	end
 end
 
 function equip_check()
-	local eq = {}
+	local eq = sets.Idle.Normal
+	if sets.Idle[IdleMode[i]] then
+		eq = sets.Idle[IdleMode[i]]
+	end
 	if player.status == 'Engaged' then	
-		eq = sets.aftercast.Engaged
-    elseif player.status == 'Resting' then	
-		eq = sets.aftercast.Resting
-	else
-		eq = sets.aftercast.Idle
+		eq = set_combine(eq, sets.Engaged)
 	end
 	equip(eq)
 	update_status()
+end
+
+function equip_change()
+	local ew = get_weapon()
+	if ew ~= CurrentWeapon then -- If weapon changed
+		CurrentWeapon = ew
+		equip_check()
+	end
+end
+
+function get_weapon()
+    local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	if item and items[item['id']] then 
+		if items[item['id']].name ~= 'Gil' then
+			return items[item['id']].name
+        end
+	end
+    return 'Empty'
 end
 
 function self_command(cmd)
@@ -386,6 +428,12 @@ function self_command(cmd)
 			equip_check()
         end
 		update_status()
+	elseif args[1] == 'cycle' and args[2] then
+        if args[2] == 'idle' then
+			i = i + 1 
+			if (table.getn(IdleMode) < i) then i = 1 end
+		end
+		equip_check()
 	elseif args[1] == 'equip_check' then
 		equip_check()
 	elseif args[1] == 'update_status' then
@@ -398,13 +446,22 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
-	local status_text = ''
+
+    CurrentWeapon = get_weapon()
+    local WeaponColor = Colors.Gray
+    
+	if CurrentWeapon ~= 'Empty' then
+		WeaponColor = Colors.White
+	end	
+
+	local status_text = string.format("%s%s%s%s%s", Colors.White, 'Weapon: ', WeaponColor, CurrentWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[i], spc)
 
 	if BurstMode == true then
-		status_text = string.format("%s%s%s%s", 'CastingMode: ',  Colors.Yellow, 'Burst', spc)
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'CastingMode: ',  Colors.Yellow, 'Burst', spc)
 	else
-		status_text = string.format("%s%s%s%s", 'CastingMode: ',  Colors.Blue, 'Normal', spc)
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'CastingMode: ',  Colors.Blue, 'Normal', spc)
 	end
 	stateBox:append(status_text)
 	stateBox:show()
@@ -420,7 +477,9 @@ windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-    
+	if (id == 0x37 or id == 0x1D) then
+		equip_change()
+	end    
 end)
 
 -- Copied from Motes

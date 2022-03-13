@@ -113,11 +113,11 @@ function get_sets()
 	})
     sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, {
         ammo        = "Yetshila +1",
-        --head        = "Hachiya Hatsu. +3", -- { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
-        --body        = "Ken. Samue +1",
-        --hands       = "Mummu Wrists +2", -- { name="Ryuo Tekko +1", augments={'DEX+12','Accuracy+25','"Dbl.Atk."+4',}},
-        --legs        = { name="Mochi. Hakama +3", augments={'Enhances "Mijin Gakure" effect',}},
-        --feet        = "Mummu Gamash. +2", -- { name="Adhe. Gamashes +1", augments={'STR+12','DEX+12','Attack+20',}},
+        head        = "Hachiya Hatsu. +3", -- { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        body        = "Ken. Samue +1",
+        hands       = "Mummu Wrists +2", -- { name="Ryuo Tekko +1", augments={'DEX+12','Accuracy+25','"Dbl.Atk."+4',}},
+        legs        = { name="Mochi. Hakama +3", augments={'Enhances "Mijin Gakure" effect',}},
+        feet        = "Mummu Gamash. +2", -- { name="Adhe. Gamashes +1", augments={'STR+12','DEX+12','Attack+20',}},
         neck        = { name="Ninja Nodowa +2", augments={'Path: A',}},
         left_ear    = "Odr Earring", -- "Cessance Earring", 
         right_ear   = { name="Lugra Earring +1", augments={'Path: A',}},
@@ -132,7 +132,7 @@ function get_sets()
 		body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
 		hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
 		legs        = { name="Mochi. Hakama +3", augments={'Enhances "Mijin Gakure" effect',}},
-		--feet        = { name="Ryuo Sune-Ate +1", augments={'STR+12','DEX+12','Accuracy+20',}},
+		feet        = { name="Ryuo Sune-Ate +1", augments={'STR+12','DEX+12','Accuracy+20',}},
 		neck        = { name="Ninja Nodowa +2", augments={'Path: A',}},
 		waist       = { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear    = "Brutal Earring",
@@ -144,11 +144,11 @@ function get_sets()
     sets.precast.WS['Blade: Ten'] = set_combine(sets.precast.WS, {
 		ammo		= "Aurgelmir Orb +1",
 		--ammo        = { name="Seeth. Bomblet +1", augments={'Path: A',}},
-		--head        = "Hachiya Hatsu. +3",
-		--body        = { name="Agony Jerkin +1", augments={'Path: A',}},
-		--hands       = { name="Mochizuki Tekko +3", augments={'Enh. "Ninja Tool Expertise" effect',}},
-		--legs        = { name="Mochi. Hakama +3", augments={'Enhances "Mijin Gakure" effect',}},
-		--feet        = { name="Mochi. Kyahan +3", augments={'Enh. Ninj. Mag. Acc/Cast Time Red.',}},
+		head        = "Hachiya Hatsu. +3",
+		body        = { name="Agony Jerkin +1", augments={'Path: A',}},
+		hands       = { name="Mochizuki Tekko +3", augments={'Enh. "Ninja Tool Expertise" effect',}},
+		legs        = { name="Mochi. Hakama +3", augments={'Enhances "Mijin Gakure" effect',}},
+		feet        = { name="Mochi. Kyahan +3", augments={'Enh. Ninj. Mag. Acc/Cast Time Red.',}},
 		neck        = { name="Ninja Nodowa +2", augments={'Path: A',}},
 		waist       = { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear    = { name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}},
@@ -229,11 +229,11 @@ function get_sets()
     }
     sets.aftercast.Idle = {  -- 65/61
         ammo        = "Staunch Tathlum +1", -- 3/3
-        head        = "Malignance Chapeau",  -- 6/6
-        body        = "Malignance Tabard",  -- 9/9
-        hands       = "Malignance Gloves",  -- 5/5
-        legs        = "Malignance Tights",  -- 7/7
-        feet        = "Malignance Boots",  -- 4/4
+        head		= "Mpaca's Cap",
+        body		= "Mpaca's Doublet",
+        hands		= "Mpaca's Gloves",
+        legs        = "Mpaca's Hose", 
+        feet        = "Mpaca's Boots", 
         neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
         waist		= "Flume Belt +1", -- 4/0
         left_ear	= "Genmei Earring", -- 2/0

@@ -51,7 +51,7 @@ function get_sets()
         right_ring  = "Stikini Ring +1",
         back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
         waist       = "Isa Belt",
-        feet        = "Bagua Sandals +3"            
+        feet        = "Bagua Sandals +3"
     }
 
     sets.precast = {}
@@ -146,6 +146,7 @@ function get_sets()
         sub         = "Ammurapi Shield",
         neck        = "Incanter's Torque",
         body        = "Vanya Robe",
+        hands       = "Azimuth Gloves +1",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         waist       = "Luminary Sash"
@@ -289,7 +290,7 @@ function get_sets()
     end
     -- Determine what idle set to equip if a luopan is out
     function goIdle()
-        local idleSet = sets.idle
+        local idleSet = sets.idle.DT
         if sets.idle[IdleMode[i]] then 
             idleSet = sets.idle[IdleMode[i]]
         end
