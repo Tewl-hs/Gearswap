@@ -405,7 +405,7 @@ function get_sets()
 	}
 	sets.Idle.PDT = sets.Engaged.PDT
 	sets.Idle.MDT = sets.Engaged.MDT
-	sets.Idle.Hybrid = sets.Engaged.Hybrid7487444
+	sets.Idle.Hybrid = sets.Engaged.Hybrid
 
 	sets.Twilight = { 
 		head		= "Twilight helm",
