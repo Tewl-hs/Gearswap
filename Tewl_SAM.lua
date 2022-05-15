@@ -105,7 +105,7 @@ function get_sets()
     
     -- Gearsets
 	Capes = {} 
-	Capes.TP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',} }
+	Capes.TP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',} }
 	Capes.WS	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
 	Capes.DA	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.RA	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
@@ -185,7 +185,7 @@ function get_sets()
 		head		= { name="Acro Helm", augments={'"Fast Cast"+3',}}, -- 3
 		neck		= "Orunmila's Torque", --5
 		body		= "Sacro Breastplate", -- 10
-		hands		= "Leyline Gloves", -- 7
+		hands		= "Leyline Gloves", -- 7 (8)
 		legs		= "Arjuna Breeches", -- 4
 		feet		= { name="Acro Leggings", augments={'"Fast Cast"+3',}}, -- 3
 		left_ear	= "Loquac. Earring", -- 2
@@ -304,6 +304,13 @@ function get_sets()
 		waist		= "Fotia Belt",
 		back		= Capes.DA,
 	})
+	sets.WS['Impulse Drives'] = set_combine(sets.WS.Normal, { 
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
+	})
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
 		ammo		= "Aurgelmir Orb +1",
@@ -330,7 +337,7 @@ function get_sets()
 		right_ring	= "Regal Earring",
 		right_ear	= "Digni. Earring",
 	})
-	sets.Engaged.PDT = { -- DT 51/32
+	sets.Engaged.PDT = { 
 		ammo		= "Aurgelmir Orb +1",
 		head		= "Mpaca's Cap", -- 7/0
 		body		= "Wakido Domaru +3", -- 8/8
@@ -343,19 +350,31 @@ function get_sets()
 		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring", -- 10/10
 		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP -- 10/0
+		back		= Capes.TP -- 5/5
 	}
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
-		ammo		= "Staunch Tathlum +1", -- 3/3
-		head		= "Mpaca's Cap", -- 7/0
-		body		= "Ken. Samue +1",
-		hands		= "Ken. Tekko +1",
-		legs		= "Ken. Hakama +1",
-		feet		= "Ken. Sune-Ate +1",
-		left_ear	= "Etiolation Earring",
+		ammo		= "Aurgelmir Orb +1",
+		head		= { name="Nyame Helm", augments={'Path: B',}},
+		body		= { name="Mpaca's Doublet", augments={'Path: A',}},
+		hands		= "Wakido Kote +3",
+		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
+		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= "Ioskeha Belt +1",
+		left_ear	= "Telos Earring",
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+		left_ring	= "Chirich Ring +1",
+		right_ring	= "Niqmaddu Ring",
+		--ammo		= "Staunch Tathlum +1", -- 3/3
+		--head		= "Mpaca's Cap", -- 7/0
+		--body		= "Ken. Samue +1",
+		--hands		= "Ken. Tekko +1",
+		--legs		= "Ken. Hakama +1",
+		--feet		= "Ken. Sune-Ate +1",
+		--left_ear	= "Etiolation Earring",
+		--waist		= "Ioskeha Belt +1",
 	})
-	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 3 PDT 42 Haste 26 SB1 27 SB2 10 STP 56
+	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 8 PDT 32 Haste 26 SB1 27 SB2 10 STP 56
 		ammo        = "Staunch Tathlum +1", -- 0 0 3
 		head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
 		body		= "Ken. Samue +1",
@@ -370,12 +389,13 @@ function get_sets()
 		--right_ear	= "Crep. Earring", -- STP 5
 		left_ring   = "Niqmaddu Ring", -- SB2 5
 		right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
-		back        = Capes.TP -- PDT 10 STP 10
+		back        = Capes.TP -- DT 5 STP 10
 	}
 	sets.Engaged.Hybrid = { 
 		ammo		= "Aurgelmir Orb +1",
 		head		= "Flam. Zucchetto +2",
 		body		= "Wakido Domaru +3", -- 8/8
+		--body		= "Mpaca's Doublet",
 		hands		= "Wakido Kote +3",
 		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
 		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
@@ -385,9 +405,10 @@ function get_sets()
 		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring", -- 10/10
 		right_ring  = "Niqmaddu Ring", -- SB2 5
-		back		= Capes.TP -- 10/0
+		back		= Capes.TP -- 5/5
 	}
 	sets.Idle = { }
+
 	sets.Idle.Normal = { -- PDT 20 DT 47 MDT 2 68/49
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
@@ -607,7 +628,10 @@ end
 
 function aftercast(spell,action)
 	if spell.name == 'Tachi: Ageha' then
-		windower.send_command('@timers c "[Ageha] Defense Down " 180 up')
+		windower.send_command('@timers c "Phys. Def. Down" 180 up')
+	end
+	if spell.name == 'Stardiver' then
+		windower.send_command('@timers c "Crit. Def. Down" 60 up')
 	end
 	equip_check()
 end

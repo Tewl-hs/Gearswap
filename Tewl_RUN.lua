@@ -80,6 +80,13 @@ function get_sets()
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
+    sets.Enmity['Foil'] = set_combine(sets.Enmity, {        
+        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
+        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
+        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
+        legs        = "Nyame Flanchard", -- 8 0 0
+        feet        = "Nyame Sollerets", -- 7 0 0
+    })
     sets.Enmity.SIRD = { -- 105%
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 11
@@ -378,10 +385,12 @@ end
     
 function midcast(spell,action)
     if spell.action_type == 'Magic' then
-        if EnmitySpells:contains(spell.name) then
+        if sets.Enmity[spell.name] then
+            equip(sets.Enmity[spell.name])
+        elseif EnmitySpells:contains(spell.name) then
             equip(sets.Enmity)
         elseif BlueSpells:contains(spell.name) then
-            equip(sets.Enmity.SIRD)
+            equip(sets.Enmity.SIRD)            
         elseif sets.midcast[spell.name] then
             equip(sets.midcast[spell.name])
         end

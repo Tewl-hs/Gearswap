@@ -198,7 +198,7 @@
             back		= Capes.TP
         }
         sets.aftercast.Idle = {
-            ammo		= "Staunch Tathlum +1", -- 3/3
+            ammo        = "Staunch Tathlum +1", -- 3/3
             head		= "Mpaca's Cap",
             body		= "Mpaca's Doublet",
             hands		= "Mpaca's Gloves",

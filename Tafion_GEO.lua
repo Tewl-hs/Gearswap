@@ -19,20 +19,15 @@ function get_sets()
         back        = "Nantosuelta's Cape",
         left_ear    = "Moonshade Earring",
         right_ear   = "Loquac. Earring",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring	= "Stikini Ring +1",
+        right_ring	= "Stikini Ring +1",
         waist       = "Fucho-no-Obi",
     }
 
     sets.idle.DT = set_combine(sets.idle, {
-        range       = empty,
-        ammo        = "Staunch Tathlum +1",
         head        = "Nyame Helm",
         body        = "Nyame Mail",
         legs        = "Nyame Flanchard",
-        left_ear    = "Etiolation Earring",
-        right_ear   = "Genmei Earring",
-        left_ring   = "Defending Ring",
     })
 
     sets.luopan = { 
@@ -244,9 +239,9 @@ function get_sets()
     -- Determine what idle set to equip if a luopan is out
     function equip_check()
         if pet.isvalid then
-            equip(set_combine(sets.idle,sets.luopan))
+            equip(set_combine(sets.idle.DT,sets.luopan))
         else
-            equip(sets.idle)
+            equip(sets.idle.DT)
         end
     end
 

@@ -290,7 +290,7 @@ function get_sets()
     end
     -- Determine what idle set to equip if a luopan is out
     function goIdle()
-        local idleSet = sets.idle.DT
+        local idleSet = sets.idle
         if sets.idle[IdleMode[i]] then 
             idleSet = sets.idle[IdleMode[i]]
         end

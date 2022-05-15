@@ -222,6 +222,9 @@ function precast(spell)
         if spell.type == 'BardSong' then 
             Precast = sets.precast.BardSong
         end
+        if string.find(spell.name,'Lullaby') and spell.name:startswith('Horde') then
+            Precast = set_combine(Precast,{range="Daurdabla"})
+        end
         if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
             Precast = set_combine(Precast, Offhand)
         end
@@ -275,16 +278,10 @@ function midcast(spell)
             Midcast = set_combine(Midcast,sets.midcast.Scherzo)
         elseif string.find(spell.name,'March') then
             Midcast = set_combine(Midcast,sets.midcast.March)
-            if spell.name == 'Honor March' then 
-                Midcast = set_combine(Midcast,{range="Marsyas"})
-            end
         elseif string.find(spell.name,'Madrigal') then
             Midcast = set_combine(Midcast,sets.midcast.Madrigal)
         elseif string.find(spell.name,'Lullaby') then
             Midcast = set_combine(Midcast,sets.midcast.Lullaby)
-            if spell.name:startswith('Horde') then
-                Midcast = set_combine(Midcast,{range="Daurdabla"})
-            end
         end
         equip(Midcast)
     end

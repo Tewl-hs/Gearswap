@@ -11,11 +11,14 @@ function get_sets()
 	MndEnf = T{'Silence', 'Paralyze', 'Paralyze II', 'Slow', 'Slow II', 'Addle', 'Addle II', 'Dia', 'Dia II', 'Dia III', 'Frazzle', 'Frazzle II', 'Frazzle III',}
 
 	Capes = {}
-	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
-	Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
+	Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
+	Capes.WSD = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Cure" potency +10%',}}
+	Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
 				
 	sets.precast = {}
-	sets.precast.FastCast = { -- 81
+	sets.precast.FastCast = { -- 101
+		main		= "Crocea Mors", -- 20
 		ammo		= "Sapience Orb", -- 2
 		head		= "Atrophy Chapeau +3", -- 16
 		body		= "Viti, Tabard +3", -- 15
@@ -43,14 +46,42 @@ function get_sets()
         right_ring	= "Epaminondas's Ring",
         waist		= "Fotia Belt",
 	}
+    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
+        neck        = "Anu Torque",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Ishvara Earring",
+        left_ring   = "Epaminondas's Ring",
+		right_ring	= "Karieyh Ring +1",
+		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+        back		= Capes.WSD,
+    })
+	
+	sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, { 
+		ammo		= "Pemphredo Tathlum",
+        head		= "Pixie Hairpin +1",
+        body		= "Amalric Doublet +1",
+        hands		= "Jhakri Cuffs +2",
+        legs		= "Amalric Slops +1",
+        feet		= "Amalric Nails +1",
+        neck		= "Baetyl Pendant",
+        left_ear	= "Malignance Earring",
+        right_ear	= "Regal Earring",
+        left_ring	= "Archon Ring",
+        right_ring	= "Epaminondas's Ring",
+        waist		= "Orpheus's Sash",
+		back		= Capes.INT
+	})
 	
 	sets.midcast = {}	
 	sets.midcast.Cursna = {
 
 	}	
 	sets.midcast.Cure = {	
-		main		= "Daybreak",
-		sub			= "Ammurapi Shield",
 		head		= "Vanya Hood",
 		body		= "Heka's Kalasiris",
 		hands		= "Vanya Cuffs",
@@ -62,14 +93,12 @@ function get_sets()
 		right_ear	= "Mendicant's Earring",
 		left_ring	= { "Naji's Loop", bag="wardrobe4" },
 		right_ring	= { "Lebeche Ring", bag="wardrobe4" },
-		back		= "Solemnity Cape"
+		back		= Capes.MND
 	}
 	sets.midcast.Healing = {
 
 	}
 	sets.midcast.Enfeebling = {
-        main		= "Daybreak",
-        sub			= "Ammurapi Shield",
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",
@@ -90,8 +119,11 @@ function get_sets()
 	sets.midcast.Enfeebling.INT = set_combine(sets.midcast.Enfeebling, { 
 		back		= Capes.INT
 	})
+	sets.midcast.Enfeebling.Sleep = set_combine(sets.midcast.IntEnfeeblesAcc, {
+        neck		= "Dls. Torque +2",
+        left_ring	= "Kishar Ring",
+    })
 	sets.midcast.Enhancing = {	
-        sub			= "Ammurapi Shield",
         head		= "Telchine Cap",
         body		= "Viti. Tabard +3",
         hands       = "Atrophy Gloves +3", -- 10
@@ -103,12 +135,15 @@ function get_sets()
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         --back		= "Ghostfyre Cape",
+		back		= Capes.MND,
         waist		= "Embla Sash",
 	}
 	sets.midcast.Enhancing.Refresh = set_combine(sets.midcast.Enhancing, { 
 		head		= "Amalric Coif +1",
 		body		= "Atrophy Tabard +3",
 		legs		= "Leth. Fuseau +1",
+		waist		= "Gishdubar Sash",
+        back		= "Grapevine Cape"
 	})
 	sets.midcast.Enhancing.Phalanx = set_combine(sets.midcast.Enhancing, { 
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
@@ -116,7 +151,7 @@ function get_sets()
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
 	})
-	sets.midcast.Aquaveil = set_combine(sets.midcast.Enhancing, {
+	sets.midcast.Enhancing.Aquaveil = set_combine(sets.midcast.Enhancing, {
         ammo		= "Staunch Tathlum +1",
         head		= "Amalric Coif +1",
         --hands		= "Regal Cuffs",
@@ -124,6 +159,10 @@ function get_sets()
         left_ring	= "Freke Ring",
         right_ring	= "Evanescence Ring",
         --waist		= "Emphatikos Rope",
+    })
+	sets.midcast.Enhancing.Stoneskin = set_combine(sets.midcast.EnhancingDuration, {
+        neck		= "Nodens Gorget",
+        waist		= "Siegel Sash",
     })
 	sets.midcast.Elemental = {
 		ammo		= "Ghastly Tathlum +1",
@@ -148,21 +187,22 @@ function get_sets()
 	}
 	sets.aftercast = {}
 	sets.aftercast.Engaged = {
-        ammo		= "Coiste Bodhar",
+        ammo		= "Aurgelmir Orb +1",
         head		= "Malignance Chapeau",
         body		= "Malignance Tabard",
         hands		= "Malignance Gloves",
         legs		= "Malignance Tights",
-        feet		= "Carmine Greaves +1",
+        feet		= "Malignance Boots",
         neck		= "Anu Torque",
         left_ear	= "Sherida Earring",
         right_ear	= "Telos Earring",
-        left_ring	= "Chirich Ring +1",
+        left_ring	= "Ilabrat Ring",
         right_ring	= "Chirich Ring +1",
         waist		= "Sailfi Belt +1",
+		back		= Capes.DW
 	}
 	sets.aftercast.Idle = {
-		main		= "Daybreak",
+		main		= "Crocea Mors",
 		sub			= "Ammurapi Shield",
 		ammo		= "Homiliary",
 		head		= "Viti. Chapeau +3",
@@ -185,6 +225,12 @@ function precast(spell)
 		if sets.precast.JA[spell.english] then
 			equip(sets.precast.JA[spell.english])
 		end
+    elseif spell.type == 'WeaponSkill' then
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
+        else
+            equip(sets.precast.WS)
+        end
 	elseif spell.action_type == 'Magic' then
         if buffactive.Silence then
             cancel_spell()
@@ -215,7 +261,9 @@ function midcast(spell,action)
 				end
 			end
 		elseif spell.skill == 'Enfeebling Magic' then
-			if IntEnf:contains(spell.name) then
+			if spell.name:startswith('Sleep') then
+				equip(sets.midcast.Enfeebling.Sleep)
+			elseif IntEnf:contains(spell.name) then
 				if sets.midcast.Enfeebling.INT[spell.name] then
 					equip(sets.midcast.Enfeebling.INT[spell.name])
 				else
@@ -235,10 +283,12 @@ function midcast(spell,action)
 				end
 			end
 		elseif spell.skill == 'Enhancing Magic' then
-			if sets.midcast.Enhancing[spell.name] then
-				equip(sets.midcast.Enhancing[spell.name])
-			elseif spell.name:startswith('Refresh') then
+			if spell.name:startswith('Refresh') and spell.target.type == 'SELF' then
 				equip(sets.midcast.Enhancing.Refresh)
+			elseif spell.name:startswith('Phalanx') and spell.target.type == 'SELF' then
+				equip(sets.midcast.Enhancing.Phalanx)
+			elseif sets.midcast.Enhancing[spell.name] then
+				equip(sets.midcast.Enhancing[spell.name])
 			else
 				equip(sets.midcast.Enhancing)
 			end
