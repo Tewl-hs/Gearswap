@@ -131,7 +131,7 @@ function get_sets()
 		hands		= "Kaykaus Cuffs +1",
 		back		= "Alaunus's Cape",
 		waist		= "Austerity Belt",
-		left_ring	= "Janniston Ring +-1",
+		left_ring	= "Janniston Ring +1",
 		right_ring	= "Naji's Loop",
 		legs		= "Ebers Pantaloons +1",
 		feet		= "Piety duckbills +3"

@@ -1,4 +1,4 @@
-function get_sets()  
+  function get_sets()  
     -- Start of Personal Settings --  
     Macro_Book = '17'
     Macro_Page = T{
@@ -56,7 +56,7 @@ function get_sets()
     sets.precast.JA = {
         ['Astral Flow'] = {head="Glyphic Horn +3"},
         ['Elemental Siphon'] = {
-            main        = "Espiritus",
+            main        = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}},
             sub         = "Vox Grip",
             ammo        = "Esper Stone +1",
             --head        = "Telchine Cap", -- "Elemental Siphon"
@@ -65,14 +65,14 @@ function get_sets()
             --legs        = "Telchine Braconi", -- "Elemental Siphon"
             feet        = "Beck. Pigaches +1",
             neck        = "Incanter's Torque",
-            left_ear    = "Andoaa Earring",
+            left_ear    = "Lodurr Earring",
             right_ear   = "Gifted Earring",
             left_ring   = "Evoker's Ring",
             right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-            --waist       = "Kobo Obi",
+            waist       = "Kobo Obi",
             back        = "Conveyance Cape",
         },
-        ['Mana Cede'] = {hands="Beckoner's Bracers"},
+        ['Mana Cede'] = {hands="Beck. Bracers +1"},
     }
 
     sets.precast.FC = { -- 80
@@ -90,22 +90,22 @@ function get_sets()
         waist       = "Embla Sash", -- 5
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}}, -- 10
     }
-    sets.precast.BloodPact = {
-        main        = "Nirvana",
-        sub         = "Elan Strap +1",
-        ammo        = "Sancus Sachet +1",
-        head        = "Beckoner's Horn +1",
-        body        = "Con. Doublet +3",
-        hands       = "Glyphic Bracers +3",		
-        legs        = "Baayami Slops",
-        feet        = "Baayami Sabots +1",
-        neck        = "Caller's Pendant",
-        left_ear    = "Evan's Earring",
-        right_ear   = "Andoaa Earring",
-        left_ring   = "Evoker's Ring",
-        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-        waist       = "Lucidity Sash",		
-        back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}},
+    sets.precast.BloodPact = { -- Skill 201/BPD I 15/BPD II 11
+        main        = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}}, -- 15/0/2
+        sub         = "Vox Grip", -- 3/0/0
+        ammo        = "Sancus Sachet +1", --0/0/7
+        head        = "Beckoner's Horn +1", -- 13/0/0
+        body        = "Baayami Robe", -- 32/0/0
+        hands       = "Glyphic Bracers +3",	-- 23/8/0
+        legs        = "Baayami Slops", -- 30/7/0
+        feet        = "Baayami Sabots +1", -- 29/0/0
+        neck        = "Incanter's Torque", -- 10/0/0
+        left_ear    = "Lodurr Earring", -- 5/0/0
+        right_ear   = "C. Palug Earring", -- 5/0/0
+        left_ring   = "Evoker's Ring", -- 10/0/0
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1}, -- 8/0/0
+        waist       = "Kobo Obi", -- 8/0/0
+        back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}}, -- 10/0/2
     }
     sets.precast.WS = {}
     sets.precast.WS['Garland of Bliss'] = {
@@ -131,7 +131,6 @@ function get_sets()
     }
     -- Cure potency 
     sets.midcast.Cure = {
-        main        = "Daybreak",
         ammo        = "Hydrocera",
         head        = "Vanya Hood",
         neck        = "Nodens Gorget",
@@ -170,19 +169,24 @@ function get_sets()
         sub         = "Elan Strap +1",
         ammo        = "Sancus Sachet +1",
         head        = { name="Apogee Crown +1", augments={'Pet: Attack+25','Pet: "Mag.Atk.Bns."+25','Blood Pact Dmg.+8',}},
-        body        = "Con. Doublet +3",
+        body        = "Glyphic Doublet +3",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Accuracy+15 Pet: Rng. Acc.+15','Blood Pact Dmg.+10','Pet: STR+7','Pet: Mag. Acc.+10',}},
         legs        = { name="Apogee Slacks +1", augments={'Pet: STR+20','Blood Pact Dmg.+14','Pet: "Dbl. Atk."+4',}},
         feet        = "Convo. Pigaches +3",
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Incarnation Sash",
         left_ear    = "Lugalbanda Earring",
-        right_ear   = "Gelos Earring",
-        left_ring   = "Varar Ring +1",
+        right_ear   = "Kyrene's Earring",
+        left_ring   = "Cath Palug Ring",
         right_ring  = "Varar Ring +1",
         back        = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
-
     }
+    sets.midcast.PhysicalBP.AM3 = set_combine(sets.midcast.PhysicalBP, {
+        body        = "Con. Doublet +3",
+        left_ring   = "Varar Ring +1",
+        right_ear   = "Gelos Earring",
+        feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: Attack+35','Blood Pact Dmg.+8',}}
+    })
 
     sets.midcast.MagicalBP = {
         main        = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: VIT+6','Pet: Mag. Acc.+22','Pet: "Mag.Atk.Bns."+13','DMG:+15',}},
@@ -203,7 +207,7 @@ function get_sets()
     }
     
     sets.midcast.PetBuff = {
-        main        = "Espiritus",
+        main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
         sub         = "Vox Grip",
         ammo        = "Sancus Sachet +1",
         head        = "Beckoner's Horn +1",
@@ -212,7 +216,7 @@ function get_sets()
         legs        = "Baayami Slops",
         feet        = "Baayami Sabots +1",
         neck        = "Incanter's Torque",
-        --waist       = "Kobo Obi",
+        waist       = "Kobo Obi",
         left_ear    = "Andoaa Earring",
         right_ear   = "Gifted Earring",
         left_ring   = "Evoker's Ring",
@@ -221,7 +225,7 @@ function get_sets()
     }
 
     sets.midcast.PetDebuff = {
-        main        = "Espiritus",
+        main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
         sub         = "Vox Grip",
         ammo        = "Sancus Sachet +1",
         head        = "Beckoner's Horn +1",
@@ -230,7 +234,7 @@ function get_sets()
         legs        = "Baayami Slops",
         feet        = "Baayami Sabots +1",
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
-        --waist       = "Kobo Obi",
+        waist       = "Kobo Obi",
         left_ear    = "Andoaa Earring",
         right_ear   = "Enmerkar Earring",
         left_ring   = "Evoker's Ring",
@@ -243,24 +247,16 @@ function get_sets()
         main        = "Nirvana",
         sub         = "Oneiros Grip",
         ammo        = "Sancus Sachet +1",
-        --head        = "Convoker's Horn +3",
-    	--body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
-        --hands       = { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
-        --legs        = "Assid. Pants +1",
-    	--feet		= "Baaya. Sabots +1",
+        head        = "Convoker's Horn +3",
+    	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+        hands       = { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
+        legs        = "Assid. Pants +1",
+    	feet		= "Baaya. Sabots +1",
         neck        = "Smn. Collar +2",
         waist       = "Fucho-no-Obi",
         left_ear    = "C. Palug Earring",
         right_ear   = "Etiolation Earring",
-        --left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
-        
-        head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Nyame Gauntlets",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
-        left_ring	= "Defending Ring",
-        
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},        
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Moonlight Cape",
     }
@@ -276,24 +272,16 @@ function get_sets()
         main        = "Nirvana",
     	sub		    = "Elan Strap +1",
     	ammo		= "Sancus Sachet +1",
-    	--head		= "Glyphic Horn +3",
-    	--body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
-    	--hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
-    	--legs		= "Assid. Pants +1",
-    	--feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+    	head		= "Glyphic Horn +3",
+    	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
+    	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
+    	legs		= "Assid. Pants +1",
+    	feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
     	neck		= "Caller's Pendant",
-    	waist		= "Klouskap Sash +1",
+    	waist		= "Regal Belt",
     	left_ear	= "C. Palug Earring",
     	right_ear	= "Evans Earring",
-    	--left_ring	= "Evoker's Ring",
-        
-        head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Nyame Gauntlets",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
-        left_ring	= "Defending Ring",
-        
+    	left_ring	= "Evoker's Ring",        
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
     	back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
     }
@@ -307,6 +295,7 @@ function get_sets()
     })
     sets.aftercast.Avatar.Engaged = set_combine(sets.aftercast.Avatar,{
         neck        = "Shulmanu Collar",
+    	waist		= "Klouskap Sash +1",
     })
     sets.aftercast.Avatar.Engaged.DT = set_combine(sets.aftercast.Avatar.DT,{
         neck        = "Shulmanu Collar",
@@ -332,7 +321,7 @@ function get_sets()
     end
     
     function precast(spell)
-        if pet_midaction() or spell.type=="Item" then
+        if (pet.isvalid and pet_midaction() and not spell.type=="SummonerPact") or spell.type=="Item" then
             return
         end
         if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
@@ -347,7 +336,11 @@ function get_sets()
                     if MagicalBloodPactRage:contains(spell.name) then
                         equip(sets.midcast.MagicalBP)
                     else
-                        equip(sets.midcast.PhysicalBP)
+                        if buffactive["Aftermath: Lv.3"] then
+                            equip(sets.midcast.PhysicalBP.AM3)
+                        else
+                            equip(sets.midcast.PhysicalBP)
+                        end
                     end
                 end
             else
@@ -373,7 +366,7 @@ function get_sets()
     end
     
     function midcast(spell)
-        if pet_midaction() or spell.type=="Item" then
+        if (pet.isvalid and pet_midaction()) or spell.type=="Item" then
             return
         end
         if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
@@ -405,8 +398,9 @@ function get_sets()
     end
     
     function pet_change(pet,gain)
-        if gain == true and Macro_Page[pet.name] then
-            send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page[pet.name])
+        if gain == true then
+            if Macro_Page[pet.name] then send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page[pet.name]) end
+            if not buffactive["Avatar's Favor"] then send_command('wait 2;input /pet "Avatar\'s Favor" <me>') end
             if autoward ~= false then send_command('wait 3;gs c queue_ward') end
         else
             add_to_chat(8,pet.name..' has been released or died.')
@@ -430,14 +424,18 @@ function get_sets()
             if MagicalBloodPactRage:contains(spell.name) then
                 equip(sets.midcast.MagicalBP)
             else
-                equip(sets.midcast.PhysicalBP)
+                if buffactive["Aftermath: Lv.3"] then
+                    equip(sets.midcast.PhysicalBP.AM3)
+                else
+                    equip(sets.midcast.PhysicalBP)
+                end
             end
         end
     end
     
     function pet_aftercast(spell)
         equip_aftercast()
-        windower.add_to_chat(8,'Pet finished ability: '..spell.name) 
+        --windower.add_to_chat(8,'Pet finished ability: '..spell.name) 
         if autoward ~= false then
             aw = aw + 1
             if aw > awc then aw = 1 end

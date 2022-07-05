@@ -85,7 +85,7 @@ function get_sets()
 		head		= "Vanya Hood",
 		body		= "Heka's Kalasiris",
 		hands		= "Vanya Cuffs",
-		legs		= "Atrophy Tights +2",
+		legs		= "Atrophy Tights +3",
 		feet		= "Vanya Clogs",
 		neck		= "Nodens Gorget",
 		waist		= "Othila Sash",
@@ -113,8 +113,12 @@ function get_sets()
 		waist		= "Obstin. Sash",
 		back		= Capes.MND
 	}
+	sets.midcast.Enfeebling.Dispel = set_combine(sets.midcast.IntEnfeeblesAcc, {
+        neck		= "Dls. Torque +2",
+        left_ring	= "Kishar Ring",
+    })
 	sets.midcast.Enfeebling.MND = set_combine(sets.midcast.Enfeebling, { 
-		back		= Capes.MND
+		back		= "Aurist's Cape +1",
 	})
 	sets.midcast.Enfeebling.INT = set_combine(sets.midcast.Enfeebling, { 
 		back		= Capes.INT
@@ -218,6 +222,13 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
 		back		= "Solemnity Cape"
 	}
+	sets.aftercast.DT = set_combine(sets.aftercast.Idle, {		
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
+	})
 end
 
 function precast(spell)
@@ -263,6 +274,8 @@ function midcast(spell,action)
 		elseif spell.skill == 'Enfeebling Magic' then
 			if spell.name:startswith('Sleep') then
 				equip(sets.midcast.Enfeebling.Sleep)
+			elseif spell.name:startswith('Dispel') then
+				equip(sets.midcast.Enfeebling.Dispel)
 			elseif IntEnf:contains(spell.name) then
 				if sets.midcast.Enfeebling.INT[spell.name] then
 					equip(sets.midcast.Enfeebling.INT[spell.name])

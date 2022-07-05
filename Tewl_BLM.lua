@@ -6,7 +6,7 @@ function get_sets()
 
 	send_command('bind ^f9 gs c toggle burst') 
 
-    Macro_Book = '2'
+    Macro_Book = '3'
     Macro_Page = '1'
     send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
 
@@ -48,7 +48,7 @@ function get_sets()
 
     sets.midcast = {}
     sets.midcast['Elemental Magic'] = {
-        main        = "Daybreak",
+        main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo        = "Pemphredo Tathlum",
         head        = "Arch. Petasos +3",
@@ -114,7 +114,7 @@ function get_sets()
         body        = "Jhakri Robe +2",
     	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
         legs        = "Assid. Pants +1",
-        feet        = "Inspirited Boots",
+        feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
         neck        = "Loricate Torque +1",
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",

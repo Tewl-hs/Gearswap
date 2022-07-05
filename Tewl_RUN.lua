@@ -12,7 +12,7 @@ function get_sets()
 	items = require('resources').items
 
     -- Personal settings: Load macros and set equipviewer position
-    send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 20')
+    send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 14')
     send_command('input //equipviewer pos 1663 934')
 
     EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'DT', 'Hybrid'} 
@@ -138,12 +138,37 @@ function get_sets()
         ['One For All'] = set_combine(sets.Enmity,{}),
         ['Provoke'] = set_combine(sets.Enmity, {}),
         ['Warcry'] = set_combine(sets.Enmity, {}),
-        ['Defender'] = set_combine(sets.Enmity, {}),
-        ['Berserk'] = set_combine(sets.Enmity, {}),
-        ['Last Resort'] = set_combine(sets.Enmity, {}),
-        ['Aggressor'] = set_combine(sets.Enmity, {}),
         ['Animated Flourish'] = set_combine(sets.Enmity, {}),    
-        ['Lunge'] = { }
+        ['Swipe'] = { 
+            ammo        = "Seeth. Bomblet +1",
+            head        = "Agwu's Cap",
+            body        = "Samnuha Coat",
+            hands       = "Agwu's Gages",
+            legs        = "Agwu's Slops",
+            feet        = "Agwu's Pigaches",
+            neck        = "Baetyl Pendant",
+            waist       = "Orpheus's Sash",
+            left_ear    = "Friomisi Earring",
+            right_ear   = "Hermetic Earring",
+            left_ring   = "Mujin Band",
+            right_ring  = "Locus Ring",
+            --back        = Capes.MAB
+        },
+        ['Lunge'] = { 
+            ammo        = "Seeth. Bomblet +1",
+            head        = "Agwu's Cap",
+            body        = "Samnuha Coat",
+            hands       = "Agwu's Gages",
+            legs        = "Agwu's Slops",
+            feet        = "Agwu's Pigaches",
+            neck        = "Baetyl Pendant",
+            waist       = "Orpheus's Sash",
+            left_ear    = "Friomisi Earring",
+            right_ear   = "Hermetic Earring",
+            left_ring   = "Mujin Band",
+            right_ring  = "Locus Ring",
+            --back        = Capes.MAB
+        },   
     }
     sets.precast.WS = {
         sub         = "Utu Grip",
@@ -157,10 +182,21 @@ function get_sets()
         waist       = "Fotia Belt",
         left_ear    = "Moonshade Earring",
         right_ear   = "Sherida Earring",
-        left_ring   = "Epona's Ring",
+        left_ring   = "Ilabrat Ring",
         right_ring  = "Karieyh Ring +1",
         back        = Capes.DA
     }
+    sets.precast.WS['Dimidiation'] = set_combine(sets.precast.WS,{
+		ammo        = "Knobkierrie",
+		head        = "Nyame Helm",
+		body        = "Nyame Mail",
+		hands       = "Nyame Gauntlets",
+		legs        = "Nyame Flanchard",
+		feet        = "Nyame Sollerets",
+		right_ring  = "Niqmaddu Ring",
+		waist       = "Sailfi Belt +1",
+		--back      = Capes.WSD,
+    })
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
         ammo        = "Seeth. Bomblet +1",
         head        = { name="Lustratio Cap +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
@@ -186,11 +222,21 @@ function get_sets()
         left_ear    = "Telos Earring",
         right_ear   = "Digni. Earring",
     })
+    sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS,{
+        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
+        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
+        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
+        legs        = "Nyame Flanchard", -- 8 0 0
+        feet        = "Nyame Sollerets", -- 7 0 0
+        waist       = "Kentarch Belt +1",
+        left_ear    = "Telos Earring",
+        right_ear   = "Digni. Earring",
+    })
     sets.midcast = {}
     sets.midcast['Enhancing Magic'] = {
-        head="Erilaz Galea +1",
-        hands="Regal Gauntlets",
-        legs="Futhark Trousers +3",
+        head        = "Erilaz Galea +1",
+        hands       = "Regal Gauntlets",
+        legs        = "Futhark Trousers +3",
     }
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
         sub         = "Utu Grip",
@@ -216,16 +262,23 @@ function get_sets()
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
         body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
-        hands       = "Turms Mittens +1",
+        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
         legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Turms Leggings +1",
-        neck        = "Futhark torque +2", -- 7 0 0
-        waist       = "Engraved Belt",
-        left_ear    = "Eabani Earring",
+        feet        = "Nyame Sollerets", -- 7 0 0
+        -- Ongo cahnges
+        neck        = "Warder's Charm +1",
+        waist       = "Ioskeha Belt +1",
+        left_ear    = "Brutal Earring",
+        back        = Capes.DA,
+        -- Normal equipment
+        --neck        = "Futhark torque +2", -- 7 0 0
+        --waist       = "Engraved Belt",
+        --left_ear    = "Eabani Earring",
         right_ear   = "Odnowa Earring +1", -- 3 0 2
-        left_ring   = "Defending Ring", -- 10 0 0
+        left_ring   = "Shadow Ring",
+        --left_ring   = "Defending Ring", -- 10 0 0
         right_ring  = "Moonlight Ring", -- 5 0 0
-        back        = Capes.Enmity -- 5 0 0
+        --back        = Capes.Enmity -- 5 0 0
     }
     sets.aftercast.Engaged.DTLite = {
         sub         = "Utu Grip",
@@ -239,23 +292,31 @@ function get_sets()
 		waist       = "Ioskeha Belt +1",
 		left_ear    = "Telos Earring",
 		right_ear   = "Sherida Earring",
-        left_ring   = "Defending Ring",
+        left_ring   = "Regal Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.DA
     }
     sets.aftercast.Engaged.Hybrid = { -- DT 33 PDT 25
         sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
-        head        = "Turms Cap +1",
-        body        = "Runeist's Coat +3",
-        hands       = "Turms Mittens +1",
+
+        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
+        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
+        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
         legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Turms Leggings +1", 
-        neck        = "Futhark torque +2", -- 7 0 0
+        feet        = "Nyame Sollerets", -- 7 0 0
+        neck        = "Anu Torque",
+
+        --head        = "Turms Cap +1",
+        --body        = "Runeist's Coat +3",
+        --hands       = "Turms Mittens +1",
+        --legs        = "Nyame Flanchard", -- 8 0 0
+        --feet        = "Turms Leggings +1", 
+        --neck        = "Futhark torque +2", -- 7 0 0
 		waist       = "Ioskeha Belt +1",
 		left_ear    = "Telos Earring",
 		right_ear   = "Sherida Earring",
-        left_ring   = "Defending Ring", -- 10 0 0
+        left_ring   = "Regal Ring", -- 10 0 0
         right_ring  = "Niqmaddu Ring",
         back        = Capes.DA -- 5 0 0
     }
@@ -398,6 +459,12 @@ function midcast(spell,action)
 end
     
 function aftercast(spell,action)
+	if spell.name == 'Rayke' then
+		windower.send_command('@timers c "Rayke" 35 up')
+	end
+	if spell.name == 'Gambit' then
+		windower.send_command('@timers c "Gambit" 76 up')
+	end
     if player.status == 'Engaged' then
         equip(get_engaged_set())
     else

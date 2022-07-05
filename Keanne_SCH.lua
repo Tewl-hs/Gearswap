@@ -195,13 +195,12 @@ function get_sets()
 		back		= "Fi Follet Cape +1",
     }
 	sets.Idle.PDT =  set_combine(sets.Idle, {
-    	head		= "Bunzi's Hat",
-    	body		= "Bunzi's Robe",
-    	hands		= "Bunzi's Gloves",
-    	legs		= "Bunzi's Pants",
-    	feet		= "Bunzi's Sabots", -- 6
-		neck		= "Loricate Torque +1", -- 6
-		left_ring	= "Defending Ring", -- 10
+	    head        = "Nyame Helm",
+		body        = "Nyame Mail",
+		hands       = "Nyame Gauntlets",
+		legs        = "Nyame Flanchard",
+		feet        = "Nyame Sollerets", 
+		neck		= "Loricate Torque +1",
     })
     sets.Engaged = { }
     sets.Resting = set_combine(sets.Idle, {

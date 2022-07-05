@@ -42,7 +42,7 @@ function get_sets()
     })
 
     sets.luopan = { 
-        main        = "Idris", -- Solstice: Pet: Regen -3, DT +1
+        main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         ammo        = empty,
         head        = "Azimuth Hood +1",
@@ -92,6 +92,18 @@ function get_sets()
     sets.precast.JA['Radial Arcana'] = {
         feet        = "Bagua Sandals +3"
     }
+    sets.precast.WS = {
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
+        waist       = "Grunfeld Rope",
+        left_ear    = "Moonshade Earring",
+        right_ear   = "Ishvara Earring",
+		left_ring	= "Epaminondas's Ring",
+		right_ring	= "Karieyh Ring +1",
+    }
 
     
     sets.midcast = {} -- 505+449
@@ -133,6 +145,11 @@ function get_sets()
         back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
         waist       = "Eschan Stone",        
     } 
+    sets.midcast['Elemental Magic'].Impact = set_combine(sets.midcast['Elemental Magic'], {
+        head        = empty,
+        body        = "Twilight Cloak"
+    })
+
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
         head		= "Ea Hat +1",
         body		= "Ea Houppe. +1",
@@ -198,14 +215,6 @@ function get_sets()
         legs        = "Vanya Slops",
         feet        = "Vanya Clogs"         
     }
-
-    sets.Engaged = {
-
-    }
-
-    sets.WS = {
-
-    }
     end
 
     function file_unload()  
@@ -234,14 +243,21 @@ function get_sets()
                 end
                 return
             end
-            
             if spell.english:startswith('Cure') then
                 equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
             end
             if spell.english == 'Dispelga' then
                 equip(set_combine(sets.precast.FC,{main="Daybreak"}))
+            elseif spell.name == 'Impact' then
+                equip(sets.precast.FC,sets.midcast['Elemental Magic'].Impact)
             else
                 equip(sets.precast.FC)
+            end
+        elseif spell.type == 'WeaponSkill' then
+            if sets.precast.WS[spell.english] then
+                equip(sets.precast.WS[spell.english])
+            else
+                equip(sets.precast.WS)
             end
         end
     end
@@ -249,7 +265,7 @@ function get_sets()
     function midcast(spell)
         if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
             if sets.midcast[spell.english] then
-                    equip(sets.midcast[spell.english])
+                equip(sets.midcast[spell.english])
             elseif sets.midcast[spell.skill] then
                 equip(sets.midcast[spell.skill])
             end
@@ -257,6 +273,8 @@ function get_sets()
         if sets.midcast[spell.skill] then
            if spell.skill == 'Geomancy' and spell.name:startswith('Indi-') then
                 equip(sets.midcast[spell.skill].Indi)
+           elseif spell.name == 'Impact' then
+                equip(sets.midcast[spell.skill].Impact)
            else
                 equip(sets.midcast[spell.skill])
            end
@@ -290,7 +308,7 @@ function get_sets()
     end
     -- Determine what idle set to equip if a luopan is out
     function goIdle()
-        local idleSet = sets.idle
+        local idleSet = sets.idle.DT
         if sets.idle[IdleMode[i]] then 
             idleSet = sets.idle[IdleMode[i]]
         end

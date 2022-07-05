@@ -278,6 +278,9 @@ function midcast(spell)
             Midcast = set_combine(Midcast,sets.midcast.Scherzo)
         elseif string.find(spell.name,'March') then
             Midcast = set_combine(Midcast,sets.midcast.March)
+            if spell.name == 'Honor March' then
+                Midcast = set_combine(Midcast, {range="Marsyas"})
+            end
         elseif string.find(spell.name,'Madrigal') then
             Midcast = set_combine(Midcast,sets.midcast.Madrigal)
         elseif string.find(spell.name,'Lullaby') then

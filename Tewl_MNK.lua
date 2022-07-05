@@ -184,11 +184,11 @@
         }
         sets.aftercast.TP.Hybrid = {
             ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
-            head		= "Ken. Jinpachi +1",
+            head		= "Mpaca's Cap",
             body		= "Mpaca's Doublet",
             hands		= "Mpaca's Gloves",
             legs        = "Mpaca's Hose", 
-            feet        = "Malignance Boots",  -- 4/4
+            feet        = "Malignance Boots", 
             neck		= "Mnk. Nodowa +2",
             waist		= "Moonbow Belt +1",
             left_ear	= "Sherida Earring",

@@ -1,121 +1,51 @@
- --[[
-	Author: Tewl / Bismark
-	Files: Tewl_SAM.lua 
-
-	Note:
-		I assembled this lua. Mostly written by me but portions taking from other's work such as Motes/Selindriles as well as posts found on forums.
-		This lua was written for my SAM and based on the gear I have and how I wanted to use that gear. However I have been trying to make it easy for
-		other people to edit/use if they like. If you run across any bugs let me know and I will sort this ASAP.
-
-	Binds
-	ALT+F9   : Toggle Mainhand weapon ('Empyrean', 'Mythic', 'Relic', 'Aeonic', 'Polearm')
-	ALT+F10  : Toggle SkillChain Mode
-	ATL+F11	 : Toggle Accuracy Mode
-	ALT+F12  : Toggle Auto Hasso (Enabled by default)
-
-	WIN+A	 : Equip Dojikiri Yasutsuna
-	WIN+E	 : Equip Masamune
-	WIN+M	 : Equip Kogarasumaru
-	WIN+P	 : Equip Shining One
-	WIN+R	 : Equip Amanomurakumo
-
-	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)
-	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
-	CTRL+F11 : Toggle Ranged Mode (Disabled by default)
-	CTRL+F12 : Toggle Twilight (Disabled by default)
---]]
-require('vectors')
 
 function get_sets()
 	items = require('resources').items
-
-	range_mult = {
-        [0] = 0,
-        [2] = 1.70,
-        [3] = 1.490909,
-        [4] = 1.44,
-        [5] = 1.377778,
-        [6] = 1.30,
-        [7] = 1.20,
-        [8] = 1.30,
-        [9] = 1.377778,
-        [10] = 1.45,
-        [11] = 1.490909,
-        [12] = 1.70,
-    }
+    
+    include('FFXI-Mappings')
+	
+    include('FFXI-Utility')
 
 	send_command("bind @e input //gs equip sets.Weapons['Masamune']")
 	send_command("bind @m input //gs equip sets.Weapons['Kogarasumaru']")
 	send_command("bind @r input //gs equip sets.Weapons['Amanomurakumo']")
 	send_command("bind @a input //gs equip sets.Weapons['Dojikiri Yasutsuna']")
 	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
-	send_command('bind !f9 gs c cycle weapon')
-	send_command('bind !f10 gs c toggle autows') 
-	send_command('bind !f11 gs c toggle wsacc')
-	send_command('bind !f12 gs c toggle autohs')
+
+	send_command('bind !f9 gs c toggle autohs')
+	send_command('bind !f10 gs c toggle autosc') 
+	send_command('bind !f11 gs c toggle acc')
+	send_command('bind !f12 gs c toggle ranged')
+
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
-	send_command('bind ^f11 gs c toggle ranged') 
-	send_command('bind ^f12 gs c toggle twilight')
+	send_command('bind ^f11 gs c toggle twilight')
 
-	--  Load Macros and set equipviewer position. Remove or alter these 2 lines for your own preferences
-	send_command('input /macro book 15;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 1') -- Sets Macro set and lockstyle
-	send_command('input //equipviewer pos 1663 935') -- Repositions my equipviewer
-	
-	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
-	EngagedMode = {'Normal', 'PDT', 'MDT', 'Subtle Blow', 'Hybrid'}
-	e = 1 -- Which set for initial setup in array.
-	IdleMode = {'Normal', 'PDT', 'MDT'}
-	i = 1
-	Weapons = T{'Masamune', 'Kogarasumaru', 'Amanomurakumo', 'Dojikiri Yasutsuna', 'Shining One'}
-	w = 1
-
-	Colors = {
-		Yellow = '\\cs(255,192,0)',
-		Red = '\\cs(255,80,80)',
-		Green = '\\cs(110,255,110)',
-		Blue = '\\cs(140,160,255)',
-		Gray = '\\cs(96,96,96)',
-		White = '\\cs(255,255,255)'
-	}
-
-	CurrentWeapon = 'Masamune'
-	WeaponColor = Colors.Red
-
-	Weapon = { 
-		['Masamune'] = { Color = Colors.Red },
-		['Kogarasumaru'] = { Color = Colors.Blue },
-		['Amanomurakumo'] = { Color	= Colors.Yellow },
-		['Dojikiri Yasutsuna'] = { Color = Colors.Green },
-		['Shining One'] = { Color = Colors.White }
-	}
-
-	range_mode = false
-	lock_twilight = false
-	acc_mode = false
-	auto_hasso = true
-	
-	-- Initial setup variables
-	AWSEnabled = false
-	AutoWS = 'Tachi: Enpi' -- Dummy Weaponskill
-	WeaponSkills = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'} -- Skillchain order
-	ws_order = 1 -- Don't change this
-	last_target = nil
+	load_macros()
+	send_command('wait 1.5;input /lockstyleset 1')
+	send_command('input //equipviewer pos 1663 935') 
     
-    -- Gearsets
+    --
+    CurrentWeapon = "Masamune"
+
+    RangedWeapon = "Yoichinoyumi"
+    RangedAmmo = "Yoichi's Arrow"
+
+    -- Augmented Ambuscade Capes
 	Capes = {} 
 	Capes.TP	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',} }
 	Capes.WS	= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
 	Capes.DA	= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.RA	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
 	Capes.RWS	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
-	Capes.EWS	= { name="Smertrios's Mantle", augments={'STR+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
+	Capes.EWS	= { name="Smertrios's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
+	Capes.HWS	= { name="Smertrios's Mantle", augments={'STR+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
 	Capes.Snapshot = { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Snapshot"+10',}}
 	Capes.FC	= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 	Capes.Enmity = { name="Smertrios's Mantle", augments={'HP+60','Enmity+10',}}
-
-	LugraWS = T{'Tachi: Fudo', 'Tachi: Kasha', 'Tachi: Yukikaze', 'Tachi: Gekko', 'Tachi: Shoha', 'Tachi: Kaiten', 'Impulse Drive'}
+	
+	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
 
 	sets.Weapons = {
 		['Masamune'] = {main='Masamune',sub='Utu Grip'},
@@ -180,12 +110,12 @@ function get_sets()
 			back		= Capes.Enmity
 		},
 	}
-	sets.FC = { -- 52%
+	sets.FC = { -- 53%
 		ammo		= "Sapience Orb", -- 2
 		head		= { name="Acro Helm", augments={'"Fast Cast"+3',}}, -- 3
 		neck		= "Orunmila's Torque", --5
 		body		= "Sacro Breastplate", -- 10
-		hands		= "Leyline Gloves", -- 7 (8)
+		hands		= "Leyline Gloves", -- 8
 		legs		= "Arjuna Breeches", -- 4
 		feet		= { name="Acro Leggings", augments={'"Fast Cast"+3',}}, -- 3
 		left_ear	= "Loquac. Earring", -- 2
@@ -205,8 +135,6 @@ function get_sets()
 		back		= Capes.Snapshot
 	}
 	sets.RA = {
-		range		= { name="Yoichinoyumi", augments={'Path: A',}},
-		ammo		= "Yoichi's Arrow",
 		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
 		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
 		hands		= "Wakido Kote +3",
@@ -223,11 +151,11 @@ function get_sets()
 	sets.WS = {}
 	sets.WS.Normal = {
 		ammo		= "Knobkierrie",
-		head		= "Mpaca's Cap",
-		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
-		hands		= "Nyame Gauntlets",
-		legs		= "Wakido Haidate +3",
-		feet		= "Nyame Sollerets",
+		head		= "Mpaca's Cap", -- R25
+		body		= "Nyame Mail", -- R25 { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
+		hands		= "Nyame Gauntlets", -- R25
+		legs		= "Nyame Flanchard", -- R25
+		feet		= "Nyame Sollerets", -- R25
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
@@ -255,8 +183,9 @@ function get_sets()
 	})
 	sets.WS['Tachi: Shoha'].Accuracy = set_combine(sets.WS['Tachi: Shoha'], { })
 	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], {
-		waist		= "Fotia Belt",
-	 })
+		head		= "Nyame Helm",
+		left_ear	= "Lugra Earring +1",
+	})
 	sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
 		head		= "Nyame Helm",
 		body		= "Nyame Mail",
@@ -265,10 +194,16 @@ function get_sets()
 		feet		= "Nyame Sollerets",
 		right_ear	= "Friomisi Earring",
 		waist		= "Orpheus's Sash",
-		back		= Capes.EWS
+		back		= Capes.HWS
 	})
 	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Kagero'] = sets.WS['Tachi: Jinpu']
+	sets.WS['Tachi: Goten'] = sets.WS['Tachi: Jinpu']
+	sets.WS['Aeonlian Edge'] = set_combine(sets.WS['Tachi: Jinpu'],{
+		neck		= "Sibyl Scarf",
+		right_ring	= "Metamor. Ring +1",
+		back		= Capes.EWS
+	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
 		head		= { name="Blistering Sallet +1", augments={'Path: A',}},
@@ -282,10 +217,12 @@ function get_sets()
 		left_ring	= "Metamor. Ring +1",
 		right_ring	= "Stikini Ring +1",
 		waist		= "Eschan Stone",
+		back		= Capes.HWS
 	})		
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
 		head		= "Nyame Helm",
 		body		= "Nyame Mail",
+		legs		= "Wakido Haidate +3",
 		left_ear	= "Telos Earring",
 		right_ear	= "Thrud Earring",
 		left_ring	= "Regal Ring",
@@ -304,7 +241,7 @@ function get_sets()
 		waist		= "Fotia Belt",
 		back		= Capes.DA,
 	})
-	sets.WS['Impulse Drives'] = set_combine(sets.WS.Normal, { 
+	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
 		head		= "Nyame Helm",
 		body		= "Nyame Mail",
 		hands		= "Nyame Gauntlets",
@@ -313,8 +250,7 @@ function get_sets()
 	})
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
-		ammo		= "Aurgelmir Orb +1",
-		--ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
+		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= "Wakido Kote +3",
@@ -326,7 +262,7 @@ function get_sets()
 		right_ear	= "Dedition Earring",
 		left_ring	= "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP
+		back		= { name="Takaha Mantle", augments={'STR+5','"Zanshin"+4','"Store TP"+3',}},
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
@@ -336,21 +272,22 @@ function get_sets()
 		waist		= "Ioskeha Belt +1",
 		right_ring	= "Regal Earring",
 		right_ear	= "Digni. Earring",
+		back		= Capes.TP
 	})
 	sets.Engaged.PDT = { 
-		ammo		= "Aurgelmir Orb +1",
-		head		= "Mpaca's Cap", -- 7/0
-		body		= "Wakido Domaru +3", -- 8/8
+		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
+		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
+		body		= { name="Mpaca's Doublet", augments={'Path: A',}}, 
 		hands		= "Wakido Kote +3",
-		legs		= "Mpaca's Hose",
-		feet		= "Mpaca's Boots",
+		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
+		feet		= { name="Mpaca's Boots", augments={'Path: A',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
-		waist		= "Ioskeha Belt +1", -- 4/0
+		waist		= "Ioskeha Belt +1", 
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
-		left_ring	= "Defending Ring", -- 10/10
+		left_ring	= "Defending Ring",
 		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP -- 5/5
+		back		= Capes.TP
 	}
 	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
 		ammo		= "Aurgelmir Orb +1",
@@ -365,20 +302,11 @@ function get_sets()
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Chirich Ring +1",
 		right_ring	= "Niqmaddu Ring",
-		--ammo		= "Staunch Tathlum +1", -- 3/3
-		--head		= "Mpaca's Cap", -- 7/0
-		--body		= "Ken. Samue +1",
-		--hands		= "Ken. Tekko +1",
-		--legs		= "Ken. Hakama +1",
-		--feet		= "Ken. Sune-Ate +1",
-		--left_ear	= "Etiolation Earring",
-		--waist		= "Ioskeha Belt +1",
 	})
-	sets.Engaged["Subtle Blow"] = { -- MEVA 376 MDB 45 DT 8 PDT 32 Haste 26 SB1 27 SB2 10 STP 56
+	sets.Engaged["Subtle Blow"] = { 
 		ammo        = "Staunch Tathlum +1", -- 0 0 3
 		head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
-		body		= "Ken. Samue +1",
-		--body        = "Flamma Korazin +2", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
+		body		= "Ken. Samue +1", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
 		hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
 		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
 		feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
@@ -392,10 +320,9 @@ function get_sets()
 		back        = Capes.TP -- DT 5 STP 10
 	}
 	sets.Engaged.Hybrid = { 
-		ammo		= "Aurgelmir Orb +1",
+		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
-		body		= "Wakido Domaru +3", -- 8/8
-		--body		= "Mpaca's Doublet",
+		body		= "Mpaca's Doublet",
 		hands		= "Wakido Kote +3",
 		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
 		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
@@ -407,16 +334,16 @@ function get_sets()
 		right_ring  = "Niqmaddu Ring", -- SB2 5
 		back		= Capes.TP -- 5/5
 	}
+		
 	sets.Idle = { }
-
 	sets.Idle.Normal = { -- PDT 20 DT 47 MDT 2 68/49
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
-		body		= "Tartarus Platemail",
+		body		= "Sacro Breastplate",
 		hands		= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
 		legs		= "Nyame Flanchard",
 		feet		= "Nyame Sollerets",
-		neck		= { name="Loricate Torque +1", augments={'Path: A',}},
+		neck		= "Elite Royal Collar",
 		waist		= "Flume Belt +1",
 		left_ear	= "Tuisto Earring", 
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
@@ -427,41 +354,36 @@ function get_sets()
 	sets.Idle.PDT = sets.Engaged.PDT
 	sets.Idle.MDT = sets.Engaged.MDT
 	sets.Idle.Hybrid = sets.Engaged.Hybrid
-
+	
 	sets.Twilight = { 
 		head		= "Twilight helm",
 		body		= "Twilight mail"
 	}
-
+	
 	sets.Ranged = {
-		range		= { name="Yoichinoyumi", augments={'Path: A',}},
-		ammo		= "Yoichi's Arrow"
+		range		= RangedWeapon,
+		ammo		= RangedAmmo
 	}
 
-	texts = require('texts')
-	if stateBox then stateBox:destroy() end
+    EngagedMode = {'Normal', 'PDT', 'MDT', 'Subtle Blow', 'Hybrid'}
+	EngagedIndex = 1
 
-	local settings = windower.get_windower_settings()
-	local x,y
+	IdleMode = {'Normal', 'PDT', 'MDT'}
+	IdleIndex = 1
+
+	range_mode = false
+	lock_twilight = false
+	acc_mode = false
+	auto_hasso = false
     
-	-- Adjust for screen resolution and positon of text on screen
-	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
-		x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
-	else
-		x,y = 0, settings["ui_y_res"]-17 -- -285, -18
-	end
+	-- Variables for Auto Skillchainer
+	AutoSC = false
+	ascWS = 'Tachi: Enpi'
+	AutoSkillChain = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'} -- Skillchain order
+	asc_order = 1
+	last_target = nil
 
-	stateBox = texts.new({flags = {draggable=false}})
-	stateBox:pos(x,y)
-	stateBox:font('Arial')
-	stateBox:size(12)
-	stateBox:bold(true)
-	stateBox:bg_alpha(0)--128
-	stateBox:right_justified(false)
-	stateBox:stroke_width(2)
-	stateBox:stroke_transparency(192)
-
-	update_status()
+	include('FFXI-Display.lua')	
 end
 
 function file_unload()  
@@ -480,57 +402,27 @@ function file_unload()
 	send_command('unbind ^F12')
 end
 
-function has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return index
-        end
-    end
-    return table.getn(tab)
-end
-
-function precast(spell,action)
+function precast(spell, action)
 	local target = player.target.id
 	if target ~= last_target then
-		ws_order = 1
+		asc_order = 1
 		last_target = target
 	end
-	if buffactive.terror or buffactive.stun then
-        add_to_chat(123,'Unable to perform action: [Terrorized, Stunned]')
-        cancel_spell()
-        return
-	elseif buffactive.petrification then
-        add_to_chat(123,'Unable to perform action: [Petrified]')
-        cancel_spell()
-        return
-	elseif buffactive.sleep or buffactive.Lullaby then
-        add_to_chat(123,'Unable to perform action: [Asleep]')
-        cancel_spell()
-        return
-    end
+
+	if can_do(spell.action_type) == false then cancel_spell() end
 
 	if spell.type == 'WeaponSkill' then
-		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Unable to perform action: [Amnesia, Impairment]')
-            cancel_spell()
-            return
-        end
-        if player.tp < 1000 then
-            add_to_chat(123,'['..spell.name..'] '..player.tp)
-            cancel_spell()
-            return
-        end
 		if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
             add_to_chat(123,'['..spell.name..'] Target out of range.')
 			cancel_spell()
 			return
 		end
-		if spell.name == AutoWS and AWSEnabled == true then
+		if spell.name == ascWS and AutoSC == true then
 			cancel_spell()
-			send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
-			ws_order = ws_order + 1
-			if ws_order > table.getn(WeaponSkills) then
-				ws_order = 1
+			send_command('@input /ws "'..AutoSkillChain[asc_order]..'" '..spell.target.raw)
+			asc_order = asc_order + 1
+			if asc_order > table.getn(AutoSkillChain) then
+				asc_order = 1
 			end
 			return
 		end
@@ -554,31 +446,34 @@ function precast(spell,action)
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
 		end
-		if LugraWS:contains(spell.english) and acc_mode == false then
-			if world.time >= 17*60 or world.time < 7*60 then -- Dusk to Dawn time.
-				if player.tp > 2750 then
-					ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
-				else
-					ws = set_combine(ws,{right_ear="Lugra Earring +1"})
-				end
-			end
-		end
-		if check_facing() == false then
-			ws = set_combine(ws,{body="Nyame Mail"})
-		end
-		equip(ws)
-	elseif spell.action_type == 'Ability' then
-		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Unable to perform action: [Amnesia, Impairment]')
+		std_set = standardize_set(ws)
+        if player.tp < 1000  or (player.tp < 900 and not std_set.feet:startswith("Sak") and not buffactive['Meikyo Shisui']) then
+            add_to_chat(123,'['..spell.name..'] '..player.tp)
             cancel_spell()
             return
         end
+		if std_set.left_ear:startswith('Moonshade') and acc_mode == false then
+			if world.time >= 17*60 or world.time < 7*60 and player.tp > 2750 then -- Dusk to Dawn time.
+				ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
+			elseif world.time >= 17*60 or world.time < 7*60 then 
+				ws = set_combine(ws,{right_ear="Lugra Earring +1"})
+			end
+		end
+		if check_facing() == false and std_set.body:startswith("Sak") then
+		   ws = set_combine(ws,{body="Nyame Mail"})
+		end
+		equip(ws)
+	elseif spell.action_type == 'Ability' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		if abil_recasts[spell.recast_id] > 0 then
 			cancel_spell()
-			add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id]))
+			if spell.name ~= 'Hasso' then add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id])) end
 			return
 		end
+		-- Enable AutoHasso on Hasso use if down
+		--if spell.name == 'Hasso' and auto_hasso == false then auto_hasso = true update_status() end
+		-- Disable AutoHasso if needing to use Seigan 
+		if spell.name == 'Seigan' and auto_hasso == true then auto_hasso = false end
 		if sets.JA[spell.name] then
 			if range_mode == true then
 				equip(set_combine(sets.JA[spell.name], sets.Ranged))
@@ -589,15 +484,6 @@ function precast(spell,action)
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(sets.Preshot)
 	elseif spell.action_type == 'Magic' then
-        if buffactive.silence then
-            add_to_chat(123,'Unable to cast: [Silenced]')
-            cancel_spell()
-            return
-		elseif buffactive.mute or buffactive.Omerta then
-            add_to_chat(123,'Unable to cast: [Mute, Omerta]')
-            cancel_spell()
-            return
-        end
         local spellCost = actual_cost(spell)
         if player.mp < spellCost then
             add_to_chat(123,'Unable to cast: Not enough MP. ('..player.mp..'/'..spellCost..')')
@@ -620,35 +506,43 @@ function precast(spell,action)
 	end
 end
 
-function midcast(spell,action)
+function midcast(spell)
+	if spell.type == 'WeaponSkill' or spell.type == 'JobAbility' then return end
 	if spell.action_type == 'Ranged Attack' and range_mode == true then
-		equip(sets.RA)
+		equip(set_combine(sets.RA,sets.Ranged))
 	end
 end
 
-function aftercast(spell,action)
+function aftercast(spell)
 	if spell.name == 'Tachi: Ageha' then
 		windower.send_command('@timers c "Phys. Def. Down" 180 up')
 	end
 	if spell.name == 'Stardiver' then
 		windower.send_command('@timers c "Crit. Def. Down" 60 up')
 	end
-	equip_check()
+	if spell.name ~= "Hasso" then equip_check() end
 end
 
-function status_change(new,old)
+function sub_job_change(new, old)
+	load_macros()
+end
+
+function status_change(new, old)
 	if T{'Idle','Resting','Engaged'}:contains(new) then
 		equip_check()
 	end
 end
 
-function buff_change(buff,gain)
+function buff_change(buff, gain)
 	if buff == 'sleep' and player.status == 'Engaged' then
 		if gain then 
-			equip({neck='Vim Torque'})
+			equip({neck='Vim Torque +1'})
 		else
 			equip_check()
 		end
+	end
+	if player.status == 'Engaged' and auto_hasso and buff == 'Hasso' and not gain then
+		windower.chat.input('/ja Hasso <me>')
 	end
 end
 
@@ -660,16 +554,13 @@ function equip_check()
 		if sets.Weapons[CurrentWeapon] then
 			eq = set_combine(eq, sets.Weapons[CurrentWeapon])
 		end
-		if acc_mode == true and sets.Engaged[EngagedMode[e]].Accuracy then
-			eq = set_combine(eq,sets.Engaged[EngagedMode[e]].Accuracy)
-		elseif sets.Engaged[EngagedMode[e]] then
-			eq = set_combine(eq,sets.Engaged[EngagedMode[e]])
+		if acc_mode == true and sets.Engaged[EngagedMode[EngagedIndex]].Accuracy then
+			eq = set_combine(eq,sets.Engaged[EngagedMode[EngagedIndex]].Accuracy)
+		elseif sets.Engaged[EngagedMode[EngagedIndex]] then
+			eq = set_combine(eq,sets.Engaged[EngagedMode[EngagedIndex]])
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
-		end
-		if (buffactive['Weakness'] or buffactive['Doom']) and lock_twilight == true then
-			eq = set_combine(eq,sets.Twilight)
 		end
 	else
 		eq = sets.Idle.Normal
@@ -677,17 +568,17 @@ function equip_check()
 		if sets.Weapons[CurrentWeapon] then
 			eq = set_combine(eq, sets.Weapons[CurrentWeapon])
 		end
-		if sets.Idle[IdleMode[i]] then
-			eq = set_combine(eq,sets.Idle[IdleMode[i]])
+		if sets.Idle[IdleMode[IdleIndex]] then
+			eq = set_combine(eq,sets.Idle[IdleMode[IdleIndex]])
 		end
 		if range_mode == true then
 			eq = set_combine(eq, sets.Ranged)
 		end
-		if (buffactive['Weakness'] or buffactive['Doom']) and lock_twilight == true then
-			eq = set_combine(eq,sets.Twilight)
-		end
 	end
 	equip(eq)
+	if auto_hasso and player.status == 'Engaged' and not buffactive['Hasso'] then
+		windower.chat.input('/ja Hasso <me>')
+	end
 	update_status()
 end
 
@@ -695,30 +586,37 @@ function self_command(cmd)
 	local args = T(cmd:split(' '))
 	if args[1] == 'cycle' and args[2] then
         if args[2] == 'engaged' then
-            e = e + 1 
-            if (table.getn(EngagedMode) < e) then e = 1 end
-		elseif args[2] == 'weapon' then
-			w = w + 1 
-			if (table.getn(Weapons) < w) then w = 1 end
-			CurrentWeapon = Weapons[w]
+            EngagedIndex = EngagedIndex + 1 
+            if (table.getn(EngagedMode) < EngagedIndex) then EngagedIndex = 1 end
 		elseif args[2] == 'idle' then
-			i = i + 1 
-			if (table.getn(IdleMode) < i) then i = 1 end
+			IdleIndex = IdleIndex + 1 
+			if (table.getn(IdleMode) < IdleIndex) then IdleIndex = 1 end
 		end
 		equip_check()
 	elseif args[1] == 'toggle' and args[2] then
 		if args[2] == 'twilight' then
 			if lock_twilight == false then
+				equip(sets.Twilight)
+				disable('head','body')
 				lock_twilight = true
+				update_status()
 			else
+				enable('head','body')
 				lock_twilight = false
+				equip_check()
 			end
-			equip_check()
-		elseif args[2] == 'autows' then
-			if AWSEnabled == false then
-				AWSEnabled = true
+		elseif args[2] == 'autohs' then
+			if auto_hasso == false then
+				auto_hasso = true
 			else
-				AWSEnabled = false
+				auto_hasso = false
+			end
+			update_status()
+		elseif args[2] == 'autosc' then
+			if AutoSC == false then
+				AutoSC = true
+			else
+				AutoSC = false
 			end
 		elseif args[2] == 'wsacc' then
 			if acc_mode == false then
@@ -754,53 +652,63 @@ function equip_change()
 		if ew ~= CurrentWeapon then -- If weapon changed
 			if ew == 'Gil' then
 				CurrentWeapon = 'Empty'
-				WeaponColor = Colors.Gray
 			else
 				CurrentWeapon = ew
-				if Weapon[ew] then
-					WeaponColor = Weapon[ew].Color
-				else
-					WeaponColor = Colors.White
-				end
 			end	
-			w = has_value(Weapons, CurrentWeapon)
 			equip_check()
 		end
 	end
 end
 
-function update_status()
-	local spc = '   '
-
-	stateBox:clear()
-	stateBox:append(spc)
-	
-	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
-
-	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, EngagedMode[e], spc)
-	
-	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[i], spc)
-
-	if acc_mode == true then
-		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
-	else
-		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)
+function can_do(act)
+	if buffactive.terror then
+        add_to_chat(123,'Unable to perform action: [Terrorized]')
+        return false
+	elseif buffactive.stun then
+        add_to_chat(123,'Unable to perform action: [Stunned]')
+        return false
+	elseif buffactive.petrification then
+        add_to_chat(123,'Unable to perform action: [Petrified]')
+        return false
+	elseif buffactive.sleep or buffactive.Lullaby then
+        add_to_chat(123,'Unable to perform action: [Asleep]')
+        return false
+    end
+	if act == 'Magic' then
+        if buffactive.silence then
+            add_to_chat(123,'Unable to cast: [Silenced]')
+            return false
+		elseif buffactive.mute or buffactive.Omerta then
+            add_to_chat(123,'Unable to cast: [Mute]')
+            return false
+		elseif buffactive.Omerta then
+            add_to_chat(123,'Unable to cast: [Omerta]')
+            return false
+        end
 	end
-	
-	if range_mode == true then
-		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
+	if act == 'Ability' then
+		if buffactive.amnesia then
+            add_to_chat(123,'Unable to perform action: [Amnesia]')
+            return false
+		elseif buffactive.impairment then			
+			add_to_chat(123,'Unable to perform action: [Impairment]')
+			return false
+        end
 	end
-
-	if lock_twilight == true then
-		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Twilight', spc)
-	end
-
-	if AWSEnabled == true then
-		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoWS: ', Colors.Yellow, AutoWS, spc)
-	end
-	stateBox:append(status_text)
-	stateBox:show()
+	return true
 end
+
+function load_macros()
+	if player.sub_job == 'DRK' then set_macros(15,3) return end
+	if player.sub_job == 'DRG' then set_macros(15,2) return end
+	set_macros(15,1) -- Default /WAR
+end
+
+windower.raw_register_event('add item', function(bag, index, id, count)
+	if id == 4146 and world.area == "Ghoyu's Reverie" then --4146 Revitalizer ID
+        windower.chat.input('/item Revitalizer <me>')
+	end
+end)
 
 windower.raw_register_event('outgoing chunk', function(id, data)
 	if id == 0x00D and stateBox then
@@ -820,88 +728,52 @@ windower.raw_register_event('incoming chunk', function(id, data)
 	end
 end)
 
--- MOVEMENT SPEED SWAP / Taken from Motes
-mov = {counter=0}
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-	mov.x = windower.ffxi.get_mob_by_index(player.index).x
-	mov.y = windower.ffxi.get_mob_by_index(player.index).y
-	mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
- 
-moving = false
-windower.raw_register_event('prerender',function()
-	mov.counter = mov.counter + 1;
-	if mov.counter>15 then
-		local pl = windower.ffxi.get_mob_by_index(player.index)
-		if pl and pl.x and mov.x then
-			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-			if dist > 1 and not moving then
-				if player.status ~= 'Engaged' then -- When not engaged and moving equip movement speed
-					send_command('gs equip sets.MoveSpeed')
-				end
-				moving = true
-			elseif dist < 1 and moving then -- When stopping and not engaged, equip idle set
-				if player.status ~= 'Engaged' then
-					send_command('gs c equip_check') -- Custom command for changing gear.
-				end
-				moving = false
-			end
-		end
-		if pl and pl.x then
-			mov.x = pl.x
-			mov.y = pl.y
-			mov.z = pl.z
-		end
-		mov.counter = 0
-	end
-end)
 
-function actual_cost(spell)
-    local cost = spell.mp_cost
-	if spell.type=="WhiteMagic" then
-        if buffactive["Penury"] then
-            return cost*.5
-        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
-            return cost*.9
-        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
-            return cost*1.1
-        end
-    elseif spell.type=="BlackMagic" then
-        if buffactive["Parsimony"] then
-            return cost*.5
-        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
-            return cost*.9
-        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
-            return cost*1.1
-        end
-    end
-    return cost
-end
+function update_status()
+	local spc = '   '
+    local WeaponColor = get_weapon_color(CurrentWeapon)
 
-function disp_time(time)
-	local hours = math.floor(math.mod(time, 86400)/3600)
-	local minutes = math.floor(math.mod(time,3600)/60)
-	local seconds = math.floor(math.mod(time,60))
-	if hours > 0 then
-		return string.format("%02d:%02d:%02d",hours,minutes,seconds)
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, EngagedMode[EngagedIndex], spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[IdleIndex], spc)
+
+	if acc_mode == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
 	else
-		return string.format("%02d:%02d",minutes,seconds)
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)
 	end
-end
+	
+	if auto_hasso == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'AutoHasso', spc)
+	else
+	
+		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'AutoHasso', spc)
+	end
+	
+	if range_mode == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
+	else
+		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Ranged', spc)
+	end
 
-function check_facing()
-    local target = windower.ffxi.get_mob_by_target('t')
-	if target == nil then return nil end
-    local player = windower.ffxi.get_mob_by_target('me')
-    local dir_target = V{player.x, player.y} - V{target.x, target.y}
-    local dir_player = V{target.x, target.y} - V{player.x, player.y}
-    local player_heading = V{}.from_radian(player.facing)
-    local target_heading = V{}.from_radian(target.facing)
-    local player_angle = V{}.angle(dir_player, player_heading):degree():abs()
-    local target_angle = V{}.angle(dir_target, target_heading):degree():abs()
-    if player_angle < 45 and target_angle < 45 then
-        return true
-    end
-    return false
+	if lock_twilight == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Twilight', spc)
+	else
+	
+		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Twilight', spc)
+	end
+
+	if AutoSC == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoSC: ', Colors.Yellow, ascWS, spc)
+	else
+	
+		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'AutoSC', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
 end
-  
