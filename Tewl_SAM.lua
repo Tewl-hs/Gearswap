@@ -1,6 +1,32 @@
+ --[[
+	Author: Tewl / Bismark
+	Files: Tewl_SAM.lua 
 
+	Note:
+		I assembled this lua. Mostly written by me but portions taking from other's work such as Motes/Selindriles as well as posts found on forums.
+		This lua was written for my SAM and based on the gear I have and how I wanted to use that gear. However I have been trying to make it easy for
+		other people to edit/use if they like. If you run across any bugs let me know and I will sort this ASAP.
+
+	Binds
+	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)
+	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
+	CTRL+F11 : Toggle Twilight (Disabled by default)
+	CTRL+F12 : N/A
+
+	ALT+F9   : Toggle Auto Hasso (Disabled by default)
+	ALT+F10  : Toggle SkillChain Mode
+	ATL+F11	 : Toggle Accuracy Mode
+	ALT+F12  : Toggle Ranged Mode
+
+	WIN+A	 : Equip Dojikiri Yasutsuna
+	WIN+E	 : Equip Masamune
+	WIN+M	 : Equip Kogarasumaru
+	WIN+P	 : Equip Shining One
+	WIN+R	 : Equip Amanomurakumo
+--]]
 function get_sets()
 	items = require('resources').items
+	require('queues')
     
     include('FFXI-Mappings')
 	
@@ -28,6 +54,8 @@ function get_sets()
     
     --
     CurrentWeapon = "Masamune"
+
+	TwoHandedWeapon = true
 
     RangedWeapon = "Yoichinoyumi"
     RangedAmmo = "Yoichi's Arrow"
@@ -314,7 +342,6 @@ function get_sets()
 		waist       = "Ioskeha Belt +1", -- Haste 8
 		left_ear   	= "Telos Earring", -- STP 5
 		right_ear   = "Schere Earring", -- SB 3
-		--right_ear	= "Crep. Earring", -- STP 5
 		left_ring   = "Niqmaddu Ring", -- SB2 5
 		right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
 		back        = Capes.TP -- DT 5 STP 10
@@ -453,7 +480,7 @@ function precast(spell, action)
             return
         end
 		if std_set.left_ear:startswith('Moonshade') and acc_mode == false then
-			if world.time >= 17*60 or world.time < 7*60 and player.tp > 2750 then -- Dusk to Dawn time.
+			if world.time >= 17*60 or world.time < 7*60 or player.tp > 2750 then -- Dusk to Dawn time or more than 2750 tp
 				ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
 			elseif world.time >= 17*60 or world.time < 7*60 then 
 				ws = set_combine(ws,{right_ear="Lugra Earring +1"})
@@ -471,9 +498,15 @@ function precast(spell, action)
 			return
 		end
 		-- Enable AutoHasso on Hasso use if down
-		--if spell.name == 'Hasso' and auto_hasso == false then auto_hasso = true update_status() end
+		if spell.name == 'Hasso' then
+			if TwoHandedWeapon == false then cancel_spell() end
+			if auto_hasso == false then auto_hasso = true update_status() end
+		end
 		-- Disable AutoHasso if needing to use Seigan 
-		if spell.name == 'Seigan' and auto_hasso == true then auto_hasso = false end
+		if spell.name == 'Seigan' then
+			if TwoHandedWeapon == false then cancel_spell() end
+			if auto_hasso == true then auto_hasso = false update_status() end
+		end
 		if sets.JA[spell.name] then
 			if range_mode == true then
 				equip(set_combine(sets.JA[spell.name], sets.Ranged))
@@ -542,7 +575,7 @@ function buff_change(buff, gain)
 		end
 	end
 	if player.status == 'Engaged' and auto_hasso and buff == 'Hasso' and not gain then
-		windower.chat.input('/ja Hasso <me>')
+		windower.chat.input:schedule(1,'/ja Hasso <me>')
 	end
 end
 
@@ -577,7 +610,7 @@ function equip_check()
 	end
 	equip(eq)
 	if auto_hasso and player.status == 'Engaged' and not buffactive['Hasso'] then
-		windower.chat.input('/ja Hasso <me>')
+		windower.chat.input:schedule(1,'/ja Hasso <me>')
 	end
 	update_status()
 end
@@ -607,11 +640,16 @@ function self_command(cmd)
 			end
 		elseif args[2] == 'autohs' then
 			if auto_hasso == false then
-				auto_hasso = true
+				if TwoHandedWeapon == false then
+					add_to_chat(122, 'AutoHasso requires a 2-handed weapon.')
+				else
+				    auto_hasso = true
+					update_status()
+				end
 			else
 				auto_hasso = false
+				update_status()
 			end
-			update_status()
 		elseif args[2] == 'autosc' then
 			if AutoSC == false then
 				AutoSC = true
@@ -652,8 +690,16 @@ function equip_change()
 		if ew ~= CurrentWeapon then -- If weapon changed
 			if ew == 'Gil' then
 				CurrentWeapon = 'Empty'
+				TwoHandedWeapon = false
+				if auto_hasso == true then auto_hasso = false update_status() end
 			else
 				CurrentWeapon = ew
+				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+					TwoHandedWeapon = true
+				else 
+					TwoHandedWeapon = false	
+					if auto_hasso == true then auto_hasso = false update_status() end
+				end
 			end	
 			equip_check()
 		end
@@ -678,7 +724,7 @@ function can_do(act)
         if buffactive.silence then
             add_to_chat(123,'Unable to cast: [Silenced]')
             return false
-		elseif buffactive.mute or buffactive.Omerta then
+		elseif buffactive.mute then
             add_to_chat(123,'Unable to cast: [Mute]')
             return false
 		elseif buffactive.Omerta then
@@ -699,6 +745,7 @@ function can_do(act)
 end
 
 function load_macros()
+	if player.sub_job == 'DRK' then set_macros(15,4) return end
 	if player.sub_job == 'DRK' then set_macros(15,3) return end
 	if player.sub_job == 'DRG' then set_macros(15,2) return end
 	set_macros(15,1) -- Default /WAR
@@ -750,29 +797,18 @@ function update_status()
 	
 	if auto_hasso == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'AutoHasso', spc)
-	else
-	
-		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'AutoHasso', spc)
 	end
 	
 	if range_mode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
-	else
-		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Ranged', spc)
 	end
 
 	if lock_twilight == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Twilight', spc)
-	else
-	
-		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'Twilight', spc)
 	end
 
 	if AutoSC == true then
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoSC: ', Colors.Yellow, ascWS, spc)
-	else
-	
-		status_text = string.format("%s%s %s%s", status_text, Colors.Gray, 'AutoSC', spc)
 	end
 	stateBox:append(status_text)
 	stateBox:show()
