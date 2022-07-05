@@ -2,10 +2,12 @@
 	Author: Tewl / Bismark
 	Files: Tewl_SAM.lua 
 
-	Note:
+	Note: 
 		I assembled this lua. Mostly written by me but portions taking from other's work such as Motes/Selindriles as well as posts found on forums.
 		This lua was written for my SAM and based on the gear I have and how I wanted to use that gear. However I have been trying to make it easy for
 		other people to edit/use if they like. If you run across any bugs let me know and I will sort this ASAP.
+
+		* If you are going to use this lua also get the files in the includes folder then follow the instructions in the readme.txt
 
 	Binds
 	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)

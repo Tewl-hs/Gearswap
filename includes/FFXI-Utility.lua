@@ -1,0 +1,149 @@
+
+require('vectors')
+
+range_mult = {
+      [0] = 0,
+      [2] = 1.70,
+      [3] = 1.490909,
+      [4] = 1.44,
+      [5] = 1.377778,
+      [6] = 1.30,
+      [7] = 1.20,
+      [8] = 1.30,
+      [9] = 1.377778,
+      [10] = 1.45,
+      [11] = 1.490909,
+      [12] = 1.70,
+}
+
+function set_macros(book, page)
+    send_command('input /macro book '..book..';wait 0.2;input /macro set '..page)
+end
+
+function disp_time(time)
+	local hours = math.floor(math.mod(time, 86400)/3600)
+	local minutes = math.floor(math.mod(time,3600)/60)
+	local seconds = math.floor(math.mod(time,60))
+	if hours > 0 then
+		return string.format("%02d:%02d:%02d",hours,minutes,seconds)
+	else
+		return string.format("%02d:%02d",minutes,seconds)
+	end
+end
+
+function item_available(item)
+	if player.inventory[item] or player.wardrobe[item] or player.wardrobe2[item] or player.wardrobe3[item] or player.wardrobe4[item] or player.wardrobe5[item] or player.wardrobe6[item] or player.wardrobe7[item] or player.wardrobe8[item] or player.satchel[item] then
+		return true
+	else
+		return false
+	end
+end
+
+function count_available_ammo(ammo_name)
+	local ammo_count = 0
+	
+    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","wardrobe5","wardrobe6","wardrobe7","wardrobe8","satchel"}) do
+		if player[n][ammo_name] then
+			ammo_count = ammo_count + player[n][ammo_name].count
+		end
+    end
+
+	return ammo_count
+end
+
+function check_facing()
+    local target = windower.ffxi.get_mob_by_target('t')
+	if target == nil then return nil end
+    local player = windower.ffxi.get_mob_by_target('me')
+    local dir_target = V{player.x, player.y} - V{target.x, target.y}
+    local dir_player = V{target.x, target.y} - V{player.x, player.y}
+    local player_heading = V{}.from_radian(player.facing)
+    local target_heading = V{}.from_radian(target.facing)
+    local player_angle = V{}.angle(dir_player, player_heading):degree():abs()
+    local target_angle = V{}.angle(dir_target, target_heading):degree():abs()
+    if player_angle < 45 and target_angle < 45 then
+        return true
+    end
+    return false
+end
+
+function actual_cost(spell)
+    local cost = spell.mp_cost
+	if spell.type=="WhiteMagic" then
+        if buffactive["Penury"] then
+            return cost*.5
+        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
+            return cost*.9
+        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
+            return cost*1.1
+        end
+    elseif spell.type=="BlackMagic" then
+        if buffactive["Parsimony"] then
+            return cost*.5
+        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
+            return cost*.9
+        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
+            return cost*1.1
+        end
+    end
+    return cost
+end
+
+-- MOVEMENT SPEED SWAP / Taken from Motes
+mov = {counter=0}
+if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
+	mov.x = windower.ffxi.get_mob_by_index(player.index).x
+	mov.y = windower.ffxi.get_mob_by_index(player.index).y
+	mov.z = windower.ffxi.get_mob_by_index(player.index).z
+end
+ 
+moving = false
+windower.raw_register_event('prerender',function()
+	mov.counter = mov.counter + 1;
+	if mov.counter>15 then
+		local pl = windower.ffxi.get_mob_by_index(player.index)
+		if pl and pl.x and mov.x then
+			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
+			if dist > 1 and not moving then
+				if player.status ~= 'Engaged' then -- When not engaged and moving equip movement speed
+					if sets.MoveSpeed then send_command('gs equip sets.MoveSpeed') end
+				end
+				moving = true
+			elseif dist < 1 and moving then -- When stopping and not engaged, equip idle set
+				if player.status ~= 'Engaged' then
+					if equip_check then send_command('gs c equip_check') end -- Custom command for changing gear.
+				end
+				moving = false
+			end
+		end
+		if pl and pl.x then
+			mov.x = pl.x
+			mov.y = pl.y
+			mov.z = pl.z
+		end
+		mov.counter = 0
+	end
+end)
+
+
+function standardize_set(set)
+	local standardized_set = {}
+	
+    for slot, inner in pairs(set) do
+		if slot_names:contains(slot) then
+			if type(inner) == 'table' then
+				standardized_set[slot] = inner.name
+			else
+				standardized_set[slot] = inner
+			end
+		end
+    end
+
+	standardized_set.ear1 = standardized_set.ear1 or standardized_set.left_ear or standardized_set.lear or ''
+	standardized_set.ear2 = standardized_set.ear2 or standardized_set.right_ear or standardized_set.rear or ''
+	standardized_set.ring1 = standardized_set.ring1 or standardized_set.left_ring or standardized_set.lring or ''
+	standardized_set.ring2 = standardized_set.ring2 or standardized_set.right_ring or standardized_set.rring or ''
+	standardized_set.range = standardized_set.range or standardized_set.ranged or ''
+	
+	return standardized_set
+end
