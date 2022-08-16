@@ -40,6 +40,7 @@ function get_sets()
 	send_command("bind @a input //gs equip sets.Weapons['Dojikiri Yasutsuna']")
 	send_command("bind @s input //gs equip sets.Weapons['Soboro Sukehiro']")
 	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
+	send_command("bind @c input //gs equip sets.Weapons['Mafic Cudgel']")
 
 	send_command('bind !f9 gs c toggle autohs')
 	send_command('bind !f10 gs c toggle autosc') 
@@ -85,6 +86,7 @@ function get_sets()
 		['Dojikiri Yasutsuna'] = {main='Dojikiri Yasutsuna',sub='Utu Grip'},
 		['Shining One'] = {main='Shining One',sub='Utu Grip'},
 		['Soboro Sukehiro'] = {main='Soboro Sukehiro',sub='Utu Grip'},
+		['Mafic Cudgel'] = {main="Mafic Cudgel",sub="Forfend +1"}
 	}
 	sets.JA = {
 		['Seigan'] = {
