@@ -38,6 +38,7 @@ function get_sets()
 	send_command("bind @m input //gs equip sets.Weapons['Kogarasumaru']")
 	send_command("bind @r input //gs equip sets.Weapons['Amanomurakumo']")
 	send_command("bind @a input //gs equip sets.Weapons['Dojikiri Yasutsuna']")
+	send_command("bind @s input //gs equip sets.Weapons['Soboro Sukehiro']")
 	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
 
 	send_command('bind !f9 gs c toggle autohs')
@@ -83,6 +84,7 @@ function get_sets()
 		['Amanomurakumo'] = {main='Amanomurakumo',sub='Utu Grip'},
 		['Dojikiri Yasutsuna'] = {main='Dojikiri Yasutsuna',sub='Utu Grip'},
 		['Shining One'] = {main='Shining One',sub='Utu Grip'},
+		['Soboro Sukehiro'] = {main='Soboro Sukehiro',sub='Utu Grip'},
 	}
 	sets.JA = {
 		['Seigan'] = {
@@ -383,6 +385,11 @@ function get_sets()
 	sets.Idle.PDT = sets.Engaged.PDT
 	sets.Idle.MDT = sets.Engaged.MDT
 	sets.Idle.Hybrid = sets.Engaged.Hybrid
+	sets.Idle.Refresh = set_combine(sets.Idle.Normal,{
+		neck		= "Vim Torque +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
+	})
 	
 	sets.Twilight = { 
 		head		= "Twilight helm",
@@ -397,13 +404,13 @@ function get_sets()
     EngagedMode = {'Normal', 'PDT', 'MDT', 'Subtle Blow', 'Hybrid'}
 	EngagedIndex = 1
 
-	IdleMode = {'Normal', 'PDT', 'MDT'}
+	IdleMode = {'Normal', 'PDT', 'MDT', 'Hybrid', 'Refresh'}
 	IdleIndex = 1
 
 	range_mode = false
 	lock_twilight = false
 	acc_mode = false
-	auto_hasso = false
+	auto_hasso = true
     
 	-- Variables for Auto Skillchainer
 	AutoSC = false
@@ -482,10 +489,8 @@ function precast(spell, action)
             return
         end
 		if std_set.left_ear:startswith('Moonshade') and acc_mode == false then
-			if world.time >= 17*60 or world.time < 7*60 or player.tp > 2750 then -- Dusk to Dawn time or more than 2750 tp
+			if player.tp > 2750 then -- Dusk to Dawn time or more than 2750 tp
 				ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
-			elseif world.time >= 17*60 or world.time < 7*60 then 
-				ws = set_combine(ws,{right_ear="Lugra Earring +1"})
 			end
 		end
 		if check_facing() == false and std_set.body:startswith("Sak") then
@@ -747,7 +752,7 @@ function can_do(act)
 end
 
 function load_macros()
-	if player.sub_job == 'DRK' then set_macros(15,4) return end
+	if player.sub_job == 'NIN' then set_macros(15,4) return end
 	if player.sub_job == 'DRK' then set_macros(15,3) return end
 	if player.sub_job == 'DRG' then set_macros(15,2) return end
 	set_macros(15,1) -- Default /WAR
@@ -798,7 +803,7 @@ function update_status()
 	end
 	
 	if auto_hasso == true then
-		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'AutoHasso', spc)
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Hasso', spc)
 	end
 	
 	if range_mode == true then

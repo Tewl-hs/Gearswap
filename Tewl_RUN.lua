@@ -266,19 +266,19 @@ function get_sets()
         legs        = "Nyame Flanchard", -- 8 0 0
         feet        = "Nyame Sollerets", -- 7 0 0
         -- Ongo cahnges
-        neck        = "Warder's Charm +1",
-        waist       = "Ioskeha Belt +1",
-        left_ear    = "Brutal Earring",
-        back        = Capes.DA,
+        --neck        = "Warder's Charm +1",
+        --waist       = "Ioskeha Belt +1",
+        --left_ear    = "Brutal Earring",
+        --back        = Capes.DA,
         -- Normal equipment
-        --neck        = "Futhark torque +2", -- 7 0 0
-        --waist       = "Engraved Belt",
-        --left_ear    = "Eabani Earring",
+        neck        = "Futhark torque +2", -- 7 0 0
+        waist       = "Engraved Belt",
+        left_ear    = "Eabani Earring",
         right_ear   = "Odnowa Earring +1", -- 3 0 2
         left_ring   = "Shadow Ring",
         --left_ring   = "Defending Ring", -- 10 0 0
         right_ring  = "Moonlight Ring", -- 5 0 0
-        --back        = Capes.Enmity -- 5 0 0
+        back        = Capes.Enmity -- 5 0 0
     }
     sets.aftercast.Engaged.DTLite = {
         sub         = "Utu Grip",

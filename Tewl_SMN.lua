@@ -50,7 +50,7 @@
         ['Frost Armor']='Shiva',['Earthen Ward']='Titan',['Earthen Armor']='Titan',
     }
     -- Gear sets
-    sets.MoveSpeed = { feet = "Herald's Gaiters",}    --auto swaps when moving
+    sets.MoveSpeed = { feet = "Herald's Gaiters",}
 
     sets.precast = { }
     sets.precast.JA = {
@@ -76,7 +76,7 @@
     }
 
     sets.precast.FC = { -- 80
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = "Bunzi's Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
         hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
@@ -90,10 +90,10 @@
         waist       = "Embla Sash", -- 5
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}}, -- 10
     }
-    sets.precast.BloodPact = { -- Skill 201/BPD I 15/BPD II 11
+    sets.precast.BloodPact = { -- Skill 201/BPD I 15/BPD II 9
         main        = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}}, -- 15/0/2
         sub         = "Vox Grip", -- 3/0/0
-        ammo        = "Sancus Sachet +1", --0/0/7
+        ammo        = "Epitaph", -- 0/0/5
         head        = "Beckoner's Horn +1", -- 13/0/0
         body        = "Baayami Robe", -- 32/0/0
         hands       = "Glyphic Bracers +3",	-- 23/8/0
@@ -167,7 +167,7 @@
     sets.midcast.PhysicalBP = {
         main        = "Nirvana",
         sub         = "Elan Strap +1",
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = { name="Apogee Crown +1", augments={'Pet: Attack+25','Pet: "Mag.Atk.Bns."+25','Blood Pact Dmg.+8',}},
         body        = "Glyphic Doublet +3",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Accuracy+15 Pet: Rng. Acc.+15','Blood Pact Dmg.+10','Pet: STR+7','Pet: Mag. Acc.+10',}},
@@ -191,7 +191,7 @@
     sets.midcast.MagicalBP = {
         main        = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: VIT+6','Pet: Mag. Acc.+22','Pet: "Mag.Atk.Bns."+13','DMG:+15',}},
         sub         = "Elan Strap +1",
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = { name="Apogee Crown +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         body        = { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+10','Pet: INT+5','Pet: Mag. Acc.+14','Pet: "Mag.Atk.Bns."+10',}},
@@ -209,7 +209,7 @@
     sets.midcast.PetBuff = {
         main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
         sub         = "Vox Grip",
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = "Beckoner's Horn +1",
         body        = "Beckoner's Doublet +1",
         hands       = "Baayami Cuffs",
@@ -227,7 +227,7 @@
     sets.midcast.PetDebuff = {
         main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
         sub         = "Vox Grip",
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = "Beckoner's Horn +1",
         body        = "Beckoner's Doublet +1",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+9','Blood Pact Dmg.+10','Pet: INT+7','Pet: "Mag.Atk.Bns."+10',}},
@@ -246,7 +246,7 @@
     sets.aftercast.Idle = {  
         main        = "Nirvana",
         sub         = "Oneiros Grip",
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = "Convoker's Horn +3",
     	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         hands       = { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
@@ -271,7 +271,7 @@
     sets.aftercast.Avatar = {
         main        = "Nirvana",
     	sub		    = "Elan Strap +1",
-    	ammo		= "Sancus Sachet +1",
+        ammo        = "Epitaph",
     	head		= "Glyphic Horn +3",
     	body		= { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
     	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
@@ -304,7 +304,7 @@
     sets.Engaged = {
         main        = "Nirvana",
     	sub		    = "Elan Strap +1",
-        ammo        = "Sancus Sachet +1",
+        ammo        = "Epitaph",
         head        = "Bunzi's Hat",
         body        = "Bunzi's Robe",
         hands       = "Bunzi's Gloves",
@@ -556,3 +556,38 @@
             mov.counter = 0
         end
     end)
+
+	items = require('resources').items
+    skills = require('resources').skills
+    CurrentWeapon = 'Gil' -- Nothing equipped returns Gil as name ???
+    WeaponType = '(N/A)' -- Values: (N/A),Hand-to-Hand,Dagger,Sword,Great Sword,Axe,Great Axe,Scythe,Polearm,Katana,Great Katana,Club,Staff
+
+    function equip_change()
+        local inventory = windower.ffxi.get_items();
+        local equipment = inventory['equipment'];
+        local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+        if item and items[item['id']] then 
+            local skill = items[item['id']].skill or 0
+            if WeaponType ~= skills[skill].en then -- only triggers if the weapon type has changed
+                WeaponType = skills[skill].en
+                -- if WeaponType == 'Sword' then dosomething() end
+                windower.chat.input('/echo Weapon type is: '..WeaponType)
+            end
+            if CurrentWeapon ~= items[item['id']].en then -- only triggers if a different named weapon has been equipped
+                CurrentWeapon = items[item['id']].en
+                if CurrentWeapon == 'Gil' then -- No clue why empty hand returns Gil as name
+                    windower.chat.input('/echo Weapon: Empty')
+                else
+                    windower.chat.input('/echo Weapon: '..CurrentWeapon)
+                end
+            end
+        end
+    end
+    
+    windower.raw_register_event('incoming chunk', function(id, data)
+        if (id == 0x050) then
+            equip_change()
+        end
+    end)
+
+    equip_change() -- You want to call the funciton on loading of the lua to get your current equipped weapon

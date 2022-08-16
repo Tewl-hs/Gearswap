@@ -18,7 +18,6 @@ function get_sets()
 				
 	sets.precast = {}
 	sets.precast.FastCast = { -- 101
-		main		= "Crocea Mors", -- 20
 		ammo		= "Sapience Orb", -- 2
 		head		= "Atrophy Chapeau +3", -- 16
 		body		= "Viti, Tabard +3", -- 15
@@ -64,16 +63,32 @@ function get_sets()
 	sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, { 
 		ammo		= "Pemphredo Tathlum",
         head		= "Pixie Hairpin +1",
-        body		= "Amalric Doublet +1",
+		body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
         legs		= "Amalric Slops +1",
-        feet		= "Amalric Nails +1",
-        neck		= "Baetyl Pendant",
+		feet		= "Nyame Sollerets",
+        neck		= "Sibyl Scarf",
         left_ear	= "Malignance Earring",
         right_ear	= "Regal Earring",
         left_ring	= "Archon Ring",
-        right_ring	= "Epaminondas's Ring",
+        right_ring	= "Metamor. Ring +1",
         waist		= "Orpheus's Sash",
+		back		= Capes.INT
+	})
+
+	sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, { 
+		ammo		= "Coiste Bodhar",
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
+        neck		= "Rep. Plat, Medal",
+        left_ear	= "Regal Earring",
+        right_ear	= "Moonshade Earring",
+        left_ring	= "Metamor. Ring +1",
+        right_ring	= "Epaminondas's Ring",
+		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		back		= Capes.INT
 	})
 	
@@ -103,7 +118,7 @@ function get_sets()
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",
         hands		= "Leth. Gantherots +1",
-        legs		= "Chironic Hose",
+        legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
         feet		= "Vitiation Boots +3",
         neck		= "Incanter's Torque",
         left_ear	= "Regal Earring",
@@ -212,8 +227,8 @@ function get_sets()
 		head		= "Viti. Chapeau +3",
 		body		= "Jhakri Robe +2",
 		hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
-		legs		= "Chironic Hose",
-		feet		= "Vitiation Boots +3",
+		legs		= { name="Chironic Hose", augments={'"Mag.Atk.Bns."+11','STR+12','"Refresh"+2','Accuracy+15 Attack+15',}},
+		feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
 		neck		= "Loricate Torque +1",
 		waist		= "Fucho-no-obi",
 		left_ear	= "Etiolation Earring",
