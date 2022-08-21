@@ -24,9 +24,7 @@ function get_sets()
         body        = "Inyanga Jubbah +2", -- 14
         hands       = "Leyline Gloves", -- 5
         legs        = "Aya. Cosciales +2", -- 6
-        neck        = "",
         waist       = "Embla Sash", -- 5
-        left_ear    = "",
         right_ear   = "Loquacious Earring", -- 2
         left_ring   = "Weather. Ring +1", -- 5
         right_ring  = "Kishar Ring", -- 4 
@@ -51,8 +49,6 @@ function get_sets()
 
     sets.midcast = { }
     sets.midcast.BardSong = {        
-        --main        = "Carnwenhan", 
-        --sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Bihu Roundlet +3",
         body        = "Fili Hongreline +1",

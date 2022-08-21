@@ -80,7 +80,8 @@ function get_sets()
     }
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
     sets.midcast['Dark Magic'] = {
-        neck        ="Erra Pendant",
+        neck        = "Erra Pendant",
+        left_ring   = "Evanescence Ring",
     }
     sets.midcast['Healing Magic'] = { }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {

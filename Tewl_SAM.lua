@@ -90,7 +90,7 @@ function get_sets()
 	}
 	sets.JA = {
 		['Seigan'] = {
-			head	= "Kasuga Kabuto +1"
+			head	= "Kasuga Kabuto +2"
 		},
 		['Meditate'] = {
 			head	= "Wakido Kabuto +3",
@@ -283,7 +283,8 @@ function get_sets()
 	sets.Engaged.Normal = {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
-		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+		body		= "Kasuga Domaru +2",
+		--body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		--hands		= "Wakido Kote +3",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +2",
@@ -354,18 +355,18 @@ function get_sets()
 	}
 	sets.Engaged.Hybrid = { 
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
-		head		= "Flam. Zucchetto +2",
-		body		= "Mpaca's Doublet",
-		hands		= "Wakido Kote +3",
-		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
+		head		= "Kasuga Kabuto +2",
+		body		= "Kasuga Domaru +2",
+		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+		legs		= "Kasuga Haidate +2",
 		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
-		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}}, 
-		waist		= "Ioskeha Belt +1",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= "Telos Earring",
 		right_ear	= "Dedition Earring",
-		left_ring	= "Defending Ring", -- 10/10
-		right_ring  = "Niqmaddu Ring", -- SB2 5
-		back		= Capes.TP -- 5/5
+		left_ring	= "Chirich Ring +1", 
+		right_ring	= "Niqmaddu Ring",
+		back		= Capes.TP,
 	}
 		
 	sets.Idle = { }

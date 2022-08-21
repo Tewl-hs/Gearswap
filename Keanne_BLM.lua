@@ -86,7 +86,10 @@ function get_sets()
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
     })
-    sets.midcast['Dark Magic'] = { }
+    sets.midcast['Dark Magic'] = {
+        neck        = "Erra Pendant",
+        left_ring   = "Evanescence Ring",
+    }
     sets.midcast['Healing Magic'] = { }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
 
