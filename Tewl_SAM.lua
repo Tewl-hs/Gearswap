@@ -104,7 +104,7 @@ function get_sets()
 			head	= "Wakido Kabuto +3"
 		},
 		['Sengikori'] = {
-			feet	= "Kasuga Sune-Ate +1"
+			feet	= "Kasuga Sune-Ate +2"
 		},
 		['Blade Bash'] = {
 			hands	= "Sakonji Kote +3"
@@ -389,7 +389,6 @@ function get_sets()
 	sets.Idle.MDT = sets.Engaged.MDT
 	sets.Idle.Hybrid = sets.Engaged.Hybrid
 	sets.Idle.Refresh = set_combine(sets.Idle.Normal,{
-		neck		= "Vim Torque +1",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
 	})
@@ -480,7 +479,7 @@ function precast(spell, action)
 			ws = set_combine(ws, sets.Ranged)
 		end
 		if buffactive['Sekkanoki'] then
-			ws = set_combine(ws, {hands="Kasuga Kote +1"})
+			ws = set_combine(ws, {hands="Kasuga Kote +2"})
 		end
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
@@ -771,16 +770,17 @@ windower.raw_register_event('outgoing chunk', function(id, data)
 	if id == 0x00D and stateBox then
 		stateBox:hide()
 	end
-	if (id == 0x1A or id == 0x50) then
-		equip_change()
-	end
+	--if (id == 0x1A or id == 0x50) then
+	--	equip_change()
+	--end
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-	if (id == 0x37 or id == 0x1D) then
+	--if (id == 0x37 or id == 0x1D) then
+	if id == 0x050 then
 		equip_change()
 	end
 end)
