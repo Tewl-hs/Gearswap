@@ -556,7 +556,7 @@
             mov.counter = 0
         end
     end)
-
+    -- Ignore this stuff it was only for overlay testing 
 	items = require('resources').items
     skills = require('resources').skills
     CurrentWeapon = 'Gil' -- Nothing equipped returns Gil as name ???
@@ -570,15 +570,14 @@
             local skill = items[item['id']].skill or 0
             if WeaponType ~= skills[skill].en then -- only triggers if the weapon type has changed
                 WeaponType = skills[skill].en
-                -- if WeaponType == 'Sword' then dosomething() end
-                windower.chat.input('/echo Weapon type is: '..WeaponType)
+                --windower.chat.input('/echo Weapon type is: '..WeaponType)
             end
             if CurrentWeapon ~= items[item['id']].en then -- only triggers if a different named weapon has been equipped
                 CurrentWeapon = items[item['id']].en
                 if CurrentWeapon == 'Gil' then -- No clue why empty hand returns Gil as name
-                    windower.chat.input('/echo Weapon: Empty')
+                    --windower.chat.input('/echo Weapon: Empty')
                 else
-                    windower.chat.input('/echo Weapon: '..CurrentWeapon)
+                    --windower.chat.input('/echo Weapon: '..CurrentWeapon)
                 end
             end
         end
