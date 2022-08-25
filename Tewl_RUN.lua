@@ -12,7 +12,7 @@ function get_sets()
 	items = require('resources').items
 
     -- Personal settings: Load macros and set equipviewer position
-    send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 14')
+    send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 13')
     send_command('input //equipviewer pos 1663 934')
 
     EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'DT', 'Hybrid'} 
@@ -70,8 +70,8 @@ function get_sets()
         head        = "Halitus Helm",
         body        = "Emet Harness +1",
         hands       = "Kurys Gloves",
-        legs        = "Eri. Leg Guards +1",
-        feet        = "Ahosi Leggings",
+        legs        = "Eri. Leg Guards +2",
+        feet        = "Erilaz Greaves +2",
         neck        = "Moonlight Necklace",
         waist       = "Kasiri Belt",
         left_ear    = "Cryptic Earring",
@@ -124,7 +124,7 @@ function get_sets()
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
 
     sets.precast.JA = {
-        ['Vivacious Pulse'] = {head="Erilaz Galea +1",neck="Incanter's Torque",ring1="Stikini Ring +1",ring2="Stikini Ring +1",legs="Rune. Trousers +1"},
+        ['Vivacious Pulse'] = {head="Erilaz Galea +2",neck="Incanter's Torque",ring1="Stikini Ring +1",ring2="Stikini Ring +1",legs="Rune. Trousers +1"},
         ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
         ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
         ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +3"}),
@@ -234,7 +234,7 @@ function get_sets()
     })
     sets.midcast = {}
     sets.midcast['Enhancing Magic'] = {
-        head        = "Erilaz Galea +1",
+        head        = "Erilaz Galea +2",
         hands       = "Regal Gauntlets",
         legs        = "Futhark Trousers +3",
     }
@@ -325,9 +325,12 @@ function get_sets()
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Turms Cap +1", 
         body        = "Runeist's Coat +3", 
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
-        legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Nyame Sollerets", -- 7 0 0
+        hands       = "Turms Mittens +1", 
+        --hands       = "Nyame Gauntlets", -- 7 0 0 
+        legs        = "Eri. Leg Guards +2",
+        feet        = "Erilaz Greaves +2",
+        --legs        = "Nyame Flanchard", -- 8 0 0
+        --feet        = "Nyame Sollerets", -- 7 0 0
         neck        = "Futhark Torque +2", -- 7 0 0
         waist       = "Engraved Belt",
         left_ear    = "Eabani Earring", 
