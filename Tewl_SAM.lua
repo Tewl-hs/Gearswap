@@ -296,8 +296,8 @@ function get_sets()
 		right_ear	= "Dedition Earring",
 		left_ring	= "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP,
-		--back		= { name="Takaha Mantle", augments={'STR+5','"Zanshin"+4','"Store TP"+3',}},
+		--back		= Capes.TP,
+		back		= { name="Takaha Mantle", augments={'STR+5','"Zanshin"+4','"Store TP"+3',}},
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
