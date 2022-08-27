@@ -63,7 +63,7 @@ function get_sets()
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",
-        hands		= "Leth. Gantherots +1",
+        hands		= "Leth. Gantherots +2",
         legs		= "Chironic Hose",
         feet		= "Vitiation Boots +3",
         neck		= "Dls. Torque +2",
@@ -110,7 +110,7 @@ function get_sets()
 	}
 	sets.aftercast.idle = {
 		main		= "Daybreak",
-		sub		= "Ammurapi Shield",
+		sub			= "Ammurapi Shield",
 		ammo		= "Homiliary",
 		head		= "Vitiation Chapeau +3",
 		body		= "Jhakri Robe +2",

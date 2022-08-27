@@ -40,4 +40,7 @@ luac.out
 *.hex
 
 export/
+Tafion*
+Keanne*
+Sirkoolaid*
 GearSwaps.code-workspace
