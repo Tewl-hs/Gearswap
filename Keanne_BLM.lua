@@ -79,7 +79,7 @@ function get_sets()
         sub         = "Ammurapi Shield",
         ammo		= "Pemphredo Tathlum",
         neck        = "Incanter's Torque",
-        left_ear	= "Regal Earring",
+        left_ear	= "Regal Earring"
     })
     sets.midcast['Enfeebling Magic'] = { }
     sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {
