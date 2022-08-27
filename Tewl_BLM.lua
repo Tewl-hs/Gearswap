@@ -76,7 +76,7 @@ function get_sets()
     sets.midcast['Enfeebling Magic'] = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        legs        = "Psycloth Lappas"
+        legs        = "Psycloth Lappas",
     }
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
     sets.midcast['Dark Magic'] = {
