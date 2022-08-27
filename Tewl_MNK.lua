@@ -80,7 +80,7 @@
                 legs    = "Hesychast's Hose +3"
             },
             ["Impetus"] = {
-                body    = "Bhikku Cyclas +1"
+                body    = "Bhikku Cyclas +2"
             },
             ["Dodge"] = {
                 feet    = "Anchorite's Gaiters +3"
@@ -109,20 +109,19 @@
         sets.precast.WS = { -- Raging Fists
             ammo        = "Knobkierrie",
             head        = "Ken. Jinpachi +1",
-            body        = "Adhemar Jacket +1",
-            hands       = "Adhemar Wrist. +1",
-            legs		= "Mpaca's Hose",
+            body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
+            hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+            legs        = { name="Mpaca's Hose", augments={'Path: A',}},
             feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
-            neck		= "Mnk. Nodowa +2",
-            waist		= "Moonbow Belt +1",
-            left_ear	= "Sherida Earring",
-            right_ear	= "Moonshade Earring",
-            left_ring	= "Gere Ring",
-            right_ring	= "Niqmaddu Ring",
+            neck        = "Fotia Gorget",
+            waist       = "Moonbow Belt +1",
+            left_ear    = "Sherida Earring",
+            right_ear   = { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+            left_ring   = "Gere Ring",
+            right_ring  = "Niqmaddu Ring",
             back		= Capes.WS
         }
         sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
-            head        = "Adhemar Bonnet +1",
             body        = "Ken. Samue +1",
             hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
             feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
@@ -130,41 +129,50 @@
             back        = Capes.WSCrit
         })
         sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"],{
-            body        = "Bhikku Cyclas +1",
+            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+            body        = "Bhikku Cyclas +2",
+            right_ear   = { name="Schere Earring", augments={'Path: A',}},
             back        = Capes.WS
         })
         sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
-            head        = "Hesychast's Crown +3",
+            head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
             body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
-            hands       = "Anchor. Gloves +3",
-            feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
-            back        = Capes.WSD
+            hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+            left_ear    = { name="Schere Earring", augments={'Path: A',}},
+            back        = Capes.WS
         })
         sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
-            ammo		= "Aurgelmir Orb +1", -- { name="Coiste Bodhar", augments={'Path: A',}},
-            body        = "Malignance Tabard",  -- 9/9
-            hands       = "Malignance Gloves",  -- 5/5
-            neck        = "Fotia Gorget",
+            ammo		= "Aurgelmir Orb +1",
+            body        = "Malignance Tabard", 
+            hands       = "Malignance Gloves",
             right_ear   = "Mache Earring +1",
             back        = Capes.TP
+        })
+        sets.precast.WS["Tornado Kick"] = set_combine(sets.precast.WS,{
+            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+            head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
+            body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+            feet        = "Anch. Gaiters +3",
+            hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+            neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
         })
     
         -- Aftercast sets: TP, Idle
         sets.aftercast = {}
         sets.aftercast.TP = { }
         sets.aftercast.TP.Normal = {
-            ammo		= "Aurgelmir Orb +1",
-            head		= "Ken. Jinpachi +1",
-            body		= "Ken. Samue +1", 
-            hands		= "Adhemar Wrist. +1",
-            legs		= "Hes. Hose +3",
-            feet		= "Anchorite's Gaiters +3",
-            neck		= "Mnk. Nodowa +2",
-            waist		= "Moonbow Belt +1",
-            left_ear	= "Sherida Earring",
-            right_ear   = "Telos Earring",
-            left_ring	= "Gere Ring",
-            right_ring	= "Niqmaddu Ring",
+            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+            head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
+            body        = { name="Mpaca's Doublet", augments={'Path: A',}},
+            hands       = { name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
+            legs        = "Bhikku Hose +2",
+            feet        = "Anch. Gaiters +3",
+            neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
+            waist       = "Moonbow Belt +1",
+            left_ear    = "Sherida Earring",
+            right_ear   = { name="Schere Earring", augments={'Path: A',}},
+            left_ring   = "Gere Ring",
+            right_ring  = "Niqmaddu Ring",
             back		= Capes.TP
         }
         sets.aftercast.TP.DT = {
@@ -183,18 +191,18 @@
             back		= Capes.TP
         }
         sets.aftercast.TP.Hybrid = {
-            ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
-            head		= "Mpaca's Cap",
-            body		= "Mpaca's Doublet",
-            hands		= "Mpaca's Gloves",
-            legs        = "Mpaca's Hose", 
-            feet        = "Malignance Boots", 
-            neck		= "Mnk. Nodowa +2",
-            waist		= "Moonbow Belt +1",
-            left_ear	= "Sherida Earring",
-            right_ear   = "Schere Earring",
-            left_ring	= "Gere Ring",
-            right_ring	= "Niqmaddu Ring",
+            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+            head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
+            body        = { name="Mpaca's Doublet", augments={'Path: A',}},
+            hands       = "Malignance Gloves",
+            legs        = "Bhikku Hose +2",
+            feet        = "Malignance Boots",
+            neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
+            waist       = "Moonbow Belt +1",
+            left_ear    = "Sherida Earring",
+            right_ear   = { name="Schere Earring", augments={'Path: A',}},
+            left_ring   = "Gere Ring",
+            right_ring  = "Niqmaddu Ring",
             back		= Capes.TP
         }
         sets.aftercast.Idle = {

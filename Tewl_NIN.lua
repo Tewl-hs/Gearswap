@@ -447,16 +447,13 @@ windower.raw_register_event('outgoing chunk', function(id, data)
 	if id == 0x00D and stateBox then
 		stateBox:hide()
 	end
-	if (id == 0x1A or id == 0x50) then
-		equip_change()
-	end
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-	if (id == 0x37 or id == 0x1D) then
+	if id == 0x050 then
 		equip_change()
 	end
 end)
