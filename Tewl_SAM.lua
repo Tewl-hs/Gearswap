@@ -25,6 +25,8 @@
 	WIN+M	 : Equip Kogarasumaru
 	WIN+P	 : Equip Shining One
 	WIN+R	 : Equip Amanomurakumo
+	WIN+S	 : Equip Soboro Sukehiro
+	WIN+C	 : Equip Mafic Cudgel
 --]]
 function get_sets()
 	items = require('resources').items
