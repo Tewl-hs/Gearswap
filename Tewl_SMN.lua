@@ -94,7 +94,7 @@
         main        = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}}, -- 15/0/2
         sub         = "Vox Grip", -- 3/0/0
         ammo        = "Epitaph", -- 0/0/5
-        head        = "Beckoner's Horn +1", -- 13/0/0
+        head        = "Beckoner's Horn +2", -- 13/0/0
         body        = "Baayami Robe", -- 32/0/0
         hands       = "Glyphic Bracers +3",	-- 23/8/0
         legs        = "Baayami Slops", -- 30/7/0
@@ -210,7 +210,7 @@
         main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
         sub         = "Vox Grip",
         ammo        = "Epitaph",
-        head        = "Beckoner's Horn +1",
+        head        = "Beckoner's Horn +2",
         body        = "Beckoner's Doublet +1",
         hands       = "Baayami Cuffs",
         legs        = "Baayami Slops",
@@ -228,7 +228,7 @@
         main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
         sub         = "Vox Grip",
         ammo        = "Epitaph",
-        head        = "Beckoner's Horn +1",
+        head        = "Beckoner's Horn +2",
         body        = "Beckoner's Doublet +1",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+9','Blood Pact Dmg.+10','Pet: INT+7','Pet: "Mag.Atk.Bns."+10',}},
         legs        = "Baayami Slops",
