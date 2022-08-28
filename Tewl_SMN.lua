@@ -90,11 +90,11 @@
         waist       = "Embla Sash", -- 5
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}}, -- 10
     }
-    sets.precast.BloodPact = { -- Skill 201/BPD I 15/BPD II 9
+    sets.precast.BloodPact = { -- Skill 206/BPD I 15/BPD II 9
         main        = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}}, -- 15/0/2
         sub         = "Vox Grip", -- 3/0/0
         ammo        = "Epitaph", -- 0/0/5
-        head        = "Beckoner's Horn +2", -- 13/0/0
+        head        = "Beckoner's Horn +2", -- 18/0/0
         body        = "Baayami Robe", -- 32/0/0
         hands       = "Glyphic Bracers +3",	-- 23/8/0
         legs        = "Baayami Slops", -- 30/7/0
