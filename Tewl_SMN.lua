@@ -72,7 +72,7 @@
             waist       = "Kobo Obi",
             back        = "Conveyance Cape",
         },
-        ['Mana Cede'] = {hands="Beck. Bracers +1"},
+        ['Mana Cede'] = {hands="Beck. Bracers +2"},
     }
 
     sets.precast.FC = { -- 80
@@ -211,7 +211,7 @@
         sub         = "Vox Grip",
         ammo        = "Epitaph",
         head        = "Beckoner's Horn +2",
-        body        = "Beckoner's Doublet +1",
+        body        = "Beckoner's Doublet +2",
         hands       = "Baayami Cuffs",
         legs        = "Baayami Slops",
         feet        = "Baayami Sabots +1",
@@ -229,7 +229,7 @@
         sub         = "Vox Grip",
         ammo        = "Epitaph",
         head        = "Beckoner's Horn +2",
-        body        = "Beckoner's Doublet +1",
+        body        = "Beckoner's Doublet +2",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+9','Blood Pact Dmg.+10','Pet: INT+7','Pet: "Mag.Atk.Bns."+10',}},
         legs        = "Baayami Slops",
         feet        = "Baayami Sabots +1",
