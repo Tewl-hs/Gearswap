@@ -63,7 +63,7 @@
             --body        = "Telchine Chasuble", -- "Elemental Siphon"
             hands       = "Baayami Cuffs",
             --legs        = "Telchine Braconi", -- "Elemental Siphon"
-            feet        = "Beck. Pigaches +1",
+            feet        = "Beck. Pigaches +2",
             neck        = "Incanter's Torque",
             left_ear    = "Lodurr Earring",
             right_ear   = "Gifted Earring",
