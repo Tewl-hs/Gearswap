@@ -61,7 +61,7 @@ function get_sets()
     --
     CurrentWeapon = "Masamune"
 
-	TwoHandedWeapon = true
+    TwoHandedWeapon = true
 
     RangedWeapon = "Yoichinoyumi"
     RangedAmmo = "Yoichi's Arrow"
@@ -79,7 +79,7 @@ function get_sets()
 	Capes.FC		= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 	Capes.Enmity 	= { name="Smertrios's Mantle", augments={'HP+60','Enmity+10',}}
 	
-	sets.MoveSpeed = { feet = "Danzo Sune-Ate",} --auto swaps when moving
+	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}
 
 	sets.Weapons = {
 		['Masamune'] = {main='Masamune',sub='Utu Grip'},
@@ -176,7 +176,7 @@ function get_sets()
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= "Yemaya Belt",
 		left_ear   	= "Telos Earring", 
-		right_ear   = "Crep. Earring",
+		right_ear	= "Crep. Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Cacoethic ring +1",
 		back		= Capes.RA
@@ -286,20 +286,16 @@ function get_sets()
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= "Flam. Zucchetto +2",
 		body		= "Kasuga Domaru +2",
-		--body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
-		--hands		= "Wakido Kote +3",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +2",
-		--legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
 		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
-		left_ear	= "Telos Earring",
+		left_ear	= "Telos Earring", -- Need Sortie Earring
 		right_ear	= "Dedition Earring",
 		left_ring	= "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
-		--back		= Capes.TP,
-		back		= { name="Takaha Mantle", augments={'STR+5','"Zanshin"+4','"Store TP"+3',}},
+		back		= Capes.TP,
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
@@ -309,67 +305,37 @@ function get_sets()
 		waist		= "Ioskeha Belt +1",
 		right_ring	= "Regal Earring",
 		right_ear	= "Digni. Earring",
-		back		= Capes.TP
 	})
-	sets.Engaged.PDT = { 
-		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
+	sets.Engaged.PDT = set_combine(sets.Engaged.Normal, {
 		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
 		body		= { name="Mpaca's Doublet", augments={'Path: A',}}, 
 		hands		= "Wakido Kote +3",
 		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
 		feet		= { name="Mpaca's Boots", augments={'Path: A',}},
-		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= "Ioskeha Belt +1", 
-		left_ear	= "Telos Earring",
-		right_ear	= "Dedition Earring",
 		left_ring	= "Defending Ring",
-		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP
-	}
-	sets.Engaged.MDT = set_combine(sets.Engaged.PDT, {
-		ammo		= "Aurgelmir Orb +1",
-		head		= { name="Nyame Helm", augments={'Path: B',}},
-		body		= { name="Mpaca's Doublet", augments={'Path: A',}},
-		hands		= "Wakido Kote +3",
-		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
-		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
-		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
-		waist		= "Ioskeha Belt +1",
-		left_ear	= "Telos Earring",
-		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
-		left_ring	= "Chirich Ring +1",
-		right_ring	= "Niqmaddu Ring",
 	})
-	sets.Engaged["Subtle Blow"] = { 
+	sets.Engaged.MEVA = set_combine(sets.Engaged.Normal, {
+		head		= { name="Nyame Helm", augments={'Path: B',}},
+		body		= { name="Nyame Mail", augments={'Path: B',}},
+		hands		= { name="Nyame Gauntlets", augments={'Path: B',}},
+		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+	})
+	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, {
 		ammo        = "Staunch Tathlum +1", -- 0 0 3
 		head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
-		body		= "Ken. Samue +1", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Dagon Breastplate [Kin]
+		body		= "Ken. Samue +1", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Need Dagon Breastplate [Kin]
 		hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
 		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
 		feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
-		neck        = { name="Sam. Nodowa +2", augments={'Path: A',}}, -- STP 14
 		waist       = "Ioskeha Belt +1", -- Haste 8
-		left_ear   	= "Telos Earring", -- STP 5
 		right_ear   = "Schere Earring", -- SB 3
-		left_ring   = "Niqmaddu Ring", -- SB2 5
-		right_ring  = "Chirich Ring +1", -- SB1 10 STP 6
-		back        = Capes.TP -- DT 5 STP 10
-	}
-	sets.Engaged.Hybrid = { 
-		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
+	})
+	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
 		head		= "Kasuga Kabuto +2",
-		body		= "Kasuga Domaru +2",
-		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +2",
 		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
-		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
-		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
-		left_ear	= "Telos Earring",
-		right_ear	= "Dedition Earring",
-		left_ring	= "Chirich Ring +1", 
-		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP,
-	}
+	})
 		
 	sets.Idle = { }
 	sets.Idle.Normal = { -- PDT 20 DT 47 MDT 2 68/49
@@ -388,11 +354,11 @@ function get_sets()
 		back		= Capes.TP
 	}
 	sets.Idle.PDT = sets.Engaged.PDT
-	sets.Idle.MDT = sets.Engaged.MDT
+	sets.Idle.MEVA = sets.Engaged.MEVA
 	sets.Idle.Hybrid = sets.Engaged.Hybrid
 	sets.Idle.Refresh = set_combine(sets.Idle.Normal,{
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
-        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
+		left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+		right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
 	})
 	
 	sets.Twilight = { 
@@ -405,10 +371,10 @@ function get_sets()
 		ammo		= RangedAmmo
 	}
 
-    EngagedMode = {'Normal', 'PDT', 'MDT', 'Subtle Blow', 'Hybrid'}
+	EngagedMode = {'Normal', 'PDT', 'MEVA', 'Subtle Blow', 'Hybrid'}
 	EngagedIndex = 1
 
-	IdleMode = {'Normal', 'PDT', 'MDT', 'Hybrid', 'Refresh'}
+	IdleMode = {'Normal', 'PDT', 'MEVA', 'Hybrid', 'Refresh'}
 	IdleIndex = 1
 
 	range_mode = false
