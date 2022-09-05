@@ -17,7 +17,7 @@ function get_sets()
 	Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
 				
 	sets.precast = {}
-	sets.precast.FastCast = { -- 101
+	sets.precast.FastCast = { -- 106
 		ammo		= "Sapience Orb", -- 2
 		head		= "Atrophy Chapeau +3", -- 16
 		body		= "Viti, Tabard +3", -- 15
@@ -27,14 +27,14 @@ function get_sets()
         neck        = "Orunmila's Torque", -- 5
 		waist		= "Embla Sash", -- 5
 		left_ear	= "Malignance earring", -- 4
-		right_ear	= "Loquac. Earring", -- 2
+		right_ear	= "Lethargy Earring", -- 7
         left_ring   = "Kishar Ring",
 		right_ring	= "Lebeche Ring", -- 0|2
 		back		= Capes.MND -- 10
 	}
 	sets.precast.JA = {
         ['Composure'] = { },
-		['Saboteur'] = {hands = "Leth. Gantherots +1",},
+		['Saboteur'] = {hands = "Leth. Gantherots +2",},
 		['Chainspell'] = {body="Viti. Tabard +3"}
 	}
 	sets.precast.WS = {
@@ -117,7 +117,7 @@ function get_sets()
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",
-        hands		= "Leth. Gantherots +1",
+        hands		= "Leth. Gantherots +2",
         legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
         feet		= "Vitiation Boots +3",
         neck		= "Incanter's Torque",
@@ -147,10 +147,10 @@ function get_sets()
         body		= "Viti. Tabard +3",
         hands       = "Atrophy Gloves +3", -- 10
         legs		= "Telchine Braconi",
-        feet        = "Leth. Houseaux +1",  -- 30%
+        feet        = "Leth. Houseaux +2",  -- 30%
         neck		= "Incanter's Torque",
-        left_ear	= "Mimir Earring",
-        right_ear	= "Andoaa Earring",
+        left_ear	= "Andoaa Earring",
+        right_ear	= "Lethargy Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         --back		= "Ghostfyre Cape",
@@ -160,7 +160,7 @@ function get_sets()
 	sets.midcast.Enhancing.Refresh = set_combine(sets.midcast.Enhancing, { 
 		head		= "Amalric Coif +1",
 		body		= "Atrophy Tabard +3",
-		legs		= "Leth. Fuseau +1",
+		legs		= "Leth. Fuseau +2",
 		waist		= "Gishdubar Sash",
         back		= "Grapevine Cape"
 	})
@@ -221,8 +221,6 @@ function get_sets()
 		back		= Capes.DW
 	}
 	sets.aftercast.Idle = {
-		main		= "Crocea Mors",
-		sub			= "Ammurapi Shield",
 		ammo		= "Homiliary",
 		head		= "Viti. Chapeau +3",
 		body		= "Jhakri Robe +2",

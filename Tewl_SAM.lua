@@ -229,6 +229,7 @@ function get_sets()
 		waist		= "Orpheus's Sash",
 		back		= Capes.HWS
 	})
+	sets.WS['Raiden Thrust'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Kagero'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Goten'] = sets.WS['Tachi: Jinpu']
@@ -288,11 +289,12 @@ function get_sets()
 		body		= "Kasuga Domaru +2",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +2",
-		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		--feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
-		left_ear	= "Telos Earring", -- Need Sortie Earring
-		right_ear	= "Dedition Earring",
+		left_ear	= "Dedition Earring", 
+		right_ear	= "Telos Earring", -- Need Sortie Earring
 		left_ring	= "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TP,
@@ -304,7 +306,7 @@ function get_sets()
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		waist		= "Ioskeha Belt +1",
 		right_ring	= "Regal Earring",
-		right_ear	= "Digni. Earring",
+		left_ear	= "Digni. Earring",
 	})
 	sets.Engaged.PDT = set_combine(sets.Engaged.Normal, {
 		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
@@ -334,7 +336,8 @@ function get_sets()
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
 		head		= "Kasuga Kabuto +2",
 		legs		= "Kasuga Haidate +2",
-		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		--feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
+		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 	})
 		
 	sets.Idle = { }
