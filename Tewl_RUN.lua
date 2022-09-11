@@ -66,7 +66,6 @@ function get_sets()
     Capes.DA = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}}
 
     sets.Enmity = {
-        sub         = "Utu Grip",
         head        = "Halitus Helm",
         body        = "Emet Harness +1",
         hands       = "Kurys Gloves",
@@ -88,7 +87,6 @@ function get_sets()
         feet        = "Nyame Sollerets", -- 7 0 0
     })
     sets.Enmity.SIRD = { -- 105%
-        sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 11
         head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}}, -- 10
         body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
@@ -106,7 +104,6 @@ function get_sets()
     
     sets.precast = {}
     sets.precast.FC = { -- 73%
-        sub         = "Utu Grip",
         ammo        = "Sapience Orb", -- 2
         head        = "Carmine Mask +1", -- 14
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}}, -- 9
@@ -171,7 +168,6 @@ function get_sets()
         },   
     }
     sets.precast.WS = {
-        sub         = "Utu Grip",
         ammo        = "Knobkierrie",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
         body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
@@ -239,7 +235,6 @@ function get_sets()
         legs        = "Futhark Trousers +3",
     }
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
-        sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1",
         head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
@@ -258,7 +253,6 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = { }
     sets.aftercast.Engaged.Normal = { -- DT (52) PDT (29) MDT (2)
-        sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
         body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
@@ -281,7 +275,6 @@ function get_sets()
         back        = Capes.Enmity -- 5 0 0
     }
     sets.aftercast.Engaged.DTLite = {
-        sub         = "Utu Grip",
         ammo        = "Yamarang",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
         body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
@@ -297,7 +290,6 @@ function get_sets()
         back        = Capes.DA
     }
     sets.aftercast.Engaged.Hybrid = { -- DT 33 PDT 25
-        sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
 
         head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
@@ -321,7 +313,6 @@ function get_sets()
         back        = Capes.DA -- 5 0 0
     }
     sets.aftercast.Idle = { -- DT 55 PDT 29 MDT 2
-        sub         = "Utu Grip",
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Turms Cap +1", 
         body        = "Runeist's Coat +3", 

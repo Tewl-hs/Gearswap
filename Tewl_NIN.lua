@@ -396,7 +396,7 @@ function equip_change()
 	local inventory = windower.ffxi.get_items();
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-	local sitem = windower.ffxi.get_items(equipment["main_bag"],equipment["sub"])
+	local sitem = windower.ffxi.get_items(equipment["sub_bag"],equipment["sub"])
 	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then 
 		local mw = items[item['id']].name
         local sw = items[sitem['id']].name

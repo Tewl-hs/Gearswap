@@ -45,7 +45,7 @@ function get_sets()
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         ammo        = empty,
-        head        = "Azimuth Hood +1",
+        head        = "Azimuth Hood +2",
         neck        = "Bagua Charm +2",
         hands       = "Geo. Mitaines +3",
         right_ring  = "Stikini Ring +1",
@@ -74,7 +74,7 @@ function get_sets()
         head        = "Bagua Galero +3"
     }
     sets.precast.JA['Full Circle'] = {
-        head        = "Azimuth Hood +1"
+        head        = "Azimuth Hood +2"
     }
     sets.precast.JA['Bolster'] = {
         body        = "Bagua Tunic +3"
@@ -110,7 +110,7 @@ function get_sets()
     sets.midcast['Geomancy'] = { -- [425]+80 Geo skill / Handbell skill [425]+24
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
-        head        = "Azimuth Hood +1", -- 15
+        head        = "Azimuth Hood +2", -- 15
         neck        = "Bagua Charm +2",
         body        = "Bagua Tunic +3", -- 16
         hands       = "Geo. Mitaines +3", -- 19
@@ -125,7 +125,7 @@ function get_sets()
         main        = "Gada",
         neck        = "Incanter's Torque",
         legs        = "Bagua Pants +3",   
-        feet        = "Azimuth Gaiters +1",
+        feet        = "Azimuth Gaiters +2",
     }
 
     sets.midcast['Elemental Magic'] = { 
@@ -163,7 +163,7 @@ function get_sets()
         sub         = "Ammurapi Shield",
         neck        = "Incanter's Torque",
         body        = "Vanya Robe",
-        hands       = "Azimuth Gloves +1",
+        hands       = "Azimuth Gloves +2",
         left_ring   = "Stikini Ring +1",
         right_ring  = "Stikini Ring +1",
         waist       = "Luminary Sash"
@@ -194,7 +194,7 @@ function get_sets()
     sets.midcast['Dark Magic'] = {
         head        = "Bagua Galero +3",
         neck        = "Incanter's Torque",
-        legs        = "Azimuth Tights +1",
+        legs        = "Azimuth Tights +2",
         waist       = "Austertiy Belt +1"
     }
 

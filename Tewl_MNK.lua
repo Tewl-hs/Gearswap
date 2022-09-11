@@ -57,7 +57,7 @@
 
         -- Variables for auto-skill chain. Only edit AutoWS 
         AutoWS = 'One Inch Punch'
-        WeaponSkills = T{'Shijin Spiral','Victory Smite','Shijin Spiral'}
+        WeaponSkills = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
         ws_order = 1
     
         buffs = {}
