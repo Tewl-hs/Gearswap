@@ -18,20 +18,6 @@
     send_command('input /macro book '..Macro_Book..';wait 1;input /lockstyleset '..LockStyle)
     send_command('input //equipviewer pos 1663 912')
     -- End of Personal Settings --
- 
-    -- AutoWard
-    autoward = false
-    AWOrder = {
-        [1] = {"Garuda", "Hastega II"},
-        [2] = {"Ifrit", "Crimson Howl"},
-        [3] = {"Shiva", "Crystal Blessing"},
-        [4] = {"Fenrir", "Ecliptic Growl"}, -- Apogee
-        [5] = {"Fenrir", "Ecliptic Howl"},
-    }
-    awc = 5 -- Set this to total number of wards in table above
-    aw = 1
-    last_summon = 0
-    last_bp = 0
 
     -- Tables
     MagicalBloodPactRage = S{
@@ -390,8 +376,6 @@
         end
         if spell and string.find(spell.type,'BloodPact') and not spell.interrupted then
             pet_midcast(spell)
-        elseif spell and spell.name == 'Apogee' and autoward ~= false then
-            send_command('wait 1;gs c queue_ward')
         else
             equip_aftercast()
         end
@@ -401,14 +385,8 @@
         if gain == true then
             if Macro_Page[pet.name] then send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page[pet.name]) end
             if not buffactive["Avatar's Favor"] then send_command('wait 2;input /pet "Avatar\'s Favor" <me>') end
-            if autoward ~= false then send_command('wait 3;gs c queue_ward') end
         else
             add_to_chat(8,pet.name..' has been released or died.')
-            if autoward ~= false then
-                local r = windower.ffxi.get_ability_recasts()[174]; 
-                send_command('wait '..r..';input /ma '..AWOrder[aw][1]..' <me>')
-                add_to_chat(123,'Pet Change: Queue Summon '..AWOrder[aw][1]..' in '..r..' seconds.')
-            end
         end
         equip_aftercast()
     end
@@ -436,44 +414,6 @@
     function pet_aftercast(spell)
         equip_aftercast()
         --windower.add_to_chat(8,'Pet finished ability: '..spell.name) 
-        if autoward ~= false then
-            aw = aw + 1
-            if aw > awc then aw = 1 end
-            if AWOrder[aw][1] == AWOrder[last_summon] then
-                send_command('wait 1;gs c queue_ward')
-                add_to_chat(123,'Pet Aftercast: Queue Ward 1')
-            else
-                local r = windower.ffxi.get_ability_recasts()[174]; 
-                last_summon = last_summon + 1
-                if last_summon > awc then last_summon = 1 end
-                if r > 0 or AWOrder[aw][1] ~= pet.name then
-                    send_command('wait 1;input /ja Release <me>')
-                    add_to_chat(123,'Pet Aftercast: Release')
-                else
-                    send_command('wait 1;gs c queue_ward')
-                    add_to_chat(123,'Pet Aftercast: Queue Ward 2')
-                end
-            end
-        end
-    end
-
-    function queue_ward()
-        local r = windower.ffxi.get_ability_recasts()[174]; 
-        local apo = windower.ffxi.get_ability_recasts()[108];
-        
-        if autoward ~= false then
-            if r > 0 then
-                send_command('wait '..r..';gs c queue_ward')
-                add_to_chat(123,'Queue Ward: Requeue')
-            else 
-                if apo == 0 then
-                    send_command('input /ja Apogee <me>')
-                else
-                    send_command('input /ja \''..AWOrder[aw][2]..'\' <me>')
-                    add_to_chat(123,'Using Ward: '..AWOrder[aw][2])
-                end
-            end
-        end
     end
 
     function pet_status_change(old,new)
@@ -521,8 +461,6 @@
     function self_command(commandArgs)
         if commandArgs == 'idle' then
             equip_aftercast()
-        elseif commandArgs == 'queue_ward' then
-            queue_ward()
         end
     end
 
