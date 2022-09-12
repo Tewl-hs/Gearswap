@@ -494,37 +494,3 @@
             mov.counter = 0
         end
     end)
-    -- Ignore this stuff it was only for overlay testing 
-	items = require('resources').items
-    skills = require('resources').skills
-    CurrentWeapon = 'Gil' -- Nothing equipped returns Gil as name ???
-    WeaponType = '(N/A)' -- Values: (N/A),Hand-to-Hand,Dagger,Sword,Great Sword,Axe,Great Axe,Scythe,Polearm,Katana,Great Katana,Club,Staff
-
-    function equip_change()
-        local inventory = windower.ffxi.get_items();
-        local equipment = inventory['equipment'];
-        local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-        if item and items[item['id']] then 
-            local skill = items[item['id']].skill or 0
-            if WeaponType ~= skills[skill].en then -- only triggers if the weapon type has changed
-                WeaponType = skills[skill].en
-                --windower.chat.input('/echo Weapon type is: '..WeaponType)
-            end
-            if CurrentWeapon ~= items[item['id']].en then -- only triggers if a different named weapon has been equipped
-                CurrentWeapon = items[item['id']].en
-                if CurrentWeapon == 'Gil' then -- No clue why empty hand returns Gil as name
-                    --windower.chat.input('/echo Weapon: Empty')
-                else
-                    --windower.chat.input('/echo Weapon: '..CurrentWeapon)
-                end
-            end
-        end
-    end
-    
-    windower.raw_register_event('incoming chunk', function(id, data)
-        if (id == 0x050) then
-            equip_change()
-        end
-    end)
-
-    equip_change() -- You want to call the funciton on loading of the lua to get your current equipped weapon
