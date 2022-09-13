@@ -8,7 +8,7 @@ function get_sets()
     -- Load Macros
     send_command('input /macro book 1;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 3')
 
-    sets.MoveSpeed = { feet = "Fili cothurnes +1",}    --auto swaps when moving
+    sets.MoveSpeed = { feet = "Fili cothurnes +2",}    --auto swaps when moving
     send_command('input //equipviewer pos 1663 934')
 
     -- Augments
@@ -42,7 +42,7 @@ function get_sets()
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}} -- 10
     }
     sets.precast.BardSong = set_combine(sets.precast.FastCast,{
-        head        = "Fili Calot +1", -- 14 song
+        head        = "Fili Calot +2", -- 14 song
         body        = "Brioso Justau. +3", --15 song
         feet        = "Bihu Slippers +3", -- 10 song
         left_ear    = "Genmei Earring",
@@ -116,7 +116,7 @@ function get_sets()
         sub         = "Ammurapi Shield", 
         range       = "Gjallarhorn",
         head        = "Bihu Roundlet +3",
-        body        = "Fili Hongreline +1",
+        body        = "Fili Hongreline +2",
         hands       = "Inyanga Dastanas +2",
         legs        = "Inyanga Shalwar +2",
         feet        = "Brioso Slippers +3",
@@ -134,7 +134,7 @@ function get_sets()
         body        = "Mous. Manteel +1"
     }
     sets.midcast.Scherzo = {
-        feet        = "Fili Cothurnes +1"
+        feet        = "Fili Cothurnes +2"
     }
     sets.midcast.Carol = {
         hands       = "Mousai Gages +1"
@@ -149,16 +149,16 @@ function get_sets()
         feet        = "Mou. Crackows +1"
     }
     sets.midcast.Ballad = {
-        legs        = "Fili Rhingrave +1"
+        legs        = "Fili Rhingrave +2"
     }
     sets.midcast.Minuet = {
-        body        = "Fili Hongreline +1"
+        body        = "Fili Hongreline +2"
     }
     sets.midcast.March = {
-        hands       = "Fili Manchettes +1"
+        hands       = "Fili Manchettes +2"
     }
     sets.midcast.Madrigal = {
-        head        = "Fili Calot +1"
+        head        = "Fili Calot +2"
     }
     sets.midcast.Lullaby = {
         hands       = "Brioso Cuffs +3"
