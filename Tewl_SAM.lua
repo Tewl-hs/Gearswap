@@ -461,13 +461,13 @@ function precast(spell, action)
             cancel_spell()
             return
         end
-		if std_set.left_ear:startswith('Moonshade') and acc_mode == false then
-			if player.tp > 2750 then -- Dusk to Dawn time or more than 2750 tp
-				ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
-			end
+		if player.tp > 2750 and std_set.left_ear:startswith('Moonshade') then
+			ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
+		elseif (world.time >= 17*60 or world.time < 7*60) and std_set.left_ear:startswith('Moonshade') then
+			ws = set_combine(ws,{left_ear="Lugra Earring +1"})
 		end
 		if check_facing() == false and std_set.body:startswith("Sak") then
-		   ws = set_combine(ws,{body="Nyame Mail"})
+			ws = set_combine(ws,{body="Nyame Mail"})
 		end
 		equip(ws)
 	elseif spell.action_type == 'Ability' then

@@ -360,6 +360,13 @@ function self_command(commandArgs)
             return
         end
     end
+    if commandArgs[1] == 'movement' then
+        if world.time >= 17*60 or world.time < 7*60 then
+            equip({feet="Hachiya Kyahan +3"})
+        else
+            equip({feet="Danzo Sune-Ate"})
+        end
+    end
     if commandArgs[1] == 'SwapGear' then
         SwapGear()
     end
@@ -474,7 +481,7 @@ windower.raw_register_event('prerender',function()
 			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
 			if dist > 1 and not moving then
 				if player.status ~= 'Engaged' then
-					send_command('gs equip sets.MoveSpeed')
+					send_command('gs c movement')
 				end
 				moving = true
 			elseif dist < 1 and moving then
