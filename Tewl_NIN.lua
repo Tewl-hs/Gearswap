@@ -167,8 +167,8 @@ function get_sets()
     })
     sets.midcast = {}
     sets.midcast.SIRD = { }
-    sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +1", })
-    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +1", })
+    sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +2", })
+    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +2", })
     sets.midcast.Enhancing = { }
     sets.midcast.Elemental = { 
         ammo        = { name="Ghastly Tathlum +1", augments={'Path: A',}},
