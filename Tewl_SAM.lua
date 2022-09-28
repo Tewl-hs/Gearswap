@@ -294,10 +294,10 @@ function get_sets()
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= "Dedition Earring", 
-		right_ear	= "Telos Earring", -- Need Sortie Earring
+		right_ear	= "Kasuga Earring",
 		left_ring	= "Chirich Ring +1", 
 		right_ring	= "Niqmaddu Ring",
-		back		= Capes.TP,
+		back		= { name="Takaha Mantle", augments={'STR+5','"Zanshin"+4','"Store TP"+3',}},
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
@@ -316,12 +316,14 @@ function get_sets()
 		feet		= { name="Mpaca's Boots", augments={'Path: A',}},
 		waist		= "Ioskeha Belt +1", 
 		left_ring	= "Defending Ring",
+		back		= Capes.TP
 	})
 	sets.Engaged.MEVA = set_combine(sets.Engaged.Normal, {
 		head		= { name="Nyame Helm", augments={'Path: B',}},
 		body		= { name="Nyame Mail", augments={'Path: B',}},
 		hands		= { name="Nyame Gauntlets", augments={'Path: B',}},
 		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+		back		= Capes.TP
 	})
 	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, {
 		ammo        = "Staunch Tathlum +1", -- 0 0 3
@@ -332,12 +334,14 @@ function get_sets()
 		feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
 		waist       = "Ioskeha Belt +1", -- Haste 8
 		right_ear   = "Schere Earring", -- SB 3
+		back		= Capes.TP
 	})
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
 		head		= "Kasuga Kabuto +2",
 		legs		= "Kasuga Haidate +2",
 		--feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
+		back		= Capes.TP
 	})
 		
 	sets.Idle = { }
