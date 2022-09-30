@@ -212,7 +212,6 @@ function get_sets()
 	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
 	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
 		right_ring	= "Niqmaddu Ring",
-		feet		= "Nyame Sollerets"
 	})
 	sets.WS['Tachi: Shoha'].Accuracy = set_combine(sets.WS['Tachi: Shoha'], { })
 	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], {
