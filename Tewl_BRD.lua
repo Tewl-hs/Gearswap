@@ -186,21 +186,27 @@ function get_sets()
         back        = "Moonlight Cape" -- 6
     }
     sets.aftercast.Engaged = {
-        main        = "Carnwenhan",
+        --main        = "Carnwenhan",
         --sub         = "Ammurapi Shield",
-        --main        = "Naegling",
-        sub         = "Genmei Shield",  --
+        main        = "Naegling",
+        sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
-        head        = "Aya. Zucchetto +2",
-        body        = "Ayanmo Corazza +2",
-        hands       = "Aya. Manopolas +2",
-        legs        = "Aya. Cosciales +2",
-        feet        = "Aya. Gambieras +2",
+        --head        = "Aya. Zucchetto +2",
+        head        = "Bunzi's Hat", -- 7
+        --body        = "Ayanmo Corazza +2",
+		body		= "Nyame Mail",
+        --hands       = "Aya. Manopolas +2",
+        hands       = "Bunzi's Gloves", -- 8
+        --legs        = "Aya. Cosciales +2",
+        --feet        = "Aya. Gambieras +2",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
         neck        = "Bard's Charm +2",
         waist       = "Sailfi Belt +1",
-        left_ear    = "Eabani Earring",
+        left_ear    = "Crep. Earring",--"Eabani Earring",
         right_ear   = "Telos Earring",
-        left_ring   = "Chirich Ring +1", 
+        --eft_ring   = "Chirich Ring +1", 
+        left_ring   = "Moonlight Ring", 
         right_ring  = "Chirich Ring +1", 
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}},
     }

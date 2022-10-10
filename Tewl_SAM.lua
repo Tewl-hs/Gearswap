@@ -185,7 +185,7 @@ function get_sets()
 	sets.WS.Normal = {
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap", -- R25
-		body		= "Nyame Mail", -- R25 { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
+		body		= "Nyame Mail", -- R25
 		hands		= "Nyame Gauntlets", -- R25
 		legs		= "Nyame Flanchard", -- R25
 		feet		= "Nyame Sollerets", -- R25
@@ -324,15 +324,19 @@ function get_sets()
 		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
 		back		= Capes.TP
 	})
-	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, {
-		ammo        = "Staunch Tathlum +1", -- 0 0 3
-		head        = { name="Mpaca's Cap", augments={'Path: A',}}, -- MEVA 69 MDB 12 PDT 7
-		body		= "Ken. Samue +1", -- MEVA 69 MDB 6 Haste 2 SB1 17 STP 9 ::: Need Dagon Breastplate [Kin]
-		hands       = "Wakido Kote +3", -- MEVA 46 MDB 2 Haste 4 STP 7 
-		legs        = "Mpaca's Hose", -- MEVA 96 MDB 13 Haste 9 SB2 5 PDT 9
-		feet        = "Mpaca's Boots", -- MEVA 96 MDB 12 Haste 3 PDT 6
-		waist       = "Ioskeha Belt +1", -- Haste 8
-		right_ear   = "Schere Earring", -- SB 3
+	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, { -- MEVA 409 | MDB 30 | STP 36 | PDT 16 | DT 5 | SB1 50 | SB2 20 | Haste 26 | DA 8 | TA 11 | QA 3 | CRIT 9
+ 		ammo        = "Aurgelmir Orb +1", 
+		head        = "Ken. Jinpachi +1", 
+		body		= "Dagon Breast.",  
+		hands       = "Wakido Kote +3",
+		legs        = "Mpaca's Hose", 
+		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}}, 
+		neck		= "Bathy Choker +1",
+		left_ear	= "Digni. Earring",
+		right_ear	= "Schere Earring",
+		left_ring	= "Chirich Ring +1", 
+		right_ring	= "Niqmaddu Ring",
+		waist       = "Sarissapho. Belt",
 		back		= Capes.TP
 	})
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
