@@ -324,7 +324,8 @@ function get_sets()
 		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
 		back		= Capes.TP
 	})
-	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, { -- MEVA 409 | MDB 30 | STP 36 | PDT 16 | DT 5 | SB1 50 | SB2 20 | Haste 26 | DA 8 | TA 11 | QA 3 | CRIT 9
+	-- MEVA 409 | MDB 30 | STP 36 | PDT 16 | DT 5 | SB1 50 | SB2 20 | Haste 26 | DA 8 | TA 11 | QA 3 | CRIT 9
+	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, { 
  		ammo        = "Aurgelmir Orb +1", 
 		head        = "Ken. Jinpachi +1", 
 		body		= "Dagon Breast.",  
