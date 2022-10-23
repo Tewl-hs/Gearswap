@@ -186,7 +186,7 @@ function get_sets()
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap", -- R25
 		body		= "Nyame Mail", -- R25
-		hands		= "Nyame Gauntlets", -- R25
+		hands		= "Kasuga Kote +3", -- "Nyame Gauntlets", -- R25
 		legs		= "Nyame Flanchard", -- R25
 		feet		= "Nyame Sollerets", -- R25
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -288,7 +288,6 @@ function get_sets()
 		body		= "Kasuga Domaru +2",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +2",
-		--feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
@@ -343,13 +342,12 @@ function get_sets()
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
 		head		= "Kasuga Kabuto +2",
 		legs		= "Kasuga Haidate +2",
-		--feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		back		= Capes.TP
 	})
 		
 	sets.Idle = { }
-	sets.Idle.Normal = { -- PDT 20 DT 47 MDT 2 68/49
+	sets.Idle.Normal = {
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Sacro Breastplate",
@@ -456,9 +454,6 @@ function precast(spell, action)
 
 		if range_mode == true then
 			ws = set_combine(ws, sets.Ranged)
-		end
-		if buffactive['Sekkanoki'] then
-			ws = set_combine(ws, {hands="Kasuga Kote +2"})
 		end
 		if buffactive['Meikyo Shisui'] then
 			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
@@ -749,16 +744,12 @@ windower.raw_register_event('outgoing chunk', function(id, data)
 	if id == 0x00D and stateBox then
 		stateBox:hide()
 	end
-	--if (id == 0x1A or id == 0x50) then
-	--	equip_change()
-	--end
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-	--if (id == 0x37 or id == 0x1D) then
 	if id == 0x050 then
 		equip_change()
 	end
