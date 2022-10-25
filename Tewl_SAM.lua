@@ -284,18 +284,18 @@ function get_sets()
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
-		head		= "Flam. Zucchetto +2",
+		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
 		body		= "Kasuga Domaru +2",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +2",
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
-		left_ear	= "Dedition Earring", 
-		right_ear	= "Kasuga Earring",
-		left_ring	= "Chirich Ring +1", 
+		left_ear	= "Dedition Earring",
+		right_ear	= "Kasuga Earring", -- ACC+8
+		left_ring	= "Chirich Ring +1",
 		right_ring	= "Niqmaddu Ring",
-		back		= { name="Takaha Mantle", augments={'STR+5','"Zanshin"+4','"Store TP"+3',}},
+		back		= Capes.TP
 	}	
 	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
@@ -323,7 +323,6 @@ function get_sets()
 		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
 		back		= Capes.TP
 	})
-	-- MEVA 409 | MDB 30 | STP 36 | PDT 16 | DT 5 | SB1 50 | SB2 20 | Haste 26 | DA 8 | TA 11 | QA 3 | CRIT 9
 	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, { 
  		ammo        = "Aurgelmir Orb +1", 
 		head        = "Ken. Jinpachi +1", 
@@ -341,8 +340,7 @@ function get_sets()
 	})
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
 		head		= "Kasuga Kabuto +2",
-		legs		= "Kasuga Haidate +2",
-		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
+		waist       = "Windbuffet Belt +1",
 		back		= Capes.TP
 	})
 		
@@ -552,6 +550,7 @@ end
 function buff_change(buff, gain)
 	if buff == 'sleep' and player.status == 'Engaged' then
 		if gain then 
+			send_command('cancel Stoneskin')
 			equip({neck='Vim Torque +1'})
 		else
 			equip_check()

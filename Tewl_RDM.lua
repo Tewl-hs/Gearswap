@@ -114,6 +114,8 @@ function get_sets()
 
 	}
 	sets.midcast.Enfeebling = {
+		main		= { name="Crocea Mors", augments={'Path: C',}},
+        sub         = "Ammurapi Shield",
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",
@@ -128,21 +130,23 @@ function get_sets()
 		waist		= "Obstin. Sash",
 		back		= Capes.MND
 	}
-	sets.midcast.Enfeebling.Dispel = set_combine(sets.midcast.IntEnfeeblesAcc, {
-        neck		= "Dls. Torque +2",
-        left_ring	= "Kishar Ring",
-    })
 	sets.midcast.Enfeebling.MND = set_combine(sets.midcast.Enfeebling, { 
 		back		= "Aurist's Cape +1",
 	})
 	sets.midcast.Enfeebling.INT = set_combine(sets.midcast.Enfeebling, { 
 		back		= Capes.INT
 	})
-	sets.midcast.Enfeebling.Sleep = set_combine(sets.midcast.IntEnfeeblesAcc, {
+	sets.midcast.Enfeebling.Dispel = set_combine(sets.midcast.INT, {
+        neck		= "Dls. Torque +2",
+        left_ring	= "Kishar Ring",
+    })
+	sets.midcast.Enfeebling.Sleep = set_combine(sets.midcast.INT, {
         neck		= "Dls. Torque +2",
         left_ring	= "Kishar Ring",
     })
 	sets.midcast.Enhancing = {	
+		main		= { name="Crocea Mors", augments={'Path: C',}},
+        sub         = "Ammurapi Shield",
         head		= "Telchine Cap",
         body		= "Viti. Tabard +3",
         hands       = "Atrophy Gloves +3", -- 10
@@ -184,6 +188,8 @@ function get_sets()
         waist		= "Siegel Sash",
     })
 	sets.midcast.Elemental = {
+		main		= "Bunzi's Rod",
+        sub         = "Ammurapi Shield",
 		ammo		= "Ghastly Tathlum +1",
         head        = "Jhakri Coronal +2",
         body		= "Amalric Doublet +1",
@@ -235,12 +241,22 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
 		back		= "Solemnity Cape"
 	}
-	sets.aftercast.DT = set_combine(sets.aftercast.Idle, {		
-		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Nyame Gauntlets",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
+	sets.aftercast.DT = set_combine(sets.aftercast.Idle, {	
+		main		= { name="Crocea Mors", augments={'Path: C',}},
+		sub			= "Genmei Shield",
+		ammo		= "Staunch Tathlum +1",
+		head		= "Leth. Chappel +2",
+		body		= "Lethargy Sayon +2",
+		hands		= "Leth. Ganth. +2",
+		legs		= { name="Nyame Flanchard", augments={'Path: B',}},
+		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+		neck		= "Warder's Charm +1",
+		waist		= "Slipor Sash",
+		left_ear	= "Eabani Earring",
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+		left_ring	= "Shadow Ring",
+		right_ring	= "Stikini Ring +1",
+		back={ name	= "Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
 	})
 end
 
