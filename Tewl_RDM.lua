@@ -16,6 +16,23 @@ function get_sets()
 	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Cure" potency +10%',}}
 	Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
 				
+	sets.Enmity = {
+		main		= { name="Crocea Mors", augments={'Path: C',}},
+		sub			= "Genmei Shield",
+		ammo		= "Staunch Tathlum +1",
+		head		= "Leth. Chappel +2",
+		body		= "Lethargy Sayon +2",
+		hands		= "Leth. Ganth. +2",
+		legs		= { name="Nyame Flanchard", augments={'Path: B',}},
+		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+		neck		= "Unmoving Collar +1",
+		waist		= "Kasiri Belt",
+		left_ear	= "Cryptic Earring",
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+		left_ring	= "Supershear Ring",
+		right_ring	= "Eihwaz Ring",
+		back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+	}
 	sets.precast = {}
 	sets.precast.FastCast = { -- 106
 		ammo		= "Sapience Orb", -- 2
@@ -35,7 +52,9 @@ function get_sets()
 	sets.precast.JA = {
         ['Composure'] = { },
 		['Saboteur'] = {hands = "Leth. Gantherots +2",},
-		['Chainspell'] = {body="Viti. Tabard +3"}
+		['Chainspell'] = {body="Viti. Tabard +3"},
+		['Vallation'] = sets.Enmity,
+		['Valiance'] = sets.Enmity
 	}
 	sets.precast.WS = {
 		neck		= "Fotia Gorget",
@@ -61,7 +80,7 @@ function get_sets()
     })
 	
 	sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, { 
-		ammo		= "Pemphredo Tathlum",
+		ammo		= "Sroda Tathlum",
         head		= "Pixie Hairpin +1",
 		body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
@@ -74,6 +93,26 @@ function get_sets()
         right_ring	= "Metamor. Ring +1",
         waist		= "Orpheus's Sash",
 		back		= Capes.INT
+	})
+	sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS['Sanguine Blade'], {
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Jhakri Cuffs +2",
+		legs		= "Leth. Fuseau +2",
+		feet		= "Leth. Houseaux +2",
+		right_ear	= "Moonshade Earring",
+		left_ring	= "Epaminondas's Ring",
+		right_ring	= "Karieyh Ring +1",
+	})
+	sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS['Sanguine Blade'], {
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Jhakri Cuffs +2",
+		legs		= "Leth. Fuseau +2",
+		feet		= "Leth. Houseaux +2",
+		right_ear	= "Moonshade Earring",
+		left_ring	= "Epaminondas's Ring",
+		right_ring	= "Karieyh Ring +1",
 	})
 
 	sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, { 
@@ -110,6 +149,26 @@ function get_sets()
 		right_ring	= { "Lebeche Ring", bag="wardrobe4" },
 		back		= Capes.MND
 	}
+	sets.midcast.Divine = { 
+		back		= Capes.MND
+	}
+	sets.midcast.Divine.Flash = set_combine(sets.midcast.Divine, {
+		main		= { name="Crocea Mors", augments={'Path: C',}},
+		sub			= "Genmei Shield",
+		ammo		= "Staunch Tathlum +1",
+		head		= "Leth. Chappel +2",
+		body		= "Lethargy Sayon +2",
+		hands		= "Leth. Ganth. +2",
+		legs		= { name="Nyame Flanchard", augments={'Path: B',}},
+		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+		neck		= "Unmoving Collar +1",
+		waist		= "Kasiri Belt",
+		left_ear	= "Cryptic Earring",
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+		left_ring	= "Supershear Ring",
+		right_ring	= "Eihwaz Ring",
+		back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+	})
 	sets.midcast.Healing = {
 
 	}
@@ -157,7 +216,6 @@ function get_sets()
         right_ear	= "Lethargy Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-        --back		= "Ghostfyre Cape",
 		back		= Capes.MND,
         waist		= "Embla Sash",
 	}
@@ -191,7 +249,7 @@ function get_sets()
 		main		= "Bunzi's Rod",
         sub         = "Ammurapi Shield",
 		ammo		= "Ghastly Tathlum +1",
-        head        = "Jhakri Coronal +2",
+        head        = "Leth. Chappel +2",
         body		= "Amalric Doublet +1",
         hands		= "Amalric Gages +1",
         legs		= "Amalric Slops +1",
@@ -206,9 +264,6 @@ function get_sets()
 	}
 	sets.midcast.Dark =  { -- Bio, Drain, Aspir, Stun
 		back		= Capes.INT
-	}
-	sets.midcast.Divine = { -- Banish, Flash, Repose
-		back		= Capes.MND
 	}
 	sets.aftercast = {}
 	sets.aftercast.Engaged = {
@@ -226,7 +281,7 @@ function get_sets()
         waist		= "Sailfi Belt +1",
 		back		= Capes.DW
 	}
-	sets.aftercast.Idle = {
+	sets.aftercast.Refresh = {
 		ammo		= "Homiliary",
 		head		= "Viti. Chapeau +3",
 		body		= "Jhakri Robe +2",
@@ -241,7 +296,7 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
 		back		= "Solemnity Cape"
 	}
-	sets.aftercast.DT = set_combine(sets.aftercast.Idle, {	
+	sets.aftercast.Idle = set_combine(sets.aftercast.Idle, {	
 		main		= { name="Crocea Mors", augments={'Path: C',}},
 		sub			= "Genmei Shield",
 		ammo		= "Staunch Tathlum +1",

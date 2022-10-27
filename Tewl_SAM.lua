@@ -184,11 +184,11 @@ function get_sets()
 	sets.WS = {}
 	sets.WS.Normal = {
 		ammo		= "Knobkierrie",
-		head		= "Mpaca's Cap", -- R25
-		body		= "Nyame Mail", -- R25
-		hands		= "Kasuga Kote +3", -- "Nyame Gauntlets", -- R25
-		legs		= "Nyame Flanchard", -- R25
-		feet		= "Nyame Sollerets", -- R25
+		head		= "Mpaca's Cap",
+		body		= "Nyame Mail", 
+		hands		= "Kasuga Kote +3",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
@@ -239,11 +239,11 @@ function get_sets()
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
-		head		= { name="Blistering Sallet +1", augments={'Path: A',}},
-		body		= "Mpaca's Doublet",
-		hands		= "Mpaca's Gloves",
-		legs        = "Mpaca's Hose", 
-		feet        = "Mpaca's Boots", 
+		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
+		body		= { name="Mpaca's Doublet", augments={'Path: A',}}, 
+		hands		= { name="Mpaca's Gloves", augments={'Path: A',}},
+		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
+		feet		= { name="Mpaca's Boots", augments={'Path: A',}},
 		neck		= "Sanctity Necklace",
 		left_ear    = "Crep. Earring",
 		right_ear	= "Digni. Earring",
@@ -287,7 +287,7 @@ function get_sets()
 		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
 		body		= "Kasuga Domaru +2",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
-		legs		= "Kasuga Haidate +2",
+		legs		= "Kasuga Haidate +3",
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
