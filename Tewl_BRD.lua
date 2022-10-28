@@ -24,7 +24,6 @@ function get_sets()
     DummySongs = T{'Knight\'s Minne', 'Knight\'s Minne II'}
 
     -- Gear sets
-
     sets.precast = { }
     sets.precast.FastCast = { -- Current: 79% 
         range       = { name="Linos", augments={'"Fast Cast"+5',}}, -- 5
@@ -113,26 +112,37 @@ function get_sets()
     sets.midcast = { }
     sets.midcast.BardSong = {        
         main        = "Carnwenhan", 
-        sub         = "Ammurapi Shield", 
+        sub         = "Genmei Shield",
         range       = "Gjallarhorn",
-        head        = "Bihu Roundlet +3",
+        head        = "Fili Calot +2",
         body        = "Fili Hongreline +2",
-        hands       = "Inyanga Dastanas +2",
+        hands       = "Fili Manchettes +2",
         legs        = "Inyanga Shalwar +2",
         feet        = "Brioso Slippers +3",
         neck        = "Moonbow Whistle +1",
-        waist       = "Luminary Sash",
-        left_ear    = "Musical Earring",
-        right_ear   = "Enchntr. Earring +1",
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
+        waist       = "Flume Belt +1",
+        left_ear    = "Genmei Earring",
+        right_ear   = "Etiolation Earring",
+        left_ring	= "Gelatinous Ring",
+        right_ring  = "Defending Ring",
         right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
+    sets.midcast.BardSong.Debuff = set_combine(sets.midcast.BardSong,{
+        sub         = "Ammurapi Shield", 
+        head        = "Bihu Roundlet +3",
+        hands       = "Inyanga Dastanas +2",
+        legs        = "Brioso Cannions +3",
+        left_ear    = "Regal Earring",
+        right_ear   = "Digni. Earring",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
+        waist       = "Luminary Sash",
+    })
 
-    -- Need to upgrade to Mousai +1
-    sets.midcast.Threnody = {
-        body        = "Mous. Manteel +1"
-    }
+    sets.midcast.Threnody = set_combine(sets.midcast.BardSong.Debuff,{
+        body        = "Mous. Manteel +1",
+    })
     sets.midcast.Scherzo = {
         feet        = "Fili Cothurnes +2"
     }
@@ -160,9 +170,16 @@ function get_sets()
     sets.midcast.Madrigal = {
         head        = "Fili Calot +2"
     }
-    sets.midcast.Lullaby = {
-        hands       = "Brioso Cuffs +3"
-    }
+    sets.midcast.Lullaby = set_combine(sets.midcast.BardSong.Debuff,{
+        body        = "Fili Hongreline +2",
+        hands       = "Brioso Cuffs +3",
+        legs        = "Inyanga Shalwar +2",
+    })
+    sets.midcast.Horde = set_combine(sets.midcast.BardSong.Debuff,{
+        range       = "Duradabla",
+        legs        = "Inyanga Shalwar +2",
+        waist       = "Harfener's Sash",
+    })
     sets.midcast.Paeon = {
         head       = "Brioso Roundlet +3"
     }
@@ -186,26 +203,17 @@ function get_sets()
         back        = "Moonlight Cape" -- 6
     }
     sets.aftercast.Engaged = {
-        --main        = "Carnwenhan",
-        --sub         = "Ammurapi Shield",
-        main        = "Naegling",
         sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
-        --head        = "Aya. Zucchetto +2",
-        head        = "Bunzi's Hat", -- 7
-        --body        = "Ayanmo Corazza +2",
+        head        = "Bunzi's Hat",
 		body		= "Nyame Mail",
-        --hands       = "Aya. Manopolas +2",
-        hands       = "Bunzi's Gloves", -- 8
-        --legs        = "Aya. Cosciales +2",
-        --feet        = "Aya. Gambieras +2",
+        hands       = "Bunzi's Gloves",
 		legs		= "Nyame Flanchard",
 		feet		= "Nyame Sollerets",
         neck        = "Bard's Charm +2",
         waist       = "Sailfi Belt +1",
-        left_ear    = "Crep. Earring",--"Eabani Earring",
+        left_ear    = "Crep. Earring",
         right_ear   = "Telos Earring",
-        --eft_ring   = "Chirich Ring +1", 
         left_ring   = "Moonlight Ring", 
         right_ring  = "Chirich Ring +1", 
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}},
@@ -290,7 +298,11 @@ function midcast(spell)
         elseif string.find(spell.name,'Madrigal') then
             Midcast = set_combine(Midcast,sets.midcast.Madrigal)
         elseif string.find(spell.name,'Lullaby') then
-            Midcast = set_combine(Midcast,sets.midcast.Lullaby)
+            if spell.name:startswith('Horde') then
+                Midcast = set_combine(Midcast,sets.midcast.Horde)
+            else
+                Midcast = set_combine(Midcast,sets.midcast.Lullaby)
+            end
         end
         equip(Midcast)
     end
