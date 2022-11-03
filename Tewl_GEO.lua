@@ -231,6 +231,7 @@
     function file_unload()  
 	    send_command('unbind ^F9')
 	    send_command('unbind ^F10')
+	    send_command('unbind ^F11')
     end
     
     function precast(spell)
