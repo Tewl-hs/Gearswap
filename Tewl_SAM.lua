@@ -285,7 +285,7 @@ function get_sets()
 	sets.Engaged.Normal = {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
-		body		= "Kasuga Domaru +2",
+		body		= "Kasuga Domaru +3",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +3",
 		feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
@@ -362,7 +362,15 @@ function get_sets()
 	}
 	sets.Idle.PDT = sets.Engaged.PDT
 	sets.Idle.MEVA = sets.Engaged.MEVA
-	sets.Idle.Hybrid = sets.Engaged.Hybrid
+	sets.Idle.Hybrid = set_combine(sets.Engaged.Hybrid, {
+		ammo		= "Staunch Tathlum +1",
+		neck		= "Elite Royal Collar",
+		waist		= "Flume Belt +1",
+		left_ear	= "Tuisto Earring", 
+		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+		left_ring	= "Defending Ring",
+		right_ring	= "Karieyh Ring +1",
+	})
 	sets.Idle.Refresh = set_combine(sets.Idle.Normal,{
 		left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
 		right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },

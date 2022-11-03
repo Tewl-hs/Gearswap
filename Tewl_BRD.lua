@@ -25,11 +25,11 @@ function get_sets()
 
     -- Gear sets
     sets.precast = { }
-    sets.precast.FastCast = { -- Current: 79% 
+    sets.precast.FastCast = { -- Current: 80% 
         range       = { name="Linos", augments={'"Fast Cast"+5',}}, -- 5
         head        = "Bunzi's Hat", -- 10
         body        = "Inyanga Jubbah +2", -- 14
-        hands       = "Leyline Gloves", -- 7 (Max: 8)
+        hands       = "Leyline Gloves", -- 8
         legs        = "Aya. Cosciales +2", -- 6
         feet        = "Chironic Slippers", -- 7 
         neck        = "Orunmila's Torque", -- 5
