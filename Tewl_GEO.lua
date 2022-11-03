@@ -197,7 +197,8 @@
             feet        = "Vanya Clogs"         
         }
         sets.aftercast = {}
-        sets.aftercast.Idle = { 
+        sets.aftercast.Idle = {} -- Dont put gear here, sets.aftercast.Idle.Normal will be your default set.
+        sets.aftercast.Idle.Normal = { 
             main        = "Daybreak",
             sub         = "Genmei Shield",
             range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
@@ -214,7 +215,7 @@
             legs        = "Assid. Pants +1",
             feet        = "Geomancy Sandals +3"            
         }
-        sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
+        sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle.Normal, {
             range       = empty,
             ammo        = "Staunch Tathlum +1",
             head        = "Nyame Helm",
@@ -224,8 +225,12 @@
             right_ear   = "Genmei Earring",
             left_ring   = "Defending Ring",
         })
-        sets.aftercast.Engaged = { }
-        sets.aftercast.Engaged.DT = set_combine(sets.aftercast.Engaged, { })
+
+        sets.aftercast.Engaged = { } -- Don't put gear here, sets.aftercast.Engaged.Normal will be your default set.
+        sets.aftercast.Engaged.Normal = {
+            -- LOL MELEE GEO
+        }
+        sets.aftercast.Engaged.DT = set_combine(sets.aftercast.Engaged.Normal, { })
     end
 
     function file_unload()  
@@ -316,7 +321,7 @@
     -- Determine what idle set to equip if a luopan is out
     function idle()
 	    if player.status == 'Engaged' then
-            local engagedSet = sets.aftercast.Engaged
+            local engagedSet = sets.aftercast.Engaged.Normal
             if sets.aftercast.Engaged[EngagedMode[e]] then 
                 engagedSet = sets.aftercast.Idle[EngagedMode[e]]
             end
@@ -326,7 +331,7 @@
                 equip(engagedSet)
             end
         else	
-            local idleSet = sets.aftercast.Idle
+            local idleSet = sets.aftercast.Idle.Normal
             if sets.aftercast.Idle[IdleMode[i]] then 
                 idleSet = sets.aftercast.Idle[IdleMode[i]]
             end
@@ -344,12 +349,21 @@
             if args[2] == 'idle' then
                 i = i + 1 
                 if (table.getn(IdleMode) < i) then i = 1 end
+                add_to_chat('Engaged mode set to: '..IdleMode[i])
+                idle()
             elseif args[2] == 'engaged' then
                 e = e + 1 
                 if (table.getn(EngagedMode) < e) then e = 1 end
+                add_to_chat('Engaged mode set to: '..EngagedMode[e])
+                idle()
             elseif args[2] == 'burst' then
-                if BurstMode == false then BurstMode = true
-                else BurstMode = false end
+                if BurstMode == false then
+                    BurstMode = true
+                    add_to_chat('BurstMode enabled.')
+                else
+                    BurstMode = false
+                    add_to_chat('BurstMode disabled.')
+                end
             end
         elseif args[1] == 'idle' then
             idle()
