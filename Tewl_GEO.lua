@@ -21,6 +21,12 @@
         EngagedMode = {'Normal','DT'}
         e = 1
         BurstMode = false
+
+        -- Augmented Capes
+        Capes = {}
+        Capes.PetCape = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}}
+        Capes.FC_MagDmg = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
+        Capes.GeoSkill = { name="Lifestream Cape", augments={'Geomancy Skill +6','Indi. eff. dur. +20','Pet: Damage taken -3%',}}
         
         -- Gear sets
         sets.luopan = { 
@@ -29,27 +35,27 @@
             ammo        = empty,
             head        = "Azimuth Hood +2",
             neck        = "Bagua Charm +2",
-            hands       = "Geo. Mitaines +3",
-            right_ring  = "Stikini Ring +1",
-            back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
             waist       = "Isa Belt",
-            feet        = "Bagua Sandals +3"
+            hands       = "Geo. Mitaines +3",
+            feet        = "Bagua Sandals +3",
+            right_ring  = "Stikini Ring +1",
+            back        = Capes.PetCape,
         }
 
         sets.precast = {}
         sets.precast.FC = { -- FC 80/80 QC: 7/10
             head        = "Amalric Coif +1", -- 11
-            neck        = "Orunmila's Torque", -- 5
-            left_ear    = "Malignance Earring", -- 4
-            right_ear   = "Loquac. Earring", -- 2
             body        = "Merlinic Jubbah", -- 11
-            left_ring   = "Kishar Ring", -- 4
-            right_ring  = "Lebeche Ring", -- 0|2
-            back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
-            waist       = "Witful Belt", -- 3|3
             hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}},
             legs        = "Geomancy Pants +3", -- 15
             feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}},    
+            neck        = "Orunmila's Torque", -- 5
+            waist       = "Witful Belt", -- 3|3
+            left_ear    = "Malignance Earring", -- 4
+            right_ear   = "Loquac. Earring", -- 2
+            left_ring   = "Kishar Ring", -- 4
+            right_ring  = "Lebeche Ring", -- 0|2
+            back        = Capes.FC_MagDmg,
         }
         sets.precast.JA = {}
         sets.precast.JA['Primeval Zeal'] = {
@@ -63,7 +69,7 @@
         }
         sets.precast.JA['Life Cycle'] = {
             body        = "Geomancy Tunic +2",
-            back        = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}},
+            back        = Capes.PetCape
         }
         sets.precast.JA['Curative Recantation'] = {
             hands       = "Bagua Mitaines +3"
@@ -92,15 +98,15 @@
             main        = "Idris",
             range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
             head        = "Azimuth Hood +2", -- 15
-            neck        = "Bagua Charm +2",
             body        = "Bagua Tunic +3", -- 16
             hands       = "Geo. Mitaines +3", -- 19
             legs        = "Vanya Slops",   
             feet        = "Medium's Sabots",
+            neck        = "Bagua Charm +2",
+            waist       = "Austerity Belt +1",
             left_ring   = "Stikini Ring +1", -- 8/8
             right_ring  = "Stikini Ring +1", -- 8/8
-            back        = { name="Lifestream Cape", augments={'Geomancy Skill +6','Indi. eff. dur. +20','Pet: Damage taken -3%',}},
-            waist       = "Austerity Belt +1",
+            back        = Capes.GeoSkill,
         }
         sets.midcast['Geomancy'].Indi = {
             main        = "Gada",
@@ -114,17 +120,17 @@
             sub         = "Ammurapi Shield",
             ammo        = "Pemphredo Tathlum",
             head        = "Jhakri Coronal +2",
-            neck        = "Baetyl Pendant",
-            left_ear    = "Malignance Earring",
-            right_ear   = "Barkaro. Earring",
             body        = "Amalric Doublet +1", 
             hands       = "Amalric Gages +1",
             legs        = "Amalric Slops +1",
-            feet        = "Amalric Nails +1",    
+            feet        = "Amalric Nails +1",   
+            neck        = "Baetyl Pendant",
+            waist       = "Eschan Stone",      
+            left_ear    = "Malignance Earring",
+            right_ear   = "Barkaro. Earring", 
             left_ring   = "Freke Ring",
             right_ring  = "Shiva Ring +1",
-            back        = { name="Nantosuelta's Cape", augments={'Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}, -- 10
-            waist       = "Eschan Stone",        
+            back        = Capes.FC_MagDmg,  
         } 
         sets.midcast['Elemental Magic'].Impact = set_combine(sets.midcast['Elemental Magic'], {
             head        = empty,
