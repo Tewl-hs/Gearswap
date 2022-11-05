@@ -135,10 +135,6 @@ function get_sets()
         right_ring  = "Shiva Ring +1",
         back        = Capes.FC_MagDmg,  
     } 
-    sets.midcast['Elemental Magic'].Impact = set_combine(sets.midcast['Elemental Magic'], {
-        head        = empty,
-        body        = "Twilight Cloak"
-    })
 
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
         head		= "Ea Hat +1",
@@ -280,13 +276,13 @@ function precast(spell)
             end
             return
         end
-        if spell.english:startswith('Cure') then
+        if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
         end
         if spell.english == 'Dispelga' then
             equip(set_combine(sets.precast.FC,{main="Daybreak"}))
-        elseif spell.name == 'Impact' and sets.midcast['Elemental Magic'].Impact then
-            equip(sets.precast.FC,sets.midcast['Elemental Magic'].Impact)
+        elseif spell.name == 'Impact' then
+            equip(sets.precast.FC,{body="Twilight Cloak"})
         elseif sets.precast.FC then
             equip(sets.precast.FC)
         end
@@ -309,8 +305,6 @@ function midcast(spell)
     elseif sets.midcast[spell.skill] then
         if spell.skill == 'Geomancy' and spell.name:startswith('Indi-') and sets.midcast[spell.skill].Indi then
             equip(sets.midcast[spell.skill].Indi)
-        elseif spell.name == 'Impact' and sets.midcast[spell.skill].Impact then
-            equip(sets.midcast[spell.skill].Impact)
         elseif spell.skill == 'Healing Magic' then
             if spell.name:startswith('Cur') and spell.name ~= "Cursna" and sets.midcast[spell.skill].Cure then
                 equip(sets.midcast[spell.skill].Cure)
@@ -322,6 +316,31 @@ function midcast(spell)
                 equip(sets.midcast[spell.skill].AspirDrain)
             elseif sets.midcast[spell.skill] then
                 equip(sets.midcast[spell.skill])
+            end
+        elseif spell.skill == 'Elemental Magic' then
+            if sets.midcast[spell.skill].Burst and BurstMode == true then                
+                if spell.name == 'Impact' then
+                    equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
+                else
+                    equip(sets.midcast[spell.skill].Burst)
+                end
+            elseif sets.midcast[spell.skill] then         
+                if spell.name == 'Impact' then
+                    equip(set_combine(sets.midcast[spell.skill],{body="Twilight Cloak"}))
+                else
+                    equip(sets.midcast[spell.skill])
+                end
+            end 
+            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
+                equip({waist="Hachirin-no-Obi"})
+            elseif spell.target.distance < (1.7 + spell.target.model_size) then
+                equip({waist="Orpheus's Sash"})
+            elseif spell.element == world.day_element and spell.element == world.weather_element then
+                equip({waist="Hachirin-no-Obi"})
+            elseif spell.target.distance < (8 + spell.target.model_size) then
+                equip({waist="Orpheus's Sash"})
+            elseif spell.element == world.day_element or spell.element == world.weather_element then
+                equip({waist="Hachirin-no-Obi"})
             end
         elseif sets.midcast[spell.skill][spell.name] then
             equip(sets.midcast[spell.skill][spell.name])
