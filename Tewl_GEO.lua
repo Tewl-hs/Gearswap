@@ -155,16 +155,6 @@ function get_sets()
         waist       = "Luminary Sash"
     }
 
-    sets.midcast['Dispelga'] = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
-        neck        = "Incanter's Torque",
-        body        = "Vanya Robe",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
-        waist       = "Luminary Sash"
-    }
-
     sets.midcast['Enhancing Magic'] = { -- Enhancing Duration: 76
         sub         = "Ammurapi Shield", -- 10
         head        = "Telchine Cap", --10
@@ -261,6 +251,12 @@ function file_unload()
     send_command('unbind ^F11')
 end
 
+function test()
+    for k,v in pairs(sets.midcast) do
+        add_to_chat(123,k)
+    end
+end
+
 function precast(spell)
     if spell.type == 'JobAbility' then
         if sets.precast.JA[spell.english] then
@@ -341,6 +337,14 @@ function midcast(spell)
                 equip({waist="Orpheus's Sash"})
             elseif spell.element == world.day_element or spell.element == world.weather_element then
                 equip({waist="Hachirin-no-Obi"})
+            end
+        elseif spell.skill == 'Enfeebling Magic' then
+            if spell.name == 'Dispelga' then
+                equip(set_combine(sets.midcast[spekk.skill],{weapon='Daybreak'}))
+            elseif sets.midcast[spell.skill][spell.name] then
+                equip(sets.midcast[spell.skill][spell.name])
+            elseif sets.midcast[spell.skill] then
+                equip(sets.midcast[spell.skill])
             end
         elseif sets.midcast[spell.skill][spell.name] then
             equip(sets.midcast[spell.skill][spell.name])
@@ -425,6 +429,8 @@ function self_command(cmd)
         end
     elseif args[1] == 'idle' then
         idle()
+    elseif args[1] == 'test' then
+        test()
     end
 end
 --- Auto equip movement speed when moving
