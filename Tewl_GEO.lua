@@ -251,12 +251,6 @@ function file_unload()
     send_command('unbind ^F11')
 end
 
-function test()
-    for k,v in pairs(sets.midcast) do
-        add_to_chat(123,k)
-    end
-end
-
 function precast(spell)
     if spell.type == 'JobAbility' then
         if sets.precast.JA[spell.english] then
@@ -429,8 +423,6 @@ function self_command(cmd)
         end
     elseif args[1] == 'idle' then
         idle()
-    elseif args[1] == 'test' then
-        test()
     end
 end
 --- Auto equip movement speed when moving
