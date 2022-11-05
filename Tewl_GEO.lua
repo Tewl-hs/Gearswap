@@ -18,11 +18,6 @@ function get_sets()
 
     -- Movement speed gear for auto equip when moving
     sets.MoveSpeed = { feet = "Geo. Sandals +3",}
-    
-    IdleMode = {'Normal', 'DT'} -- Define idle sets
-    i = 1
-    EngagedMode = {'Normal','DT'}
-    e = 1
     BurstMode = false
 
     -- Augmented Capes
@@ -209,8 +204,7 @@ function get_sets()
         back        = "Solemnity Cape",        
     })
     sets.aftercast = {}
-    sets.aftercast.Idle = {} -- Dont put gear here, sets.aftercast.Idle.Normal will be your default set.
-    sets.aftercast.Idle.Normal = { 
+    sets.aftercast.Idle = { 
         main        = "Daybreak",
         sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
@@ -227,7 +221,7 @@ function get_sets()
         waist       = "Fucho-no-Obi",   
         back        = "Moonlight Cape",         
     }
-    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle.Normal, {
+    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
         range       = empty,
         ammo        = "Staunch Tathlum +1",
         head        = "Nyame Helm",
@@ -238,11 +232,9 @@ function get_sets()
         left_ring   = "Defending Ring",
     })
 
-    sets.aftercast.Engaged = { } -- Don't put gear here, sets.aftercast.Engaged.Normal will be your default set.
-    sets.aftercast.Engaged.Normal = {
+    sets.aftercast.Engaged = { 
         -- LOL MELEE GEO
     }
-    sets.aftercast.Engaged.DT = set_combine(sets.aftercast.Engaged.Normal, { })
 end
 
 function file_unload()  
@@ -332,7 +324,7 @@ function midcast(spell)
             end
         elseif spell.skill == 'Enfeebling Magic' then
             if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] == nil then
-                equip(set_combine(sets.midcast[spell.skill],{weapon='Daybreak'}))
+                equip(set_combine(sets.midcast[spell.skill],{main='Daybreak'}))
             elseif sets.midcast[spell.skill][spell.name] then
                 equip(sets.midcast[spell.skill][spell.name])
             else
@@ -375,9 +367,11 @@ end
 -- Determine what idle set to equip if a luopan is out
 function idle()
     if player.status == 'Engaged' then
-        local engagedSet = sets.aftercast.Engaged.Normal
-        if sets.aftercast.Engaged[EngagedMode[e]] then 
-            engagedSet = sets.aftercast.Idle[EngagedMode[e]]
+        local engagedSet = sets.aftercast.Engaged
+        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+            engagedSet = sets.aftercast.Engaged[egs]
+        else
+            egs = nil
         end
         if pet.isvalid then
             equip(set_combine(engagedSet,sets.luopan))
@@ -385,9 +379,11 @@ function idle()
             equip(engagedSet)
         end
     else	
-        local idleSet = sets.aftercast.Idle.Normal
-        if sets.aftercast.Idle[IdleMode[i]] then 
-            idleSet = sets.aftercast.Idle[IdleMode[i]]
+        local idleSet = sets.aftercast.Idle
+        if ids ~= nil and sets.aftercast.Idle[ids] then 
+            idleSet = sets.aftercast.Idle[ids]
+        else
+            ids = nil
         end
         if pet.isvalid then
             equip(set_combine(idleSet,sets.luopan))
@@ -401,14 +397,42 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            i = i + 1 
-            if (table.getn(IdleMode) < i) then i = 1 end
-            add_to_chat('Engaged mode set to: '..IdleMode[i])
+            local last_ids = ids 
+            for k,v in pairs(sets.aftercast.Idle) do
+                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                    -- do nothing
+                elseif ids == nil then
+                    ids = k
+                    break
+                elseif ids == k then
+                    ids = nil
+                end
+            end
+            if last_ids == ids then ids = nil end
+            if ids == nil then 
+                add_to_chat('Idle mode set to: Default')
+            else
+                add_to_chat('Idle mode set to: '..ids)
+            end
             idle()
         elseif args[2] == 'engaged' then
-            e = e + 1 
-            if (table.getn(EngagedMode) < e) then e = 1 end
-            add_to_chat('Engaged mode set to: '..EngagedMode[e])
+            local last_egs = egs 
+            for k,v in pairs(sets.aftercast.Engaged) do
+                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                    -- do nothing
+                elseif egs == nil then
+                    egs = k
+                    break
+                elseif egs == k then
+                    egs = nil
+                end
+            end
+            if last_egs == eds then egs = nil end
+            if egs == nil then 
+                add_to_chat('Engaged mode set to: Default')
+            else
+                add_to_chat('Engaged mode set to: '..egs)
+            end
             idle()
         elseif args[2] == 'burst' then
             if BurstMode == false then
