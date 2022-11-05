@@ -286,13 +286,7 @@ function precast(spell)
 end
 
 function midcast(spell)
-    if spell.type ~= 'WeaponSkill' and spell.type ~= 'JobAbility' then
-        if sets.midcast[spell.name] then
-            equip(sets.midcast[spell.name])
-        elseif sets.midcast[spell.skill] then
-            equip(sets.midcast[spell.skill])
-        end
-    elseif sets.midcast[spell.skill] then
+    if sets.midcast[spell.skill] then
         if spell.skill == 'Geomancy' and spell.name:startswith('Indi-') and sets.midcast[spell.skill].Indi then
             equip(sets.midcast[spell.skill].Indi)
         elseif spell.skill == 'Healing Magic' then
@@ -304,19 +298,23 @@ function midcast(spell)
         elseif spell.skill == 'Dark Magic' then
             if spell.name:startswith('Aspir') or spell.name:startswith('Drain') and sets.midcast[spell.skill].AspirDrain then
                 equip(sets.midcast[spell.skill].AspirDrain)
-            elseif sets.midcast[spell.skill] then
+            else
                 equip(sets.midcast[spell.skill])
             end
         elseif spell.skill == 'Elemental Magic' then
             if sets.midcast[spell.skill].Burst and BurstMode == true then                
-                if spell.name == 'Impact' then
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
-                else
+                elseif sets.midcast[spell.skill][spell.name].Burst then
+                    equip(sets.midcast[spell.skill][spell.name].Burst)
+                elseif sets.midcast[spell.skill].Burst then
                     equip(sets.midcast[spell.skill].Burst)
                 end
-            elseif sets.midcast[spell.skill] then         
-                if spell.name == 'Impact' then
+            else        
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] == nil then
                     equip(set_combine(sets.midcast[spell.skill],{body="Twilight Cloak"}))
+                elseif sets.midcast[spell.skill][spell.name] then
+                    equip(sets.midcast[spell.skill][spell.name])
                 else
                     equip(sets.midcast[spell.skill])
                 end
@@ -333,16 +331,16 @@ function midcast(spell)
                 equip({waist="Hachirin-no-Obi"})
             end
         elseif spell.skill == 'Enfeebling Magic' then
-            if spell.name == 'Dispelga' then
-                equip(set_combine(sets.midcast[spekk.skill],{weapon='Daybreak'}))
+            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] == nil then
+                equip(set_combine(sets.midcast[spell.skill],{weapon='Daybreak'}))
             elseif sets.midcast[spell.skill][spell.name] then
                 equip(sets.midcast[spell.skill][spell.name])
-            elseif sets.midcast[spell.skill] then
+            else
                 equip(sets.midcast[spell.skill])
             end
         elseif sets.midcast[spell.skill][spell.name] then
             equip(sets.midcast[spell.skill][spell.name])
-        elseif sets.midcast[spell.skill] then
+        else
             equip(sets.midcast[spell.skill])
         end
     end
