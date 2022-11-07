@@ -676,8 +676,6 @@ function self_command(cmd)
 		equip_check()
 	elseif args[1] == 'update_status' then
 		update_status()
-	elseif args[1] == 'test' then
-		add_to_chat(123, 'Facing: '..tostring(test()))
 	end
 end
 
