@@ -8,8 +8,16 @@
     CTRL+F11    : Cycle Engaged sets
 --]]
 function get_sets()
+	items = require('resources').items
+	require('queues')
+    
+    include('FFXI-Mappings')
+	
+    include('FFXI-Utility')
+
     -- Personal settings. You can remove these two lines.
-    send_command('input /macro book 20;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 2')
+    set_macros(20,1)
+    send_command('wait 1;input /lockstyleset 2')
     send_command('input //equipviewer pos 1663 912')
 
     send_command('bind ^f9 gs c cycle burst')
@@ -55,28 +63,17 @@ function get_sets()
         right_ring  = "Lebeche Ring", -- 0|2
         back        = Capes.FC_MagDmg,
     }
-    sets.precast.JA = {}
-    sets.precast.JA['Primeval Zeal'] = {
-        head        = "Bagua Galero +3"
-    }
-    sets.precast.JA['Full Circle'] = {
-        head        = "Azimuth Hood +2"
-    }
-    sets.precast.JA['Bolster'] = {
-        body        = "Bagua Tunic +3"
-    }
-    sets.precast.JA['Life Cycle'] = {
-        body        = "Geomancy Tunic +2",
-        back        = Capes.PetRegen
-    }
-    sets.precast.JA['Curative Recantation'] = {
-        hands       = "Bagua Mitaines +3"
-    }
-    sets.precast.JA['Mending Halation'] = {
-        legs        = "Bagua Pants +3"
-    }
-    sets.precast.JA['Radial Arcana'] = {
-        feet        = "Bagua Sandals +3"
+    sets.precast.JA = {
+        ['Primeval Zeal'] = { head = "Bagua Galero +3" },
+        ['Full Circle'] = { head = "Azimuth Hood +2" },
+        ['Bolster'] = { body = "Bagua Tunic +3" },
+        ['Life Cycle'] = {
+            body        = "Geomancy Tunic +2",
+            back        = Capes.PetRegen
+        },
+        ['Curative Recantation'] = { hands = "Bagua Mitaines +3"},
+        ['Mending Halation'] = { legs = "Bagua Pants +3" },
+        ['Radial Arcana'] = { feet = "Bagua Sandals +3" },
     }
     sets.precast.WS = {
         head		= "Nyame Helm",
@@ -244,35 +241,35 @@ function file_unload()
 end
 
 function precast(spell)
-    if spell.type == 'JobAbility' then
-        if sets.precast.JA[spell.english] then
-            equip(sets.precast.JA[spell.english])
-        end
-    elseif spell.action_type == 'Magic' then
-        if buffactive.Silence then
-            cancel_spell()
-            if player.inventory['Echo Drops'] then
-                send_command('@input /item "Echo Drops" <me>')
-            else
-                add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
-            end
-            return
-        end
+    if spell.interrupted == true or spell.target.hpp == 0 or can_do(spell.action_type) == false then
+        cancel_spell()
+        return
+    end
+    if spell.action_type == 'Magic' then
         if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
         end
         if spell.english == 'Dispelga' then
-            equip(set_combine(sets.precast.FC,{main="Daybreak"}))
+            equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
         elseif spell.name == 'Impact' then
             equip(sets.precast.FC,{body="Twilight Cloak"})
         elseif sets.precast.FC then
             equip(sets.precast.FC)
         end
     elseif spell.type == 'WeaponSkill' then
+        if player.tp < 1000 then
+            add_to_chat(123,'Unable to use: '..spell.english..'. Not enough TP.')
+            cancel_spell()
+            return
+        end
         if sets.precast.WS[spell.english] then
             equip(sets.precast.WS[spell.english])
         elseif sets.precast.WS then
             equip(sets.precast.WS)
+        end
+    elseif spell.action_type == 'Ability' then
+        if sets.precast.JA[spell.english] then
+            equip(sets.precast.JA[spell.english])
         end
     end
 end
@@ -339,16 +336,16 @@ function midcast(spell)
 end
 
 function aftercast(spell)
-    idle()
+    equip_check()
 end
 
 function pet_change()
-    idle()
+    equip_check()
 end
 
 function status_change(new,old)
     if T{'Idle','Resting'}:contains(new) then
-        idle()
+        equip_check()
     end
 end
 
@@ -364,8 +361,7 @@ function buff_change(buff,gain)
     end
 end
 
--- Determine what idle set to equip if a luopan is out
-function idle()
+function equip_check()
     if player.status == 'Engaged' then
         local engagedSet = sets.aftercast.Engaged
         if egs ~= nil and sets.aftercast.Engaged[egs] then 
@@ -414,7 +410,7 @@ function self_command(cmd)
             else
                 add_to_chat('Idle mode set to: '..ids)
             end
-            idle()
+            equip_check()
         elseif args[2] == 'engaged' then
             local last_egs = egs 
             for k,v in pairs(sets.aftercast.Engaged) do
@@ -433,7 +429,7 @@ function self_command(cmd)
             else
                 add_to_chat('Engaged mode set to: '..egs)
             end
-            idle()
+            equip_check()
         elseif args[2] == 'burst' then
             if BurstMode == false then
                 BurstMode = true
@@ -443,42 +439,7 @@ function self_command(cmd)
                 add_to_chat('BurstMode disabled.')
             end
         end
-    elseif args[1] == 'idle' then
-        idle()
+    elseif args[1] == 'equip_check' then
+        equip_check()
     end
 end
---- Auto equip movement speed when moving
-mov = {counter=0}
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-    mov.x = windower.ffxi.get_mob_by_index(player.index).x
-    mov.y = windower.ffxi.get_mob_by_index(player.index).y
-    mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
-
-moving = false
-windower.raw_register_event('prerender',function()
-    mov.counter = mov.counter + 1;
-    if mov.counter>15 then
-        local pl = windower.ffxi.get_mob_by_index(player.index)
-        if pl and pl.x and mov.x then
-            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-            if dist > 1 and not moving then
-                if player.status ~= 'Engaged' then
-                    send_command('gs equip sets.MoveSpeed')
-                end
-                moving = true
-            elseif dist < 1 and moving then
-                if player.status ~= 'Engaged' then
-                    send_command('gs c idle')
-                end
-                moving = false
-            end
-        end
-        if pl and pl.x then
-            mov.x = pl.x
-            mov.y = pl.y
-            mov.z = pl.z
-        end
-        mov.counter = 0
-    end
-end)

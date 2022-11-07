@@ -72,7 +72,7 @@ function get_sets()
 	Capes.WS		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
 	Capes.DA		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.RA		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
-	Capes.RWS		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+10 Rng.Atk.+10','Rng.Acc.+10','Weapon skill damage +10%',} }
+	Capes.RWS		= { name="Smertrios's Mantle", augments={'STR+20','Rng.Acc.+20 Rng.Atk.+20','STR+10','Weapon skill damage +10%',}}
 	Capes.EWS		= { name="Smertrios's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
 	Capes.HWS		= { name="Smertrios's Mantle", augments={'STR+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
 	Capes.Snapshot 	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Snapshot"+10',}}
@@ -254,14 +254,19 @@ function get_sets()
 	})		
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
 		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		legs		= "Wakido Haidate +3",
 		left_ear	= "Telos Earring",
 		right_ear	= "Thrud Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
 	})		
+	sets.WS['Empyreal Arrow'] = set_combine(sets.WS.Normal, {
+		head		= "Nyame Helm",
+		right_ear	= "Thrud Earring",
+		left_ring	= "Regal Ring",
+		waist		= "Fotia Belt",
+		back		= Capes.RWS
+	})	
 	sets.WS['Stardiver'] = set_combine(sets.WS.Normal, { 
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
@@ -430,7 +435,10 @@ function precast(spell, action)
 		last_target = target
 	end
 
-	if can_do(spell.action_type) == false then cancel_spell() end
+    if spell.interrupted == true or spell.target.hpp == 0 or can_do(spell.action_type) == false then
+        cancel_spell()
+        return
+    end
 
 	if spell.type == 'WeaponSkill' then
 		if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
@@ -668,6 +676,8 @@ function self_command(cmd)
 		equip_check()
 	elseif args[1] == 'update_status' then
 		update_status()
+	elseif args[1] == 'test' then
+		add_to_chat(123, 'Facing: '..tostring(test()))
 	end
 end
 
@@ -694,44 +704,6 @@ function equip_change()
 			equip_check()
 		end
 	end
-end
-
-function can_do(act)
-	if buffactive.terror then
-        add_to_chat(123,'Unable to perform action: [Terrorized]')
-        return false
-	elseif buffactive.stun then
-        add_to_chat(123,'Unable to perform action: [Stunned]')
-        return false
-	elseif buffactive.petrification then
-        add_to_chat(123,'Unable to perform action: [Petrified]')
-        return false
-	elseif buffactive.sleep or buffactive.Lullaby then
-        add_to_chat(123,'Unable to perform action: [Asleep]')
-        return false
-    end
-	if act == 'Magic' then
-        if buffactive.silence then
-            add_to_chat(123,'Unable to cast: [Silenced]')
-            return false
-		elseif buffactive.mute then
-            add_to_chat(123,'Unable to cast: [Mute]')
-            return false
-		elseif buffactive.Omerta then
-            add_to_chat(123,'Unable to cast: [Omerta]')
-            return false
-        end
-	end
-	if act == 'Ability' then
-		if buffactive.amnesia then
-            add_to_chat(123,'Unable to perform action: [Amnesia]')
-            return false
-		elseif buffactive.impairment then			
-			add_to_chat(123,'Unable to perform action: [Impairment]')
-			return false
-        end
-	end
-	return true
 end
 
 function load_macros()
@@ -761,7 +733,6 @@ windower.raw_register_event('incoming chunk', function(id, data)
 		equip_change()
 	end
 end)
-
 
 function update_status()
 	local spc = '   '

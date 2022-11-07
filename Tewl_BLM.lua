@@ -1,25 +1,33 @@
- --[[
-	File: Keanne_BLM.lua 
+--[[
+	Author: Tewl / Bismark
+	Files: Tewl_BLM.lua 
+
+    Binds
+    CTRL+F9     : Cycle burst mode on and off
+    CTRL+F10    : Cycle Idle sets
+    CTRL+F11    : Cycle Engaged sets
 --]]
 function get_sets()
-    include('Mote-Mappings')
+	items = require('resources').items
+	require('queues')
+    
+    include('FFXI-Mappings')
+	
+    include('FFXI-Utility')
 
-	send_command('bind ^f9 gs c toggle burst') 
+    send_command('bind ^f9 gs c cycle burst')
+    send_command('bind ^f10 gs c cycle idle')
+    send_command('bind ^f11 gs c cycle engaged')
 
-    Macro_Book = '3'
-    Macro_Page = '1'
-    send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page)
+    set_macros(3,1)
+	send_command('wait 1.5;input /lockstyleset 5')
 
+    sets.MoveSpeed = { feet = "Herald's Gaiters",}
 	BurstMode = false
 
     -- Gearsets
-    sets = {}
-    sets.MoveSpeed = {feet="Herald's Gaiters"} 
-    sets.Impact = {head=empty,body="Twilight Cloak"}
-    sets.Dispelga = {main="Daybreak",sub="Ammurapi Shield"}
-	sets.Obi = {waist="Hachirin-no-Obi"}
-
-    sets.FC = {
+    sets.precast = {}
+    sets.precast.FC = {
         main        = "Sucellus", -- 5
         sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
@@ -36,8 +44,7 @@ function get_sets()
         left_ring   = "Prolix Ring", -- 2
         back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
     }
-
-    sets.JA = {
+    sets.precast.JA = {
         ['Mana Wall'] = { },
         ['Manafont'] = { },
         ['Elemental Seal'] = { },
@@ -83,6 +90,11 @@ function get_sets()
         neck        = "Erra Pendant",
         left_ring   = "Evanescence Ring",
     }
+
+    sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
+        feet        = "Agwu's Pigaches",
+        left_ring   = "Evanescence Ring",
+    })
     sets.midcast['Healing Magic'] = { }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
 
@@ -106,8 +118,8 @@ function get_sets()
         head        = "Amalric Coif +1",
         feet        = "Inspirited Boots"
     })
-
-    sets.Idle = {
+    sets.aftercast = { }
+    sets.aftercast.Idle = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         ammo        = "Staunch Tathlum +1",
@@ -124,167 +136,106 @@ function get_sets()
         right_ring	= "Stikini Ring +1",
         back        = "Moonlight Cape"
     }
-    sets.Engaged = { }
-    sets.Resting = set_combine(sets.Idle, {
-        --  Using Idle set for resting, add gear here to make changes
-    })
+    sets.aftercast.Engaged = { }
 
-    ---------------------------------
-    --------- DISPLAY  CODE ---------
-    -- DO NOT EDIT BELOW THIS LINE --
-    ---------------------------------
-	Colors = {
-		Yellow = '\\cs(255,192,0)',
-		Red = '\\cs(255,80,80)',
-		Green = '\\cs(110,255,110)',
-		Blue = '\\cs(140,160,255)',
-		Gray = '\\cs(96,96,96)',
-		White = '\\cs(255,255,255)'
-	}
-
-	texts = require('texts')
-	if stateBox then stateBox:destroy() end
-
-	local settings = windower.get_windower_settings()
-	local x,y
-    
-	-- Adjust for screen resolution and positon of text on screen
-	if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
-		x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
-	else
-		x,y = 0, settings["ui_y_res"]-17 -- -285, -18
-	end
-
-	stateBox = texts.new({flags = {draggable=false}})
-	stateBox:pos(x,y)
-	stateBox:font('Arial')
-	stateBox:size(12)
-	stateBox:bold(true)
-	stateBox:bg_alpha(0)--128
-	stateBox:right_justified(false)
-	stateBox:stroke_width(2)
-	stateBox:stroke_transparency(192)
-
-	update_status()
 end
 
 function file_unload()  
-	send_command('unbind ^F9')
-end
-
-function has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return index
-        end
-    end
-    return table.getn(tab)
+    send_command('unbind ^F9')
+    send_command('unbind ^F10')
+    send_command('unbind ^F11')
 end
 
 function precast(spell)
-    if spell.interrupted == true or spell.target.hpp == 0 then
-        cancel_spell()
-        return
-    end
-    if buffactive.terror or buffactive.petrification or buffactive.sleep or buffactive.Lullaby or buffactive.stun then
-        add_to_chat(123,'Unabled to perform action: Status effect (Terror, Petrify, Sleep, Stun)')
+    if spell.interrupted == true or spell.target.hpp == 0 or can_do(spell.action_type) == false then
         cancel_spell()
         return
     end
     if spell.action_type == 'Magic' then
-        if buffactive.silence or buffactive.mute or buffactive.Omerta then
-            add_to_chat(123,'Unabled to perform action: Status effect (Silence, Mute, Omerta)')
-            cancel_spell()
-            return
+        if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
+            equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
         end
-        local spellCost = actual_cost(spell)
-        if player.mp < spellCost then
-            add_to_chat(123,'Unable to cast: '..spell.english..'. Not enough MP. ('..player.mp..'/'..spellCost..')')
-            cancel_spell()
-            return
-        end
-        if spell.name == 'Impact' then
-            equip(sets.FC,sets.Impact)
-        elseif spell.name == 'Dispelga' then 
-            equip(sets.FC,sets.Dispelga)
-        else
-		    equip(sets.FC)
+        if spell.english == 'Dispelga' then
+            equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
+        elseif spell.name == 'Impact' then
+            equip(sets.precast.FC,{body="Twilight Cloak"})
+        elseif sets.precast.FC then
+            equip(sets.precast.FC)
         end
     elseif spell.type == 'WeaponSkill' then
-		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Abort: Status effect (Amnesia, Impairment)')
-            cancel_spell()
-            return
-        end
         if player.tp < 1000 then
             add_to_chat(123,'Unable to use: '..spell.english..'. Not enough TP.')
-        end
-	elseif spell.action_type == 'Ability' then
-		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Unabled to perform action: Status effect (Amnesia, Impairment)')
             cancel_spell()
             return
         end
-		if sets.JA[spell.name] then
-			equip(sets.JA[spell.name])
-		end
-	end
+        if sets.precast.WS[spell.english] then
+            equip(sets.precast.WS[spell.english])
+        elseif sets.precast.WS then
+            equip(sets.precast.WS)
+        end
+    elseif spell.action_type == 'Ability' then
+        if sets.precast.JA[spell.english] then
+            equip(sets.precast.JA[spell.english])
+        end
+    end
 end
 
 function midcast(spell)
-    if spell.skill == 'Elemental Magic' and BurstMode ~= false then
-        if spell.name == 'Impact' then
-            equip(set_combine(sets.midcast[spell.skill].Burst,sets.Impact))
-        else
-            equip(sets.midcast[spell.skill].Burst)
-        end
-        if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-            equip(sets.Obi)
-        elseif spell.target.distance < (1.7 + spell.target.model_size) then
-            equip({waist="Orpheus's Sash"})
-        elseif spell.element == world.day_element and spell.element == world.weather_element then
-            equip(sets.Obi)
-        elseif spell.target.distance < (8 + spell.target.model_size) then
-            equip({waist="Orpheus's Sash"})
-        elseif spell.element == world.day_element or spell.element == world.weather_element then
-            equip(sets.Obi)
-        end
-    elseif spell.skill == 'Enhancing Magic' then
-        if spell.name:startswith('Refresh') and spell.target.type == 'SELF' and sets.midcast[spell.skill].Refresh then
-            equip(sets.midcast[spell.skill].Refresh)
+    if sets.midcast[spell.skill] then
+        if spell.skill == 'Healing Magic' then
+            if spell.name:startswith('Cur') and spell.name ~= "Cursna" and sets.midcast[spell.skill].Cure then
+                equip(sets.midcast[spell.skill].Cure)
+            elseif sets.midcast[spell.skill] then
+                equip(sets.midcast[spell.skill])
+            end
+        elseif spell.skill == 'Dark Magic' then
+            if spell.name:startswith('Aspir') or spell.name:startswith('Drain') and sets.midcast[spell.skill].AspirDrain then
+                equip(sets.midcast[spell.skill].AspirDrain)
+            else
+                equip(sets.midcast[spell.skill])
+            end
+        elseif spell.skill == 'Elemental Magic' then
+            if sets.midcast[spell.skill].Burst and BurstMode == true then                
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name].Burst == nil then
+                    equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
+                elseif sets.midcast[spell.skill][spell.name].Burst then
+                    equip(sets.midcast[spell.skill][spell.name].Burst)
+                elseif sets.midcast[spell.skill].Burst then
+                    equip(sets.midcast[spell.skill].Burst)
+                end
+            else        
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] == nil then
+                    equip(set_combine(sets.midcast[spell.skill],{body="Twilight Cloak"}))
+                elseif sets.midcast[spell.skill][spell.name] then
+                    equip(sets.midcast[spell.skill][spell.name])
+                else
+                    equip(sets.midcast[spell.skill])
+                end
+            end 
+            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
+                equip({waist="Hachirin-no-Obi"})
+            elseif spell.target.distance < (1.7 + spell.target.model_size) then
+                equip({waist="Orpheus's Sash"})
+            elseif spell.element == world.day_element and spell.element == world.weather_element then
+                equip({waist="Hachirin-no-Obi"})
+            elseif spell.target.distance < (8 + spell.target.model_size) then
+                equip({waist="Orpheus's Sash"})
+            elseif spell.element == world.day_element or spell.element == world.weather_element then
+                equip({waist="Hachirin-no-Obi"})
+            end
+        elseif spell.skill == 'Enfeebling Magic' then
+            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] == nil then
+                equip(set_combine(sets.midcast[spell.skill],{main='Daybreak',sub='Ammurapi Shield'}))
+            elseif sets.midcast[spell.skill][spell.name] then
+                equip(sets.midcast[spell.skill][spell.name])
+            else
+                equip(sets.midcast[spell.skill])
+            end
         elseif sets.midcast[spell.skill][spell.name] then
             equip(sets.midcast[spell.skill][spell.name])
         else
             equip(sets.midcast[spell.skill])
         end
-    elseif spell.skill == 'Enfeebling Magic' then
-        if spell.name == 'Dispelga' then
-            equip(sets.midcast[spell.skill].Dispelga)
-        elseif sets.midcast[spell.skill][spell.name] then
-            equip(sets.midcast[spell.skill][spell.name])
-        else
-           equip(sets.midcast[spell.skill])
-        end
-    elseif spell.skill == 'Healing Magic' then
-        if spell.name == 'Cursna' and sets.midcast[spell.skill].Cursna then
-            equip(sets.midcast[spell.skill].Cursna)
-        elseif spell.name ~= Cursna and spell.name:startswith('Cur') and sets.midcast[spell.skill].Cure then
-            equip(sets.midcast[spell.skill].Cure)
-        elseif sets.midcast[spell.skill][spell.name] then
-            equip(sets.midcast[spell.skill][spell.name])
-        else
-            equip(sets.midcast[spell.skill])
-        end
-    elseif sets.midcast[spell.skill] then
-        if sets.midcast[spell.skill][spell.name] then
-            equip(sets.midcast[spell.skill][spell.name])
-        else
-           equip(sets.midcast[spell.skill])
-        end
-    end
-    if spell.interrupted == true or spell.target.hpp == 0 then
-        cancel_spell()
-        return
     end
 end
 
@@ -299,131 +250,84 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-    
+    if buff == 'silence' and gain then
+        if player.inventory['Echo Drops'] then
+            send_command('@input /item "Echo Drops" <me>')
+        else
+            add_to_chat(123,'Silenced, you are out of Echo Drops!')	
+        end
+    end    
 end
 
 function equip_check()
-	local eq = {}
-	if player.status == 'Engaged' then	
-		eq = sets.Engaged
-    elseif player.status == 'Resting' then	
-		eq = sets.Resting
-	else
-		eq = sets.Idle
-	end
-	equip(eq)
-	update_status()
+    if player.status == 'Engaged' then
+        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+            equip(sets.aftercast.Engaged[egs])
+        else
+            egs = nil
+            equip(sets.aftercast.Engaged)
+        end
+    else
+        if ids ~= nil and sets.aftercast.Idle[ids] then 
+            equip(aftercast.Idle[ids])
+        else
+            ids = nil
+            equip(sets.aftercast.Idle)
+        end
+    end
 end
 
 function self_command(cmd)
-	local args = T(cmd:split(' '))
-	if args[1] == 'toggle' and args[2] then
-		if args[2] == 'burst' then
-			if BurstMode == false then
-				BurstMode = true
-			else
-				BurstMode = false
-			end
-			equip_check()
+    local args = T(cmd:split(' '))
+    if args[1] == 'cycle' and args[2] then
+        if args[2] == 'idle' then
+            local last_ids = ids 
+            for k,v in pairs(sets.aftercast.Idle) do
+                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                    -- do nothing
+                elseif ids == nil then
+                    ids = k
+                    break
+                elseif ids == k then
+                    ids = nil
+                end
+            end
+            if last_ids == ids then ids = nil end
+            if ids == nil then 
+                add_to_chat('Idle mode set to: Default')
+            else
+                add_to_chat('Idle mode set to: '..ids)
+            end
+            equip_check()
+        elseif args[2] == 'engaged' then
+            local last_egs = egs 
+            for k,v in pairs(sets.aftercast.Engaged) do
+                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                    -- do nothing
+                elseif egs == nil then
+                    egs = k
+                    break
+                elseif egs == k then
+                    egs = nil
+                end
+            end
+            if last_egs == eds then egs = nil end
+            if egs == nil then 
+                add_to_chat('Engaged mode set to: Default')
+            else
+                add_to_chat('Engaged mode set to: '..egs)
+            end
+            equip_check()
+        elseif args[2] == 'burst' then
+            if BurstMode == false then
+                BurstMode = true
+                add_to_chat('BurstMode enabled.')
+            else
+                BurstMode = false
+                add_to_chat('BurstMode disabled.')
+            end
         end
-		update_status()
-	elseif args[1] == 'equip_check' then
-		equip_check()
-	elseif args[1] == 'update_status' then
-		update_status()
-	end
-end
-
-function update_status()
-	local spc = '   '
-
-	stateBox:clear()
-	stateBox:append(spc)
-	
-	local status_text = ''
-
-	if BurstMode == true then
-		status_text = string.format("%s%s%s%s", 'CastingMode: ',  Colors.Yellow, 'Burst', spc)
-	else
-		status_text = string.format("%s%s%s%s", 'CastingMode: ',  Colors.Blue, 'Normal', spc)
-	end
-	stateBox:append(status_text)
-	stateBox:show()
-end
-
-windower.raw_register_event('outgoing chunk', function(id, data)
-	if id == 0x00D and stateBox then
-		stateBox:hide()
-	end
-end)
-
-windower.raw_register_event('incoming chunk', function(id, data)
-	if id == 0x00A and stateBox then
-		stateBox:show()
-	end
-    
-end)
-
--- Copied from Motes
-mov = {counter=0}
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-	mov.x = windower.ffxi.get_mob_by_index(player.index).x
-	mov.y = windower.ffxi.get_mob_by_index(player.index).y
-	mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
- 
-moving = false
-windower.raw_register_event('prerender',function()
-	mov.counter = mov.counter + 1;
-	if mov.counter>15 then
-		local pl = windower.ffxi.get_mob_by_index(player.index)
-		if pl and pl.x and mov.x then
-			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-			if dist > 1 and not moving then
-				if player.status ~= 'Engaged' then -- When not engaged and moving equip movement speed
-					send_command('gs equip sets.MoveSpeed')
-				end
-				moving = true
-			elseif dist < 1 and moving then -- When stopping and not engaged, equip idle set
-				if player.status ~= 'Engaged' then
-					send_command('gs c equip_check') -- Custom command for changing gear.
-				end
-				moving = false
-			end
-		end
-		if pl and pl.x then
-			mov.x = pl.x
-			mov.y = pl.y
-			mov.z = pl.z
-		end
-		mov.counter = 0
-	end
-end)
-
-function get_weather_intensity()
-    return gearswap.res.weather[world.weather_id].intensity
-end
-
-function actual_cost(spell)
-    local cost = spell.mp_cost
-	if buffactive["Manafont"] or buffactive["Manawell"]
-		then return 0
-    elseif spell.type=="WhiteMagic" then
-        if buffactive["Penury"] then
-            return cost*.5
-        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
-            return cost*.9
-        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
-            return cost*1.1
-        end
-    elseif spell.type=="BlackMagic" then
-        if buffactive["Parsimony"] then
-            return cost*.5
-        elseif buffactive['Dark Arts'] or buffactive['Addendum: Black'] then
-            return cost*.9
-        elseif buffactive['Light Arts'] or buffactive['Addendum: White'] then
-            return cost*1.1
-        end
+    elseif args[1] == 'equip_check' then
+        equip_check()
     end
-    return cost
 end

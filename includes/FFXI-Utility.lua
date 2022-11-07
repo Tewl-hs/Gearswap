@@ -1,4 +1,6 @@
-
+--[[
+	Functions used across multiple luas
+]]
 require('vectors')
 
 range_mult = {
@@ -29,6 +31,10 @@ function disp_time(time)
 	else
 		return string.format("%02d:%02d",minutes,seconds)
 	end
+end
+
+function get_weather_intensity()
+    return gearswap.res.weather[world.weather_id].intensity
 end
 
 function item_available(item)
@@ -89,7 +95,6 @@ function actual_cost(spell)
     return cost
 end
 
--- MOVEMENT SPEED SWAP / Taken from Motes
 mov = {counter=0}
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
 	mov.x = windower.ffxi.get_mob_by_index(player.index).x
@@ -125,6 +130,14 @@ windower.raw_register_event('prerender',function()
 	end
 end)
 
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return index
+        end
+    end
+    return table.getn(tab)
+end
 
 function standardize_set(set)
 	local standardized_set = {}
@@ -146,4 +159,42 @@ function standardize_set(set)
 	standardized_set.range = standardized_set.range or standardized_set.ranged or ''
 	
 	return standardized_set
+end
+
+function can_do(act)
+	if buffactive.terror then
+        add_to_chat(123,'Unable to perform action: [Terrorized]')
+        return false
+	elseif buffactive.stun then
+        add_to_chat(123,'Unable to perform action: [Stunned]')
+        return false
+	elseif buffactive.petrification then
+        add_to_chat(123,'Unable to perform action: [Petrified]')
+        return false
+	elseif buffactive.sleep or buffactive.Lullaby then
+        add_to_chat(123,'Unable to perform action: [Asleep]')
+        return false
+    end
+	if act == 'Magic' then
+        if buffactive.silence then
+            add_to_chat(123,'Unable to cast: [Silenced]')
+            return false
+		elseif buffactive.mute then
+            add_to_chat(123,'Unable to cast: [Mute]')
+            return false
+		elseif buffactive.Omerta then
+            add_to_chat(123,'Unable to cast: [Omerta]')
+            return false
+        end
+	end
+	if act == 'Ability' then
+		if buffactive.amnesia then
+            add_to_chat(123,'Unable to perform action: [Amnesia]')
+            return false
+		elseif buffactive.impairment then			
+			add_to_chat(123,'Unable to perform action: [Impairment]')
+			return false
+        end
+	end
+	return true
 end
