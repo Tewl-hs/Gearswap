@@ -87,13 +87,25 @@ function get_sets()
     }
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
     sets.midcast['Dark Magic'] = {
-        neck        = "Erra Pendant",
-        left_ring   = "Evanescence Ring",
-    }
-
-    sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        ammo        = "Pemphredo Tathlum",
+        head        = "Agwu's Cap",
+        body        = "Agwu's Robe",
+        hands       = "Agwu's Gages",
+        legs        = "Agwu's Slops",
         feet        = "Agwu's Pigaches",
+        neck        = "Erra Pendant",
+        waist       = "Luminary Sash",
+        left_ear    = "Digni. Earring",
+        right_ear   = "Crep. Earring",
         left_ring   = "Evanescence Ring",
+        right_ring  = "Archon Ring",
+        back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
+    }
+    sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
+        head        = "Pixie Hairpin +1",
+        waist       = "Austertiy Belt +1",
     })
     sets.midcast['Healing Magic'] = { }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
@@ -132,11 +144,27 @@ function get_sets()
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
-        left_ring	= "Stikini Ring +1",
-        right_ring	= "Stikini Ring +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
         back        = "Moonlight Cape"
     }
-    sets.aftercast.Engaged = { }
+    sets.aftercast.Engaged = {
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        ammo        = "Staunch Tathlum +1",
+        head        = "Befouled Crown",
+        body        = "Jhakri Robe +2",
+    	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
+        legs        = "Assid. Pants +1",
+        feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
+        neck        = "Loricate Torque +1",
+        waist       = "Fucho-no-obi",
+        left_ear    = "Genmei Earring",
+        right_ear   = "Etiolation Earring",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
+        back        = "Moonlight Cape"
+     }
 
 end
 

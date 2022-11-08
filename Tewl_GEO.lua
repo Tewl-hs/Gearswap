@@ -160,14 +160,26 @@ function get_sets()
     }
 
     sets.midcast['Dark Magic'] = {
-        head        = "Bagua Galero +3",
-        neck        = "Incanter's Torque",
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        ammo        = "Pemphredo Tathlum",
+        head        = "Agwu's Cap",
+        body        = "Agwu's Robe",
+        hands       = "Agwu's Gages",
         legs        = "Azimuth Tights +2",
+        feet        = "Agwu's Pigaches",
+        neck        = "Erra Pendant",
+        waist       = "Luminary Sash",
         left_ear    = "Digni. Earring",
         right_ear   = "Crep. Earring",
+        left_ring   = "Evanescence Ring",
         right_ring  = "Archon Ring",
-        waist       = "Austertiy Belt +1"
+        back        = Capes.FC_MagDmg
     }
+    sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
+        head        = "Bagua Galero +3",
+        waist       = "Austertiy Belt +1",
+    })
 
     sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
         feet        = "Agwu's Pigaches",
@@ -336,18 +348,6 @@ function midcast(spell)
 end
 
 function aftercast(spell)
-    
-    if not spell.interrupted then
-        if spell.english:startswith('Indi-') then
-            if spell.target.type == 'SELF' then
-                last_indi = string.sub(spell.english,6)
-            end
-        end
-        
-		if spell.english:startswith('Geo-') then
-			last_geo = string.sub(spell.english,5)
-		end
-    end
     equip_check()
 end
 
