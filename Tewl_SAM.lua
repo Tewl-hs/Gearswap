@@ -92,7 +92,7 @@ function get_sets()
 	}
 	sets.JA = {
 		['Seigan'] = {
-			head	= "Kasuga Kabuto +2"
+			head	= "Kasuga Kabuto +3"
 		},
 		['Meditate'] = {
 			head	= "Wakido Kabuto +3",
@@ -344,7 +344,7 @@ function get_sets()
 		back		= Capes.TP
 	})
 	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
-		head		= "Kasuga Kabuto +2",
+		head		= "Kasuga Kabuto +3",
 		waist       = "Windbuffet Belt +1",
 		back		= Capes.TP
 	})

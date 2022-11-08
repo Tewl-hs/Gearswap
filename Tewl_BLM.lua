@@ -198,9 +198,9 @@ function midcast(spell)
             if sets.midcast[spell.skill].Burst and BurstMode == true then                
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
-                elseif sets.midcast[spell.skill][spell.name].Burst then
+                elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
                     equip(sets.midcast[spell.skill][spell.name].Burst)
-                elseif sets.midcast[spell.skill].Burst then
+                else
                     equip(sets.midcast[spell.skill].Burst)
                 end
             else        
@@ -211,7 +211,7 @@ function midcast(spell)
                 else
                     equip(sets.midcast[spell.skill])
                 end
-            end 
+            end
             if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
                 equip({waist="Hachirin-no-Obi"})
             elseif spell.target.distance < (1.7 + spell.target.model_size) then
@@ -224,7 +224,7 @@ function midcast(spell)
                 equip({waist="Hachirin-no-Obi"})
             end
         elseif spell.skill == 'Enfeebling Magic' then
-            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] == nil then
+            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] then
                 equip(set_combine(sets.midcast[spell.skill],{main='Daybreak',sub='Ammurapi Shield'}))
             elseif sets.midcast[spell.skill][spell.name] then
                 equip(sets.midcast[spell.skill][spell.name])
@@ -283,7 +283,7 @@ function self_command(cmd)
         if args[2] == 'idle' then
             local last_ids = ids 
             for k,v in pairs(sets.aftercast.Idle) do
-                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                if slot_names:contains(k) then
                     -- do nothing
                 elseif ids == nil then
                     ids = k
@@ -302,7 +302,7 @@ function self_command(cmd)
         elseif args[2] == 'engaged' then
             local last_egs = egs 
             for k,v in pairs(sets.aftercast.Engaged) do
-                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                if slot_names:contains(k) then
                     -- do nothing
                 elseif egs == nil then
                     egs = k

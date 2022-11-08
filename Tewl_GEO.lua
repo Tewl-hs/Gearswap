@@ -290,13 +290,13 @@ function midcast(spell)
             else
                 equip(sets.midcast[spell.skill])
             end
-        elseif spell.skill == 'Elemental Magic' then
+        elseif spell.skill == 'Elemental Magic' and sets.midcast[spell.skill] then
             if sets.midcast[spell.skill].Burst and BurstMode == true then                
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
-                elseif sets.midcast[spell.skill][spell.name].Burst then
+                elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
                     equip(sets.midcast[spell.skill][spell.name].Burst)
-                elseif sets.midcast[spell.skill].Burst then
+                else
                     equip(sets.midcast[spell.skill].Burst)
                 end
             else        
@@ -336,6 +336,18 @@ function midcast(spell)
 end
 
 function aftercast(spell)
+    
+    if not spell.interrupted then
+        if spell.english:startswith('Indi-') then
+            if spell.target.type == 'SELF' then
+                last_indi = string.sub(spell.english,6)
+            end
+        end
+        
+		if spell.english:startswith('Geo-') then
+			last_geo = string.sub(spell.english,5)
+		end
+    end
     equip_check()
 end
 
