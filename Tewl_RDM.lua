@@ -1,14 +1,22 @@
-function get_sets()			
-	sets.MoveSpeed = { legs = "Carmine Cuisses +1",}    --auto swaps when moving
+function get_sets()	
+	
+	items = require('resources').items
+	require('queues')
+    
+    include('FFXI-Mappings')
+	
+    include('FFXI-Utility')
+    -- Personal settings. You can remove these two lines.
+    set_macros(14,1)
+	send_command('wait 1;input /lockstyleset 10')
+    send_command('input //equipviewer pos 1663 912')
 
-    Macro_Book = '14'
-    Macro_Page = '1'
-	send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page..';wait 1;input /lockstyleset 10')
-    send_command('input //equipviewer pos 1663 933')
+    send_command('bind ^f9 gs c cycle burst')
+    send_command('bind ^f10 gs c cycle idle')
+    send_command('bind ^f11 gs c cycle engaged')
 
-	-- Any enfeebles not listed below should use default set which should be focused on enfeebling skill+
-	IntEnf = T{'Blind', 'Blind II', 'Bind', 'Distract', 'Distract II', 'Distract III', 'Poison', 'Poisonm II', 'Poisonga'}
-	MndEnf = T{'Silence', 'Paralyze', 'Paralyze II', 'Slow', 'Slow II', 'Addle', 'Addle II', 'Dia', 'Dia II', 'Dia III', 'Frazzle', 'Frazzle II', 'Frazzle III',}
+	sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
+    BurstMode = false
 
 	Capes = {}
 	Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
@@ -34,7 +42,7 @@ function get_sets()
 		back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
 	}
 	sets.precast = {}
-	sets.precast.FastCast = { -- 106
+	sets.precast.FC = { -- 106
 		ammo		= "Sapience Orb", -- 2
 		head		= "Atrophy Chapeau +3", -- 16
 		body		= "Viti, Tabard +3", -- 15
@@ -132,14 +140,11 @@ function get_sets()
 	})
 	
 	sets.midcast = {}	
-	sets.midcast.Cursna = {
-
-	}	
-	sets.midcast.Cure = {	
-		head		= "Vanya Hood",
-		body		= "Heka's Kalasiris",
-		hands		= "Vanya Cuffs",
-		legs		= "Atrophy Tights +3",
+	sets.midcast['Healing Magic'] = {
+		head		= "Kaykaus Mitra +1",
+		body		= "Kaykaus Bliaut +1",
+		hands		= "Kaykaus Cuffs +1",
+		legs		= "Kaykaus Tights +1",
 		feet		= "Vanya Clogs",
 		neck		= "Nodens Gorget",
 		waist		= "Othila Sash",
@@ -149,10 +154,27 @@ function get_sets()
 		right_ring	= { "Lebeche Ring", bag="wardrobe4" },
 		back		= Capes.MND
 	}
-	sets.midcast.Divine = { 
+	sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
+
+	})
+	sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
+		head		= "Kaykaus Mitra +1",
+		body		= "Kaykaus Bliaut +1",
+		hands		= "Kaykaus Cuffs +1",
+		legs		= "Kaykaus Tights +1",
+		feet		= "Vanya Clogs",
+		neck		= "Nodens Gorget",
+		waist		= "Othila Sash",
+		left_ear	= "Malignance Earring",
+		right_ear	= "Mendicant's Earring",
+		left_ring	= { "Naji's Loop", bag="wardrobe4" },
+		right_ring	= { "Lebeche Ring", bag="wardrobe4" },
 		back		= Capes.MND
+	})
+	sets.midcast['Divine Magic'] = {
+
 	}
-	sets.midcast.Divine.Flash = set_combine(sets.midcast.Divine, {
+	sets.midcast['Divine Magic'].Flash = set_combine(sets.midcast['Divine Magic'], {
 		main		= { name="Crocea Mors", augments={'Path: C',}},
 		sub			= "Genmei Shield",
 		ammo		= "Staunch Tathlum +1",
@@ -169,10 +191,7 @@ function get_sets()
 		right_ring	= "Eihwaz Ring",
 		back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
 	})
-	sets.midcast.Healing = {
-
-	}
-	sets.midcast.Enfeebling = {
+	sets.midcast['Enfeebling Magic'] = {
 		main		= { name="Crocea Mors", augments={'Path: C',}},
         sub         = "Ammurapi Shield",
         ammo		= "Regal Gem",
@@ -189,21 +208,21 @@ function get_sets()
 		waist		= "Obstin. Sash",
 		back		= Capes.MND
 	}
-	sets.midcast.Enfeebling.MND = set_combine(sets.midcast.Enfeebling, { 
+	sets.midcast['Enfeebling Magic'].MND = set_combine(sets.midcast['Enfeebling Magic'], { 
 		back		= "Aurist's Cape +1",
 	})
-	sets.midcast.Enfeebling.INT = set_combine(sets.midcast.Enfeebling, { 
+	sets.midcast['Enfeebling Magic'].INT = set_combine(sets.midcast['Enfeebling Magic'], { 
 		back		= Capes.INT
 	})
-	sets.midcast.Enfeebling.Dispel = set_combine(sets.midcast.INT, {
+	sets.midcast['Enfeebling Magic'].Dispel = set_combine(sets.midcast['Enfeebling Magic'].INT, {
         neck		= "Dls. Torque +2",
         left_ring	= "Kishar Ring",
     })
-	sets.midcast.Enfeebling.Sleep = set_combine(sets.midcast.INT, {
+	sets.midcast['Enfeebling Magic'].Sleep = set_combine(sets.midcast['Enfeebling Magic'].INT, {
         neck		= "Dls. Torque +2",
         left_ring	= "Kishar Ring",
     })
-	sets.midcast.Enhancing = {	
+	sets.midcast['Enhancing Magic'] = {	
 		main		= { name="Crocea Mors", augments={'Path: C',}},
         sub         = "Ammurapi Shield",
         head		= "Telchine Cap",
@@ -219,20 +238,23 @@ function get_sets()
 		back		= Capes.MND,
         waist		= "Embla Sash",
 	}
-	sets.midcast.Enhancing.Refresh = set_combine(sets.midcast.Enhancing, { 
+	sets.midcast['Enhancing Magic'].Duration = set_combine(sets.midcast['Enhancing Magic'], {
+
+	})
+	sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
 		head		= "Amalric Coif +1",
 		body		= "Atrophy Tabard +3",
 		legs		= "Leth. Fuseau +2",
 		waist		= "Gishdubar Sash",
         back		= "Grapevine Cape"
 	})
-	sets.midcast.Enhancing.Phalanx = set_combine(sets.midcast.Enhancing, { 
+	sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
 	})
-	sets.midcast.Enhancing.Aquaveil = set_combine(sets.midcast.Enhancing, {
+	sets.midcast['Enhancing Magic'].Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
         ammo		= "Staunch Tathlum +1",
         head		= "Amalric Coif +1",
         --hands		= "Regal Cuffs",
@@ -241,11 +263,11 @@ function get_sets()
         right_ring	= "Evanescence Ring",
         --waist		= "Emphatikos Rope",
     })
-	sets.midcast.Enhancing.Stoneskin = set_combine(sets.midcast.EnhancingDuration, {
+	sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].Duration, {
         neck		= "Nodens Gorget",
         waist		= "Siegel Sash",
     })
-	sets.midcast.Elemental = {
+	sets.midcast['Elemental Magic'] = {
 		main		= "Bunzi's Rod",
         sub         = "Ammurapi Shield",
 		ammo		= "Ghastly Tathlum +1",
@@ -262,7 +284,10 @@ function get_sets()
         waist		= "Refoccilation Stone",
 		back		= Capes.INT
 	}
-	sets.midcast.Dark =  { -- Bio, Drain, Aspir, Stun
+	sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+
+	})
+	sets.midcast['Dark Magic'] =  { -- Bio, Drain, Aspir, Stun
 		back		= Capes.INT
 	}
 	sets.aftercast = {}
@@ -281,7 +306,7 @@ function get_sets()
         waist		= "Sailfi Belt +1",
 		back		= Capes.DW
 	}
-	sets.aftercast.Refresh = {
+	sets.aftercast.Idle = {
 		ammo		= "Homiliary",
 		head		= "Viti. Chapeau +3",
 		body		= "Jhakri Robe +2",
@@ -296,7 +321,7 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
 		back		= "Solemnity Cape"
 	}
-	sets.aftercast.Idle = set_combine(sets.aftercast.Idle, {	
+	sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {	
 		main		= { name="Crocea Mors", augments={'Path: C',}},
 		sub			= "Genmei Shield",
 		ammo		= "Staunch Tathlum +1",
@@ -315,117 +340,146 @@ function get_sets()
 	})
 end
 
+function file_unload()  
+    send_command('unbind ^F9')
+    send_command('unbind ^F10')
+    send_command('unbind ^F11')
+end
+
 function precast(spell)
-    if spell.type == 'JobAbility' then
-		if sets.precast.JA[spell.english] then
-			equip(sets.precast.JA[spell.english])
-		end
+	if spell.interrupted == true or spell.target.hpp == 0 or can_do(spell.action_type) == false then
+        cancel_spell()
+        return
+    end
+    if spell.action_type == 'Magic' then
+        if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
+            equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
+        end
+        if spell.english == 'Dispelga' then
+            equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
+        elseif spell.name == 'Impact' then
+            equip(sets.precast.FC,{body="Twilight Cloak"})
+        elseif sets.precast.FC then
+            equip(sets.precast.FC)
+        end
     elseif spell.type == 'WeaponSkill' then
-        if sets.precast.WS[spell.name] then
-            equip(sets.precast.WS[spell.name])
-        else
+        if player.tp < 1000 then
+            add_to_chat(123,'Unable to use: '..spell.english..'. Not enough TP.')
+            cancel_spell()
+            return
+        end
+        if sets.precast.WS[spell.english] then
+            equip(sets.precast.WS[spell.english])
+        elseif sets.precast.WS then
             equip(sets.precast.WS)
         end
-	elseif spell.action_type == 'Magic' then
-        if buffactive.Silence then
-            cancel_spell()
-            if player.inventory['Echo Drops'] then
-                send_command('@input /item "Echo Drops" <me>')
-                add_to_chat(123,'You were silenced try recasting!')	
-            else
-                add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
-            end
-            return
-		end
-		equip(sets.precast.FastCast)
-	end
+    elseif spell.action_type == 'Ability' then
+        if sets.precast.JA[spell.english] then
+            equip(sets.precast.JA[spell.english])
+        end
+    end
 end
 	
 function midcast(spell,action)	
-	if spell.action_type == 'Magic' then
-		if spell.skill == 'Healing Magic' then
-			if spell.english == 'Cursna' then
-				equip(sets.midcast.Cursna)
-			elseif spell.english:startswith('Cur') then
-				equip(sets.midcast.Cure)
-			else
-				if sets.midcast.Healing[spell.name] then
-					equip(sets.midcast.Healing[spell.name])
-				else
-					equip(sets.midcast.Healing)
-				end
-			end
-		elseif spell.skill == 'Enfeebling Magic' then
-			if spell.name:startswith('Sleep') then
-				equip(sets.midcast.Enfeebling.Sleep)
-			elseif spell.name:startswith('Dispel') then
-				equip(sets.midcast.Enfeebling.Dispel)
+    if sets.midcast[spell.skill] then
+        if spell.skill == 'Healing Magic' then
+            if spell.name:startswith('Cur') and spell.name ~= "Cursna" and sets.midcast[spell.skill].Cure then
+                equip(sets.midcast[spell.skill].Cure)
+            elseif sets.midcast[spell.skill][spell.name] then
+                equip(sets.midcast[spell.skill][spell.name])
+            else
+                equip(sets.midcast[spell.skill])
+            end
+        elseif spell.skill == 'Dark Magic' then
+            if spell.name:startswith('Aspir') or spell.name:startswith('Drain') and sets.midcast[spell.skill].AspirDrain then
+                equip(sets.midcast[spell.skill].AspirDrain)
+            elseif sets.midcast[spell.skill][spell.name] then
+                equip(sets.midcast[spell.skill][spell.name])
+            else
+                equip(sets.midcast[spell.skill])
+            end
+        elseif spell.skill == 'Elemental Magic' and sets.midcast[spell.skill] then
+            if sets.midcast[spell.skill].Burst and BurstMode == true then                
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name].Burst == nil then
+                    equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
+                elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
+                    equip(sets.midcast[spell.skill][spell.name].Burst)
+                else
+                    equip(sets.midcast[spell.skill].Burst)
+                end
+            else        
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] == nil then
+                    equip(set_combine(sets.midcast[spell.skill],{body="Twilight Cloak"}))
+                elseif sets.midcast[spell.skill][spell.name] then
+                    equip(sets.midcast[spell.skill][spell.name])
+                else
+                    equip(sets.midcast[spell.skill])
+                end
+            end 
+            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
+                equip({waist="Hachirin-no-Obi"})
+            elseif spell.target.distance < (1.7 + spell.target.model_size) then
+                equip({waist="Orpheus's Sash"})
+            elseif spell.element == world.day_element and spell.element == world.weather_element then
+                equip({waist="Hachirin-no-Obi"})
+            elseif spell.target.distance < (8 + spell.target.model_size) then
+                equip({waist="Orpheus's Sash"})
+            elseif spell.element == world.day_element or spell.element == world.weather_element then
+                equip({waist="Hachirin-no-Obi"})
+            end
+        elseif spell.skill == 'Enfeebling Magic' then
+            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] == nil then
+                equip(set_combine(sets.midcast[spell.skill],{main='Daybreak'}))
+			elseif spell.name:startswith('Sleep') and sets.midcast[spell.skill].Sleep then
+					equip(sets.midcast[spell.skill].Sleep)
 			elseif IntEnf:contains(spell.name) then
-				if sets.midcast.Enfeebling.INT[spell.name] then
-					equip(sets.midcast.Enfeebling.INT[spell.name])
+				if sets.midcast[spell.skill].INT[spell.name] then
+					equip(sets.midcast[spell.skill].INT[spell.name])
+				elseif sets.midcast[spell.skill].INT then
+					equip(sets.midcast[spell.skill].INT)
 				else
-					equip(sets.midcast.Enfeebling.INT)
+					equip(sets.midcast[spell.skill])
 				end
 			elseif MndEnf:contains(spell.name) then
-				if sets.midcast.Enfeebling.MND[spell.name] then
-					equip(sets.midcast.Enfeebling.MND[spell.name])
+				if sets.midcast[spell.skill].MND[spell.name] then
+					equip(sets.midcast[spell.skill].MND[spell.name])
+				elseif sets.midcast[spell.skill].MND then
+					equip(sets.midcast[spell.skill].MND)
 				else
-					equip(sets.midcast.Enfeebling.MND)
+					equip(sets.midcast[spell.skill])
 				end
 			else
-				if sets.midcast.Enfeebling[spell.name] then
-					equip(sets.midcast.Enfeebling[spell.name])
+				if sets.midcast[spell.skill][spell.name] then
+					equip(sets.midcast[spell.skill][spell.name])
 				else
-					equip(sets.midcast.Enfeebling)
+					equip(sets.midcast[spell.skill])
 				end
-			end
+            end
 		elseif spell.skill == 'Enhancing Magic' then
-			if spell.name:startswith('Refresh') and spell.target.type == 'SELF' then
-				equip(sets.midcast.Enhancing.Refresh)
-			elseif spell.name:startswith('Phalanx') and spell.target.type == 'SELF' then
-				equip(sets.midcast.Enhancing.Phalanx)
-			elseif sets.midcast.Enhancing[spell.name] then
-				equip(sets.midcast.Enhancing[spell.name])
+			if spell.name:startswith('Refresh') and spell.target.type == 'SELF' and sets.midcast[spell.skill].Refresh then
+				equip(sets.midcast[spell.skill].Refresh)
+			elseif spell.name:startswith('Phalanx') and spell.target.type == 'SELF' and sets.midcast[spell.skill].Phalanx then
+				equip(sets.midcast[spell.skill].Phalanx)
+			elseif sets.midcast[spell.skill][spell.name] then
+				equip(sets.midcast[spell.skill][spell.name])
 			else
-				equip(sets.midcast.Enhancing)
+				equip(sets.midcast[spell.skill])
 			end
-		elseif spell.skill == 'Elemental Magic' then
-			if sets.midcast.Elemental[spell.name] then
-				equip(sets.midcast.Elemental[spell.name])
-			else
-				equip(sets.midcast.Elemental)
-			end
-		elseif spell.skill == 'Dark Magic' then
-			if sets.midcast.Dark[spell.name] then
-				equip(sets.midcast.Dark[spell.name])
-			else
-				equip(sets.midcast.Dark)
-			end
-		elseif spell.skill == 'Divine Magic' then
-			if sets.midcast.Divine[spell.name] then
-				equip(sets.midcast.Divine[spell.name])
-			else
-				equip(sets.midcast.Divine)
-			end
-		end
-	end
+        elseif sets.midcast[spell.skill][spell.name] then
+            equip(sets.midcast[spell.skill][spell.name])
+        else
+            equip(sets.midcast[spell.skill])
+        end
+    end
 end
 
 function aftercast(spell)
-	if player.status == 'Engaged' then
-		equip(sets.aftercast.Engaged)
-	else
-		equip(sets.aftercast.Idle)
-	end
+	equip_check()
 end
 
 function status_change(new,old)
-	if T{'Idle','Resting', 'Engaged'}:contains(new) then
-		if player.status == 'Engaged' then
-			equip(sets.aftercast.Engaged)
-		else
-			equip(sets.aftercast.Idle)
-		end
+	if T{'Idle','Resting','Engaged'}:contains(new) then
+		equip_check()
 	end
 end
 
@@ -439,44 +493,75 @@ function buff_change(buff,gain)
 	end
 end
 
-function self_command(command)
-	if command == 'swapgear' then
-		if player.status == 'Engaged' then
-			equip(sets.aftercast.Engaged)
-		else
-			equip(sets.aftercast.Idle)
-		end
-	end
+function equip_check()
+    if player.status == 'Engaged' then
+        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+            equip(sets.aftercast.Engaged[egs])
+        else
+            egs = nil
+            equip(sets.aftercast.Engaged)
+        end
+    else
+        if ids ~= nil and sets.aftercast.Idle[ids] then 
+            equip(aftercast.Idle[ids])
+        else
+            ids = nil
+            equip(sets.aftercast.Idle)
+        end
+    end
 end
 
---- Detecting Movement 
-mov = {counter=0}
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-    mov.x = windower.ffxi.get_mob_by_index(player.index).x
-    mov.y = windower.ffxi.get_mob_by_index(player.index).y
-    mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
- 
-moving = false
-windower.raw_register_event('prerender',function()
-    mov.counter = mov.counter + 1;
-    if mov.counter>15 then
-        local pl = windower.ffxi.get_mob_by_index(player.index)
-        if pl and pl.x and mov.x then
-            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-            if dist > 1 and not moving then
-                send_command('gs equip sets.MoveSpeed')
-        		moving = true
-            elseif dist < 1 and moving then
-                send_command('gs c swapgear')
-                moving = false
+function self_command(cmd)
+    local args = T(cmd:split(' '))
+    if args[1] == 'cycle' and args[2] then
+        if args[2] == 'idle' then
+            local last_ids = ids 
+            for k,v in pairs(sets.aftercast.Idle) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif ids == nil then
+                    ids = k
+                    break
+                elseif ids == k then
+                    ids = nil
+                end
+            end
+            if last_ids == ids then ids = nil end
+            if ids == nil then 
+                add_to_chat('Idle mode set to: Default')
+            else
+                add_to_chat('Idle mode set to: '..ids)
+            end
+            equip_check()
+        elseif args[2] == 'engaged' then
+            local last_egs = egs 
+            for k,v in pairs(sets.aftercast.Engaged) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif egs == nil then
+                    egs = k
+                    break
+                elseif egs == k then
+                    egs = nil
+                end
+            end
+            if last_egs == eds then egs = nil end
+            if egs == nil then 
+                add_to_chat('Engaged mode set to: Default')
+            else
+                add_to_chat('Engaged mode set to: '..egs)
+            end
+            equip_check()
+        elseif args[2] == 'burst' then
+            if BurstMode == false then
+                BurstMode = true
+                add_to_chat('BurstMode enabled.')
+            else
+                BurstMode = false
+                add_to_chat('BurstMode disabled.')
             end
         end
-        if pl and pl.x then
-            mov.x = pl.x
-            mov.y = pl.y
-            mov.z = pl.z
-        end
-        mov.counter = 0
+    elseif args[1] == 'equip_check' then
+        equip_check()
     end
-end)
+end

@@ -323,6 +323,9 @@ dualWieldJobs = S{'THF','BLU','NIN','DNC'}
 -- Item related Mappings.
 bayld_items = {}
 
+IntEnf = T{'Blind', 'Blind II', 'Bind', 'Distract', 'Distract II', 'Distract III', 'Poison', 'Poisonm II', 'Poisonga'}
+MndEnf = T{'Silence', 'Paralyze', 'Paralyze II', 'Slow', 'Slow II', 'Addle', 'Addle II', 'Dia', 'Dia II', 'Dia III', 'Frazzle', 'Frazzle II', 'Frazzle III',}
+
 slot_names = S{'main','sub','range','ranged','ammo','head','body','hands','neck','ear1','lear','left_ear','ear2','rear','right_ear','ring1','lring','left_ring','ring2','rring','right_ring','back','waist','legs','feet'}
 
 --[[

@@ -15,10 +15,6 @@ function get_sets()
 	
     include('FFXI-Utility')
 
-    -- Personal settings. You can remove these two lines.
-    set_macros(20,1)
-    send_command('wait 1;input /lockstyleset 2')
-    send_command('input //equipviewer pos 1663 912')
 
     send_command('bind ^f9 gs c cycle burst')
     send_command('bind ^f10 gs c cycle idle')
@@ -347,7 +343,18 @@ function midcast(spell)
     end
 end
 
-function aftercast(spell)
+function aftercast(spell)    
+    if not spell.interrupted then
+        if spell.english:startswith('Indi-') then
+            if spell.target.type == 'SELF' then
+                last_indi = string.sub(spell.english,6)
+            end
+        end
+        
+		if spell.english:startswith('Geo-') then
+			last_geo = string.sub(spell.english,5)
+		end
+    end
     equip_check()
 end
 
