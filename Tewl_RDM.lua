@@ -1,198 +1,206 @@
+--[[
+	Author: Tewl / Bismark
+	Files: Tewl_RDM.lua 
+
+    Binds
+    CTRL+F9     : Cycle burst mode on and off
+    CTRL+F10    : Cycle Idle sets
+    CTRL+F11    : Cycle Engaged sets
+--]]
 function get_sets()	
-	
-	items = require('resources').items
-	require('queues')
-    
+    items = require('resources').items
+    require('queues')
+
     include('FFXI-Mappings')
-	
+
     include('FFXI-Utility')
     -- Personal settings. You can remove these two lines.
     set_macros(14,1)
-	send_command('wait 1;input /lockstyleset 10')
+    send_command('wait 1;input /lockstyleset 10')
     send_command('input //equipviewer pos 1663 912')
 
     send_command('bind ^f9 gs c cycle burst')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c cycle engaged')
 
-	sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
+    sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
     BurstMode = false
 
-	Capes = {}
-	Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
-	Capes.WSD = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
-	Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Cure" potency +10%',}}
-	Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
-				
-	sets.Enmity = {
-		main		= { name="Crocea Mors", augments={'Path: C',}},
-		sub			= "Genmei Shield",
-		ammo		= "Staunch Tathlum +1",
-		head		= "Leth. Chappel +2",
-		body		= "Lethargy Sayon +2",
-		hands		= "Leth. Ganth. +2",
-		legs		= { name="Nyame Flanchard", augments={'Path: B',}},
-		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
-		neck		= "Unmoving Collar +1",
-		waist		= "Kasiri Belt",
-		left_ear	= "Cryptic Earring",
-		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
-		left_ring	= "Supershear Ring",
-		right_ring	= "Eihwaz Ring",
-		back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
-	}
-	sets.precast = {}
-	sets.precast.FC = { -- 106
-		ammo		= "Sapience Orb", -- 2
-		head		= "Atrophy Chapeau +3", -- 16
-		body		= "Viti, Tabard +3", -- 15
-		hands		= "Leyline Gloves", -- 5
-		legs		= "Psycloth Lappas", -- 7
-		feet		= { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
+    Capes = {}
+    Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
+    Capes.WSD = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+    Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Cure" potency +10%',}}
+    Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
+                
+    sets.Enmity = {
+        main		= { name="Crocea Mors", augments={'Path: C',}},
+        sub			= "Genmei Shield",
+        ammo		= "Staunch Tathlum +1",
+        head		= "Leth. Chappel +2",
+        body		= "Lethargy Sayon +2",
+        hands		= "Leth. Ganth. +2",
+        legs		= { name="Nyame Flanchard", augments={'Path: B',}},
+        feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+        neck		= "Unmoving Collar +1",
+        waist		= "Kasiri Belt",
+        left_ear	= "Cryptic Earring",
+        right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+        left_ring	= "Supershear Ring",
+        right_ring	= "Eihwaz Ring",
+        back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+    }
+    sets.precast = {}
+    sets.precast.FC = { -- 106
+        ammo		= "Sapience Orb", -- 2
+        head		= "Atrophy Chapeau +3", -- 16
+        body		= "Viti, Tabard +3", -- 15
+        hands		= "Leyline Gloves", -- 5
+        legs		= "Psycloth Lappas", -- 7
+        feet		= { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
-		waist		= "Embla Sash", -- 5
-		left_ear	= "Malignance earring", -- 4
-		right_ear	= "Lethargy Earring", -- 7
+        waist		= "Embla Sash", -- 5
+        left_ear	= "Malignance earring", -- 4
+        right_ear	= "Lethargy Earring", -- 7
         left_ring   = "Kishar Ring",
-		right_ring	= "Lebeche Ring", -- 0|2
-		back		= Capes.MND -- 10
-	}
-	sets.precast.JA = {
+        right_ring	= "Lebeche Ring", -- 0|2
+        back		= Capes.MND -- 10
+    }
+    sets.precast.JA = {
         ['Composure'] = { },
-		['Saboteur'] = {hands = "Leth. Gantherots +2",},
-		['Chainspell'] = {body="Viti. Tabard +3"},
-		['Vallation'] = sets.Enmity,
-		['Valiance'] = sets.Enmity
-	}
-	sets.precast.WS = {
-		neck		= "Fotia Gorget",
+        ['Saboteur'] = {hands = "Leth. Gantherots +2",},
+        ['Chainspell'] = {body="Viti. Tabard +3"},
+        ['Vallation'] = sets.Enmity,
+        ['Valiance'] = sets.Enmity
+    }
+    sets.precast.WS = {
+        neck		= "Fotia Gorget",
         left_ear	= "Ishvara Earring",
         right_ear	= "Moonshade Earring",
         left_ring	= "Karieyh Ring +1",
         right_ring	= "Epaminondas's Ring",
         waist		= "Fotia Belt",
-	}
+    }
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
-		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Nyame Gauntlets",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
+        head		= "Nyame Helm",
+        body		= "Nyame Mail",
+        hands		= "Nyame Gauntlets",
+        legs		= "Nyame Flanchard",
+        feet		= "Nyame Sollerets",
         neck        = "Anu Torque",
         left_ear    = "Moonshade Earring",
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring +1",
-		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+        right_ring	= "Karieyh Ring +1",
+        waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         back		= Capes.WSD,
     })
-	
-	sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, { 
-		ammo		= "Sroda Tathlum",
+
+    sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, { 
+        ammo		= "Sroda Tathlum",
         head		= "Pixie Hairpin +1",
-		body		= "Nyame Mail",
+        body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
         legs		= "Amalric Slops +1",
-		feet		= "Nyame Sollerets",
+        feet		= "Nyame Sollerets",
         neck		= "Sibyl Scarf",
         left_ear	= "Malignance Earring",
         right_ear	= "Regal Earring",
         left_ring	= "Archon Ring",
         right_ring	= "Metamor. Ring +1",
         waist		= "Orpheus's Sash",
-		back		= Capes.INT
-	})
-	sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS['Sanguine Blade'], {
-		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Jhakri Cuffs +2",
-		legs		= "Leth. Fuseau +2",
-		feet		= "Leth. Houseaux +2",
-		right_ear	= "Moonshade Earring",
-		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring +1",
-	})
-	sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS['Sanguine Blade'], {
-		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Jhakri Cuffs +2",
-		legs		= "Leth. Fuseau +2",
-		feet		= "Leth. Houseaux +2",
-		right_ear	= "Moonshade Earring",
-		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring +1",
-	})
+        back		= Capes.INT
+    })
+    sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS['Sanguine Blade'], {
+        head		= "Nyame Helm",
+        body		= "Nyame Mail",
+        hands		= "Jhakri Cuffs +2",
+        legs		= "Leth. Fuseau +2",
+        feet		= "Leth. Houseaux +2",
+        right_ear	= "Moonshade Earring",
+        left_ring	= "Epaminondas's Ring",
+        right_ring	= "Karieyh Ring +1",
+    })
+    sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS['Sanguine Blade'], {
+        head		= "Nyame Helm",
+        body		= "Nyame Mail",
+        hands		= "Jhakri Cuffs +2",
+        legs		= "Leth. Fuseau +2",
+        feet		= "Leth. Houseaux +2",
+        right_ear	= "Moonshade Earring",
+        left_ring	= "Epaminondas's Ring",
+        right_ring	= "Karieyh Ring +1",
+    })
 
-	sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, { 
-		ammo		= "Coiste Bodhar",
-		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Nyame Gauntlets",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
+    sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, { 
+        ammo		= "Coiste Bodhar",
+        head		= "Nyame Helm",
+        body		= "Nyame Mail",
+        hands		= "Nyame Gauntlets",
+        legs		= "Nyame Flanchard",
+        feet		= "Nyame Sollerets",
         neck		= "Rep. Plat, Medal",
         left_ear	= "Regal Earring",
         right_ear	= "Moonshade Earring",
         left_ring	= "Metamor. Ring +1",
         right_ring	= "Epaminondas's Ring",
-		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
-		back		= Capes.INT
-	})
-	
-	sets.midcast = {}	
-	sets.midcast['Healing Magic'] = {
-		head		= "Kaykaus Mitra +1",
-		body		= "Kaykaus Bliaut +1",
-		hands		= "Kaykaus Cuffs +1",
-		legs		= "Kaykaus Tights +1",
-		feet		= "Vanya Clogs",
-		neck		= "Nodens Gorget",
-		waist		= "Othila Sash",
-		left_ear	= "Malignance Earring",
-		right_ear	= "Mendicant's Earring",
-		left_ring	= { "Naji's Loop", bag="wardrobe4" },
-		right_ring	= { "Lebeche Ring", bag="wardrobe4" },
-		back		= Capes.MND
-	}
-	sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
+        waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+        back		= Capes.INT
+    })
 
-	})
-	sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
-		head		= "Kaykaus Mitra +1",
-		body		= "Kaykaus Bliaut +1",
-		hands		= "Kaykaus Cuffs +1",
-		legs		= "Kaykaus Tights +1",
-		feet		= "Vanya Clogs",
-		neck		= "Nodens Gorget",
-		waist		= "Othila Sash",
-		left_ear	= "Malignance Earring",
-		right_ear	= "Mendicant's Earring",
-		left_ring	= { "Naji's Loop", bag="wardrobe4" },
-		right_ring	= { "Lebeche Ring", bag="wardrobe4" },
-		back		= Capes.MND
-	})
-	sets.midcast['Divine Magic'] = {
+    sets.midcast = {}	
+    sets.midcast['Healing Magic'] = {
+        head		= "Kaykaus Mitra +1",
+        body		= "Kaykaus Bliaut +1",
+        hands		= "Kaykaus Cuffs +1",
+        legs		= "Kaykaus Tights +1",
+        feet		= "Vanya Clogs",
+        neck		= "Nodens Gorget",
+        waist		= "Othila Sash",
+        left_ear	= "Malignance Earring",
+        right_ear	= "Mendicant's Earring",
+        left_ring	= { "Naji's Loop", bag="wardrobe4" },
+        right_ring	= { "Lebeche Ring", bag="wardrobe4" },
+        back		= Capes.MND
+    }
+    sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
 
-	}
-	sets.midcast['Divine Magic'].Flash = set_combine(sets.midcast['Divine Magic'], {
-		main		= { name="Crocea Mors", augments={'Path: C',}},
-		sub			= "Genmei Shield",
-		ammo		= "Staunch Tathlum +1",
-		head		= "Leth. Chappel +2",
-		body		= "Lethargy Sayon +2",
-		hands		= "Leth. Ganth. +2",
-		legs		= { name="Nyame Flanchard", augments={'Path: B',}},
-		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
-		neck		= "Unmoving Collar +1",
-		waist		= "Kasiri Belt",
-		left_ear	= "Cryptic Earring",
-		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
-		left_ring	= "Supershear Ring",
-		right_ring	= "Eihwaz Ring",
-		back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
-	})
-	sets.midcast['Enfeebling Magic'] = {
-		main		= { name="Crocea Mors", augments={'Path: C',}},
+    })
+    sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
+        head		= "Kaykaus Mitra +1",
+        body		= "Kaykaus Bliaut +1",
+        hands		= "Kaykaus Cuffs +1",
+        legs		= "Kaykaus Tights +1",
+        feet		= "Vanya Clogs",
+        neck		= "Nodens Gorget",
+        waist		= "Othila Sash",
+        left_ear	= "Malignance Earring",
+        right_ear	= "Mendicant's Earring",
+        left_ring	= { "Naji's Loop", bag="wardrobe4" },
+        right_ring	= { "Lebeche Ring", bag="wardrobe4" },
+        back		= Capes.MND
+    })
+    sets.midcast['Divine Magic'] = {
+
+    }
+    sets.midcast['Divine Magic'].Flash = set_combine(sets.midcast['Divine Magic'], {
+        main		= { name="Crocea Mors", augments={'Path: C',}},
+        sub			= "Genmei Shield",
+        ammo		= "Staunch Tathlum +1",
+        head		= "Leth. Chappel +2",
+        body		= "Lethargy Sayon +2",
+        hands		= "Leth. Ganth. +2",
+        legs		= { name="Nyame Flanchard", augments={'Path: B',}},
+        feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+        neck		= "Unmoving Collar +1",
+        waist		= "Kasiri Belt",
+        left_ear	= "Cryptic Earring",
+        right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+        left_ring	= "Supershear Ring",
+        right_ring	= "Eihwaz Ring",
+        back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+    })
+    sets.midcast['Enfeebling Magic'] = {
+        main		= { name="Crocea Mors", augments={'Path: C',}},
         sub         = "Ammurapi Shield",
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
@@ -205,25 +213,25 @@ function get_sets()
         right_ear	= "Snotra Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-		waist		= "Obstin. Sash",
-		back		= Capes.MND
-	}
-	sets.midcast['Enfeebling Magic'].MND = set_combine(sets.midcast['Enfeebling Magic'], { 
-		back		= "Aurist's Cape +1",
-	})
-	sets.midcast['Enfeebling Magic'].INT = set_combine(sets.midcast['Enfeebling Magic'], { 
-		back		= Capes.INT
-	})
-	sets.midcast['Enfeebling Magic'].Dispel = set_combine(sets.midcast['Enfeebling Magic'].INT, {
+        waist		= "Obstin. Sash",
+        back		= Capes.MND
+    }
+    sets.midcast['Enfeebling Magic'].MND = set_combine(sets.midcast['Enfeebling Magic'], { 
+        back		= "Aurist's Cape +1",
+    })
+    sets.midcast['Enfeebling Magic'].INT = set_combine(sets.midcast['Enfeebling Magic'], { 
+        back		= Capes.INT
+    })
+    sets.midcast['Enfeebling Magic'].Dispel = set_combine(sets.midcast['Enfeebling Magic'].INT, {
         neck		= "Dls. Torque +2",
         left_ring	= "Kishar Ring",
     })
-	sets.midcast['Enfeebling Magic'].Sleep = set_combine(sets.midcast['Enfeebling Magic'].INT, {
+    sets.midcast['Enfeebling Magic'].Sleep = set_combine(sets.midcast['Enfeebling Magic'].INT, {
         neck		= "Dls. Torque +2",
         left_ring	= "Kishar Ring",
     })
-	sets.midcast['Enhancing Magic'] = {	
-		main		= { name="Crocea Mors", augments={'Path: C',}},
+    sets.midcast['Enhancing Magic'] = {	
+        main		= { name="Crocea Mors", augments={'Path: C',}},
         sub         = "Ammurapi Shield",
         head		= "Telchine Cap",
         body		= "Viti. Tabard +3",
@@ -235,26 +243,26 @@ function get_sets()
         right_ear	= "Lethargy Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-		back		= Capes.MND,
+        back		= Capes.MND,
         waist		= "Embla Sash",
-	}
-	sets.midcast['Enhancing Magic'].Duration = set_combine(sets.midcast['Enhancing Magic'], {
+    }
+    sets.midcast['Enhancing Magic'].Duration = set_combine(sets.midcast['Enhancing Magic'], {
 
-	})
-	sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
-		head		= "Amalric Coif +1",
-		body		= "Atrophy Tabard +3",
-		legs		= "Leth. Fuseau +2",
-		waist		= "Gishdubar Sash",
+    })
+    sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
+        head		= "Amalric Coif +1",
+        body		= "Atrophy Tabard +3",
+        legs		= "Leth. Fuseau +2",
+        waist		= "Gishdubar Sash",
         back		= "Grapevine Cape"
-	})
-	sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
+    })
+    sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
-	})
-	sets.midcast['Enhancing Magic'].Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
+    })
+    sets.midcast['Enhancing Magic'].Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
         ammo		= "Staunch Tathlum +1",
         head		= "Amalric Coif +1",
         --hands		= "Regal Cuffs",
@@ -263,14 +271,14 @@ function get_sets()
         right_ring	= "Evanescence Ring",
         --waist		= "Emphatikos Rope",
     })
-	sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].Duration, {
+    sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].Duration, {
         neck		= "Nodens Gorget",
         waist		= "Siegel Sash",
     })
-	sets.midcast['Elemental Magic'] = {
-		main		= "Bunzi's Rod",
+    sets.midcast['Elemental Magic'] = {
+        main		= "Bunzi's Rod",
         sub         = "Ammurapi Shield",
-		ammo		= "Ghastly Tathlum +1",
+        ammo		= "Ghastly Tathlum +1",
         head        = "Leth. Chappel +2",
         body		= "Amalric Doublet +1",
         hands		= "Amalric Gages +1",
@@ -282,16 +290,16 @@ function get_sets()
         left_ring	= "Freke Ring",
         right_ring	= "Metamor. Ring +1",
         waist		= "Refoccilation Stone",
-		back		= Capes.INT
-	}
-	sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        back		= Capes.INT
+    }
+    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
 
-	})
-	sets.midcast['Dark Magic'] =  { -- Bio, Drain, Aspir, Stun
-		back		= Capes.INT
-	}
-	sets.aftercast = {}
-	sets.aftercast.Engaged = {
+    })
+    sets.midcast['Dark Magic'] =  { -- Bio, Drain, Aspir, Stun
+        back		= Capes.INT
+    }
+    sets.aftercast = {}
+    sets.aftercast.Engaged = {
         ammo		= "Aurgelmir Orb +1",
         head		= "Malignance Chapeau",
         body		= "Malignance Tabard",
@@ -304,40 +312,40 @@ function get_sets()
         left_ring	= "Ilabrat Ring",
         right_ring	= "Chirich Ring +1",
         waist		= "Sailfi Belt +1",
-		back		= Capes.DW
-	}
-	sets.aftercast.Idle = {
-		ammo		= "Homiliary",
-		head		= "Viti. Chapeau +3",
-		body		= "Jhakri Robe +2",
-		hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
-		legs		= { name="Chironic Hose", augments={'"Mag.Atk.Bns."+11','STR+12','"Refresh"+2','Accuracy+15 Attack+15',}},
-		feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
-		neck		= "Loricate Torque +1",
-		waist		= "Fucho-no-obi",
-		left_ear	= "Etiolation Earring",
-		right_ear	= "Genmei Earring",
+        back		= Capes.DW
+    }
+    sets.aftercast.Idle = {
+        ammo		= "Homiliary",
+        head		= "Viti. Chapeau +3",
+        body		= "Jhakri Robe +2",
+        hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
+        legs		= { name="Chironic Hose", augments={'"Mag.Atk.Bns."+11','STR+12','"Refresh"+2','Accuracy+15 Attack+15',}},
+        feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
+        neck		= "Loricate Torque +1",
+        waist		= "Fucho-no-obi",
+        left_ear	= "Etiolation Earring",
+        right_ear	= "Genmei Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-		back		= "Solemnity Cape"
-	}
-	sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {	
-		main		= { name="Crocea Mors", augments={'Path: C',}},
-		sub			= "Genmei Shield",
-		ammo		= "Staunch Tathlum +1",
-		head		= "Leth. Chappel +2",
-		body		= "Lethargy Sayon +2",
-		hands		= "Leth. Ganth. +2",
-		legs		= { name="Nyame Flanchard", augments={'Path: B',}},
-		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
-		neck		= "Warder's Charm +1",
-		waist		= "Slipor Sash",
-		left_ear	= "Eabani Earring",
-		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
-		left_ring	= "Shadow Ring",
-		right_ring	= "Stikini Ring +1",
-		back={ name	= "Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
-	})
+        back		= "Solemnity Cape"
+    }
+    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {	
+        main		= { name="Crocea Mors", augments={'Path: C',}},
+        sub			= "Genmei Shield",
+        ammo		= "Staunch Tathlum +1",
+        head		= "Leth. Chappel +2",
+        body		= "Lethargy Sayon +2",
+        hands		= "Leth. Ganth. +2",
+        legs		= { name="Nyame Flanchard", augments={'Path: B',}},
+        feet		= { name="Nyame Sollerets", augments={'Path: B',}},
+        neck		= "Warder's Charm +1",
+        waist		= "Slipor Sash",
+        left_ear	= "Eabani Earring",
+        right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
+        left_ring	= "Shadow Ring",
+        right_ring	= "Stikini Ring +1",
+        back={ name	= "Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+    })
 end
 
 function file_unload()  
