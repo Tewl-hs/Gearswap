@@ -106,7 +106,7 @@ function get_sets()
 			head	= "Wakido Kabuto +3"
 		},
 		['Sengikori'] = {
-			feet	= "Kasuga Sune-Ate +2"
+			feet	= "Kasuga Sune-Ate +3"
 		},
 		['Blade Bash'] = {
 			hands	= "Sakonji Kote +3"
@@ -239,11 +239,11 @@ function get_sets()
 	})
 	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
 		ammo		= "Pemphredo Tathlum",
-		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
-		body		= { name="Mpaca's Doublet", augments={'Path: A',}}, 
-		hands		= { name="Mpaca's Gloves", augments={'Path: A',}},
-		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
-		feet		= { name="Mpaca's Boots", augments={'Path: A',}},
+		head		= "Kasuga Kabuto +3",
+		body		= "Kasuga Domaru +3",
+		hands		= "Kasuga Kote +3",
+		legs		= "Kasuga Haidate +3",
+		feet		= "Kas. Sune-Ate +3",
 		neck		= "Sanctity Necklace",
 		left_ear    = "Crep. Earring",
 		right_ear	= "Digni. Earring",
@@ -255,14 +255,12 @@ function get_sets()
 	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
 		head		= "Nyame Helm",
 		left_ear	= "Telos Earring",
-		right_ear	= "Thrud Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
 	})		
 	sets.WS['Empyreal Arrow'] = set_combine(sets.WS.Normal, {
 		head		= "Nyame Helm",
-		right_ear	= "Thrud Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
@@ -279,13 +277,8 @@ function get_sets()
 		waist		= "Fotia Belt",
 		back		= Capes.DA,
 	})
-	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { 
-		head		= "Nyame Helm",
-		body		= "Nyame Mail",
-		hands		= "Nyame Gauntlets",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
-	})
+	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { })
+
 	sets.Engaged = {}
 	sets.Engaged.Normal = {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},

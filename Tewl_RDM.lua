@@ -115,7 +115,7 @@ function get_sets()
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
         legs		= "Leth. Fuseau +2",
-        feet		= "Leth. Houseaux +2",
+        feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
         right_ring	= "Karieyh Ring +1",
@@ -125,7 +125,7 @@ function get_sets()
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
         legs		= "Leth. Fuseau +2",
-        feet		= "Leth. Houseaux +2",
+        feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
         right_ring	= "Karieyh Ring +1",
@@ -237,7 +237,7 @@ function get_sets()
         body		= "Viti. Tabard +3",
         hands       = "Atrophy Gloves +3", -- 10
         legs		= "Telchine Braconi",
-        feet        = "Leth. Houseaux +2",  -- 30%
+        feet        = "Leth. Houseaux +3",  -- 30%
         neck		= "Incanter's Torque",
         left_ear	= "Andoaa Earring",
         right_ear	= "Lethargy Earring",
