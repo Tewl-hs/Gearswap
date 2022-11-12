@@ -120,6 +120,36 @@ function get_sets()
     })
 
     sets.midcast = { }
+    sets.midcast['Healing Magic'] = {
+        head		= "Kaykaus Mitra +1",
+        body		= "Kaykaus Bliaut +1",
+        hands		= "Kaykaus Cuffs +1",
+        legs		= "Kaykaus Tights +1",
+        feet		= "Kaykaus Boots +1",
+        neck		= "Nodens Gorget",
+        waist		= "Othila Sash",
+        left_ear	= "Malignance Earring",
+        right_ear	= "Mendicant's Earring",
+        left_ring	= { "Naji's Loop", bag="wardrobe4" },
+        right_ring	= { "Lebeche Ring", bag="wardrobe4" },
+        back		= "Solemnity Cape"
+    }
+    sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
+
+    })
+    sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
+        head		= "Kaykaus Mitra +1",
+        body		= "Kaykaus Bliaut +1",
+        hands		= "Kaykaus Cuffs +1",
+        legs		= "Kaykaus Tights +1",
+        neck		= "Nodens Gorget",
+        waist		= "Othila Sash",
+        left_ear	= "Malignance Earring",
+        right_ear	= "Mendicant's Earring",
+        left_ring	= { "Naji's Loop", bag="wardrobe4" },
+        right_ring	= { "Lebeche Ring", bag="wardrobe4" },
+        back		= "Solemnity Cape"
+    })
     sets.midcast['Singing'] = {        
         main        = "Carnwenhan", 
         sub         = "Genmei Shield",
