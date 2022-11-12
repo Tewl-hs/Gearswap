@@ -3,9 +3,8 @@
 	Files: Tewl_BRD.lua 
 
     Binds
-    CTRL+F9     : Cycle burst mode on and off
-    CTRL+F10    : Cycle Idle sets
-    CTRL+F11    : Cycle Engaged sets
+    CTRL+F9    : Cycle Idle sets
+    CTRL+F10    : Cycle Engaged sets
 --]]
 function get_sets()
 	items = require('resources').items
