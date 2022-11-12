@@ -164,7 +164,6 @@ function get_sets()
         right_ear   = "Etiolation Earring",
         left_ring	= "Gelatinous Ring",
         right_ring  = "Defending Ring",
-        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
     sets.midcast['Singing'].Debuff = set_combine(sets.midcast['Singing'],{
