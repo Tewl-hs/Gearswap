@@ -1,14 +1,14 @@
 --[[
-	Author: Tewl / Bismark
-	Files: Tewl_BRD.lua 
+    Author: Tewl / Bismark
+    Files: Tewl_BRD.lua 
 
     Binds
     CTRL+F9    : Cycle Idle sets
     CTRL+F10    : Cycle Engaged sets
 --]]
 function get_sets()
-	items = require('resources').items
-	require('queues')
+    items = require('resources').items
+    require('queues')
     
     include('FFXI-Mappings')
 	
