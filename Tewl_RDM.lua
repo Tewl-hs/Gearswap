@@ -3,7 +3,7 @@
 	Files: Tewl_RDM.lua 
 
     Binds
-    CTRL+F9     : Cycle burst mode on and off
+    CTRL+F9     : Toggle burst mode on and off
     CTRL+F10    : Cycle Idle sets
     CTRL+F11    : Cycle Engaged sets
 --]]
@@ -559,7 +559,9 @@ function self_command(cmd)
                 add_to_chat('Engaged mode set to: '..egs)
             end
             equip_check()
-        elseif args[2] == 'burst' then
+        end
+    elseif args[1] == 'toggle' and args[2] then
+        if args[2] == 'burst' then
             if BurstMode == false then
                 BurstMode = true
                 add_to_chat('BurstMode enabled.')

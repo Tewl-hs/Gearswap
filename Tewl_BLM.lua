@@ -3,7 +3,7 @@
 	Files: Tewl_BLM.lua 
 
     Binds
-    CTRL+F9     : Cycle burst mode on and off
+    CTRL+F9     : Toggle burst mode on and off
     CTRL+F10    : Cycle Idle sets
     CTRL+F11    : Cycle Engaged sets
 --]]
@@ -15,7 +15,7 @@ function get_sets()
 	
     include('FFXI-Utility')
 
-    send_command('bind ^f9 gs c cycle burst')
+    send_command('bind ^f9 gs c toggle burst')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c cycle engaged')
 
@@ -346,7 +346,9 @@ function self_command(cmd)
                 add_to_chat('Engaged mode set to: '..egs)
             end
             equip_check()
-        elseif args[2] == 'burst' then
+        end
+    elseif args[1] == 'toggle' and args[2] then
+        if args[2] == 'burst' then
             if BurstMode == false then
                 BurstMode = true
                 add_to_chat('BurstMode enabled.')

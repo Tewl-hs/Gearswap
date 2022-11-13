@@ -444,6 +444,8 @@ function self_command(cmd)
             end
             equip_check()
         end
+    elseif args[1] == 'toggle' then
+        --
     elseif args[1] == 'equip_check' then
         equip_check()
     end
