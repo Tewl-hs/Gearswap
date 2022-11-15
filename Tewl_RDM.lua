@@ -37,7 +37,7 @@ function get_sets()
         sub			= "Genmei Shield",
         ammo		= "Staunch Tathlum +1",
         head		= "Leth. Chappel +2",
-        body		= "Lethargy Sayon +2",
+        body		= "Lethargy Sayon +3",
         hands		= "Leth. Ganth. +2",
         legs		= { name="Nyame Flanchard", augments={'Path: B',}},
         feet		= { name="Nyame Sollerets", augments={'Path: B',}},
@@ -186,7 +186,7 @@ function get_sets()
         sub			= "Genmei Shield",
         ammo		= "Staunch Tathlum +1",
         head		= "Leth. Chappel +2",
-        body		= "Lethargy Sayon +2",
+        body		= "Lethargy Sayon +3",
         hands		= "Leth. Ganth. +2",
         legs		= { name="Nyame Flanchard", augments={'Path: B',}},
         feet		= { name="Nyame Sollerets", augments={'Path: B',}},
@@ -333,7 +333,7 @@ function get_sets()
         sub			= "Genmei Shield",
         ammo		= "Staunch Tathlum +1",
         head		= "Leth. Chappel +2",
-        body		= "Lethargy Sayon +2",
+        body		= "Lethargy Sayon +3",
         hands		= "Leth. Ganth. +2",
         legs		= { name="Nyame Flanchard", augments={'Path: B',}},
         feet		= { name="Nyame Sollerets", augments={'Path: B',}},
@@ -354,7 +354,7 @@ function file_unload()
 end
 
 function precast(spell)
-	if spell.interrupted == true or spell.target.hpp == 0 or can_do(spell.action_type) == false then
+	if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
         cancel_spell()
         return
     end

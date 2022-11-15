@@ -117,6 +117,9 @@ function get_sets()
         waist       = "Orpheus's Sash",
         back        = { name="Andartia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
     })
+    sets.precast.WS['Blade: Ei'] = set_combine(sets.precast.WS, { })
+    sets.precast.WS['Blade: To'] = set_combine(sets.precast.WS, { })
+    sets.precast.WS['Blade: Teki'] = set_combine(sets.precast.WS, { })
     sets.precast.WS['Blade: Shun'] = set_combine(sets.precast.WS, {
         ammo        = "Crepuscular Pebble",
         head        = "Ken. Jinpachi +1",
@@ -204,14 +207,19 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         ammo        = "Date Shuriken",
+        head		= "Mpaca's Cap",
+        body		= "Mpaca's Doublet",
+        hands		= "Mpaca's Gloves",
+        legs        = "Mpaca's Hose", 
+        feet        = "Mpaca's Boots", 
         --head        = "Ken. Jinpachi +1",
-        head        = "Adhemar Bonnet +1",
-        body        = "Ken. Samue +1",
-        hands       = "Tatena. Gote +1",
+        --head        = "Adhemar Bonnet +1",
+        --body        = "Ken. Samue +1",
+        --hands       = "Tatena. Gote +1",
         --hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
-        legs		= "Ken. Hakama +1",
+        --legs		= "Ken. Hakama +1",
         --feet        = "Ken. Sune-Ate +1",
-        feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
+        --feet		= { name="Tatena. Sune. +1", augments={'Path: A',}},
         neck        = { name="Ninja Nodowa +2", augments={'Path: A',}},
         left_ear    = "Cessance Earring",
         right_ear   = "Telos Earring",

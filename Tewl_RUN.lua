@@ -55,6 +55,7 @@ function get_sets()
 
     sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
 
+    -- Blue spells
     BlueSpells = T{'Grand Slam', 'Terror Touch', 'Healing Breeze', 'Cocoon', 'Pollen', 'Wild Carrot', 'Blank Gaze', 'Geist Wall', 'Soporific', 'Jettatura', 'Sheep Song', 'Metallic Body'}
 
     EnmitySpells = T{'Foil', 'Flash', 'Stun'}
@@ -334,7 +335,7 @@ function get_sets()
     check_spells()
 end
 -- 
-function sub_job_change(new, old)
+function job_sub_job_change(new, old)
     if new == 'BLU' then
         coroutine.schedule(function() check_spells() end,2)
     end

@@ -63,7 +63,7 @@ function get_sets()
         hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         legs        = { name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         feet        = { name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-        neck        = "Saevus Pendant +1",
+        neck		= "Src. Stole +2",
         waist       = "Refoccilation Stone",
         left_ear    = "Regal Earring",
         right_ear   = "Malignance Earring",
@@ -75,7 +75,7 @@ function get_sets()
         head		= "Ea Hat +1",
         body		= "Ea Houppe. +1",
         legs		= "Ea Slops +1",
-        neck		= "Mizu. Kubikazari",
+        neck		= "Src. Stole +2",
         waist		= "Skrymir Cord",
         left_ear	= "Regal Earring",
         right_ring	= "Mujin Band",
@@ -175,7 +175,7 @@ function file_unload()
 end
 
 function precast(spell)
-    if spell.interrupted == true or spell.target.hpp == 0 or can_do(spell.action_type) == false then
+    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
         cancel_spell()
         return
     end
