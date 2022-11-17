@@ -67,7 +67,7 @@ function get_sets()
     }
     sets.precast.JA = {
         ['Composure'] = { },
-        ['Saboteur'] = {hands = "Leth. Gantherots +2",},
+        ['Saboteur'] = {hands = "Leth. Ganth. +3",},
         ['Chainspell'] = {body="Viti. Tabard +3"},
         ['Vallation'] = sets.Enmity,
         ['Valiance'] = sets.Enmity
@@ -204,7 +204,7 @@ function get_sets()
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",
-        hands		= "Leth. Gantherots +2",
+        hands		= "Leth. Ganth. +3",
         legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
         feet		= "Vitiation Boots +3",
         neck		= "Incanter's Torque",
