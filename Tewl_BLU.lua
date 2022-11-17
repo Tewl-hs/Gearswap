@@ -81,8 +81,8 @@ function get_sets()
             neck        = "Incanter's Torque",
             waist       = "Luminary Sash",
             back        = "Rosmerta's Cape",
-            left_ring	= { "Stikini Ring +1", bag="wardrobe1" },
-            right_ring	= { "Stikini Ring +1", bag="wardrobe4" },
+            left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+            right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
          }
 
     
@@ -106,8 +106,8 @@ function get_sets()
 
         sets.aftercast.Refresh = set_combine(sets.aftercast.Idle,{
             body        = "Jhakri Robe +2",
-            left_ring	= "Stikini Ring +1",
-            right_ring	= "Stikini Ring +1"
+            left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+            right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         })
 
         check_spells()

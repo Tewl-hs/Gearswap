@@ -184,7 +184,7 @@ function get_sets()
 		waist       = "Orpheus's Sash",
 		left_ear    = "Crematio Earring",
 		right_ear   = "Friomisi Earring",
-		left_ring   = "Stikini Ring +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
 		right_ring  = { name="Metamor. Ring +1", augments={'Path: A',}},
 		back        = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}},
     }
@@ -199,7 +199,7 @@ function get_sets()
 		neck        = "Incanter's Torque",
 		left_ear    = "Digni. Earring",
 		right_ear   = "Hnoss Earring",
-		left_ring   = "Stikini Ring +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
 		right_ring  = { name="Metamor. Ring +1", augments={'Path: A',}},
 		waist       = "Eschan Stone",
 		back        = { name="Andartia's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10','Spell interruption rate down-10%',}},

@@ -451,7 +451,7 @@
                 if pet.status == 'Engaged' then
                     sets.AC = sets.aftercast.Avatar.Engaged
                 else
-                    sets.AC = sets.aftercast.Avatar
+                    sets.AC = sets.aftercast.Avatar.DT
                 end
             end
         end

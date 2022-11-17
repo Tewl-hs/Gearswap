@@ -43,7 +43,7 @@ function get_sets()
         waist       = "Isa Belt",
         hands       = "Geo. Mitaines +3",
         feet        = "Bagua Sandals +3",
-        right_ring  = "Stikini Ring +1",
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = Capes.PetRegen,
     }
 
@@ -98,8 +98,8 @@ function get_sets()
         feet        = "Medium's Sabots",
         neck        = "Bagua Charm +2",
         waist       = "Austerity Belt +1",
-        left_ring   = "Stikini Ring +1", -- 8/8
-        right_ring  = "Stikini Ring +1", -- 8/8
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = Capes.GeoSkill,
     }
     sets.midcast['Geomancy'].Indi = {
@@ -141,8 +141,8 @@ function get_sets()
         neck        = "Incanter's Torque",
         body        = "Vanya Robe",
         hands       = "Azimuth Gloves +2",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Luminary Sash"
     }
 
@@ -155,6 +155,8 @@ function get_sets()
         feet        = "Telchine Pigaches",  -- 8
         neck        = "Incanter's Torque",
         right_ear   = "Augment. Earring",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Embla Sash" -- 10
     }
 
@@ -198,8 +200,8 @@ function get_sets()
         neck        = "Incanter's Torque",
         left_ear    = "Etiolation Earring",
         right_ear   = "Halasz Earring",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Austerity Belt +1",
         back        = "Solemnity Cape",
     }
@@ -224,8 +226,8 @@ function get_sets()
         neck        = "Loricate Torque +1",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
-        left_ring   = "Stikini Ring +1",
-        right_ring  = "Stikini Ring +1",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Fucho-no-Obi",   
         back        = "Moonlight Cape",         
     }

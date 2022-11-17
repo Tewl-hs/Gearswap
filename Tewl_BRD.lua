@@ -173,8 +173,8 @@ function get_sets()
         legs        = "Brioso Cannions +3",
         left_ear    = "Regal Earring",
         right_ear   = "Digni. Earring",
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
-        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Luminary Sash",
     })
     sets.midcast['Singing'].Scherzo = set_combine(sets.midcast['Singing'],{

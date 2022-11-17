@@ -57,7 +57,7 @@ function get_sets()
     sets.midcast['Elemental Magic'] = {
         main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
-        ammo        = "Pemphredo Tathlum",
+        ammo        = "Sroda Tathlum",
         head        = "Arch. Petasos +3",
         body        = { name="Amalric Doublet +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
         hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
@@ -67,23 +67,31 @@ function get_sets()
         waist       = "Refoccilation Stone",
         left_ear    = "Regal Earring",
         right_ear   = "Malignance Earring",
-        left_ring   = "Shiva Ring +1",
+        left_ring   = "Metamor. Ring +1",
         right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
      }
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        ammo        = "Pemphredo Tathlum",
         head		= "Ea Hat +1",
         body		= "Ea Houppe. +1",
+        hands       = "Agwu's Gages",
         legs		= "Ea Slops +1",
-        neck		= "Src. Stole +2",
+        feet        = "Agwu's Pigaches",
         waist		= "Skrymir Cord",
-        left_ear	= "Regal Earring",
-        right_ring	= "Mujin Band",
+        left_ring	= "Mujin Band",
     })
     sets.midcast['Enfeebling Magic'] = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
+        main        = "Contemplator +1",
+        sub         = "Khonsu",
         legs        = "Psycloth Lappas",
+        neck		= "Src. Stole +2",
+        waist       = "Refoccilation Stone",
+        left_ear    = "Regal Earring",
+        right_ear   = "Malignance Earring",
+        left_ring   = "Metamor. Ring +1",
+        right_ring  = "Kishar Ring",
+        back        = "Aurist's Cape +1",
     }
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
     sets.midcast['Dark Magic'] = {
@@ -144,8 +152,8 @@ function get_sets()
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
-        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = "Moonlight Cape"
     }
     sets.aftercast.Engaged = {
@@ -161,8 +169,8 @@ function get_sets()
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe1" },
-        right_ring	= { name="Stikini Ring +1", bag="wardrobe4" },
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = "Moonlight Cape"
      }
 

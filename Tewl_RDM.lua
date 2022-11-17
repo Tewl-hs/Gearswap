@@ -158,8 +158,8 @@ function get_sets()
         waist		= "Othila Sash",
         left_ear	= "Malignance Earring",
         right_ear	= "Mendicant's Earring",
-        left_ring	= { "Naji's Loop", bag="wardrobe4" },
-        right_ring	= { "Lebeche Ring", bag="wardrobe4" },
+        left_ring	= { "Naji's Loop", bag="wardrobe7" },
+        right_ring	= { "Lebeche Ring", bag="wardrobe7" },
         back		= Capes.MND
     }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
@@ -174,8 +174,8 @@ function get_sets()
         waist		= "Othila Sash",
         left_ear	= "Malignance Earring",
         right_ear	= "Mendicant's Earring",
-        left_ring	= { "Naji's Loop", bag="wardrobe4" },
-        right_ring	= { "Lebeche Ring", bag="wardrobe4" },
+        left_ring	= { "Naji's Loop", bag="wardrobe7" },
+        right_ring	= { "Lebeche Ring", bag="wardrobe7" },
         back		= Capes.MND
     })
     sets.midcast['Divine Magic'] = {
