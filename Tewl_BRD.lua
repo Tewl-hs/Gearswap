@@ -436,7 +436,7 @@ function self_command(cmd)
                     egs = nil
                 end
             end
-            if last_egs == eds then egs = nil end
+            if last_egs == egs then egs = nil end
             if egs == nil then 
                 add_to_chat('Engaged mode set to: Default')
             else

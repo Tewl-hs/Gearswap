@@ -225,8 +225,7 @@ function get_sets()
     })
     
     sets.aftercast = {}
-    sets.aftercast.Engaged = { }
-    sets.aftercast.Engaged.Normal = { -- DT (52) PDT (29) MDT (2)
+    sets.aftercast.Engaged = { -- DT (52) PDT (29) MDT (2)
         ammo        = "Staunch Tathlum +1", -- 3 0 0
         head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
         body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
@@ -439,7 +438,7 @@ function self_command(cmd)
                     egs = nil
                 end
             end
-            if last_egs == eds then egs = nil end
+            if last_egs == egs then egs = nil end
             if egs == nil then 
                 add_to_chat('Engaged mode set to: Normal')
             else

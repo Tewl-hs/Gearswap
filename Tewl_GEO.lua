@@ -408,7 +408,7 @@ function self_command(cmd)
         if args[2] == 'idle' then
             local last_ids = ids 
             for k,v in pairs(sets.aftercast.Idle) do
-                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                if slot_names:contains(k) then
                     -- do nothing
                 elseif ids == nil then
                     ids = k
@@ -427,7 +427,7 @@ function self_command(cmd)
         elseif args[2] == 'engaged' then
             local last_egs = egs 
             for k,v in pairs(sets.aftercast.Engaged) do
-                if T{'main','sub','range','ammo','body','hands','neck','feet','legs','head','ring1','right_ring','ring2','left_ring','waist','back','ear1','ear2','left_ear','right_ear'}:contains(k) then
+                if slot_names:contains(k) then
                     -- do nothing
                 elseif egs == nil then
                     egs = k
@@ -436,7 +436,7 @@ function self_command(cmd)
                     egs = nil
                 end
             end
-            if last_egs == eds then egs = nil end
+            if last_egs == egs then egs = nil end
             if egs == nil then 
                 add_to_chat('Engaged mode set to: Default')
             else
