@@ -65,6 +65,8 @@ function get_sets()
     Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
     Capes.SIRD = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
     Capes.DA = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}}
+    Capes.MAB = { name="Ogma's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-5%',}}
+    Capes.WSD = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
 
     sets.Enmity = {
         head        = "Halitus Helm",
@@ -122,7 +124,13 @@ function get_sets()
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
 
     sets.precast.JA = {
-        ['Vivacious Pulse'] = {head="Erilaz Galea +2",neck="Incanter's Torque",ring1="Stikini Ring +1",ring2="Stikini Ring +1",legs="Rune. Trousers +1"},
+        ['Vivacious Pulse'] = {
+            head        = "Erilaz Galea +2",
+            legs        = "Rune. Trousers +1",
+            neck        = "Incanter's Torque",
+            left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+            right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
+        },
         ['Vallation'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
         ['Valiance'] = set_combine(sets.Enmity,{body="Runeist's Coat +3",legs="Futhark Trousers +3"}),
         ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist's Boots +3"}),
@@ -140,7 +148,7 @@ function get_sets()
         ['Swipe'] = { 
             ammo        = "Seeth. Bomblet +1",
             head        = "Agwu's Cap",
-            body        = "Samnuha Coat",
+            body        = "Agwu's Robe", -- "Samnuha Coat",
             hands       = "Agwu's Gages",
             legs        = "Agwu's Slops",
             feet        = "Agwu's Pigaches",
@@ -150,12 +158,12 @@ function get_sets()
             right_ear   = "Hermetic Earring",
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
-            --back        = Capes.MAB
+            back        = Capes.MAB
         },
         ['Lunge'] = { 
             ammo        = "Seeth. Bomblet +1",
             head        = "Agwu's Cap",
-            body        = "Samnuha Coat",
+            body        = "Agwu's Robe", -- "Samnuha Coat",
             hands       = "Agwu's Gages",
             legs        = "Agwu's Slops",
             feet        = "Agwu's Pigaches",
@@ -165,7 +173,7 @@ function get_sets()
             right_ear   = "Hermetic Earring",
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
-            --back        = Capes.MAB
+            back        = Capes.MAB
         },   
     }
     sets.precast.WS = {
@@ -192,7 +200,7 @@ function get_sets()
 		feet        = "Nyame Sollerets",
 		right_ring  = "Niqmaddu Ring",
 		waist       = "Sailfi Belt +1",
-		--back      = Capes.WSD,
+		back      = Capes.WSD,
     })
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS,{
         ammo        = "Seeth. Bomblet +1",
@@ -244,8 +252,8 @@ function get_sets()
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
         neck        = { name="Futhark Torque +2", augments={'Path: A',}},
         waist       = "Audumbla Sash",
-        left_ear    = "Tuisto Earring",
-        right_ear   = "Odnowa Earring +1",
+        left_ear    = "Odnowa Earring +1",
+        right_ear   = "Tuisto Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.SIRD
@@ -268,8 +276,8 @@ function get_sets()
         -- Normal equipment
         neck        = "Futhark torque +2", -- 7 0 0
         waist       = "Engraved Belt",
-        left_ear    = "Eabani Earring",
-        right_ear   = "Odnowa Earring +1", -- 3 0 2
+        left_ear    = "Odnowa Earring +1",
+        right_ear   = "Eabani Earring", -- 3 0 2
         left_ring   = "Shadow Ring",
         --left_ring   = "Defending Ring", -- 10 0 0
         right_ring  = "Moonlight Ring", -- 5 0 0
@@ -292,20 +300,12 @@ function get_sets()
     }
     sets.aftercast.Engaged.Hybrid = { -- DT 33 PDT 25
         ammo        = "Staunch Tathlum +1", -- 3 0 0
-
         head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
         body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
         hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
         legs        = "Nyame Flanchard", -- 8 0 0
         feet        = "Nyame Sollerets", -- 7 0 0
         neck        = "Anu Torque",
-
-        --head        = "Turms Cap +1",
-        --body        = "Runeist's Coat +3",
-        --hands       = "Turms Mittens +1",
-        --legs        = "Nyame Flanchard", -- 8 0 0
-        --feet        = "Turms Leggings +1", 
-        --neck        = "Futhark torque +2", -- 7 0 0
 		waist       = "Ioskeha Belt +1",
 		left_ear    = "Telos Earring",
 		right_ear   = "Sherida Earring",
@@ -313,20 +313,17 @@ function get_sets()
         right_ring  = "Niqmaddu Ring",
         back        = Capes.DA -- 5 0 0
     }
-    sets.aftercast.Idle = { -- DT 55 PDT 29 MDT 2
+    sets.aftercast.Idle = { -- DT 55 PDT 29 
         ammo        = "Staunch Tathlum +1", -- 3 0 0
-        head        = "Turms Cap +1", 
+        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
         body        = "Runeist's Coat +3", 
-        hands       = "Turms Mittens +1", 
-        --hands       = "Nyame Gauntlets", -- 7 0 0 
+        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
         legs        = "Eri. Leg Guards +2",
         feet        = "Erilaz Greaves +2",
-        --legs        = "Nyame Flanchard", -- 8 0 0
-        --feet        = "Nyame Sollerets", -- 7 0 0
         neck        = "Futhark Torque +2", -- 7 0 0
         waist       = "Engraved Belt",
         left_ear    = "Eabani Earring", 
-        right_ear   = "Odnowa Earring +1", -- 3 0 2
+        right_ear   = "Erilaz Earring +1", -- 3
         left_ring   = "Defending Ring", -- 10 0 0
         right_ring  = "Moonlight Ring", -- 5 0 0
         back        = Capes.Enmity -- 5 0 0
