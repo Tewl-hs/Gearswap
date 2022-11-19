@@ -240,7 +240,6 @@ function get_sets()
         back        = "Moonlight Cape" -- 6
     }
     sets.aftercast.Engaged = {
-        main        = "Carnwenhan",
         sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Bunzi's Hat",
@@ -270,7 +269,7 @@ function precast(spell)
     end
     if spell.action_type == 'Magic' then        
         if spell.skill == 'Singing' and sets.precast.FC[spell.skill] then 
-            if DummySongs:contains(spell.name) then
+            if DummySongs:contains(spell.name) or spell.name:startswith('Horde') then
                 equip(sets.precast.FC[spell.skill].DummySong)
             elseif sets.precast.FC[spell.skill][spell.name] then
                 equip(sets.precast.FC[spell.skill][spell.name])
