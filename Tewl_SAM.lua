@@ -704,12 +704,6 @@ function load_macros()
 	set_macros(15,1) -- Default /WAR
 end
 
-windower.raw_register_event('add item', function(bag, index, id, count)
-	if id == 4146 and world.area == "Ghoyu's Reverie" then --4146 Revitalizer ID
-        windower.chat.input('/item Revitalizer <me>')
-	end
-end)
-
 windower.raw_register_event('outgoing chunk', function(id, data)
 	if id == 0x00D and stateBox then
 		stateBox:hide()

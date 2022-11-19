@@ -3,55 +3,20 @@
 	Files: Tewl_RUN.lua 
 --]]
 
-function get_sets()		      
-    include('Modes.lua') -- Using Motes meta tables for modes
+function get_sets()    
+    items = require('resources').items
+    require('queues')
 
-    send_command('bind ^f9 gs c cycle')
-    
-    res = require('resources')
-	items = require('resources').items
+    include('FFXI-Mappings')
 
-    -- Personal settings: Load macros and set equipviewer position
-    send_command('input /macro book 12;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 13')
+    include('FFXI-Utility')
+    -- Personal settings. You can remove these two lines.
+    set_macros(12,1)
+    send_command('wait 1;input /lockstyleset 13')
     send_command('input //equipviewer pos 1663 934')
 
-    EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'DT', 'Hybrid'} 
-    
-    --  NOT MY CODE! Testing content for displaying text under chat
-    texts = require('texts')
-    if stateBox then stateBox:destroy() end
-
-    local settings = windower.get_windower_settings()
-    local x,y
-
-    if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
-        x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
-    else
-        x,y = 0, settings["ui_y_res"]-17 -- -285, -18
-    end
-
-    if displayx then x = displayx end
-    if displayy then y = displayy end
-
-    local font = displayfont or 'Arial'
-    local size = displaysize or 12
-    local bold = displaybold or true
-    local bg = displaybg or 0
-    local strokewidth = displaystroke or 2
-    local stroketransparancy = displaytransparancy or 192
-
-    stateBox = texts.new()
-    stateBox:pos(x,y)
-    stateBox:font(font)--Arial
-    stateBox:size(size)
-    stateBox:bold(bold)
-    stateBox:bg_alpha(bg)--128
-    stateBox:right_justified(false)
-    stateBox:stroke_width(strokewidth)
-    stateBox:stroke_transparency(stroketransparancy)
-
-    update_status()
-    -- End of display code
+    send_command('bind ^f9 gs c cycle idle')
+    send_command('bind ^f10 gs c cycle engaged')
 
     sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
 
@@ -243,7 +208,7 @@ function get_sets()
         hands       = "Regal Gauntlets",
         legs        = "Futhark Trousers +3",
     }
-    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
+    sets.midcast['Enhancing Magic']['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
         ammo        = "Staunch Tathlum +1",
         head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
@@ -329,78 +294,31 @@ function get_sets()
         back        = Capes.Enmity -- 5 0 0
     }
 
-    check_spells()
+    coroutine.schedule(function() check_spells() end,2)
+    
+	include('FFXI-Display.lua')	
 end
--- 
-function job_sub_job_change(new, old)
+
+function file_unload()  
+    send_command('unbind ^F9')
+    send_command('unbind ^F10')
+    send_command('unbind ^F11')
+end
+
+function sub_job_change(new, old)
     if new == 'BLU' then
         coroutine.schedule(function() check_spells() end,2)
     end
 end
-
-function check_spells()
-    if windower.ffxi.get_player().sub_job_id ~= 16 then return nil end
-    if S(BlueSpells):map(string.lower) == S(get_current_spellset()) then
-        windower.add_to_chat(8,'[Blue Spells Equipped]')
-    else
-        windower.add_to_chat(8,'[Equipping Blue Spells]')
-        clear_spells()
-    end
-end
-
-function clear_spells()
-    windower.ffxi.reset_blue_magic_spells()
-    set_spells()
-end
-
-function set_spells()
-    local delay = 0.65
-    local i = 0
-    for k,v in pairs(BlueSpells) do
-        if v ~= nil then
-            local spellID = find_spell_id_by_name(v)
-            if spellID ~= nil then
-                i = i + 1
-                x = delay * i
-                set_spell:schedule(x, spellID, i)
-            end
-        end
-    end
-end
-
-function set_spell(id, slot)
-    windower.ffxi.set_blue_magic_spell(id, tonumber(slot))
-    if tonumber(slot) == table.getn(BlueSpells) then
-        windower.add_to_chat(8, '[Finished equipping spells.]')
-        windower.send_command('@timers c "Blue Magic Cooldown" 60 up')
-    end
-end
-
-function find_spell_id_by_name(spellname)
-    spells = res.spells:type('BlueMagic')
-
-    for spell in spells:it() do
-        if spell['english']:lower() == spellname:lower() then
-            return spell['id']
-        end
-    end
-    return nil
-end
-
-function get_current_spellset()
-    spells = res.spells:type('BlueMagic')
-    return T(windower.ffxi.get_sjob_data().spells)
-    -- Returns all values but 512
-    :filter(function(id) return id ~= 512 end)
-    -- Transforms them from IDs to lowercase English names
-    :map(function(id) return spells[id].english:lower() end)
-    -- Transform the keys from numeric x or xx to string 'slot0x' or 'slotxx'
-    :key_map(function(slot) return 'slot%02u':format(slot) end)
-end
     
-function precast(spell,action)        
+function precast(spell,action)
+	if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
+        cancel_spell()
+        return
+    end        
     if spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
+            add_to_chat(123,'['..spell.english..'] Not enough TP.')
 			cancel_spell()
             return
         end
@@ -416,7 +334,6 @@ function precast(spell,action)
 			add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id]))
 			return
 		end
-
         if sets.precast.JA[spell.name] then
             equip(sets.precast.JA[spell.name])
         end    
@@ -428,8 +345,8 @@ function precast(spell,action)
 			add_to_chat(121,'['..spell.name..'] '..disp_time(sr))
             return
         end
-        if sets.precast.FC[spell.skill] then
-            equip(sets.precast.FC[spell.skill])
+        if sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
         else
             equip(sets.precast.FC)
         end
@@ -437,16 +354,16 @@ function precast(spell,action)
 end
     
 function midcast(spell,action)
-    if spell.action_type == 'Magic' then
-        if sets.Enmity[spell.name] then
-            equip(sets.Enmity[spell.name])
-        elseif EnmitySpells:contains(spell.name) then
-            equip(sets.Enmity)
-        elseif BlueSpells:contains(spell.name) then
-            equip(sets.Enmity.SIRD)            
-        elseif sets.midcast[spell.name] then
-            equip(sets.midcast[spell.name])
-        end
+    if sets.Enmity[spell.name] then
+        equip(sets.Enmity[spell.name])
+    elseif EnmitySpells:contains(spell.name) then
+        equip(sets.Enmity)
+    elseif BlueSpells:contains(spell.name) then
+        equip(sets.Enmity.SIRD)            
+    elseif sets.midcast[spell.skill][spell.name] then
+        equip(sets.midcast[spell.skill][spell.name])
+    elseif sets.midcast[spell.skill] then
+        equip(sets.midcast[spell.skill])
     end
 end
     
@@ -457,94 +374,95 @@ function aftercast(spell,action)
 	if spell.name == 'Gambit' then
 		windower.send_command('@timers c "Gambit" 76 up')
 	end
-    if player.status == 'Engaged' then
-        equip(get_engaged_set())
-    else
-        equip(sets.aftercast.Idle)
-    end
+	equip_check()
 end
     
 function status_change(new,old)
-    if player.status == 'Engaged' then
-        equip(get_engaged_set())
-    else
-        equip(sets.aftercast.Idle)
-    end
+	if T{'Idle','Resting','Engaged'}:contains(new) then
+		equip_check()
+	end
 end
     
 function buff_change(buff,gain)
     
 end
-    
-function self_command(commandArgs)
-    local originalCommand = commandArgs
-    if type(commandArgs) == 'string' then
-        commandArgs = T(commandArgs:split(' '))
-        if #commandArgs == 0 then
-        return
+
+function equip_check()
+    if player.status == 'Engaged' then
+        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+            equip(sets.aftercast.Engaged[egs])
+        else
+            egs = nil
+            equip(sets.aftercast.Engaged)
+        end
+    else
+        if ids ~= nil and sets.aftercast.Idle[ids] then 
+            equip(aftercast.Idle[ids])
+        else
+            ids = nil
+            equip(sets.aftercast.Idle)
         end
     end
-    if commandArgs[1] == 'SwapGear' then
-        SwapGear()
-    elseif commandArgs[1] == 'cycle' then
-        EngagedMode:cycle()
-        SwapGear()
-    end
 end
 
-function get_engaged_set()
-    return sets.aftercast.Engaged[EngagedMode.value] or sets.aftercast.Engaged.Normal
-end
-
-function file_unload()     
-    send_command('unbind ^F9')
-end
-
-function SwapGear()
-    if player.status == 'Engaged' then
-        equip(get_engaged_set())
-    else
-        equip(sets.aftercast.Idle)
+function self_command(cmd)
+    local args = T(cmd:split(' '))
+    if args[1] == 'cycle' and args[2] then
+        if args[2] == 'idle' then
+            local last_ids = ids 
+            for k,v in pairs(sets.aftercast.Idle) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif ids == nil then
+                    ids = k
+                    break
+                elseif ids == k then
+                    ids = nil
+                end
+            end
+            if last_ids == ids then ids = nil end
+            if ids == nil then 
+                add_to_chat('Idle mode set to: Normal')
+            else
+                add_to_chat('Idle mode set to: '..ids)
+            end
+            equip_check()
+        elseif args[2] == 'engaged' then
+            local last_egs = egs 
+            for k,v in pairs(sets.aftercast.Engaged) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif egs == nil then
+                    egs = k
+                    break
+                elseif egs == k then
+                    egs = nil
+                end
+            end
+            if last_egs == eds then egs = nil end
+            if egs == nil then 
+                add_to_chat('Engaged mode set to: Normal')
+            else
+                add_to_chat('Engaged mode set to: '..egs)
+            end
+            equip_check()
+        end
+    elseif args[1] == 'toggle' and args[2] then
+        if args[2] == 'burst' then
+            if BurstMode == false then
+                BurstMode = true
+                add_to_chat('BurstMode enabled.')
+            else
+                BurstMode = false
+                add_to_chat('BurstMode disabled.')
+            end
+        end
+    elseif args[1] == 'equip_check' then
+        equip_check()
     end
     update_status()
 end
-    
-mov = {counter=0}
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-    mov.x = windower.ffxi.get_mob_by_index(player.index).x
-    mov.y = windower.ffxi.get_mob_by_index(player.index).y
-    mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
-     
-moving = false
-windower.raw_register_event('prerender',function()
-    mov.counter = mov.counter + 1;
-    if mov.counter>15 then
-        local pl = windower.ffxi.get_mob_by_index(player.index)
-        if pl and pl.x and mov.x then
-            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-            if dist > 1 and not moving then
-                if player.status ~= 'Engaged' then
-                    send_command('gs equip sets.MoveSpeed')
-                end
-                moving = true
-            elseif dist < 1 and moving then
-                if player.status ~= 'Engaged' then
-                    send_command('gs c SwapGear')
-                end
-                moving = false
-            end
-        end
-        if pl and pl.x then
-            mov.x = pl.x
-            mov.y = pl.y
-            mov.z = pl.z
-        end
-        mov.counter = 0
-    end
-end)
 
- -- More code for displaying text -- Not finished 
 function update_status()
     local clr = {
         h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
@@ -566,14 +484,10 @@ function update_status()
     stateBox:clear()
     stateBox:append('   ')
     local status_text = ''
-    
-    status_text = string.format("%sEngaged: %s%s%s", clr.w, clr.h, EngagedMode.value, spc)
+    local em = egs or 'Normal'
+    status_text = string.format("%sEngaged: %s%s%s", clr.w, clr.h, em, spc)
     stateBox:append(status_text)
     stateBox:show()
-end
-
-function clear_job_states()
-    if stateBox then stateBox:destroy() end
 end
 
 windower.raw_register_event('outgoing chunk', function(id, data)
@@ -587,15 +501,3 @@ windower.raw_register_event('incoming chunk', function(id, data)
         stateBox:show()
     end
 end)
--- End of Display Code
-
-function disp_time(time)
-	local hours = math.floor(math.mod(time, 86400)/3600)
-	local minutes = math.floor(math.mod(time,3600)/60)
-	local seconds = math.floor(math.mod(time,60))
-	if hours > 0 then
-		return string.format("%02d:%02d:%02d",hours,minutes,seconds)
-	else
-		return string.format("%02d:%02d",minutes,seconds)
-	end
-end
