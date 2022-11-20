@@ -10,7 +10,7 @@ function get_sets()
     include('FFXI-Mappings')
 
     include('FFXI-Utility')
-    -- Personal settings. You can remove these two lines.
+    -- Personal settings. You can remove these lines.
     set_macros(12,1)
     send_command('wait 1;input /lockstyleset 13')
     send_command('input //equipviewer pos 1663 934')
