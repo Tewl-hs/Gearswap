@@ -359,7 +359,7 @@ function midcast(spell,action)
         equip(sets.Enmity)
     elseif BlueSpells:contains(spell.name) then
         equip(sets.Enmity.SIRD)            
-    elseif sets.midcast[spell.skill][spell.name] then
+    elseif sets.midcast[spell.skill] and sets.midcast[spell.skill][spell.name] then
         equip(sets.midcast[spell.skill][spell.name])
     elseif sets.midcast[spell.skill] then
         equip(sets.midcast[spell.skill])

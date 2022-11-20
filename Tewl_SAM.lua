@@ -290,7 +290,7 @@ function get_sets()
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= "Dedition Earring",
-		right_ear	= "Kasuga Earring", -- ACC+8
+		right_ear	= "Kasuga Earring +1", -- ACC+11
 		left_ring	= "Chirich Ring +1",
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TP
