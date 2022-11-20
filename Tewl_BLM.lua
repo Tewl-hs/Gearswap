@@ -27,6 +27,7 @@ function get_sets()
 
     -- Gearsets
     sets.precast = {}
+    sets.precast.WS = { }
     sets.precast.FC = {
         main        = "Sucellus", -- 5
         sub         = "Ammurapi Shield",
