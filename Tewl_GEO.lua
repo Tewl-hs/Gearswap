@@ -265,7 +265,7 @@ function precast(spell)
         if spell.english == 'Dispelga' then
             equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
         elseif spell.name == 'Impact' then
-            equip(sets.precast.FC,{body="Twilight Cloak"})
+            equip(sets.precast.FC,{head=empty,body="Twilight Cloak"})
         elseif sets.precast.FC then
             equip(sets.precast.FC)
         end
@@ -305,7 +305,7 @@ function midcast(spell)
             end
         elseif spell.skill == 'Elemental Magic' and sets.midcast[spell.skill] then
             if sets.midcast[spell.skill].Burst and BurstMode == true then                
-                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name].Burst == nil then
+                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
                 elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
                     equip(sets.midcast[spell.skill][spell.name].Burst)
