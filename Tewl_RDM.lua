@@ -408,7 +408,7 @@ function midcast(spell,action)
         elseif spell.skill == 'Elemental Magic' and sets.midcast[spell.skill] then
             if sets.midcast[spell.skill].Burst and BurstMode == true then                
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst == nil then
-                    equip(set_combine(sets.midcast[spell.skill].Burst,{body="Twilight Cloak"}))
+                    equip(set_combine(sets.midcast[spell.skill].Burst,{head=empty,body="Twilight Cloak"}))
                 elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
                     equip(sets.midcast[spell.skill][spell.name].Burst)
                 else
@@ -416,7 +416,7 @@ function midcast(spell,action)
                 end
             else        
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] == nil then
-                    equip(set_combine(sets.midcast[spell.skill],{body="Twilight Cloak"}))
+                    equip(set_combine(sets.midcast[spell.skill],{head=empty,body="Twilight Cloak"}))
                 elseif sets.midcast[spell.skill][spell.name] then
                     equip(sets.midcast[spell.skill][spell.name])
                 else
