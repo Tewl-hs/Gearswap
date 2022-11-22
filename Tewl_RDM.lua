@@ -65,9 +65,11 @@ function get_sets()
         right_ring	= "Lebeche Ring", -- 0|2
         back		= Capes.MND -- 10
     }
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
+    sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
     sets.precast.JA = {
         ['Composure'] = { },
-        ['Saboteur'] = {hands = "Leth. Ganth. +3",},
+        ['Saboteur'] = {hands="Leth. Ganth. +3",},
         ['Chainspell'] = {body="Viti. Tabard +3"},
         ['Vallation'] = sets.Enmity,
         ['Valiance'] = sets.Enmity
@@ -154,29 +156,23 @@ function get_sets()
         hands		= "Kaykaus Cuffs +1",
         legs		= "Kaykaus Tights +1",
         feet		= "Kaykaus Boots +1",
-        neck		= "Nodens Gorget",
-        waist		= "Othila Sash",
+        neck		= "Incanter's Torque",
+        waist		= "Luminary Sash",
         left_ear	= "Malignance Earring",
         right_ear	= "Mendicant's Earring",
-        left_ring	= { "Naji's Loop", bag="wardrobe7" },
-        right_ring	= { "Lebeche Ring", bag="wardrobe7" },
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back		= Capes.MND
     }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
-
+        right_ring   = "Menelaus's Ring",
     })
     sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
-        head		= "Kaykaus Mitra +1",
-        body		= "Kaykaus Bliaut +1",
-        hands		= "Kaykaus Cuffs +1",
-        legs		= "Kaykaus Tights +1",
         neck		= "Nodens Gorget",
-        waist		= "Othila Sash",
         left_ear	= "Malignance Earring",
         right_ear	= "Mendicant's Earring",
         left_ring	= { "Naji's Loop", bag="wardrobe7" },
-        right_ring	= { "Lebeche Ring", bag="wardrobe7" },
-        back		= Capes.MND
+        right_ring   = "Menelaus's Ring",
     })
     sets.midcast['Divine Magic'] = {
 
@@ -242,12 +238,9 @@ function get_sets()
         right_ear	= "Lethargy Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-        back		= Capes.MND,
         waist		= "Embla Sash",
+        back		= Capes.MND,
     }
-    sets.midcast['Enhancing Magic'].Duration = set_combine(sets.midcast['Enhancing Magic'], {
-
-    })
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
         head		= "Amalric Coif +1",
         body		= "Atrophy Tabard +3",
@@ -291,12 +284,12 @@ function get_sets()
         waist		= "Refoccilation Stone",
         back		= Capes.INT
     }
-    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
-
-    })
-    sets.midcast['Dark Magic'] =  { -- Bio, Drain, Aspir, Stun
+    sets.midcast['Elemental Magic'].Debuff = set_combine(sets.midcast['Elemental Magic'], { })
+    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], { })
+    sets.midcast['Dark Magic'] =  {
         back		= Capes.INT
     }
+    sets.midcast['Dark Magic'] =  set_combine(sets.midcast['Dark Magic'], { })
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         ammo		= "Aurgelmir Orb +1",
@@ -358,15 +351,12 @@ function precast(spell)
         cancel_spell()
         return
     end
-    if spell.action_type == 'Magic' then
+    if spell.action_type == 'Magic' and sets.precast.FC then
         if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
-        end
-        if spell.english == 'Dispelga' then
-            equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
-        elseif spell.name == 'Impact' then
-            equip(sets.precast.FC,{head=empty,body="Twilight Cloak"})
-        elseif sets.precast.FC then
+        elseif sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
+        else
             equip(sets.precast.FC)
         end
     elseif spell.type == 'WeaponSkill' then
@@ -405,8 +395,10 @@ function midcast(spell,action)
             else
                 equip(sets.midcast[spell.skill])
             end
-        elseif spell.skill == 'Elemental Magic' and sets.midcast[spell.skill] then
-            if sets.midcast[spell.skill].Burst and BurstMode == true then                
+        elseif spell.skill == 'Elemental Magic' then
+            if EleDebuff:contains(spell.name) and sets.midcast[spell.skill].Debuff then
+                equip(sets.midcast[spell.skill].Debuff)
+            elseif sets.midcast[spell.skill].Burst and BurstMode == true then               
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{head=empty,body="Twilight Cloak"}))
                 elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then

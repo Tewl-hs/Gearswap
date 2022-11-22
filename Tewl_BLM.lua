@@ -28,14 +28,14 @@ function get_sets()
     -- Gearsets
     sets.precast = {}
     sets.precast.WS = { }
-    sets.precast.FC = {
+    sets.precast.FC = { -- 85%
         main        = "Sucellus", -- 5
         sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
         head        = "Amalric Coif +1", -- 11
         body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
         hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
-        legs        = { name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}}, -- 7
+        legs        = "Agwu's Slops", -- 7
         feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
@@ -45,6 +45,9 @@ function get_sets()
         left_ring   = "Prolix Ring", -- 2
         back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
     }
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
+    sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
+
     sets.precast.JA = {
         ['Mana Wall'] = { },
         ['Manafont'] = { },
@@ -59,21 +62,30 @@ function get_sets()
         main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo        = "Sroda Tathlum",
-        head        = "Arch. Petasos +3",
-        body        = { name="Amalric Doublet +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-        hands       = { name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-        legs        = { name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-        feet        = { name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+        head        = "Wicce Petasos +2",
+        body        = "Wicce Coat +2",
+        hands       = "Wicce Gloves +2",
+        legs        = "Wicce Chausses +2",
+        feet        = "Wicce Sabots +2",
         neck		= "Src. Stole +2",
-        waist       = "Refoccilation Stone",
+        waist       = "Acuity Belt +1",
         left_ear    = "Regal Earring",
         right_ear   = "Malignance Earring",
         left_ring   = "Metamor. Ring +1",
         right_ring  = "Freke Ring",
-        back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
-     }
-    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
+    }
+    sets.midcast['Elemental Magic'].Debuff = set_combine(sets.midcast['Elemental Magic'], {
         ammo        = "Pemphredo Tathlum",
+        body        = "Spaekona's Coat +3",
+        --hands       = "Spae. Gloves +3",
+        --legs        = "Arch. Tonban +3",
+        --feet       = "Arch. Sabots +3",
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
+        back        = "Aurist's Cape +1"
+    })
+    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        ammo        = "Ghastly Tathlum +1",
         head		= "Ea Hat +1",
         body		= "Ea Houppe. +1",
         hands       = "Agwu's Gages",
@@ -85,9 +97,19 @@ function get_sets()
     sets.midcast['Enfeebling Magic'] = {
         main        = "Contemplator +1",
         sub         = "Khonsu",
-        legs        = "Psycloth Lappas",
+        ammo        = "Pemphredo Tathlum",
+        head        = "Wicce Petasos +2",
+        body        = "Wicce Coat +2",
+        hands       = "Wicce Gloves +2",
+        legs        = "Wicce Chausses +2",
+        feet        = "Wicce Sabots +2",
+        --head        = empty,
+        --body        = "Cohort Cloak +1",
+        --hamds       = "Regal Cuffs",
+        --legs        = "Spae. Tonban +3",
+        --feet        = "Spae. Sabots +3",
         neck		= "Src. Stole +2",
-        waist       = "Refoccilation Stone",
+        waist       = "Acuity Belt +1",
         left_ear    = "Regal Earring",
         right_ear   = "Malignance Earring",
         left_ring   = "Metamor. Ring +1",
@@ -102,7 +124,7 @@ function get_sets()
         head        = "Agwu's Cap",
         body        = "Agwu's Robe",
         hands       = "Agwu's Gages",
-        legs        = "Agwu's Slops",
+        legs        = "Agwu's Slops", -- Spae. Tonban +3
         feet        = "Agwu's Pigaches",
         neck        = "Erra Pendant",
         waist       = "Luminary Sash",
@@ -110,18 +132,37 @@ function get_sets()
         right_ear   = "Crep. Earring",
         left_ring   = "Evanescence Ring",
         right_ring  = "Archon Ring",
-        back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10',}},
+        back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
     }
     sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
         head        = "Pixie Hairpin +1",
-        waist       = "Austertiy Belt +1",
+        waist       = "Fucho-no-Obi",
     })
-    sets.midcast['Healing Magic'] = { }
+    sets.midcast['Healing Magic'] = { 
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        ammo        = "Staunch Tathlum +1",
+        head        = "Yanya Hood",
+        body        = "Vanya Robe",
+        hands       = "Wicce Gloves +2",
+        legs        = "Vanya Slops",
+        feet        = "Vanya Clogs" ,
+        neck        = "Incanter's Torque",
+        left_ear    = "Etiolation Earring",
+        right_ear   = "Halasz Earring",
+        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
+        waist       = "Austerity Belt +1",
+        back        = "Solemnity Cape",
+    }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
-
+        left_ring   = "Menelaus's Ring",
+        waist       = "Luminary Sash",
     })
     sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {
-        
+        left_ear    = "Mendi. Earring",
+        right_ring  = "Naji's Loop",
+        left_ring   = "Menelaus's Ring",
     })
     sets.midcast['Enhancing Magic'] = {
         main        = "Daybreak",
@@ -188,15 +229,12 @@ function precast(spell)
         cancel_spell()
         return
     end
-    if spell.action_type == 'Magic' then
+    if spell.action_type == 'Magic' and sets.precast.FC then
         if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
-        end
-        if spell.english == 'Dispelga' then
-            equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
-        elseif spell.name == 'Impact' then
-            equip(sets.precast.FC,{head=empty,body="Twilight Cloak"})
-        elseif sets.precast.FC then
+        elseif sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
+        else
             equip(sets.precast.FC)
         end
     elseif spell.type == 'WeaponSkill' then
@@ -232,7 +270,9 @@ function midcast(spell)
                 equip(sets.midcast[spell.skill])
             end
         elseif spell.skill == 'Elemental Magic' then
-            if sets.midcast[spell.skill].Burst and BurstMode == true then                
+            if EleDebuff:contains(spell.name) and sets.midcast[spell.skill].Debuff then
+                equip(sets.midcast[spell.skill].Debuff)
+            elseif sets.midcast[spell.skill].Burst and BurstMode == true then                
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{head=empty,body="Twilight Cloak"}))
                 elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
@@ -261,7 +301,7 @@ function midcast(spell)
                 equip({waist="Hachirin-no-Obi"})
             end
         elseif spell.skill == 'Enfeebling Magic' then
-            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] then
+            if spell.name == 'Dispelga' and sets.midcast[spell.skill][spell.name] == nil then
                 equip(set_combine(sets.midcast[spell.skill],{main='Daybreak',sub='Ammurapi Shield'}))
             elseif sets.midcast[spell.skill][spell.name] then
                 equip(sets.midcast[spell.skill][spell.name])

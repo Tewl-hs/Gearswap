@@ -62,6 +62,8 @@ function get_sets()
         right_ring  = "Lebeche Ring", -- 0|2
         back        = Capes.FC_MagDmg,
     }
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
+    sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
     sets.precast.JA = {
         ['Primeval Zeal'] = { head = "Bagua Galero +3" },
         ['Full Circle'] = { head = "Azimuth Hood +2" },
@@ -258,15 +260,12 @@ function precast(spell)
         cancel_spell()
         return
     end
-    if spell.action_type == 'Magic' then
+    if spell.action_type == 'Magic' and sets.precast.FC then
         if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
-        end
-        if spell.english == 'Dispelga' then
-            equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
-        elseif spell.name == 'Impact' then
-            equip(sets.precast.FC,{head=empty,body="Twilight Cloak"})
-        elseif sets.precast.FC then
+        elseif sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
+        else
             equip(sets.precast.FC)
         end
     elseif spell.type == 'WeaponSkill' then
@@ -303,8 +302,10 @@ function midcast(spell)
             else
                 equip(sets.midcast[spell.skill])
             end
-        elseif spell.skill == 'Elemental Magic' and sets.midcast[spell.skill] then
-            if sets.midcast[spell.skill].Burst and BurstMode == true then                
+        elseif spell.skill == 'Elemental Magic' then
+            if EleDebuff:contains(spell.name) and sets.midcast[spell.skill].Debuff then
+                equip(sets.midcast[spell.skill].Debuff)
+            elseif sets.midcast[spell.skill].Burst and BurstMode == true then              
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst == nil then
                     equip(set_combine(sets.midcast[spell.skill].Burst,{head=empty,body="Twilight Cloak"}))
                 elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
