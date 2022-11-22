@@ -182,8 +182,8 @@ function get_sets()
     })
     sets.aftercast = { }
     sets.aftercast.Idle = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
+        main        = "Contemplator +1",
+        sub         = "Khonsu",
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
@@ -198,9 +198,14 @@ function get_sets()
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = "Moonlight Cape"
     }
+    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
+        head        = "Wicce Petasos +2",
+        body        = "Wicce Coat +2",
+        hands       = "Wicce Gloves +2",
+        legs        = "Wicce Chausses +2",
+        feet        = "Wicce Sabots +2",
+    })
     sets.aftercast.Engaged = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
         body        = "Jhakri Robe +2",
@@ -346,7 +351,7 @@ function equip_check()
         end
     else
         if ids ~= nil and sets.aftercast.Idle[ids] then 
-            equip(aftercast.Idle[ids])
+            equip(sets.aftercast.Idle[ids])
         else
             ids = nil
             equip(sets.aftercast.Idle)
