@@ -24,6 +24,7 @@ function get_sets()
 
     sets.MoveSpeed = { feet = "Herald's Gaiters",}
 	BurstMode = false
+    CurrentWeapon = ''
 
     -- Gearsets
     sets.precast = {}
@@ -221,6 +222,7 @@ function get_sets()
         back        = "Moonlight Cape"
      }
 
+     include('FFXI-Display.lua')	
 end
 
 function file_unload()  
@@ -357,6 +359,7 @@ function equip_check()
             equip(sets.aftercast.Idle)
         end
     end
+	update_status()
 end
 
 function self_command(cmd)
@@ -401,6 +404,7 @@ function self_command(cmd)
             end
             equip_check()
         end
+		update_status()
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'burst' then
             if BurstMode == false then
@@ -411,7 +415,73 @@ function self_command(cmd)
                 add_to_chat('BurstMode disabled.')
             end
         end
+		update_status()
     elseif args[1] == 'equip_check' then
         equip_check()
-    end
+	elseif args[1] == 'update_status' then
+		update_status()
+	end
+end
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+	if id == 0x00D and stateBox then
+		stateBox:hide()
+	end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+	if id == 0x050 then
+		equip_change()
+	end
+end)
+
+function update_status()
+	local spc = '   '
+    local WeaponColor = get_weapon_color(CurrentWeapon)
+
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+	
+	if BurstMode == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
+end
+
+function equip_change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	if item and items[item['id']] then 
+		local ew = items[item['id']].name
+		if ew ~= CurrentWeapon then -- If weapon changed
+			if ew == 'Gil' then
+				CurrentWeapon = 'Empty'
+				TwoHandedWeapon = false
+				if auto_hasso == true then auto_hasso = false update_status() end
+			else
+				CurrentWeapon = ew
+				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+					TwoHandedWeapon = true
+				else 
+					TwoHandedWeapon = false	
+					if auto_hasso == true then auto_hasso = false update_status() end
+				end
+			end	
+			equip_check()
+		end
+	end
 end
