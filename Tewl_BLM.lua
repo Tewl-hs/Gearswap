@@ -92,7 +92,7 @@ function get_sets()
         hands       = "Agwu's Gages",
         legs		= "Ea Slops +1",
         feet        = "Agwu's Pigaches",
-        waist		= "Skrymir Cord",
+        waist		= "Acuity Belt +1",
         left_ring	= "Mujin Band",
     })
     sets.midcast['Enfeebling Magic'] = {
@@ -208,11 +208,11 @@ function get_sets()
     })
     sets.aftercast.Engaged = {
         ammo        = "Staunch Tathlum +1",
-        head        = "Befouled Crown",
-        body        = "Jhakri Robe +2",
-    	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
-        legs        = "Assid. Pants +1",
-        feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
+		head		= "Nyame Helm",
+		body		= "Nyame Mail",
+		hands		= "Nyame Gauntlets",
+		legs		= "Nyame Flanchard",
+		feet		= "Nyame Sollerets",
         neck        = "Loricate Torque +1",
         waist       = "Fucho-no-obi",
         left_ear    = "Genmei Earring",
