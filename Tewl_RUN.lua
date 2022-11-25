@@ -48,43 +48,42 @@ function get_sets()
         back        = Capes.Enmity
     }
     sets.Enmity['Foil'] = set_combine(sets.Enmity, {        
-        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
-        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
-        legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Nyame Sollerets", -- 7 0 0
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
+        feet        = "Nyame Sollerets",
     })
-    sets.Enmity.SIRD = { -- 105%
-        ammo        = "Staunch Tathlum +1", -- 11
-        head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}}, -- 10
+    sets.Enmity.SIRD = {
+        ammo        = "Staunch Tathlum +1",
+        head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}},
         body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
-        hands       = "Rawhide Gloves", -- 15
-        legs        = "Carmine Cuisses +1", -- 20
-        feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
-        neck        = "Moonlight Necklace", --15
-        waist       = "Audumbla Sash", -- 10
-        left_ear    = "Halasz Earring", -- 5
+        hands       = "Rawhide Gloves",
+        legs        = "Carmine Cuisses +1",
+        feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}},
+        neck        = "Moonlight Necklace",
+        waist       = "Audumbla Sash",
+        left_ear    = "Halasz Earring",
         right_ear   = "Trux Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
-        back        = Capes.SIRD -- 10
-    }
+        back        = Capes.SIRD
     
     sets.precast = {}
-    sets.precast.FC = { -- 73%
-        ammo        = "Sapience Orb", -- 2
-        head        = "Carmine Mask +1", -- 14
-        body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}}, -- 9
-        hands       = "Leyline Gloves", -- 7
-        legs        = "Aya. Cosciales +2", -- 6
-        feet        = "Carmine Greaves +1",  -- 8
-        neck        = "Orunmila's Torque", -- 5
+    sets.precast.FC = {
+        ammo        = "Sapience Orb",
+        head        = "Carmine Mask +1",
+        body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
+        hands       = "Leyline Gloves",
+        legs        = "Aya. Cosciales +2",
+        feet        = "Carmine Greaves +1",
+        neck        = "Orunmila's Torque",
         waist       = "Audumbla Sash", 
-        left_ear    = "Enchntr. Earring +1", -- 2
-        right_ear   = "Loquac. Earring", -- 2
-        left_ring   = "Kishar Ring", -- 4
+        left_ear    = "Enchntr. Earring +1",
+        right_ear   = "Loquac. Earring",
+        left_ring   = "Kishar Ring",
         right_ring  = "Moonlight Ring",
-        back        = Capes.SIRD -- 10
+        back        = Capes.SIRD
     }
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {legs="Futhark Trousers +3"})
 
@@ -113,7 +112,7 @@ function get_sets()
         ['Swipe'] = { 
             ammo        = "Seeth. Bomblet +1",
             head        = "Agwu's Cap",
-            body        = "Agwu's Robe", -- "Samnuha Coat",
+            body        = "Agwu's Robe", 
             hands       = "Agwu's Gages",
             legs        = "Agwu's Slops",
             feet        = "Agwu's Pigaches",
@@ -128,7 +127,7 @@ function get_sets()
         ['Lunge'] = { 
             ammo        = "Seeth. Bomblet +1",
             head        = "Agwu's Cap",
-            body        = "Agwu's Robe", -- "Samnuha Coat",
+            body        = "Agwu's Robe",
             hands       = "Agwu's Gages",
             legs        = "Agwu's Slops",
             feet        = "Agwu's Pigaches",
@@ -183,21 +182,21 @@ function get_sets()
         back        = Capes.DA
     })
     sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS,{
-        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
-        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
-        legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Nyame Sollerets", -- 7 0 0
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
+        feet        = "Nyame Sollerets",
         waist       = "Kentarch Belt +1",
         left_ear    = "Telos Earring",
         right_ear   = "Digni. Earring",
     })
     sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS,{
-        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
-        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
-        legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Nyame Sollerets", -- 7 0 0
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
+        feet        = "Nyame Sollerets",
         waist       = "Kentarch Belt +1",
         left_ear    = "Telos Earring",
         right_ear   = "Digni. Earring",
@@ -225,27 +224,27 @@ function get_sets()
     })
     
     sets.aftercast = {}
-    sets.aftercast.Engaged = { -- DT (52) PDT (29) MDT (2)
-        ammo        = "Staunch Tathlum +1", -- 3 0 0
-        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
-        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
-        legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Nyame Sollerets", -- 7 0 0
+    sets.aftercast.Engaged = {
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
+        feet        = "Nyame Sollerets",
         -- Ongo cahnges
         --neck        = "Warder's Charm +1",
         --waist       = "Ioskeha Belt +1",
         --left_ear    = "Brutal Earring",
         --back        = Capes.DA,
         -- Normal equipment
-        neck        = "Futhark torque +2", -- 7 0 0
+        neck        = "Futhark torque +2",
         waist       = "Engraved Belt",
         left_ear    = "Odnowa Earring +1",
-        right_ear   = "Eabani Earring", -- 3 0 2
+        right_ear   = "Eabani Earring",
         left_ring   = "Shadow Ring",
-        --left_ring   = "Defending Ring", -- 10 0 0
-        right_ring  = "Moonlight Ring", -- 5 0 0
-        back        = Capes.Enmity -- 5 0 0
+        --left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+        back        = Capes.Enmity
     }
     sets.aftercast.Engaged.DTLite = {
         ammo        = "Yamarang",
@@ -262,35 +261,35 @@ function get_sets()
         right_ring  = "Moonlight Ring",
         back        = Capes.DA
     }
-    sets.aftercast.Engaged.Hybrid = { -- DT 33 PDT 25
-        ammo        = "Staunch Tathlum +1", -- 3 0 0
-        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
-        body        = "Nyame Mail", -- 9 0 0 "Runeist's Coat +3",
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
-        legs        = "Nyame Flanchard", -- 8 0 0
-        feet        = "Nyame Sollerets", -- 7 0 0
+    sets.aftercast.Engaged.Hybrid = {
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
+        feet        = "Nyame Sollerets",
         neck        = "Anu Torque",
 		waist       = "Ioskeha Belt +1",
 		left_ear    = "Telos Earring",
 		right_ear   = "Sherida Earring",
-        left_ring   = "Regal Ring", -- 10 0 0
+        left_ring   = "Regal Ring",
         right_ring  = "Niqmaddu Ring",
-        back        = Capes.DA -- 5 0 0
+        back        = Capes.DA
     }
-    sets.aftercast.Idle = { -- DT 55 PDT 29 
-        ammo        = "Staunch Tathlum +1", -- 3 0 0
-        head        = "Nyame Helm", -- 7 0 0 "Turms Cap +1",
+    sets.aftercast.Idle = {
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
         body        = "Runeist's Coat +3", 
-        hands       = "Nyame Gauntlets", -- 7 0 0 "Turms Mittens +1", 
+        hands       = "Nyame Gauntlets",
         legs        = "Eri. Leg Guards +2",
         feet        = "Erilaz Greaves +2",
-        neck        = "Futhark Torque +2", -- 7 0 0
+        neck        = "Futhark Torque +2",
         waist       = "Engraved Belt",
         left_ear    = "Eabani Earring", 
-        right_ear   = "Erilaz Earring +1", -- 3
-        left_ring   = "Defending Ring", -- 10 0 0
-        right_ring  = "Moonlight Ring", -- 5 0 0
-        back        = Capes.Enmity -- 5 0 0
+        right_ear   = "Erilaz Earring +1",
+        left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+        back        = Capes.Enmity
     }
 
     coroutine.schedule(function() check_spells() end,2)
@@ -463,28 +462,12 @@ function self_command(cmd)
 end
 
 function update_status()
-    local clr = {
-        h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
-        w='\\cs(255,255,255)', -- White for labels and default modals
-        n='\\cs(192,192,192)', -- White for labels and default modals
-        s='\\cs(96,96,96)', -- Gray for inactive booleans
-        Fire='\\cs(255,80,80)', -- Red For Fire Element
-        Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
-        Wind='\\cs(110,255,110)', -- Light Green For Wind Element
-        Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
-        Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
-        Water='\\cs(110,110,255)', -- Blue For Water Element
-        Light='\\cs(255,255,155)', -- Light Yellow For Light Element
-        Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
-    }
-
-    local spc = '    '
-
     stateBox:clear()
-    stateBox:append('   ')
+    stateBox:append(spc)
     local status_text = ''
+    local spc = '    '
     local em = egs or 'Normal'
-    status_text = string.format("%sEngaged: %s%s%s", clr.w, clr.h, em, spc)
+    status_text = string.format("%sEngaged: %s%s%s",'\\cs(255,255,255)', '\\cs(255,192,0)', em, spc)
     stateBox:append(status_text)
     stateBox:show()
 end
