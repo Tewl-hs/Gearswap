@@ -68,7 +68,7 @@ function get_sets()
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.SIRD
-    
+    }
     sets.precast = {}
     sets.precast.FC = {
         ammo        = "Sapience Orb",
