@@ -462,10 +462,10 @@ function self_command(cmd)
 end
 
 function update_status()
-    stateBox:clear()
-    stateBox:append(spc)
     local status_text = ''
     local spc = '    '
+    stateBox:clear()
+    stateBox:append(spc)
     local em = egs or 'Normal'
     status_text = string.format("%sEngaged: %s%s%s",'\\cs(255,255,255)', '\\cs(255,192,0)', em, spc)
     stateBox:append(status_text)
