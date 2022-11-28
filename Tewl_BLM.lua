@@ -180,6 +180,8 @@ function get_sets()
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head        = "Amalric Coif +1",
         feet        = "Inspirited Boots"
+        waist		= "Gishdubar Sash",
+        --back		= "Grapevine Cape"
     })
     sets.aftercast = { }
     sets.aftercast.Idle = {

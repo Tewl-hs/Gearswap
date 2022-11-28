@@ -116,7 +116,7 @@ function get_sets()
         head		= "Nyame Helm",
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
-        legs		= "Leth. Fuseau +2",
+        legs		= "Leth. Fuseau +3",
         feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
@@ -126,7 +126,7 @@ function get_sets()
         head		= "Nyame Helm",
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
-        legs		= "Leth. Fuseau +2",
+        legs		= "Leth. Fuseau +3",
         feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
@@ -244,9 +244,9 @@ function get_sets()
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
         head		= "Amalric Coif +1",
         body		= "Atrophy Tabard +3",
-        legs		= "Leth. Fuseau +2",
+        legs		= "Leth. Fuseau +3",
         waist		= "Gishdubar Sash",
-        back		= "Grapevine Cape"
+        --back		= "Grapevine Cape"
     })
     sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
