@@ -11,7 +11,7 @@ function get_sets()
 
     include('FFXI-Utility')
     -- Personal settings. You can remove these lines.
-    set_macros(12,1)
+    load_macros()
     send_command('wait 1;input /lockstyleset 13')
     send_command('input //equipviewer pos 1663 934')
 
@@ -290,11 +290,20 @@ function get_sets()
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
-    }
-
-    coroutine.schedule(function() check_spells() end,2)
+    } 
     
 	include('FFXI-Display.lua')	
+end
+
+function load_macros()
+	if player.sub_job == 'BLU' then
+        coroutine.schedule(function() check_spells() end,2)
+        set_macros(13,1)
+    elseif player.sub_job == 'SCH' then
+        set_macros(13,2)
+    else
+	    set_macros(13,1)
+    end
 end
 
 function file_unload()  
