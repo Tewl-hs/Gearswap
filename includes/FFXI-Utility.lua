@@ -1,6 +1,6 @@
 --[[
 	Functions used across multiple luas
-]]
+--]]
 require('vectors')
 res = require('resources')
 items = require('resources').items

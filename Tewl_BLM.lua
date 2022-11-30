@@ -64,9 +64,9 @@ function get_sets()
         sub         = "Ammurapi Shield",
         ammo        = "Sroda Tathlum",
         head        = "Wicce Petasos +2",
-        body        = "Wicce Coat +2",
+        body        = "Wicce Coat +3",
         hands       = "Wicce Gloves +2",
-        legs        = "Wicce Chausses +2",
+        legs        = "Wicce Chausses +3",
         feet        = "Wicce Sabots +2",
         neck		= "Src. Stole +2",
         waist       = "Acuity Belt +1",
@@ -100,9 +100,9 @@ function get_sets()
         sub         = "Khonsu",
         ammo        = "Pemphredo Tathlum",
         head        = "Wicce Petasos +2",
-        body        = "Wicce Coat +2",
+        body        = "Wicce Coat +3",
         hands       = "Wicce Gloves +2",
-        legs        = "Wicce Chausses +2",
+        legs        = "Wicce Chausses +3",
         feet        = "Wicce Sabots +2",
         --head        = empty,
         --body        = "Cohort Cloak +1",
@@ -203,9 +203,9 @@ function get_sets()
     }
     sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
         head        = "Wicce Petasos +2",
-        body        = "Wicce Coat +2",
+        body        = "Wicce Coat +3",
         hands       = "Wicce Gloves +2",
-        legs        = "Wicce Chausses +2",
+        legs        = "Wicce Chausses +3",
         feet        = "Wicce Sabots +2",
     })
     sets.aftercast.Engaged = {

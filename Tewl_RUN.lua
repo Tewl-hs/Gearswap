@@ -203,10 +203,28 @@ function get_sets()
     })
     sets.midcast = {}
     sets.midcast['Enhancing Magic'] = {
+        ammo        = "Staunch Tathlum +1",
         head        = "Erilaz Galea +2",
+        body        = "Nyame Mail",
         hands       = "Regal Gauntlets",
         legs        = "Futhark Trousers +3",
+        feet        = "Carmine Greaves +1",
+        neck        = "Incanter's Torque",
+        left_ear    = "Odnowa Earring +1",
+        right_ear   = "Tuisto Earring",
+        --right_ear   = "Mimir Earring",
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
+        waist       = "Olympus Sash",
+        back        = "Moonlight Cape",
     }
+    sets.midcast['Enhancing Magic']['Temper'] = set_combine(sets.midcast['Enhancing Magic'],{ 
+        head        = "Carmine Mask +1",
+        --body        = "Manasa Chasuble",
+        hands       = "Runeist Mitons +3",
+        legs        = "Carmine Cuisses +1",
+        left_ear    = "Andoaa Earring",
+    })
     sets.midcast['Enhancing Magic']['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],{
         ammo        = "Staunch Tathlum +1",
         head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
@@ -214,12 +232,16 @@ function get_sets()
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
-        neck        = { name="Futhark Torque +2", augments={'Path: A',}},
-        waist       = "Audumbla Sash",
-        left_ear    = "Odnowa Earring +1",
-        right_ear   = "Tuisto Earring",
+    })
+    sets.midcast['Enhancing Magic'].Regen = set_combine(sets.midcast['Enhancing Magic'], {
+        head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
+        --body      = "Taeon Tabard", -- need regen
+        --feet      = "Taeon Boots", -- need regen
+        --neck      = "Sacro Gorget",
+        right_ear   = "Erilaz Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
+        waist       = "Sroda Belt",
         back        = Capes.SIRD
     })
     
@@ -298,11 +320,11 @@ end
 function load_macros()
 	if player.sub_job == 'BLU' then
         coroutine.schedule(function() check_spells() end,2)
-        set_macros(13,1)
+        set_macros(12,1)
     elseif player.sub_job == 'SCH' then
-        set_macros(13,2)
+        set_macros(12,2)
     else
-	    set_macros(13,1)
+	    set_macros(12,1)
     end
 end
 
@@ -335,12 +357,6 @@ function precast(spell,action)
             equip(sets.precast.WS)
         end
     elseif spell.action_type == 'Ability' then
-		local abil_recasts = windower.ffxi.get_ability_recasts()
-		if abil_recasts[spell.recast_id] and abil_recasts[spell.recast_id] > 0 then
-			cancel_spell()
-			add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id]))
-			return
-		end
         if sets.precast.JA[spell.name] then
             equip(sets.precast.JA[spell.name])
         end    

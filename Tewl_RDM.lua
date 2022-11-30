@@ -126,7 +126,7 @@ function get_sets()
         head		= "Nyame Helm",
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
-        legs		= "Leth. Fuseau +3",
+        legs		= "Leth. Fuseau +",
         feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
