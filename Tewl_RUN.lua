@@ -202,6 +202,42 @@ function get_sets()
         right_ear   = "Digni. Earring",
     })
     sets.midcast = {}
+    sets.midcast['Healing Magic'] = {
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
+        body        = "Nyame Mail",
+        hands       = "Erilaz Gauntlets +2",
+        legs        = "Erilaz Leg Guards +2",
+        feet        = "Erilaz Greaves +2",
+        neck        = "Incanter's Torque",
+        left_ear    = "Odnowa Earring +1",
+        right_ear   = "Tuisto Earring",
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
+        waist       = "Luminary Sash",
+    }
+    sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'],{
+        neck        = "Sacro Gorget",
+        right_ear   = "Cryptic Earring",
+        left_ring   = "Menelaus's Ring",
+        right_ring  = "Eihwaz Ring",
+        waist       = "Sroda Belt",
+    })
+    sets.midcast['Healing Magic'].SelfCure = set_combine(sets.midcast['Healing Magic'].Cure,{
+        neck        = "Phalaina Locket",
+        right_ear   = "Mendicant's Earring",
+        right_ring  = "Kunaji Ring",
+    })
+    sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'],{
+        body        = "Futhark Coat +3",
+        hands       = "Nyame Gauntlets",
+        neck        = "Nicander's Necklace",        
+        left_ear    = "Odnowa Earring +1",
+        right_ear   = "Eabani Earring",
+        left_ring   = "Haoma's Ring",
+        right_ring  = "Purity Ring",
+        waist       = "Gishdubar Sash",
+    })
     sets.midcast['Enhancing Magic'] = {
         ammo        = "Staunch Tathlum +1",
         head        = "Erilaz Galea +2",
@@ -232,12 +268,20 @@ function get_sets()
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
+        left_ring   = "Defending Ring",
+        right_ring  = "Moonlight Ring",
+    })
+    sets.midcast['Enhancing Magic'].ProShell = set_combine(sets.midcast['Enhancing Magic'],{ 
+        left_ear    = "Brachyura Earring",
+    })
+    sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'],{ 
+		feet        = "Nyame Sollerets",
+		waist       = "Gishdubar Sash",
     })
     sets.midcast['Enhancing Magic'].Regen = set_combine(sets.midcast['Enhancing Magic'], {
-        head        = { name="Fu. Bandeau +3", augments={'Enhances "Battuta" effect',}},
-        --body      = "Taeon Tabard", -- need regen
-        --feet      = "Taeon Boots", -- need regen
-        --neck      = "Sacro Gorget",
+        head        = "Rune. Bandeau +2",
+		feet        = "Nyame Sollerets",
+        neck        = "Sacro Gorget",
         right_ear   = "Erilaz Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
@@ -253,18 +297,11 @@ function get_sets()
         hands       = "Nyame Gauntlets",
         legs        = "Nyame Flanchard",
         feet        = "Nyame Sollerets",
-        -- Ongo cahnges
-        --neck        = "Warder's Charm +1",
-        --waist       = "Ioskeha Belt +1",
-        --left_ear    = "Brutal Earring",
-        --back        = Capes.DA,
-        -- Normal equipment
         neck        = "Futhark torque +2",
         waist       = "Engraved Belt",
         left_ear    = "Odnowa Earring +1",
         right_ear   = "Eabani Earring",
         left_ring   = "Shadow Ring",
-        --left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
@@ -382,7 +419,17 @@ function midcast(spell,action)
     elseif EnmitySpells:contains(spell.name) then
         equip(sets.Enmity)
     elseif BlueSpells:contains(spell.name) then
-        equip(sets.Enmity.SIRD)            
+        equip(sets.Enmity.SIRD)
+    elseif spell.name:startswith('Regen') then
+        equip(sets.midcast[skill.name].Regen)
+    elseif spell.name == 'Cursna' then
+        equip(sets.midcast[spell.skill].Cursna)
+    elseif spell.name:startswith('Cur') and spell.target.type == 'SELF' then
+        equip(sets.midcast[spell.skill].SelfCure)
+    elseif spell.name:startswith('Cur') then
+        equip(sets.midcast[spell.skill].Cure)
+    elseif spell.name:startswith('Shell') or spell.name:startswith('Protect') then
+        equip(sets.midcast[spell.skill].ProShell)
     elseif sets.midcast[spell.skill] and sets.midcast[spell.skill][spell.name] then
         equip(sets.midcast[spell.skill][spell.name])
     elseif sets.midcast[spell.skill] then

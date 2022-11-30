@@ -179,7 +179,7 @@ function get_sets()
     }
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head        = "Amalric Coif +1",
-        feet        = "Inspirited Boots"
+        feet        = "Inspirited Boots",
         waist		= "Gishdubar Sash",
         --back		= "Grapevine Cape"
     })
