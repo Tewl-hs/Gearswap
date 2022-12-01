@@ -88,12 +88,10 @@ function get_sets()
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
         ammo        = "Ghastly Tathlum +1",
         head		= "Ea Hat +1",
-        body		= "Ea Houppe. +1",
+        body        = "Wicce Coat +3",
         hands       = "Agwu's Gages",
-        legs		= "Ea Slops +1",
+        legs        = "Wicce Chausses +3",
         feet        = "Agwu's Pigaches",
-        waist		= "Acuity Belt +1",
-        left_ring	= "Mujin Band",
     })
     sets.midcast['Enfeebling Magic'] = {
         main        = "Contemplator +1",
