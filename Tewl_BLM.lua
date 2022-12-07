@@ -24,6 +24,8 @@ function get_sets()
 
     sets.MoveSpeed = { feet = "Herald's Gaiters",}
 	BurstMode = false
+    RecoverMode = false
+
     CurrentWeapon = ''
 
     -- Gearsets
@@ -50,8 +52,8 @@ function get_sets()
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
 
     sets.precast.JA = {
-        ['Mana Wall'] = { },
-        ['Manafont'] = { },
+        ['Mana Wall'] = { feet = "Wicce Sabots +3", },
+        ['Manafont'] = { body = "Archmage's Coat +3", },
         ['Elemental Seal'] = { },
         ['Cascade'] = { },
         ['Manawell'] = { },
@@ -63,11 +65,11 @@ function get_sets()
         main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo        = "Sroda Tathlum",
-        head        = "Wicce Petasos +2",
+        head        = "Wicce Petasos +3",
         body        = "Wicce Coat +3",
-        hands       = "Wicce Gloves +2",
+        hands       = "Wicce Gloves +3",
         legs        = "Wicce Chausses +3",
-        feet        = "Wicce Sabots +2",
+        feet        = "Wicce Sabots +3",
         neck		= "Src. Stole +2",
         waist       = "Acuity Belt +1",
         left_ear    = "Regal Earring",
@@ -76,12 +78,14 @@ function get_sets()
         right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
     }
+    sets.midcast['Elemental Magic'].RecoverMode = set_combine(sets.midcast['Elemental Magic'], {})
+
     sets.midcast['Elemental Magic'].Debuff = set_combine(sets.midcast['Elemental Magic'], {
         ammo        = "Pemphredo Tathlum",
         body        = "Spaekona's Coat +3",
-        --hands       = "Spae. Gloves +3",
-        --legs        = "Arch. Tonban +3",
-        --feet       = "Arch. Sabots +3",
+        --hands     = "Spae. Gloves +3",
+        --legs      = "Arch. Tonban +3",
+        --feet      = "Arch. Sabots +3",
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = "Aurist's Cape +1"
     })
@@ -93,20 +97,17 @@ function get_sets()
         legs        = "Wicce Chausses +3",
         feet        = "Agwu's Pigaches",
     })
+    sets.midcast['Elemental Magic'].RecoverMode.Burst = set_combine(sets.midcast['Elemental Magic'].Burst, { } )
+    
     sets.midcast['Enfeebling Magic'] = {
         main        = "Contemplator +1",
         sub         = "Khonsu",
         ammo        = "Pemphredo Tathlum",
-        head        = "Wicce Petasos +2",
+        head        = "Wicce Petasos +3",
         body        = "Wicce Coat +3",
-        hands       = "Wicce Gloves +2",
+        hands       = "Wicce Gloves +3",
         legs        = "Wicce Chausses +3",
-        feet        = "Wicce Sabots +2",
-        --head        = empty,
-        --body        = "Cohort Cloak +1",
-        --hamds       = "Regal Cuffs",
-        --legs        = "Spae. Tonban +3",
-        --feet        = "Spae. Sabots +3",
+        feet        = "Wicce Sabots +3",
         neck		= "Src. Stole +2",
         waist       = "Acuity Belt +1",
         left_ear    = "Regal Earring",
@@ -116,6 +117,7 @@ function get_sets()
         back        = "Aurist's Cape +1",
     }
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'],sets.Dispelga)
+
     sets.midcast['Dark Magic'] = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
@@ -123,7 +125,7 @@ function get_sets()
         head        = "Agwu's Cap",
         body        = "Agwu's Robe",
         hands       = "Agwu's Gages",
-        legs        = "Agwu's Slops", -- Spae. Tonban +3
+        legs        = "Agwu's Slops",
         feet        = "Agwu's Pigaches",
         neck        = "Erra Pendant",
         waist       = "Luminary Sash",
@@ -143,7 +145,7 @@ function get_sets()
         ammo        = "Staunch Tathlum +1",
         head        = "Yanya Hood",
         body        = "Vanya Robe",
-        hands       = "Wicce Gloves +2",
+        hands       = "Wicce Gloves +3",
         legs        = "Vanya Slops",
         feet        = "Vanya Clogs" ,
         neck        = "Incanter's Torque",
@@ -165,15 +167,15 @@ function get_sets()
     })
     sets.midcast['Enhancing Magic'] = {
         main        = "Daybreak",
-        sub         = "Ammurapi Shield", -- 10
+        sub         = "Ammurapi Shield",
         ammo        = "Impatiens",
-        head        = "Telchine Cap", --10
-        body        = "Telchine Chas.", -- 8
-        hands       = "Telchine Gloves", -- 10
-        legs        = "Telchine Braconi", -- 10
-        feet        = "Telchine Pigaches",  -- 8
+        head        = "Telchine Cap",
+        body        = "Telchine Chas.",
+        hands       = "Telchine Gloves", 
+        legs        = "Telchine Braconi", 
+        feet        = "Telchine Pigaches", 
         neck        = "Incanter's Torque",
-        waist       = "Embla Sash", -- 10
+        waist       = "Embla Sash", 
     }
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head        = "Amalric Coif +1",
@@ -200,11 +202,11 @@ function get_sets()
         back        = "Moonlight Cape"
     }
     sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
-        head        = "Wicce Petasos +2",
+        head        = "Wicce Petasos +3",
         body        = "Wicce Coat +3",
-        hands       = "Wicce Gloves +2",
+        hands       = "Wicce Gloves +3",
         legs        = "Wicce Chausses +3",
-        feet        = "Wicce Sabots +2",
+        feet        = "Wicce Sabots +3",
     })
     sets.aftercast.Engaged = {
         ammo        = "Staunch Tathlum +1",
@@ -237,9 +239,7 @@ function precast(spell)
         return
     end
     if spell.action_type == 'Magic' and sets.precast.FC then
-        if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
-            equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
-        elseif sets.precast.FC[spell.name] then
+        if sets.precast.FC[spell.name] then
             equip(sets.precast.FC[spell.name])
         else
             equip(sets.precast.FC)
@@ -267,12 +267,16 @@ function midcast(spell)
         if spell.skill == 'Healing Magic' then
             if spell.name:startswith('Cur') and spell.name ~= "Cursna" and sets.midcast[spell.skill].Cure then
                 equip(sets.midcast[spell.skill].Cure)
-            elseif sets.midcast[spell.skill] then
+            elseif sets.midcast[spell.skill][spell.name] then
+                equip(sets.midcast[spell.skill][spell.name])
+            else
                 equip(sets.midcast[spell.skill])
             end
         elseif spell.skill == 'Dark Magic' then
             if spell.name:startswith('Aspir') or spell.name:startswith('Drain') and sets.midcast[spell.skill].AspirDrain then
                 equip(sets.midcast[spell.skill].AspirDrain)
+            elseif sets.midcast[spell.skill][spell.name] then
+                equip(sets.midcast[spell.skill][spell.name])
             else
                 equip(sets.midcast[spell.skill])
             end

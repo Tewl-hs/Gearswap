@@ -1,3 +1,8 @@
+  --[[
+	Author: Tewl / Bismark
+	Files: Tewl_SMN.lua
+    Notes: I manually edit this regularly depending on what I am doing. I will rewrite for use of includes soon. 
+--]]
   function get_sets()  
     -- Start of Personal Settings --  
     Macro_Book = '17'
@@ -247,7 +252,7 @@
         back        = "Moonlight Cape",
     }
     sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle,{  
-        head		= "Nyame Helm",
+        head		= "Beckoner's Horn +2",
 		body		= "Nyame Mail",
 		hands		= "Nyame Gauntlets",
 		legs		= "Nyame Flanchard",
@@ -272,7 +277,7 @@
     	back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
     }
     sets.aftercast.Avatar.DT =  set_combine(sets.aftercast.Avatar,{
-        head		= "Nyame Helm",
+        head		= "Beckoner's Horn +2",
 		body		= "Nyame Mail",
 		hands		= "Nyame Gauntlets",
 		legs		= "Nyame Flanchard",

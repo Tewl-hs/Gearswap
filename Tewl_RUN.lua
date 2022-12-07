@@ -11,7 +11,7 @@ function get_sets()
 
     include('FFXI-Utility')
     -- Personal settings. You can remove these lines.
-    load_macros()
+    load_macros() -- Edit function on line:356  
     send_command('wait 1;input /lockstyleset 13')
     send_command('input //equipviewer pos 1663 934')
 
@@ -37,7 +37,7 @@ function get_sets()
         head        = "Halitus Helm",
         body        = "Emet Harness +1",
         hands       = "Kurys Gloves",
-        legs        = "Eri. Leg Guards +2",
+        legs        = "Eri. Leg Guards +3",
         feet        = "Erilaz Greaves +2",
         neck        = "Moonlight Necklace",
         waist       = "Kasiri Belt",
@@ -340,7 +340,7 @@ function get_sets()
         head        = "Nyame Helm",
         body        = "Runeist's Coat +3", 
         hands       = "Nyame Gauntlets",
-        legs        = "Eri. Leg Guards +2",
+        legs        = "Eri. Leg Guards +3",
         feet        = "Erilaz Greaves +2",
         neck        = "Futhark Torque +2",
         waist       = "Engraved Belt",
@@ -353,7 +353,7 @@ function get_sets()
     
 	include('FFXI-Display.lua')	
 end
-
+-- Set macros based on sub job
 function load_macros()
 	if player.sub_job == 'BLU' then
         coroutine.schedule(function() check_spells() end,2)
