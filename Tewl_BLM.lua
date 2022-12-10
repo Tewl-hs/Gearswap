@@ -185,7 +185,7 @@ function get_sets()
     })
     sets.aftercast = { }
     sets.aftercast.Idle = {
-        main        = "Contemplator +1",
+        main        = "Mpaca's Staff",
         sub         = "Khonsu",
         ammo        = "Staunch Tathlum +1",
         head        = "Befouled Crown",
