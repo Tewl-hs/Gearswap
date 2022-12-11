@@ -89,7 +89,7 @@ function get_sets()
 
     sets.precast.JA = {
         ['Vivacious Pulse'] = {
-            head        = "Erilaz Galea +2",
+            head        = "Erilaz Galea +3",
             legs        = "Rune. Trousers +1",
             neck        = "Incanter's Torque",
             left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
@@ -240,7 +240,7 @@ function get_sets()
     })
     sets.midcast['Enhancing Magic'] = {
         ammo        = "Staunch Tathlum +1",
-        head        = "Erilaz Galea +2",
+        head        = "Erilaz Galea +3",
         body        = "Nyame Mail",
         hands       = "Regal Gauntlets",
         legs        = "Futhark Trousers +3",
