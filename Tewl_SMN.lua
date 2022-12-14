@@ -92,7 +92,7 @@
         feet        = "Baayami Sabots +1", -- 29/0/0
         neck        = "Incanter's Torque", -- 10/0/0
         left_ear    = "Lodurr Earring", -- 5/0/0
-        right_ear   = "Beck. Earring", -- 5/0/0
+        right_ear   = "Beck. Earring +1", -- 5/0/0
         left_ring   = "Evoker's Ring", -- 10/0/0
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1}, -- 8/0/0
         waist       = "Kobo Obi", -- 8/0/0
@@ -167,7 +167,7 @@
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Incarnation Sash",
         left_ear    = "Lugalbanda Earring",
-        right_ear   = "Beck. Earring",
+        right_ear   = "Beck. Earring +1",
         left_ring   = "Cath Palug Ring",
         right_ring  = "Varar Ring +1",
         back        = { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
@@ -175,7 +175,7 @@
     sets.midcast.PhysicalBP.AM3 = set_combine(sets.midcast.PhysicalBP, {
         body        = "Con. Doublet +3",
         left_ring   = "Varar Ring +1",
-        right_ear   = "Beck. Earring",
+        right_ear   = "Beck. Earring +1",
         feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: Attack+35','Blood Pact Dmg.+8',}}
     })
 
@@ -191,7 +191,7 @@
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Regal Belt",
         left_ear    = "Lugalbanda Earring",
-        right_ear   = "Beck. Earring",
+        right_ear   = "Beck. Earring +1",
         left_ring   = "Varar Ring +1",
         right_ring  = "Varar Ring +1",
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
@@ -209,7 +209,7 @@
         neck        = "Incanter's Torque",
         waist       = "Kobo Obi",
         left_ear    = "Andoaa Earring",
-        right_ear   = "Beck. Earring",
+        right_ear   = "Beck. Earring +1",
         left_ring   = "Evoker's Ring",
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = { name="Conveyance Cape", augments={'Summoning magic skill +2','Pet: Enmity+13','Blood Pact Dmg.+3','Blood Pact ab. del. II -2',}},
@@ -227,7 +227,7 @@
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Kobo Obi",
         left_ear    = "Enmerkar Earring",
-        right_ear   = "Beck. Earring",
+        right_ear   = "Beck. Earring +1",
         left_ring   = "Evoker's Ring",
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
@@ -246,7 +246,7 @@
         neck        = "Smn. Collar +2",
         waist       = "Fucho-no-Obi",
         left_ear    = "C. Palug Earring",
-        right_ear   = "Beck. Earring",
+        right_ear   = "Beck. Earring +1",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},        
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Moonlight Cape",
@@ -271,7 +271,7 @@
     	neck		= "Caller's Pendant",
     	waist		= "Regal Belt",
     	left_ear	= "C. Palug Earring",
-    	right_ear	= "Beck. Earring",
+    	right_ear	= "Beck. Earring +1",
     	left_ring	= "Evoker's Ring",        
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
     	back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
@@ -391,7 +391,7 @@
             if Macro_Page[pet.name] then send_command('input /macro book '..Macro_Book..';wait 0.2;input /macro set '..Macro_Page[pet.name]) end
             if not buffactive["Avatar's Favor"] then send_command('wait 2;input /pet "Avatar\'s Favor" <me>') end
         else
-            add_to_chat(8,pet.name..' has been released or died.')
+            --add_to_chat(8,pet.name..' has been released or died.')
         end
         equip_aftercast()
     end

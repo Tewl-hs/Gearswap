@@ -28,7 +28,7 @@ function get_sets()
     -- Augmented Gear
     Capes = {}
     Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
-    Capes.SIRD = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
+    Capes.SIRD = { name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
     Capes.DA = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}}
     Capes.MAB = { name="Ogma's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-5%',}}
     Capes.WSD = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
@@ -54,26 +54,26 @@ function get_sets()
         legs        = "Nyame Flanchard",
         feet        = "Nyame Sollerets",
     })
-    sets.Enmity.SIRD = {
-        ammo        = "Staunch Tathlum +1",
-        head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}},
+    sets.Enmity.SIRD = { -- 106
+        ammo        = "Staunch Tathlum +1", -- 11
+        head        = "Erilaz Galea +3", -- 20
         body        = { name="Futhark Coat +3", augments={'Enhances "Elemental Sforzo" effect',}},
-        hands       = "Rawhide Gloves",
-        legs        = "Carmine Cuisses +1",
-        feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}},
-        neck        = "Moonlight Necklace",
-        waist       = "Audumbla Sash",
-        left_ear    = "Halasz Earring",
+        hands       = "Rawhide Gloves", -- 15
+        legs        = "Carmine Cuisses +1", -- 20
+        feet        = "Erilaz Greaves +3",
+        neck        = "Moonlight Necklace", -- 15
+        waist       = "Audumbla Sash", -- 10
+        left_ear    = "Halasz Earring", -- 5
         right_ear   = "Trux Earring",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
-        back        = Capes.SIRD
+        back        = Capes.SIRD --  10
     }
     sets.precast = {}
     sets.precast.FC = {
         ammo        = "Sapience Orb",
         head        = "Carmine Mask +1",
-        body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
+        body        = "Erilaz Surcoat +3",
         hands       = "Leyline Gloves",
         legs        = "Aya. Cosciales +2",
         feet        = "Carmine Greaves +1",
@@ -206,7 +206,7 @@ function get_sets()
         ammo        = "Staunch Tathlum +1",
         head        = "Nyame Helm",
         body        = "Nyame Mail",
-        hands       = "Erilaz Gauntlets +2",
+        hands       = "Erilaz Gauntlets +3",
         legs        = "Eri. Leg Guards +3",
         feet        = "Erilaz Greaves +3",
         neck        = "Incanter's Torque",
