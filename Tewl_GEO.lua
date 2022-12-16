@@ -112,7 +112,7 @@ function get_sets()
     }
 
     sets.midcast['Elemental Magic'] = { 
-        main        = "Daybreak",
+        main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo        = "Pemphredo Tathlum",
         head        = "Jhakri Coronal +2",
@@ -121,7 +121,7 @@ function get_sets()
         legs        = "Amalric Slops +1",
         feet        = "Amalric Nails +1",   
         neck        = "Baetyl Pendant",
-        waist       = "Eschan Stone",      
+        waist		= "Skrymir Cord +1",     
         left_ear    = "Malignance Earring",
         right_ear   = "Barkaro. Earring", 
         left_ring   = "Freke Ring",
@@ -132,7 +132,9 @@ function get_sets()
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
         head		= "Ea Hat +1",
         body		= "Ea Houppe. +1",
+        hands       = "Agwu's Gages",
         legs		= "Ea Slops +1",
+        feet        = "Agwu's Pigaches",
         neck		= "Mizukage-no-Kubikazari",
         waist		= "Skrymir Cord +1",
         right_ring	= "Mujin Band",

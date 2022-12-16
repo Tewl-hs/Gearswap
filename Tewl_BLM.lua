@@ -32,8 +32,6 @@ function get_sets()
     sets.precast = {}
     sets.precast.WS = { }
     sets.precast.FC = { -- 85%
-        main        = "Sucellus", -- 5
-        sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
         head        = "Amalric Coif +1", -- 11
         body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
@@ -78,7 +76,9 @@ function get_sets()
         right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
     }
-    sets.midcast['Elemental Magic'].RecoverMode = set_combine(sets.midcast['Elemental Magic'], {})
+    sets.midcast['Elemental Magic'].RecoverMode = set_combine(sets.midcast['Elemental Magic'], {
+        body        = "Spaekona's Coat +3",
+    })
 
     sets.midcast['Elemental Magic'].Debuff = set_combine(sets.midcast['Elemental Magic'], {
         ammo        = "Pemphredo Tathlum",
@@ -97,8 +97,9 @@ function get_sets()
         legs        = "Wicce Chausses +3",
         feet        = "Agwu's Pigaches",
     })
-    sets.midcast['Elemental Magic'].RecoverMode.Burst = set_combine(sets.midcast['Elemental Magic'].Burst, { } )
-    
+    sets.midcast['Elemental Magic'].RecoverMode.Burst = set_combine(sets.midcast['Elemental Magic'].Burst, { 
+        body        = "Spaekona's Coat +3",
+    })
     sets.midcast['Enfeebling Magic'] = {
         main        = "Contemplator +1",
         sub         = "Khonsu",
@@ -289,7 +290,11 @@ function midcast(spell)
                 elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
                     equip(sets.midcast[spell.skill][spell.name].Burst)
                 else
-                    equip(sets.midcast[spell.skill].Burst)
+                    if player.mpp < 50 then
+                        equip(sets.midcast[spell.skill].RecoverMode.Burst)
+                    else
+                        equip(sets.midcast[spell.skill].Burst)
+                    end
                 end
             else        
                 if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] == nil then
@@ -297,7 +302,11 @@ function midcast(spell)
                 elseif sets.midcast[spell.skill][spell.name] then
                     equip(sets.midcast[spell.skill][spell.name])
                 else
-                    equip(sets.midcast[spell.skill])
+                    if player.mpp < 50 then
+                        equip(sets.midcast[spell.skill].RecoverMode)
+                    else
+                        equip(sets.midcast[spell.skill])
+                    end
                 end
             end
             if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
