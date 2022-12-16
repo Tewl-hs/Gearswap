@@ -121,7 +121,7 @@ function get_sets()
         legs        = "Amalric Slops +1",
         feet        = "Amalric Nails +1",   
         neck        = "Baetyl Pendant",
-        waist		= "Skrymir Cord +1",     
+        waist		= "Skrymir Cord +1",
         left_ear    = "Malignance Earring",
         right_ear   = "Barkaro. Earring", 
         left_ring   = "Freke Ring",
