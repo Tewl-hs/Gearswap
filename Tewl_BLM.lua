@@ -189,7 +189,7 @@ function get_sets()
         main        = "Mpaca's Staff",
         sub         = "Khonsu",
         ammo        = "Staunch Tathlum +1",
-        head        = "Befouled Crown",
+        head        = { name="Merlinic Hood", augments={'"Counter"+3','"Drain" and "Aspir" potency +9','"Refresh"+2','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
         body        = "Jhakri Robe +2",
     	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
         legs        = "Assid. Pants +1",

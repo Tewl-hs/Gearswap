@@ -165,7 +165,7 @@
             head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
             body        = { name="Mpaca's Doublet", augments={'Path: A',}},
             hands       = { name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
-            legs        = "Bhikku Hose +2",
+            legs        = "Bhikku Hose +3",
             feet        = "Anch. Gaiters +3",
             neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
             waist       = "Moonbow Belt +1",
@@ -195,7 +195,7 @@
             head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
             body        = { name="Mpaca's Doublet", augments={'Path: A',}},
             hands       = "Malignance Gloves",
-            legs        = "Bhikku Hose +2",
+            legs        = "Bhikku Hose +3",
             feet        = "Malignance Boots",
             neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
             waist       = "Moonbow Belt +1",
@@ -338,7 +338,7 @@
     function SwapGear()
         if player.status == 'Engaged' then
             sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +1"} or {})
+            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +2"} or {})
         else
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         end

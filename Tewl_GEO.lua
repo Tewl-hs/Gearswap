@@ -222,7 +222,7 @@ function get_sets()
         main        = "Daybreak",
         sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
-        head        = "Befouled Crown",
+        head        = { name="Merlinic Hood", augments={'"Counter"+3','"Drain" and "Aspir" potency +9','"Refresh"+2','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
         body        = "Jhakri Robe +2",
         hands       = "Bagua Mitaines +3",
         legs        = "Assid. Pants +1",
