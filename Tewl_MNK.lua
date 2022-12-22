@@ -80,7 +80,7 @@
                 legs    = "Hesychast's Hose +3"
             },
             ["Impetus"] = {
-                body    = "Bhikku Cyclas +2"
+                body    = "Bhikku Cyclas +3"
             },
             ["Dodge"] = {
                 feet    = "Anchorite's Gaiters +3"
@@ -130,7 +130,7 @@
         })
         sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"],{
             ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-            body        = "Bhikku Cyclas +2",
+            body        = "Bhikku Cyclas +3",
             right_ear   = { name="Schere Earring", augments={'Path: A',}},
             back        = Capes.WS
         })
@@ -281,7 +281,7 @@
     function aftercast(spell,action)
         if player.status == 'Engaged' then
             sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +2"} or {})
+            equip(sets.aftercast.Engaged,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +3"} or {})
         else
             equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
         end
@@ -298,7 +298,7 @@
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         elseif new == 'Engaged' then
             sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +2"} or {})
+            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +3"} or {})
         end
     end
     
@@ -338,7 +338,7 @@
     function SwapGear()
         if player.status == 'Engaged' then
             sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +2"} or {})
+            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +3"} or {})
         else
             equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
         end

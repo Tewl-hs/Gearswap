@@ -60,7 +60,7 @@ function get_sets()
         neck        = "Orunmila's Torque", -- 5
         waist		= "Embla Sash", -- 5
         left_ear	= "Malignance earring", -- 4
-        right_ear	= "Lethargy Earring", -- 7
+        right_ear	= "Leth. Earring +1", -- 7
         left_ring   = "Kishar Ring",
         right_ring	= "Lebeche Ring", -- 0|2
         back		= Capes.MND -- 10
@@ -235,7 +235,7 @@ function get_sets()
         feet        = "Leth. Houseaux +3",  -- 30%
         neck		= "Incanter's Torque",
         left_ear	= "Andoaa Earring",
-        right_ear	= "Lethargy Earring",
+        right_ear	= "Leth. Earring +1",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         waist		= "Embla Sash",
