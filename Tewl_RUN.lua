@@ -24,6 +24,8 @@ function get_sets()
     BlueSpells = T{'Grand Slam', 'Terror Touch', 'Healing Breeze', 'Cocoon', 'Pollen', 'Wild Carrot', 'Blank Gaze', 'Geist Wall', 'Soporific', 'Jettatura', 'Sheep Song', 'Metallic Body'}
 
     EnmitySpells = T{'Foil', 'Flash', 'Stun'}
+
+    CurrentWeapon = ''
     
     -- Augmented Gear
     Capes = {}
@@ -295,7 +297,6 @@ function get_sets()
         head        = "Nyame Helm",
         body        = "Nyame Mail",
         hands       = "Nyame Gauntlets",
-        legs        = "Nyame Flanchard",
         feet        = "Nyame Sollerets",
         neck        = "Futhark torque +2",
         waist       = "Engraved Belt",
@@ -339,13 +340,17 @@ function get_sets()
         ammo        = "Staunch Tathlum +1",
         head        = "Nyame Helm",
         body        = "Runeist Coat +3", 
+        --body        = "Nyame Mail",
         hands       = "Nyame Gauntlets",
-        legs        = "Eri. Leg Guards +3",
+        --legs        = "Eri. Leg Guards +3",
+        legs        = "Nyame Flanchard",
         feet        = "Erilaz Greaves +3",
         neck        = "Futhark Torque +2",
         waist       = "Engraved Belt",
-        left_ear    = "Eabani Earring", 
-        right_ear   = "Erilaz Earring +1",
+        --left_ear    = "Eabani Earring", 
+        left_ear    = "Odnowa Earring +1",
+		right_ear   = "Tuisto Earring",
+        --right_ear   = "Erilaz Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
@@ -421,7 +426,7 @@ function midcast(spell,action)
     elseif BlueSpells:contains(spell.name) then
         equip(sets.Enmity.SIRD)
     elseif spell.name:startswith('Regen') then
-        equip(sets.midcast[skill.name].Regen)
+        equip(sets.midcast[spell.skill].Regen)
     elseif spell.name == 'Cursna' then
         equip(sets.midcast[spell.skill].Cursna)
     elseif spell.name:startswith('Cur') and spell.target.type == 'SELF' then
@@ -518,15 +523,7 @@ function self_command(cmd)
             equip_check()
         end
     elseif args[1] == 'toggle' and args[2] then
-        if args[2] == 'burst' then
-            if BurstMode == false then
-                BurstMode = true
-                add_to_chat('BurstMode enabled.')
-            else
-                BurstMode = false
-                add_to_chat('BurstMode disabled.')
-            end
-        end
+        --
     elseif args[1] == 'equip_check' then
         equip_check()
     end
@@ -534,14 +531,23 @@ function self_command(cmd)
 end
 
 function update_status()
-    local status_text = ''
-    local spc = '    '
-    stateBox:clear()
-    stateBox:append(spc)
-    local em = egs or 'Normal'
-    status_text = string.format("%sEngaged: %s%s%s",'\\cs(255,255,255)', '\\cs(255,192,0)', em, spc)
-    stateBox:append(status_text)
-    stateBox:show()
+	local spc = '   '
+    local WeaponColor = get_weapon_color(CurrentWeapon)
+
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+	
+	stateBox:append(status_text)
+	stateBox:show()
 end
 
 windower.raw_register_event('outgoing chunk', function(id, data)
@@ -551,7 +557,35 @@ windower.raw_register_event('outgoing chunk', function(id, data)
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
-    if id == 0x00A and stateBox then
-        stateBox:show()
-    end
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+	if id == 0x050 then
+		equip_change()
+	end
 end)
+
+function equip_change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	if item and items[item['id']] then 
+		local ew = items[item['id']].name
+		if ew ~= CurrentWeapon then -- If weapon changed
+			if ew == 'Gil' then
+				CurrentWeapon = 'Empty'
+				TwoHandedWeapon = false
+				if auto_hasso == true then auto_hasso = false update_status() end
+			else
+				CurrentWeapon = ew
+				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+					TwoHandedWeapon = true
+				else 
+					TwoHandedWeapon = false	
+					if auto_hasso == true then auto_hasso = false update_status() end
+				end
+			end	
+			equip_check()
+		end
+	end
+end
