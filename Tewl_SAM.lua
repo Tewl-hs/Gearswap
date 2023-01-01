@@ -70,7 +70,7 @@ function get_sets()
 	Capes = {} 
 	Capes.TP		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',} }
 	Capes.WS		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',} }
-	Capes.DA		= { name="Smertrios's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
+	Capes.DA		= { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',} }
 	Capes.RA		= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10','Phys. dmg. taken-10%',} }
 	Capes.RWS		= { name="Smertrios's Mantle", augments={'STR+20','Rng.Acc.+20 Rng.Atk.+20','STR+10','Weapon skill damage +10%',}}
 	Capes.EWS		= { name="Smertrios's Mantle", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
@@ -123,9 +123,10 @@ function get_sets()
 			legs		= { name="Acro Breeches", augments={'Enmity+10',}},
 			feet		= { name="Acro Leggings", augments={'Enmity+10',}},
 			left_ear	= "Trux Earring",
-			right_ear	= "Cryptic Earring +1",
+			right_ear	= "Cryptic Earring",
 			left_ring	= "Eihwaz Ring",
 			right_ring	= "Supershear Ring",
+			waist		= "Kasiri Belt",
 			back		= Capes.Enmity
 		},
 		['Warcry'] = {
@@ -137,9 +138,10 @@ function get_sets()
 			legs		= { name="Acro Breeches", augments={'Enmity+10',}},
 			feet		= { name="Acro Leggings", augments={'Enmity+10',}},
 			left_ear	= "Trux Earring",
-			right_ear	= "Cryptic Earring +1",
+			right_ear	= "Cryptic Earring",
 			left_ring	= "Eihwaz Ring",
 			right_ring	= "Supershear Ring",
+			waist		= "Kasiri Belt",
 			back		= Capes.Enmity
 		},
 	}
@@ -232,7 +234,7 @@ function get_sets()
 	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Kagero'] = sets.WS['Tachi: Jinpu']
 	sets.WS['Tachi: Goten'] = sets.WS['Tachi: Jinpu']
-	sets.WS['Aeonlian Edge'] = set_combine(sets.WS['Tachi: Jinpu'],{
+	sets.WS['Aeolian Edge'] = set_combine(sets.WS['Tachi: Jinpu'],{
 		neck		= "Sibyl Scarf",
 		right_ring	= "Metamor. Ring +1",
 		back		= Capes.EWS

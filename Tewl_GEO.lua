@@ -38,7 +38,7 @@ function get_sets()
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         ammo        = empty,
-        head        = "Azimuth Hood +2",
+        head        = "Azimuth Hood +3",
         neck        = "Bagua Charm +2",
         waist       = "Isa Belt",
         hands       = "Geo. Mitaines +3",
@@ -48,25 +48,25 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.FC = { -- FC 80/80 QC: 7/10
+    sets.precast.FC = { -- FC 82/80 QC: 5/10
         head        = "Amalric Coif +1", -- 11
         body        = "Merlinic Jubbah", -- 11
-        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}},
+        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
         legs        = "Geomancy Pants +3", -- 15
-        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}},    
+        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
         waist       = "Witful Belt", -- 3|3
         left_ear    = "Malignance Earring", -- 4
         right_ear   = "Loquac. Earring", -- 2
         left_ring   = "Kishar Ring", -- 4
         right_ring  = "Lebeche Ring", -- 0|2
-        back        = Capes.FC_MagDmg,
+        back        = Capes.FC_MagDmg, -- 10
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
     sets.precast.JA = {
         ['Primeval Zeal'] = { head = "Bagua Galero +3" },
-        ['Full Circle'] = { head = "Azimuth Hood +2" },
+        ['Full Circle'] = { head = "Azimuth Hood +3" },
         ['Bolster'] = { body = "Bagua Tunic +3" },
         ['Life Cycle'] = {
             body        = "Geomancy Tunic +2",
@@ -93,7 +93,7 @@ function get_sets()
     sets.midcast['Geomancy'] = { 
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
-        head        = "Azimuth Hood +2", -- 15
+        head        = "Azimuth Hood +3", -- 15
         body        = "Bagua Tunic +3", -- 16
         hands       = "Geo. Mitaines +3", -- 19
         legs        = "Vanya Slops",   
