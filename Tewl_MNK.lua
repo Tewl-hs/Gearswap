@@ -64,7 +64,7 @@
         buffs.Boost = buffactive["Boost"] or false
         buffs.Impetus = buffactive["Impetus"] or false
 
-        sets.MoveSpeed = { feet = "Hermes' Sandals",} 
+        sets.MoveSpeed = { feet = "Herald's Gaiters",} 
     
         -- Augmented Gear
         Capes = {}

@@ -53,7 +53,7 @@ function get_sets()
     sets.precast.FC = { -- 106
         ammo		= "Sapience Orb", -- 2
         head		= "Atrophy Chapeau +3", -- 16
-        body		= "Viti, Tabard +3", -- 15
+        body		= "Viti. Tabard +3", -- 15
         hands		= "Leyline Gloves", -- 5
         legs		= "Psycloth Lappas", -- 7
         feet		= { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
@@ -126,7 +126,7 @@ function get_sets()
         head		= "Nyame Helm",
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
-        legs		= "Leth. Fuseau +",
+        legs		= "Leth. Fuseau +3",
         feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
@@ -140,7 +140,7 @@ function get_sets()
         hands		= "Nyame Gauntlets",
         legs		= "Nyame Flanchard",
         feet		= "Nyame Sollerets",
-        neck		= "Rep. Plat, Medal",
+        neck		= "Rep. Plat. Medal",
         left_ear	= "Regal Earring",
         right_ear	= "Moonshade Earring",
         left_ring	= "Metamor. Ring +1",
@@ -205,7 +205,7 @@ function get_sets()
         feet		= "Vitiation Boots +3",
         neck		= "Incanter's Torque",
         left_ear	= "Regal Earring",
-        right_ear	= "Snotra Earring",
+        --right_ear	= "Snotra Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         waist		= "Obstin. Sash",

@@ -105,7 +105,7 @@ function get_sets()
         back        = Capes.GeoSkill,
     }
     sets.midcast['Geomancy'].Indi = {
-        main        = "Gada",
+        --main        = "Gada",
         neck        = "Incanter's Torque",
         legs        = "Bagua Pants +3",   
         feet        = "Azimuth Gaiters +2",
@@ -135,7 +135,7 @@ function get_sets()
         hands       = "Agwu's Gages",
         legs		= "Ea Slops +1",
         feet        = "Agwu's Pigaches",
-        neck		= "Mizukage-no-Kubikazari",
+        --neck		= "Mizukage-no-Kubikazari",
         right_ring	= "Mujin Band",
     })
 
@@ -195,7 +195,7 @@ function get_sets()
         sub         = "Ammurapi Shield", -- 10
         range       = empty,
         ammo        = "Hydrocera",
-        head        = "Yanya Hood",
+        head        = "Vanya Hood",
         body        = "Vanya Robe",
         hands       = "Vanya Cuffs",
         legs        = "Vanya Slops",

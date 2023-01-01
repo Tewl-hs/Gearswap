@@ -31,7 +31,7 @@ function get_sets()
     Capes = {}
     Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
     Capes.SIRD = { name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
-    Capes.DA = { name="Ogma's cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Damage taken-5%',}}
+    Capes.DA = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
     Capes.MAB = { name="Ogma's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-5%',}}
     Capes.WSD = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
 
@@ -99,7 +99,7 @@ function get_sets()
         },
         ['Vallation'] = set_combine(sets.Enmity,{body="Runeist Coat +3",legs="Futhark Trousers +3"}),
         ['Valiance'] = set_combine(sets.Enmity,{body="Runeist Coat +3",legs="Futhark Trousers +3"}),
-        ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist Boots +3"}),
+        ['Pflug'] = set_combine(sets.Enmity,{feet="Runeist Bottes +3"}),
         ['Battuta'] = set_combine(sets.Enmity,{head="Futhark Bandeau +3"}),
         ['Liement'] = set_combine(sets.Enmity,{body="Futhark Coat +3"}),
         ['Gambit'] = set_combine(sets.Enmity,{hands="Runeist Mitons +3"}),
@@ -121,7 +121,7 @@ function get_sets()
             neck        = "Baetyl Pendant",
             waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
-            right_ear   = "Hermetic Earring",
+            --right_ear   = "Hermetic Earring",
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
             back        = Capes.MAB
@@ -136,7 +136,7 @@ function get_sets()
             neck        = "Baetyl Pendant",
             waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
-            right_ear   = "Hermetic Earring",
+            --right_ear   = "Hermetic Earring",
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
             back        = Capes.MAB

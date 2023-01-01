@@ -162,7 +162,7 @@ function get_sets()
         waist       = "Flume Belt +1",
         left_ear    = "Genmei Earring",
         right_ear   = "Etiolation Earring",
-        left_ring	= "Gelatinous Ring",
+        left_ring	= "Gelatinous Ring +1",
         right_ring  = "Defending Ring",
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
@@ -184,7 +184,7 @@ function get_sets()
         hands       = "Mousai Gages +1"
     })
     sets.midcast['Singing'].Minne = set_combine(sets.midcast['Singing'],{
-        legs        = "Mous. Seraweels +1"
+        legs        = "Mou. Seraweels +1"
     })
     sets.midcast['Singing'].Etude = set_combine(sets.midcast['Singing'],{
         head        = "Mousai Turban +1"
@@ -213,12 +213,12 @@ function get_sets()
         legs        = "Inyanga Shalwar +2",
     })
     sets.midcast['Singing'].Horde = set_combine(sets.midcast['Singing'].Debuff,{
-        range       = "Duradabla",
+        range       = "Daurdabla",
         legs        = "Inyanga Shalwar +2",
-        waist       = "Harfener's Sash",
+        waist       = "Harfner's Sash",
     })
     sets.midcast['Singing'].Threnody = set_combine(sets.midcast['Singing'].Debuff,{
-        body        = "Mous. Manteel +1",
+        body        = "Mou. Manteel +1",
     })
 
     sets.aftercast = { }

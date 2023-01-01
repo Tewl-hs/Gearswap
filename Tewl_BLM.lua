@@ -51,7 +51,9 @@ function get_sets()
 
     sets.precast.JA = {
         ['Mana Wall'] = { feet = "Wicce Sabots +3", },
-        ['Manafont'] = { body = "Archmage's Coat +3", },
+        ['Manafont'] = { 
+            --body = "Archmage's Coat +3",
+         },
         ['Elemental Seal'] = { },
         ['Cascade'] = { },
         ['Manawell'] = { },
@@ -144,7 +146,7 @@ function get_sets()
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         ammo        = "Staunch Tathlum +1",
-        head        = "Yanya Hood",
+        head        = "Vanya Hood",
         body        = "Vanya Robe",
         hands       = "Wicce Gloves +3",
         legs        = "Vanya Slops",
