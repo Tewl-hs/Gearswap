@@ -297,6 +297,7 @@ function get_sets()
         head        = "Nyame Helm",
         body        = "Nyame Mail",
         hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
         feet        = "Nyame Sollerets",
         neck        = "Futhark torque +2",
         waist       = "Engraved Belt",
