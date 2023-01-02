@@ -25,12 +25,12 @@
     -- End of Personal Settings --
 
     -- Tables
+    MeritBloodPacts = S{'Meteor Strike','Heavenly Strike','Wind Blade','Geocrush','Grand Fall','Thunderstorm'}
     MagicalBloodPactRage = S{
         'Inferno','Earthen Fury','Tidal Wave','Aerial Blast','Diamond Dust','Judgment Bolt','Searing Light','Howling Moon','Ruinous Omen',
         'Fire II','Stone II','Water II','Aero II','Blizzard II','Thunder II',
         'Fire IV','Stone IV','Water IV','Aero IV','Blizzard IV','Thunder IV',
         'Thunderspark','Burning Strike','Meteorite','Nether Blast','Flaming Crush',
-        'Meteor Strike','Heavenly Strike','Wind Blade','Geocrush','Grand Fall','Thunderstorm',
         'Holy Mist','Lunar Bay','Night Terror','Level ? Holy','Sonic Buffet', 'Tornado II'}
 
     DebuffBloodPactWard = S{'Diamond Storm','Sleepga','Slowga','Tidal Roar','Shock Squall','Nightmare','Pavor Nocturnus','Ultimate Terror','Somnolence','Lunar Cry','Lunar Roar','Bitter Elegy','Lunatic Voice'}
@@ -177,7 +177,6 @@
         left_ring   = "Varar Ring +1",
         feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: Attack+35','Blood Pact Dmg.+8',}}
     })
-
     sets.midcast.MagicalBP = {
         main        = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: VIT+6','Pet: Mag. Acc.+22','Pet: "Mag.Atk.Bns."+13','DMG:+15',}},
         sub         = "Elan Strap +1",
@@ -195,6 +194,10 @@
         right_ring  = "Varar Ring +1",
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}},
     }
+    sets.midcast.MeritBP = set_combine(sets.midcast.MagicalBP, {
+        head        = "C. Palug Crown",
+        legs        = "Enticer's Pants"
+    })
     
     sets.midcast.PetBuff = {
         main        = { name="Espiritus", augments={'Enmity-6','Pet: "Mag.Atk.Bns."+30','Pet: Damage taken -4%',}},
@@ -402,8 +405,14 @@
                 equip(sets.midcast.PetBuff)
             end
         elseif spell.type == "BloodPactRage" then
-            if MagicalBloodPactRage:contains(spell.name) then
-                equip(sets.midcast.MagicalBP)
+            if MeritBloodPacts:contains(spell.name) then
+                equip(sets.midcast.MeritBP)
+            elseif MagicalBloodPactRage:contains(spell.name) then
+                if spell.name == 'Flaming Crush' then
+                    equip(set_combine(sets.midcast.MagicalBP,{head="C. Palug Crown"}))
+                else
+                    equip(sets.midcast.MagicalBP)
+                end
             else
                 if buffactive["Aftermath: Lv.3"] then
                     equip(sets.midcast.PhysicalBP.AM3)

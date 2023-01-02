@@ -108,7 +108,7 @@ function get_sets()
         --main        = "Gada",
         neck        = "Incanter's Torque",
         legs        = "Bagua Pants +3",   
-        feet        = "Azimuth Gaiters +2",
+        feet        = "Azimuth Gaiters +3",
     }
 
     sets.midcast['Elemental Magic'] = { 
