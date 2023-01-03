@@ -48,18 +48,19 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.FC = { -- FC 82/80 QC: 5/10
+    sets.precast.FC = { -- FC 81/80 QC: 5/10
+        range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Amalric Coif +1", -- 11
         body        = "Merlinic Jubbah", -- 11
         hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
         legs        = "Geomancy Pants +3", -- 15
         feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
-        waist       = "Witful Belt", -- 3|3
-        left_ear    = "Malignance Earring", -- 4
-        right_ear   = "Loquac. Earring", -- 2
+        waist       = "Embla Sash", -- 5
+        left_ear    = "Genmei Earring",
+        right_ear   = "Azimuth Earring +1",
         left_ring   = "Kishar Ring", -- 4
-        right_ring  = "Lebeche Ring", -- 0|2
+        right_ring  = "Defending Ring",
         back        = Capes.FC_MagDmg, -- 10
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
@@ -242,7 +243,7 @@ function get_sets()
         legs        = "Nyame Flanchard",
         left_ear    = "Etiolation Earring",
         right_ear   = "Genmei Earring",
-        left_ring   = "Defending Ring",
+        right_ring   = "Defending Ring",
     })
 
     sets.aftercast.Engaged = { 
