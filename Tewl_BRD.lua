@@ -85,6 +85,8 @@ function get_sets()
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}},
     }
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
+        main        = "Naegling",
+        sub         = "Genmei Shield", 
         head		= "Nyame Helm",
         body		= "Nyame Mail",
         hands		= "Nyame Gauntlets",
@@ -93,7 +95,7 @@ function get_sets()
         neck        = "Bard's Charm +2",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         right_ear   = "Ishvara Earring",
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Sroda Ring",
     })
     sets.precast.WS["Mordant Rime"] = {
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
@@ -240,6 +242,7 @@ function get_sets()
         back        = "Moonlight Cape" -- 6
     }
     sets.aftercast.Engaged = {
+        main        = "Naegling",
         sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Bunzi's Hat",

@@ -30,7 +30,8 @@ function get_sets()
     -- Augmented Capes
     Capes = {}
     Capes.PetRegen = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','MP+20','Pet: "Regen"+10','Pet: "Regen"+5',}}
-    Capes.FC_MagDmg = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
+    Capes.FC = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','"Fast Cast"+10',}}
+    Capes.MagicDmg = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
     Capes.GeoSkill = { name="Lifestream Cape", augments={'Geomancy Skill +6','Indi. eff. dur. +20','Pet: Damage taken -3%',}}
     
     -- Gear sets
@@ -48,7 +49,7 @@ function get_sets()
     }
 
     sets.precast = {}
-    sets.precast.FC = { -- FC 81/80 QC: 5/10
+    sets.precast.FC = { -- FC 81/80
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = "Amalric Coif +1", -- 11
         body        = "Merlinic Jubbah", -- 11
@@ -61,7 +62,7 @@ function get_sets()
         right_ear   = "Azimuth Earring +1",
         left_ring   = "Kishar Ring", -- 4
         right_ring  = "Defending Ring",
-        back        = Capes.FC_MagDmg, -- 10
+        back        = Capes.FC, -- 10
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
@@ -106,7 +107,7 @@ function get_sets()
         back        = Capes.GeoSkill,
     }
     sets.midcast['Geomancy'].Indi = {
-        --main        = "Gada",
+        main        = { name="Gada", augments={'Indi. eff. dur. +9','MND+5','Mag. Acc.+14','DMG:+1',}},
         neck        = "Incanter's Torque",
         legs        = "Bagua Pants +3",   
         feet        = "Azimuth Gaiters +3",
@@ -115,19 +116,19 @@ function get_sets()
     sets.midcast['Elemental Magic'] = { 
         main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
-        ammo        = "Pemphredo Tathlum",
+        ammo        = "Ghastly Tathlum +1",
         head        = "Jhakri Coronal +2",
         body        = "Amalric Doublet +1", 
         hands       = "Amalric Gages +1",
         legs        = "Amalric Slops +1",
         feet        = "Amalric Nails +1",   
-        neck        = "Baetyl Pendant",
+        neck        = "Sibyl Scarf",
         waist       = "Acuity Belt +1",
         left_ear    = "Malignance Earring",
-        right_ear   = "Barkaro. Earring", 
+        right_ear   = "Regal Earring", 
         left_ring   = "Freke Ring",
         right_ring  = "Shiva Ring +1",
-        back        = Capes.FC_MagDmg,  
+        back        = Capes.MagicDmg,  
     } 
 
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
@@ -136,7 +137,6 @@ function get_sets()
         hands       = "Agwu's Gages",
         legs		= "Ea Slops +1",
         feet        = "Agwu's Pigaches",
-        --neck		= "Mizukage-no-Kubikazari",
         right_ring	= "Mujin Band",
     })
 
@@ -144,7 +144,7 @@ function get_sets()
         sub         = "Ammurapi Shield",
         neck        = "Incanter's Torque",
         body        = "Vanya Robe",
-        hands       = "Azimuth Gloves +2",
+        hands       = "Azimuth Gloves +3",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Luminary Sash"
@@ -179,7 +179,7 @@ function get_sets()
         right_ear   = "Crep. Earring",
         left_ring   = "Evanescence Ring",
         right_ring  = "Archon Ring",
-        back        = Capes.FC_MagDmg
+        back        = Capes.MagicDmg
     }
     sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
         head        = "Bagua Galero +3",
@@ -223,7 +223,7 @@ function get_sets()
         sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head        = { name="Merlinic Hood", augments={'"Counter"+3','"Drain" and "Aspir" potency +9','"Refresh"+2','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
-        body        = "Jhakri Robe +2",
+        body        = "Azimuth Coat +3",
         hands       = "Bagua Mitaines +3",
         legs        = "Assid. Pants +1",
         feet        = "Geomancy Sandals +3",
