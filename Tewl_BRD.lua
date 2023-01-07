@@ -226,7 +226,7 @@ function get_sets()
     sets.aftercast = { }
     sets.aftercast.Idle = {    -- DT 60    
         main        = "Carnwenhan",
-        sub         = "Ammurapi Shield", 
+        sub         = "Genmei Shield", 
         range       = "Gjallarhorn",
         head        = "Bunzi's Hat", -- 7
         body        = "Bunzi's Robe", -- 10
@@ -242,7 +242,6 @@ function get_sets()
         back        = "Moonlight Cape" -- 6
     }
     sets.aftercast.Engaged = {
-        main        = "Naegling",
         sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Bunzi's Hat",
@@ -342,6 +341,8 @@ function midcast(spell)
             elseif sets.midcast[spell.skill].Lullaby then
                 equip(sets.midcast[spell.skill].Lullaby)
             end
+        elseif sets.midcast[spell.skill] then
+            equip(sets.midcast[spell.skill])
         end
     elseif sets.midcast[spell.skill] then
         if spell.skill == 'Healing Magic' then
