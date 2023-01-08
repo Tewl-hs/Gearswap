@@ -17,14 +17,15 @@ function get_sets()
     -- Personal settings. You can remove these two lines.
     set_macros(14,1)
     send_command('wait 1;input /lockstyleset 10')
-    send_command('input //equipviewer pos 1663 912')
+	send_command('input //equipviewer pos 1663 935') 
 
-    send_command('bind ^f9 gs c cycle burst')
+    send_command('bind ^f9 gs c toggle burst')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c cycle engaged')
 
     sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
     BurstMode = false
+    CurrentWeapon = 'Crocea Mors'
 
     Capes = {}
     Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
@@ -276,7 +277,7 @@ function get_sets()
         hands		= "Amalric Gages +1",
         legs		= "Amalric Slops +1",
         feet		= "Amalric Nails +1",
-        neck		= "Baetyl Pendant",
+        neck		= "Sibyl Scarf",
         left_ear	= "Malignance Earring",
         right_ear	= "Regal Earring",
         left_ring	= "Freke Ring",
@@ -285,7 +286,12 @@ function get_sets()
         back		= Capes.INT
     }
     sets.midcast['Elemental Magic'].Debuff = set_combine(sets.midcast['Elemental Magic'], { })
-    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], { })
+    sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
+        head		= "Ea Hat +1",
+        body		= "Ea Houppe. +1",
+        legs		= "Ea Slops +1",
+        right_ring	= "Mujin Band",      
+     })
     sets.midcast['Dark Magic'] =  {
         back		= Capes.INT
     }
@@ -338,6 +344,7 @@ function get_sets()
         right_ring	= "Stikini Ring +1",
         back={ name	= "Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
     })
+    include('FFXI-Display.lua')	
 end
 
 function file_unload()  
@@ -508,6 +515,7 @@ function equip_check()
             equip(sets.aftercast.Idle)
         end
     end
+	update_status()
 end
 
 function self_command(cmd)
@@ -552,6 +560,7 @@ function self_command(cmd)
             end
             equip_check()
         end
+		update_status()
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'burst' then
             if BurstMode == false then
@@ -562,7 +571,73 @@ function self_command(cmd)
                 add_to_chat('BurstMode disabled.')
             end
         end
+		update_status()
     elseif args[1] == 'equip_check' then
         equip_check()
+	elseif args[1] == 'update_status' then
+		update_status()
     end
+end
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+	if id == 0x00D and stateBox then
+		stateBox:hide()
+	end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+	if id == 0x050 then
+		equip_change()
+	end
+end)
+
+function update_status()
+	local spc = '   '
+    local WeaponColor = get_weapon_color(CurrentWeapon)
+
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+	
+	if BurstMode == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
+end
+
+function equip_change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	if item and items[item['id']] then 
+		local ew = items[item['id']].name
+		if ew ~= CurrentWeapon then -- If weapon changed
+			if ew == 'Gil' then
+				CurrentWeapon = 'Empty'
+				TwoHandedWeapon = false
+				if auto_hasso == true then auto_hasso = false update_status() end
+			else
+				CurrentWeapon = ew
+				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+					TwoHandedWeapon = true
+				else 
+					TwoHandedWeapon = false	
+					if auto_hasso == true then auto_hasso = false update_status() end
+				end
+			end	
+			equip_check()
+		end
+	end
 end
