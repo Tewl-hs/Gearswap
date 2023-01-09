@@ -171,7 +171,7 @@ function get_sets()
         head        = "Agwu's Cap",
         body        = "Agwu's Robe",
         hands       = "Agwu's Gages",
-        legs        = "Azimuth Tights +2",
+        legs        = "Azimuth Tights +3",
         feet        = "Agwu's Pigaches",
         neck        = "Erra Pendant",
         waist       = "Luminary Sash",
