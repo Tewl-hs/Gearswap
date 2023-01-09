@@ -206,7 +206,7 @@ function get_sets()
         feet		= "Vitiation Boots +3",
         neck		= "Incanter's Torque",
         left_ear	= "Regal Earring",
-        --right_ear	= "Snotra Earring",
+        right_ear	= "Snotra Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         waist		= "Obstin. Sash",
