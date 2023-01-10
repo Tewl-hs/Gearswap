@@ -172,7 +172,7 @@ function get_sets()
         neck		= "Nodens Gorget",
         left_ear	= "Malignance Earring",
         right_ear	= "Mendicant's Earring",
-        left_ring	= { "Naji's Loop", bag="wardrobe7" },
+        left_ring	= { name="Naji's Loop", bag="wardrobe7" },
         right_ring   = "Menelaus's Ring",
     })
     sets.midcast['Divine Magic'] = {
@@ -247,7 +247,6 @@ function get_sets()
         body		= "Atrophy Tabard +3",
         legs		= "Leth. Fuseau +3",
         waist		= "Gishdubar Sash",
-        --back		= "Grapevine Cape"
     })
     sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
@@ -262,7 +261,7 @@ function get_sets()
         left_ear	= "Halasz Earring",
         left_ring	= "Freke Ring",
         right_ring	= "Evanescence Ring",
-        --waist		= "Emphatikos Rope",
+        waist		= "Emphatikos Rope",
     })
     sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].Duration, {
         neck		= "Nodens Gorget",
@@ -342,7 +341,7 @@ function get_sets()
         right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
         left_ring	= "Shadow Ring",
         right_ring	= "Stikini Ring +1",
-        back={ name	= "Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+        back        = { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
     })
     include('FFXI-Display.lua')	
 end
