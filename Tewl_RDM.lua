@@ -103,13 +103,13 @@ function get_sets()
         head		= "Pixie Hairpin +1",
         body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
-        legs		= "Amalric Slops +1",
+        legs		= "Nyame Flanchard",
         feet		= "Nyame Sollerets",
         neck		= "Sibyl Scarf",
         left_ear	= "Malignance Earring",
         right_ear	= "Regal Earring",
         left_ring	= "Archon Ring",
-        right_ring	= "Metamor. Ring +1",
+        right_ring	= "Epaminondas's Ring",
         waist		= "Orpheus's Sash",
         back		= Capes.INT
     })
@@ -249,6 +249,7 @@ function get_sets()
         waist		= "Gishdubar Sash",
     })
     sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
+        main        = { name="Sakpata's Sword", augments={'Path: A',}},
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
@@ -258,7 +259,7 @@ function get_sets()
         ammo		= "Staunch Tathlum +1",
         head		= "Amalric Coif +1",
         --hands		= "Regal Cuffs",
-        left_ear	= "Halasz Earring",
+        left_ear	= "Magnetic Earring",
         left_ring	= "Freke Ring",
         right_ring	= "Evanescence Ring",
         waist		= "Emphatikos Rope",
@@ -290,7 +291,7 @@ function get_sets()
         body		= "Ea Houppe. +1",
         legs		= "Ea Slops +1",
         right_ring	= "Mujin Band",      
-     })
+    })
     sets.midcast['Dark Magic'] =  {
         back		= Capes.INT
     }
@@ -312,6 +313,8 @@ function get_sets()
         back		= Capes.DW
     }
     sets.aftercast.Idle = {
+        main        = { name="Sakpata's Sword", augments={'Path: A',}},
+        sub         = "Genmei Shield",
         ammo		= "Homiliary",
         head		= "Viti. Chapeau +3",
         body		= "Jhakri Robe +2",
@@ -324,11 +327,11 @@ function get_sets()
         right_ear	= "Genmei Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-        back		= "Solemnity Cape"
+        back        = "Moonlight Cape",
     }
     sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {	
-        main		= { name="Crocea Mors", augments={'Path: C',}},
-        sub			= "Genmei Shield",
+        main        = { name="Sakpata's Sword", augments={'Path: A',}},
+        sub         = "Genmei Shield",
         ammo		= "Staunch Tathlum +1",
         head		= "Leth. Chappel +2",
         body		= "Lethargy Sayon +3",
@@ -341,7 +344,7 @@ function get_sets()
         right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
         left_ring	= "Shadow Ring",
         right_ring	= "Stikini Ring +1",
-        back        = { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
+        back        = "Moonlight Cape",
     })
     include('FFXI-Display.lua')	
 end
