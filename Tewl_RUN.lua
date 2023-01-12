@@ -121,7 +121,7 @@ function get_sets()
             neck        = "Baetyl Pendant",
             waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
-            --right_ear   = "Hermetic Earring",
+            right_ear   = "Hermetic Earring",
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
             back        = Capes.MAB
@@ -136,7 +136,7 @@ function get_sets()
             neck        = "Baetyl Pendant",
             waist       = "Orpheus's Sash",
             left_ear    = "Friomisi Earring",
-            --right_ear   = "Hermetic Earring",
+            right_ear   = "Hermetic Earring",
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
             back        = Capes.MAB

@@ -333,7 +333,7 @@ function get_sets()
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         sub         = "Genmei Shield",
         ammo		= "Staunch Tathlum +1",
-        head		= "Leth. Chappel +2",
+        head		= "Leth. Chappel +3",
         body		= "Lethargy Sayon +3",
         hands		= "Leth. Ganth. +3",
         legs		= { name="Nyame Flanchard", augments={'Path: B',}},

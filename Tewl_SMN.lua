@@ -229,7 +229,7 @@
         feet        = "Baayami Sabots +1",
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Kobo Obi",
-        --left_ear    = "Enmerkar Earring",
+        left_ear    = "Lugalbanda Earring",
         right_ear   = "Beck. Earring +1",
         left_ring   = "Evoker's Ring",
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
