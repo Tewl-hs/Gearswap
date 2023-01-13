@@ -667,3 +667,20 @@ npcs.Trust = S{'ArkEV','ArkGK','ArkHM','ArkMR','ArkTT','Abenzio','Abquhbah','Ade
 	'Naja','Najelith','Naji','NanaaMihgo','Nashmeira','Noillurie','Ovjang','Pieuje','Prishe','Qultada','Rahal','Rainemard','Robel-Akbel','RomaaMihgo',
 	'Rongelouts','Rosulatia','Rughadjeen','Sakura',"Selh'teus",'SemihLafihna','Shantotto','ShikareeZ','StarSibyl','Sylvie','Teodor','Tenzen','Trion',
 	'UkaTotlihn','Ullegore','Ulmia','Valaineral','Volker','Yoran-Oran','Zazarg','Zeid'}
+
+MeritBloodPacts = S{'Meteor Strike','Heavenly Strike','Wind Blade','Geocrush','Grand Fall','Thunderstorm'}
+MagicalBloodPactRage = S{
+	'Inferno','Earthen Fury','Tidal Wave','Aerial Blast','Diamond Dust','Judgment Bolt','Searing Light','Howling Moon','Ruinous Omen',
+	'Fire II','Stone II','Water II','Aero II','Blizzard II','Thunder II',
+	'Fire IV','Stone IV','Water IV','Aero IV','Blizzard IV','Thunder IV',
+	'Thunderspark','Burning Strike','Meteorite','Nether Blast','Flaming Crush',
+	'Meteor Strike','Heavenly Strike','Wind Blade','Geocrush','Grand Fall','Thunderstorm',
+	'Holy Mist','Lunar Bay','Night Terror','Level ? Holy','Sonic Buffet', 'Tornado II'}
+
+DebuffBloodPactWard = S{'Diamond Storm','Sleepga','Slowga','Tidal Roar','Shock Squall','Nightmare','Pavor Nocturnus','Ultimate Terror','Somnolence','Lunar Cry','Lunar Roar','Bitter Elegy','Lunatic Voice'}
+DurationBuffBPWard = T{
+	['Shining Ruby']='Carbuncle',['Glittering Ruby']='Carbuncle',['Soothing Current']='Carbuncle',['Dream Shroud']='Diabolos',['Noctoshield']='Diabolos',
+	['Ecliptic Growl']='Fenrir',['Ecliptic Howl']='Fenrir',['Heavenward Howl']='Fenrir',['Aerial Armor']='Garuda',['Hastega']='Garuda',['Fleet Wind']='Garuda',
+	['Hastega II']='Garuda',['Inferno Howl']='Ifrit',['Crimson Howl']='Ifrit',['Rolling Thunder']='Ramuh',['Lightning Armor']='Ramuh',['Crystal Blessing']='Shiva',
+	['Frost Armor']='Shiva',['Earthen Ward']='Titan',['Earthen Armor']='Titan',
+}
