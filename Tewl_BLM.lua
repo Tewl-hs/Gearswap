@@ -31,7 +31,7 @@ function get_sets()
     -- Gearsets
     sets.precast = {}
     sets.precast.WS = { }
-    sets.precast.FC = { -- 85%
+    sets.precast.FC = { -- 80%
         ammo        = "Sapience Orb", -- 2
         head        = "Amalric Coif +1", -- 11
         body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
