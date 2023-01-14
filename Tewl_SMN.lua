@@ -58,7 +58,7 @@ function get_sets()
             waist       = "Kobo Obi",
             back        = "Conveyance Cape",
         },
-        ['Mana Cede'] = {hands="Beck. Bracers +2"},
+        ['Mana Cede'] = {hands="Beck. Bracers +3"},
     }
 
     sets.precast.FC = { -- 80
