@@ -195,7 +195,7 @@ function get_sets()
         feet        = "Mou. Crackows +1"
     })
     sets.midcast['Singing'].Ballad = set_combine(sets.midcast['Singing'],{
-        legs        = "Fili Rhingrave +2"
+        legs        = "Fili Rhingrave +3"
     })
     sets.midcast['Singing'].Minuet = set_combine(sets.midcast['Singing'],{
         body        = "Fili Hongreline +2"
