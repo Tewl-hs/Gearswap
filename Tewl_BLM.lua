@@ -85,9 +85,9 @@ function get_sets()
     sets.midcast['Elemental Magic'].Debuff = set_combine(sets.midcast['Elemental Magic'], {
         ammo        = "Pemphredo Tathlum",
         body        = "Spaekona's Coat +3",
-        --hands     = "Spae. Gloves +3",
-        --legs      = "Arch. Tonban +3",
-        --feet      = "Arch. Sabots +3",
+        hands       = "Spae. Gloves +3",
+        legs        = "Arch. Tonban +3",
+        feet        = "Arch. Sabots +3",
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = "Aurist's Cape +1"
     })
@@ -185,6 +185,15 @@ function get_sets()
         feet        = "Inspirited Boots",
         waist		= "Gishdubar Sash",
         --back		= "Grapevine Cape"
+    })
+    sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
+        legs        = "Shedir Seraweels",
+        neck		= "Nodens Gorget",
+        waist		= "Siegel Sash",
+    })
+    sets.midcast['Enhancing Magic'].Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
+        head        = "Amalric Coif +1",
+        legs        = "Shedir Seraweels",
     })
     sets.aftercast = { }
     sets.aftercast.Idle = {

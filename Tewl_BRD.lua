@@ -51,7 +51,7 @@ function get_sets()
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}} -- 10
     }
     sets.precast.FC['Singing'] = set_combine(sets.precast.FC,{
-        head        = "Fili Calot +2",
+        head        = "Fili Calot +3",
         body        = "Brioso Justau. +3",
         feet        = "Bihu Slippers +3",
         left_ear    = "Genmei Earring",
@@ -155,7 +155,7 @@ function get_sets()
         main        = "Carnwenhan", 
         sub         = "Genmei Shield",
         range       = "Gjallarhorn",
-        head        = "Fili Calot +2",
+        head        = "Fili Calot +3",
         body        = "Fili Hongreline +2",
         hands       = "Fili Manchettes +2",
         legs        = "Inyanga Shalwar +2",
@@ -204,7 +204,7 @@ function get_sets()
         hands       = "Fili Manchettes +2"
     })
     sets.midcast['Singing'].Madrigal = set_combine(sets.midcast['Singing'],{
-        head        = "Fili Calot +2"
+        head        = "Fili Calot +3"
     })
     sets.midcast['Singing'].Paeon = set_combine(sets.midcast['Singing'],{
         head       = "Brioso Roundlet +3"

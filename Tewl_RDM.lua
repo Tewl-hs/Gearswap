@@ -204,7 +204,7 @@ function get_sets()
         hands		= "Leth. Ganth. +3",
         legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
         feet		= "Vitiation Boots +3",
-        neck		= "Incanter's Torque",
+        neck		= "Dls. Torque +2",
         left_ear	= "Regal Earring",
         right_ear	= "Snotra Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
@@ -227,15 +227,16 @@ function get_sets()
         left_ring	= "Kishar Ring",
     })
     sets.midcast['Enhancing Magic'] = {	
-        main		= { name="Crocea Mors", augments={'Path: C',}},
-        sub         = "Ammurapi Shield",
+        main        = { name="Sakpata's Sword", augments={'Path: A',}},
+        sub         = "Forfend +1",
+        ammo		= "Staunch Tathlum +1",
         head		= "Telchine Cap",
         body		= "Viti. Tabard +3",
         hands       = "Atrophy Gloves +3", -- 10
         legs		= "Telchine Braconi",
         feet        = "Leth. Houseaux +3",  -- 30%
         neck		= "Incanter's Torque",
-        left_ear	= "Andoaa Earring",
+        left_ear	= "Mimir Earring",
         right_ear	= "Leth. Earring +1",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
@@ -246,6 +247,7 @@ function get_sets()
         head		= "Amalric Coif +1",
         body		= "Atrophy Tabard +3",
         legs		= "Leth. Fuseau +3",
+        neck		= "Dls. Torque +2",
         waist		= "Gishdubar Sash",
     })
     sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
@@ -254,17 +256,26 @@ function get_sets()
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
         legs        = { name="Taeon Tights", augments={'"Fast Cast"+3','Phalanx +3',}},
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}},
+        neck		= "Dls. Torque +2",
     })
     sets.midcast['Enhancing Magic'].Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
-        ammo		= "Staunch Tathlum +1",
+        main        = { name="Sakpata's Sword", augments={'Path: A',}},
+        sub         = "Ammurapi Shield",
         head		= "Amalric Coif +1",
         --hands		= "Regal Cuffs",
+        legs        = "Shedir Seraweels",
+        neck		= "Dls. Torque +2",
         left_ear	= "Magnetic Earring",
-        left_ring	= "Freke Ring",
-        right_ring	= "Evanescence Ring",
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+        right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         waist		= "Emphatikos Rope",
     })
     sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].Duration, {
+        main        = { name="Sakpata's Sword", augments={'Path: A',}},
+        sub         = "Ammurapi Shield",
+        head        = "Leth. Chappel +3",
+        body		= "Lethargy Sayon +3",
+        legs        = "Shedir Seraweels",
         neck		= "Nodens Gorget",
         waist		= "Siegel Sash",
     })
@@ -272,7 +283,7 @@ function get_sets()
         main		= "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo		= "Ghastly Tathlum +1",
-        head        = "Leth. Chappel +2",
+        head        = "Leth. Chappel +3",
         body		= "Amalric Doublet +1",
         hands		= "Amalric Gages +1",
         legs		= "Amalric Slops +1",
