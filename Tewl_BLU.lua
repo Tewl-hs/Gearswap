@@ -74,7 +74,7 @@ function get_sets()
             legs        = "Shedir Seraweels",
          })
          sets.midcast['Battery Charge'] = set_combine(sets.midcast,{
-            head        = "Amalric Coif +1"
+            head        = "Amalric Coif +1",
             waist		= "Gishdubar Sash",
         })
 
