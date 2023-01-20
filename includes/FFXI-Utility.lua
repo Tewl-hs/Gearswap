@@ -268,3 +268,4 @@ windower.raw_register_event('add item', function(bag, index, id, count)
         windower.chat.input('/item Revitalizer <me>')
 	end
 end)
+

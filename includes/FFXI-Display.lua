@@ -26,7 +26,7 @@ local x,y
 if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
     x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
 else
-    x,y = 0, settings["ui_y_res"]-17 -- -285, -18
+    x,y = 3, settings["ui_y_res"]-18 -- -285, -18
 end
 
 stateBox = texts.new({flags = {draggable=false}})

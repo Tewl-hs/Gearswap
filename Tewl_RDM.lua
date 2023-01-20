@@ -76,13 +76,31 @@ function get_sets()
         ['Valiance'] = sets.Enmity
     }
     sets.precast.WS = {
+        ammo		= "Coiste Bodhar",
+        head		= "Nyame Helm",
+        body		= "Nyame Mail",
+        hands		= "Nyame Gauntlets",
+        legs		= "Nyame Flanchard",
+        feet		= "Nyame Sollerets",
         neck		= "Fotia Gorget",
         left_ear	= "Ishvara Earring",
         right_ear	= "Moonshade Earring",
-        left_ring	= "Karieyh Ring +1",
-        right_ring	= "Epaminondas's Ring",
+        left_ring   = "Epaminondas's Ring",
+        right_ring	= "Karieyh Ring +1",
         waist		= "Fotia Belt",
+        waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
+        back		= Capes.WSD,
     }
+    sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS,{
+        hands		= "Jhakri Cuffs +2",
+        feet		= "Leth. Houseaux +3",
+        neck		= "Dls. Torque +2",
+        left_ear	= "Regal Earring",
+        right_ear	= "Sherida Earring",
+        left_ring   = "Epaminondas's Ring",
+        right_ring	= "Metamor. Ring +1",
+
+    })
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
         head		= "Nyame Helm",
         body		= "Nyame Mail",
@@ -309,10 +327,12 @@ function get_sets()
     sets.midcast['Dark Magic'] =  set_combine(sets.midcast['Dark Magic'], { })
     sets.aftercast = {}
     sets.aftercast.Engaged = {
+        main        = "Maxentius",
+        sub			= "Genmei Shield",
         ammo		= "Aurgelmir Orb +1",
         head		= "Malignance Chapeau",
         body		= "Malignance Tabard",
-        hands		= "Malignance Gloves",
+        hands		= "Bunzi's Gloves",
         legs		= "Malignance Tights",
         feet		= "Malignance Boots",
         neck		= "Anu Torque",
