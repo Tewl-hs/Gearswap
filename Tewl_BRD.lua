@@ -21,7 +21,7 @@ function get_sets()
     send_command('wait 1;input /lockstyleset 3')
     send_command('input //equipviewer pos 1663 934')
 
-    sets.MoveSpeed = { feet = "Fili cothurnes +2",} 
+    sets.MoveSpeed = { feet = "Fili cothurnes +3",} 
 
     -- Augments
     Kali = {}
@@ -55,10 +55,10 @@ function get_sets()
         body        = "Brioso Justau. +3",
         feet        = "Bihu Slippers +3",
         left_ear    = "Genmei Earring",
-        left_ring   = "Defending Ring",
-        right_ring  = "Gelatinous Ring +1",
+        left_ring	= "Gelatinous Ring +1",
+        right_ring  = "Defending Ring",
     })
-    sets.precast.FC['Singing'].DummySong = set_combine(sets.precast.FC,{ 
+    sets.precast.FC['Singing'].Daurdabla = set_combine(sets.precast.FC,{ 
         range       = "Daurdabla",
     })
     sets.precast.FC['Singing']['Honor March'] = set_combine(sets.precast.FC['Singing'],{
@@ -156,8 +156,8 @@ function get_sets()
         sub         = "Genmei Shield",
         range       = "Gjallarhorn",
         head        = "Fili Calot +3",
-        body        = "Fili Hongreline +2",
-        hands       = "Fili Manchettes +2",
+        body        = "Fili Hongreline +3",
+        hands       = "Fili Manchettes +3",
         legs        = "Inyanga Shalwar +2",
         feet        = "Brioso Slippers +3",
         neck        = "Moonbow Whistle +1",
@@ -180,7 +180,7 @@ function get_sets()
         waist       = "Luminary Sash",
     })
     sets.midcast['Singing'].Scherzo = set_combine(sets.midcast['Singing'],{
-        feet        = "Fili Cothurnes +2"
+        feet        = "Fili Cothurnes +3"
     })
     sets.midcast['Singing'].Carol = set_combine(sets.midcast['Singing'],{
         hands       = "Mousai Gages +1"
@@ -198,19 +198,19 @@ function get_sets()
         legs        = "Fili Rhingrave +3"
     })
     sets.midcast['Singing'].Minuet = set_combine(sets.midcast['Singing'],{
-        body        = "Fili Hongreline +2"
+        body        = "Fili Hongreline +3"
     })
     sets.midcast['Singing'].March = set_combine(sets.midcast['Singing'],{
-        hands       = "Fili Manchettes +2"
+        hands       = "Fili Manchettes +3"
     })
     sets.midcast['Singing'].Madrigal = set_combine(sets.midcast['Singing'],{
         head        = "Fili Calot +3"
     })
     sets.midcast['Singing'].Paeon = set_combine(sets.midcast['Singing'],{
-        head       = "Brioso Roundlet +3"
+        head        = "Brioso Roundlet +3"
     })
     sets.midcast['Singing'].Lullaby = set_combine(sets.midcast['Singing'].Debuff,{
-        body        = "Fili Hongreline +2",
+        body        = "Fili Hongreline +3",
         hands       = "Brioso Cuffs +3",
         legs        = "Inyanga Shalwar +2",
     })
@@ -224,24 +224,25 @@ function get_sets()
     })
 
     sets.aftercast = { }
-    sets.aftercast.Idle = {    -- DT 60    
+    sets.aftercast.Idle = {   
         main        = "Carnwenhan",
         sub         = "Genmei Shield", 
         range       = "Gjallarhorn",
-        head        = "Bunzi's Hat", -- 7
-        body        = "Bunzi's Robe", -- 10
-        hands       = "Bunzi's Gloves", -- 8
-        legs        = "Bunzi's Pants", -- 9
-        feet        = "Bunzi's Sabots", -- 6
-        neck        = "Warder's Charm +1", -- 6
+        head        = "Bunzi's Hat", 
+        body        = "Bunzi's Robe",
+        hands       = "Bunzi's Gloves",
+        legs        = "Bunzi's Pants",
+        feet        = "Bunzi's Sabots",
+        neck        = "Warder's Charm +1",
         waist       = "Slipor Sash", 
         left_ear    = "Hearty Earring",
-        right_ear   = "Odnowa Earring +1", -- 3
-        left_ring   = "Moonlight Ring", -- 5
+        right_ear   = "Odnowa Earring +1",
+        left_ring   = "Moonlight Ring", 
         right_ring  = "Shadow Ring",
-        back        = "Moonlight Cape" -- 6
+        back        = "Moonlight Cape"
     }
     sets.aftercast.Engaged = {
+        main        = "Naegling",
         sub         = "Genmei Shield", 
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
         head        = "Bunzi's Hat",
@@ -271,8 +272,8 @@ function precast(spell)
     end
     if spell.action_type == 'Magic' then        
         if spell.skill == 'Singing' and sets.precast.FC[spell.skill] then 
-            if DummySongs:contains(spell.name) or spell.name:startswith('Horde') then
-                equip(sets.precast.FC[spell.skill].DummySong)
+            if DummySongs:contains(spell.name) or string.find(spell.name,'Paeon') or spell.name:startswith('Horde')  then
+                equip(sets.precast.FC[spell.skill].Daurdabla)
             elseif sets.precast.FC[spell.skill][spell.name] then
                 equip(sets.precast.FC[spell.skill][spell.name])
             else
@@ -305,7 +306,7 @@ end
 
 function midcast(spell)
     if spell.skill == 'Singing' then 
-        if DummySongs:contains(spell.name) then
+        if DummySongs:contains(spell.name) or string.find(spell.name,'Paeon') then
             return
         end
         
