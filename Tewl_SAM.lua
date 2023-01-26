@@ -81,6 +81,16 @@ function get_sets()
 	
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}
 
+	sets.Twilight = { 
+		head		= "Twilight helm",
+		body		= "Twilight mail"
+	}
+	
+	sets.Ranged = {
+		range		= RangedWeapon,
+		ammo		= RangedAmmo
+	}
+
 	sets.Weapons = {
 		['Masamune'] = {main='Masamune',sub='Utu Grip'},
 		['Kogarasumaru'] = {main='Kogarasumaru',sub='Utu Grip'},
@@ -90,7 +100,8 @@ function get_sets()
 		['Soboro Sukehiro'] = {main='Soboro Sukehiro',sub='Utu Grip'},
 		['Mafic Cudgel'] = {main="Mafic Cudgel",sub="Forfend +1"}
 	}
-	sets.JA = {
+	sets.precast = {}
+	sets.precast.JA = {
 		['Seigan'] = {
 			head	= "Kasuga Kabuto +3"
 		},
@@ -145,7 +156,7 @@ function get_sets()
 			back		= Capes.Enmity
 		},
 	}
-	sets.FC = { -- 53%
+	sets.precast.FC = { -- 53%
 		ammo		= "Sapience Orb", -- 2
 		head		= { name="Acro Helm", augments={'"Fast Cast"+3',}}, -- 3
 		neck		= "Orunmila's Torque", --5
@@ -159,7 +170,7 @@ function get_sets()
 		right_ring	= "Rahab Ring", -- 2
 		back		= Capes.FC -- 10
 	}
-	sets.Preshot = {
+	sets.precast.RA = {
 		head		= { name="Acro Helm", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		body		= { name="Acro Surcoat", augments={'"Rapid Shot"+4','"Snapshot"+4',}},
 		hands		= { name="Acro Gauntlets", augments={'"Rapid Shot"+4','"Snapshot"+5',}},
@@ -169,22 +180,7 @@ function get_sets()
 		waist		= "Yemaya Belt",
 		back		= Capes.Snapshot
 	}
-	sets.RA = {
-		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
-		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
-		hands		= "Wakido Kote +3",
-		legs		= "Ken. Hakama +1",
-		feet		= "Wakido Sune. +3",
-		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
-		waist		= "Yemaya Belt",
-		left_ear   	= "Telos Earring", 
-		right_ear	= "Crep. Earring",
-		left_ring	= "Regal Ring",
-		right_ring	= "Cacoethic ring +1",
-		back		= Capes.RA
-	}
-	sets.WS = {}
-	sets.WS.Normal = {
+	sets.precast.WS = {
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap",
 		body		= "Nyame Mail", 
@@ -199,28 +195,28 @@ function get_sets()
 		right_ring	= "Karieyh Ring +1",
 		back		= Capes.WS
 	}
-	sets.WS.Normal.Accuracy = set_combine(sets.WS.Normal, { 
+	sets.precast.WS.Accuracy = set_combine(sets.precast.WS, { 
 		head		= "Nyame Helm",
 		left_ring	= "Regal Ring",
 	})
-	sets.WS['Tachi: Fudo'] = set_combine(sets.WS.Normal, { })
-	sets.WS['Tachi: Fudo'].Accuracy = set_combine(sets.WS['Tachi: Fudo'], { 
+	sets.precast.WS['Tachi: Fudo'] = set_combine(sets.precast.WS, { })
+	sets.precast.WS['Tachi: Fudo'].Accuracy = set_combine(sets.precast.WS['Tachi: Fudo'], { 
 		head		= "Nyame Helm",
 		right_ear	= "Telos Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Kentarch Belt +1"
 	})
-	sets.WS['Tachi: Kaiten'] = set_combine(sets.WS['Tachi: Fudo'], { })
-	sets.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.WS['Tachi: Fudo'].Accuracy, { })
-	sets.WS['Tachi: Shoha'] = set_combine(sets.WS.Normal, { 
+	sets.precast.WS['Tachi: Kaiten'] = set_combine(sets.precast.WS['Tachi: Fudo'], { })
+	sets.precast.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.precast.WS['Tachi: Fudo'].Accuracy, { })
+	sets.precast.WS['Tachi: Shoha'] = set_combine(sets.precast.WS, { 
 		right_ring	= "Niqmaddu Ring",
 	})
-	sets.WS['Tachi: Shoha'].Accuracy = set_combine(sets.WS['Tachi: Shoha'], { })
-	sets.WS['Tachi: Rana'] = set_combine(sets.WS['Tachi: Shoha'], {
+	sets.precast.WS['Tachi: Shoha'].Accuracy = set_combine(sets.precast.WS['Tachi: Shoha'], { })
+	sets.precast.WS['Tachi: Rana'] = set_combine(sets.precast.WS['Tachi: Shoha'], {
 		head		= "Nyame Helm",
 		left_ear	= "Lugra Earring +1",
 	})
-	sets.WS['Tachi: Jinpu'] = set_combine(sets.WS.Normal, { 
+	sets.precast.WS['Tachi: Jinpu'] = set_combine(sets.precast.WS, { 
 		head		= "Nyame Helm",
 		body		= "Nyame Mail",
 		hands		= "Nyame Gauntlets",
@@ -230,16 +226,16 @@ function get_sets()
 		waist		= "Orpheus's Sash",
 		back		= Capes.HWS
 	})
-	sets.WS['Raiden Thrust'] = sets.WS['Tachi: Jinpu']
-	sets.WS['Tachi: Koki'] = sets.WS['Tachi: Jinpu']
-	sets.WS['Tachi: Kagero'] = sets.WS['Tachi: Jinpu']
-	sets.WS['Tachi: Goten'] = sets.WS['Tachi: Jinpu']
-	sets.WS['Aeolian Edge'] = set_combine(sets.WS['Tachi: Jinpu'],{
+	sets.precast.WS['Raiden Thrust'] = sets.precast.WS['Tachi: Jinpu']
+	sets.precast.WS['Tachi: Koki'] = sets.precast.WS['Tachi: Jinpu']
+	sets.precast.WS['Tachi: Kagero'] = sets.precast.WS['Tachi: Jinpu']
+	sets.precast.WS['Tachi: Goten'] = sets.precast.WS['Tachi: Jinpu']
+	sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS['Tachi: Jinpu'],{
 		neck		= "Sibyl Scarf",
 		right_ring	= "Metamor. Ring +1",
 		back		= Capes.EWS
 	})
-	sets.WS['Tachi: Ageha'] = set_combine(sets.WS.Normal, {
+	sets.precast.WS['Tachi: Ageha'] = set_combine(sets.precast.WS, {
 		ammo		= "Pemphredo Tathlum",
 		head		= "Kasuga Kabuto +3",
 		body		= "Kasuga Domaru +3",
@@ -254,20 +250,20 @@ function get_sets()
 		waist		= "Eschan Stone",
 		back		= Capes.HWS
 	})		
-	sets.WS['Namas Arrow'] = set_combine(sets.WS.Normal, {
+	sets.precast.WS['Namas Arrow'] = set_combine(sets.precast.WS, {
 		head		= "Nyame Helm",
 		left_ear	= "Telos Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
 	})		
-	sets.WS['Empyreal Arrow'] = set_combine(sets.WS.Normal, {
+	sets.precast.WS['Empyreal Arrow'] = set_combine(sets.precast.WS, {
 		head		= "Nyame Helm",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
 	})	
-	sets.WS['Stardiver'] = set_combine(sets.WS.Normal, { 
+	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS, { 
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= { name="Ryuo Tekko +1", augments={'DEX+12','Accuracy+25','"Dbl.Atk."+4',}},
@@ -279,10 +275,25 @@ function get_sets()
 		waist		= "Fotia Belt",
 		back		= Capes.DA,
 	})
-	sets.WS['Impulse Drive'] = set_combine(sets.WS.Normal, { })
+	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, { })
 
-	sets.Engaged = {}
-	sets.Engaged.Normal = {
+	sets.midcast = {}	
+	sets.midcast.RA = {
+		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
+		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
+		hands		= "Wakido Kote +3",
+		legs		= "Ken. Hakama +1",
+		feet		= "Wakido Sune. +3",
+		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
+		waist		= "Yemaya Belt",
+		left_ear   	= "Telos Earring", 
+		right_ear	= "Crep. Earring",
+		left_ring	= "Regal Ring",
+		right_ring	= "Cacoethic ring +1",
+		back		= Capes.RA
+	}
+	sets.aftercast = {}
+	sets.aftercast.Engaged = {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
 		body		= "Kasuga Domaru +3",
@@ -297,7 +308,7 @@ function get_sets()
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TP
 	}	
-	sets.Engaged.Accuracy = set_combine(sets.Engaged.Normal, {
+	sets.aftercast.Engaged.Accuracy = set_combine(sets.aftercast.Engaged, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= "Wakido Kote +3",
 		legs		= { name="Tatena. Haidate +1", augments={'Path: A',}},
@@ -306,7 +317,7 @@ function get_sets()
 		right_ring	= "Regal Earring",
 		left_ear	= "Digni. Earring",
 	})
-	sets.Engaged.PDT = set_combine(sets.Engaged.Normal, {
+	sets.aftercast.Engaged.PDT = set_combine(sets.aftercast.Engaged, {
 		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
 		body		= { name="Mpaca's Doublet", augments={'Path: A',}}, 
 		hands		= "Wakido Kote +3",
@@ -316,14 +327,14 @@ function get_sets()
 		left_ring	= "Defending Ring",
 		back		= Capes.TP
 	})
-	sets.Engaged.MEVA = set_combine(sets.Engaged.Normal, {
+	sets.aftercast.Engaged.MEVA = set_combine(sets.aftercast.Engaged, {
 		head		= { name="Nyame Helm", augments={'Path: B',}},
 		body		= { name="Nyame Mail", augments={'Path: B',}},
 		hands		= { name="Nyame Gauntlets", augments={'Path: B',}},
 		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
 		back		= Capes.TP
 	})
-	sets.Engaged["Subtle Blow"] = set_combine(sets.Engaged.Normal, { 
+	sets.aftercast.Engaged["Subtle Blow"] = set_combine(sets.aftercast.Engaged, { 
  		ammo        = "Aurgelmir Orb +1", 
 		head        = "Ken. Jinpachi +1", 
 		body		= "Dagon Breast.",  
@@ -338,14 +349,12 @@ function get_sets()
 		waist       = "Sarissapho. Belt",
 		back		= Capes.TP
 	})
-	sets.Engaged.Hybrid = set_combine(sets.Engaged.Normal, {
+	sets.aftercast.Engaged.Hybrid = set_combine(sets.Engaged, {
 		head		= "Kasuga Kabuto +3",
 		waist       = "Windbuffet Belt +1",
 		back		= Capes.TP
-	})
-		
-	sets.Idle = { }
-	sets.Idle.Normal = {
+	})		
+	sets.aftercast.Idle = {
 		ammo		= "Staunch Tathlum +1",
 		head		= "Wakido Kabuto +3",
 		body		= "Sacro Breastplate",
@@ -360,9 +369,9 @@ function get_sets()
 		right_ring	= "Karieyh Ring +1",
 		back		= Capes.TP
 	}
-	sets.Idle.PDT = sets.Engaged.PDT
-	sets.Idle.MEVA = sets.Engaged.MEVA
-	sets.Idle.Hybrid = set_combine(sets.Engaged.Hybrid, {
+	sets.aftercast.Idle.PDT = sets.aftercast.Engaged.PDT
+	sets.aftercast.Idle.MEVA = sets.aftercast.Engaged.MEVA
+	sets.aftercast.Idle.Hybrid = set_combine(sets.aftercast.Engaged.Hybrid, {
 		ammo		= "Staunch Tathlum +1",
 		neck		= "Elite Royal Collar",
 		waist		= "Flume Belt +1",
@@ -371,26 +380,11 @@ function get_sets()
 		left_ring	= "Defending Ring",
 		right_ring	= "Karieyh Ring +1",
 	})
-	sets.Idle.Refresh = set_combine(sets.Idle.Normal,{
+	sets.aftercast.Idle.Refresh = set_combine(sets.aftercast.Idle,{
 		left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
 		right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
 	})
 	
-	sets.Twilight = { 
-		head		= "Twilight helm",
-		body		= "Twilight mail"
-	}
-	
-	sets.Ranged = {
-		range		= RangedWeapon,
-		ammo		= RangedAmmo
-	}
-
-	EngagedMode = {'Normal', 'PDT', 'MEVA', 'Subtle Blow', 'Hybrid'}
-	EngagedIndex = 1
-
-	IdleMode = {'Normal', 'PDT', 'MEVA', 'Hybrid', 'Refresh'}
-	IdleIndex = 1
 
 	range_mode = false
 	lock_twilight = false
@@ -451,28 +445,34 @@ function precast(spell, action)
 			return
 		end
 
-		local ws = sets.WS.Normal -- Default weaponskill set
+		local ws = sets.precast.WS -- Default weaponskill set
 
-		if sets.WS[spell.english] then -- Specific weaponskill sets
+		if sets.precast.WS[spell.english] then -- Specific weaponskill sets
 			if acc_mode == true and sets.WS[spell.english].Accuracy then
-				ws = sets.WS[spell.english].Accuracy
+				ws = sets.precast.WS[spell.english].Accuracy
 			else
-				ws = sets.WS[spell.english]
+				ws = sets.precast.WS[spell.english]
 			end
+		elseif acc_mode == true then
+			ws = sets.precast.WS.Accuracy -- Default accuracy set
 		end
-
+		 -- Combine ranged weapon/ammo when in ranged mode
 		if range_mode == true then
 			ws = set_combine(ws, sets.Ranged)
 		end
+		 -- Equip relic feet +3 for 750 tp weaponskills
 		if buffactive['Meikyo Shisui'] then
-			ws = set_combine(ws, sets.JA['Meikyo Shisui'])
+			ws = set_combine(ws, sets.precast.JA['Meikyo Shisui'])
 		end
+
 		std_set = standardize_set(ws)
-        if player.tp < 1000  or (player.tp < 900 and not std_set.feet:startswith("Sak") and not buffactive['Meikyo Shisui']) then
+
+        if player.tp < 1000 and not (player.tp > 749 and std_set.feet:startswith("Sak") and buffactive['Meikyo Shisui']) then
             add_to_chat(123,'['..spell.name..'] '..player.tp)
             cancel_spell()
             return
         end
+		-- With weaponskills that vary w/ TP swap moonshade/mpaca when relevant 
 		if player.tp > 2750 and std_set.left_ear:startswith('Moonshade') then
 			ws = set_combine(ws,{head="Nyame Helm",left_ear="Lugra Earring +1"})
 		elseif (world.time >= 17*60 or world.time < 7*60) and std_set.left_ear:startswith('Moonshade') then
@@ -499,15 +499,15 @@ function precast(spell, action)
 			if TwoHandedWeapon == false then cancel_spell() end
 			if auto_hasso == true then auto_hasso = false update_status() end
 		end
-		if sets.JA[spell.name] then
+		if sets.precast.JA[spell.name] then
 			if range_mode == true then
-				equip(set_combine(sets.JA[spell.name], sets.Ranged))
+				equip(set_combine(sets.precast.JA[spell.name], sets.Ranged))
 			else
-				equip(sets.JA[spell.name])
+				equip(sets.precast.JA[spell.name])
 			end
 		end
 	elseif spell.action_type == 'Ranged Attack' and range_mode == true then
-		equip(sets.Preshot)
+		equip(sets.precast.RA)
 	elseif spell.action_type == 'Magic' then
         local spellCost = actual_cost(spell)
         if player.mp < spellCost then
@@ -524,9 +524,9 @@ function precast(spell, action)
         end
 
 		if range_mode == true then
-			equip(sets.FC,sets.Ranged)
+			equip(sets.precast.FC,sets.Ranged)
 		else
-			equip(sets.FC)
+			equip(sets.precast.FC)
 		end
 	end
 end
@@ -534,7 +534,7 @@ end
 function midcast(spell)
 	if spell.type == 'WeaponSkill' or spell.type == 'JobAbility' then return end
 	if spell.action_type == 'Ranged Attack' and range_mode == true then
-		equip(set_combine(sets.RA,sets.Ranged))
+		equip(set_combine(sets.midcast.RA,sets.Ranged))
 	end
 end
 
@@ -575,49 +575,82 @@ end
 function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
-		eq = sets.Engaged.Normal
-		
-		if sets.Weapons[CurrentWeapon] then
-			eq = set_combine(eq, sets.Weapons[CurrentWeapon])
-		end
-		if acc_mode == true and sets.Engaged[EngagedMode[EngagedIndex]].Accuracy then
-			eq = set_combine(eq,sets.Engaged[EngagedMode[EngagedIndex]].Accuracy)
-		elseif sets.Engaged[EngagedMode[EngagedIndex]] then
-			eq = set_combine(eq,sets.Engaged[EngagedMode[EngagedIndex]])
-		end
-		if range_mode == true then
-			eq = set_combine(eq, sets.Ranged)
-		end
+		eq = sets.aftercast.Engaged
+        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+			if acc_mode == true and sets.precast.Engaged[egs].Accuracy then
+				eq = set_combine(eq,sets.precast.Engaged[egs].Accuracy)
+			else
+            	eq = sets.aftercast.Engaged[egs]
+			end
+        else
+            egs = nil
+			if acc_mode == true and sets.precast.Engaged.Accuracy then
+				eq = sets.aftercast.Engaged.Accuracy
+			end
+        end
 	else
-		eq = sets.Idle.Normal
-		
-		if sets.Weapons[CurrentWeapon] then
-			eq = set_combine(eq, sets.Weapons[CurrentWeapon])
-		end
-		if sets.Idle[IdleMode[IdleIndex]] then
-			eq = set_combine(eq,sets.Idle[IdleMode[IdleIndex]])
-		end
-		if range_mode == true then
-			eq = set_combine(eq, sets.Ranged)
+		eq = sets.aftercast.Idle
+		if ids ~= nil and sets.aftercast.Idle[ids] then
+			eq = set_combine(eq,sets.aftercast.Idle[ids])
 		end
 	end
+		
+	if sets.Weapons[CurrentWeapon] then
+		eq = set_combine(eq, sets.Weapons[CurrentWeapon])
+	end
+	if range_mode == true then
+		eq = set_combine(eq, sets.Ranged)
+	end
+
 	equip(eq)
+
 	if auto_hasso and player.status == 'Engaged' and not buffactive['Hasso'] then
 		windower.chat.input:schedule(1,'/ja Hasso <me>')
 	end
+
 	update_status()
 end
 
 function self_command(cmd)
 	local args = T(cmd:split(' '))
-	if args[1] == 'cycle' and args[2] then
-        if args[2] == 'engaged' then
-            EngagedIndex = EngagedIndex + 1 
-            if (table.getn(EngagedMode) < EngagedIndex) then EngagedIndex = 1 end
-		elseif args[2] == 'idle' then
-			IdleIndex = IdleIndex + 1 
-			if (table.getn(IdleMode) < IdleIndex) then IdleIndex = 1 end
-		end
+    if args[1] == 'cycle' and args[2] then
+        if args[2] == 'idle' then
+            local last_ids = ids 
+            for k,v in pairs(sets.aftercast.Idle) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif ids == nil then
+                    ids = k
+                    break
+                elseif ids == k then
+                    ids = nil
+                end
+            end
+            if last_ids == ids then ids = nil end
+            if ids == nil then 
+                add_to_chat('Idle mode set to: Default')
+            else
+                add_to_chat('Idle mode set to: '..ids)
+            end
+        elseif args[2] == 'engaged' then
+            local last_egs = egs 
+            for k,v in pairs(sets.aftercast.Engaged) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif egs == nil then
+                    egs = k
+                    break
+                elseif egs == k then
+                    egs = nil
+                end
+            end
+            if last_egs == egs then egs = nil end
+            if egs == nil then 
+                add_to_chat('Engaged mode set to: Default')
+            else
+                add_to_chat('Engaged mode set to: '..egs)
+            end
+        end
 		equip_check()
 	elseif args[1] == 'toggle' and args[2] then
 		if args[2] == 'twilight' then
@@ -725,14 +758,17 @@ function update_status()
 	local spc = '   '
     local WeaponColor = get_weapon_color(CurrentWeapon)
 
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
 	stateBox:clear()
 	stateBox:append(spc)
 	
 	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
-	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, EngagedMode[EngagedIndex], spc)
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
 	
-	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, IdleMode[IdleIndex], spc)
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
 
 	if acc_mode == true then
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
