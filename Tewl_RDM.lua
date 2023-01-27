@@ -184,7 +184,9 @@ function get_sets()
         back		= Capes.MND
     }
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
-        right_ring   = "Menelaus's Ring",
+        feet        = "Gende. Galosh. +1",
+        left_ring   = "Haoma's Ring",
+        right_ring  = "Menelaus's Ring"
     })
     sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
         neck		= "Nodens Gorget",
