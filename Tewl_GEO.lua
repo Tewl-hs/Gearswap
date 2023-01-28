@@ -19,13 +19,18 @@ function get_sets()
 	send_command('wait 1.5;input /lockstyleset 2')
     send_command('input //equipviewer pos 1663 914')
 
+    -- Macro binds F9-12
     send_command('bind ^f9 gs c toggle burst')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c cycle engaged')
+    send_command('bind ^F12 gs c toggle luopan')
 
     -- Movement speed gear for auto equip when moving
     sets.MoveSpeed = { feet = "Geo. Sandals +3",}
     BurstMode = false
+    LuopanDisplay = true
+
+    CurrentWeapon = ''
 
     -- Augmented Capes
     Capes = {}
@@ -249,12 +254,16 @@ function get_sets()
     sets.aftercast.Engaged = { 
         -- LOL MELEE GEO
     }
+    
+    include('FFXI-Display.lua')	
+    equip_change()
 end
 
 function file_unload()  
     send_command('unbind ^F9')
     send_command('unbind ^F10')
     send_command('unbind ^F11')
+    send_command('unbind ^F12')
 end
 
 function precast(spell)
@@ -352,6 +361,17 @@ function midcast(spell)
 end
 
 function aftercast(spell)    
+    if not spell.interrupted then
+        if spell.english:startswith('Indi-') then
+            if spell.target.type == 'SELF' then
+                last_indi = string.sub(spell.english,6)
+            end
+        elseif spell.english:startswith('Geo-') or spell.english == "Mending Halation" or spell.english == "Radial Arcana" then
+            if spell.english:startswith('Geo-') then
+                last_geo = string.sub(spell.english,5)
+            end
+        end
+    end    
     equip_check()
 end
 
@@ -403,6 +423,7 @@ function equip_check()
             equip(idleSet)
         end
     end
+	update_status()
 end
 
 function self_command(cmd)
@@ -447,6 +468,7 @@ function self_command(cmd)
             end
             equip_check()
         end
+		update_status()
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'burst' then
             if BurstMode == false then
@@ -455,9 +477,209 @@ function self_command(cmd)
             else
                 BurstMode = false
                 add_to_chat('BurstMode disabled.')
+            end        
+        elseif args[2] == 'luopan' then
+            if LuopanDisplay== false then
+                LuopanDisplay = true
+                add_to_chat('Luopan display enabled.')
+            else
+                LuopanDisplay = false
+                add_to_chat('Luopan display disabled.')
             end
         end
+		update_status()
     elseif args[1] == 'equip_check' then
         equip_check()
+	elseif args[1] == 'update_status' then
+		update_status()
     end
 end
+
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+	if id == 0x00D and stateBox then
+		stateBox:hide()
+	end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+	if id == 0x050 then
+		equip_change()
+	end
+end)
+
+function update_status()
+	local spc = '   '
+    local WeaponColor = get_weapon_color(CurrentWeapon)
+
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+	
+	if BurstMode == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
+end
+
+function equip_change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	if item and items[item['id']] then 
+		local ew = items[item['id']].name
+		if ew ~= CurrentWeapon then -- If weapon changed
+			if ew == 'Gil' then
+				CurrentWeapon = 'Empty'
+				TwoHandedWeapon = false
+				if auto_hasso == true then auto_hasso = false update_status() end
+			else
+				CurrentWeapon = ew
+				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+					TwoHandedWeapon = true
+				else 
+					TwoHandedWeapon = false	
+					if auto_hasso == true then auto_hasso = false update_status() end
+				end
+			end	
+			equip_check()
+		end
+	end
+end
+--[[
+        Luopan Distance Tracking
+        Source: https://github.com/Headtatt/Gearswap/blob/main/data/GEO.lua
+]]--
+
+debuff_list = S{'Gravity','Paralysis','Slow','Languor','Vex','Torpor','Slip','Malaise','Fade','Frailty','Wilt','Poison'}
+ignore_list = S{'SlipperySilas','HareFamiliar','SheepFamiliar','FlowerpotBill','TigerFamiliar','FlytrapFamiliar','LizardFamiliar','MayflyFamiliar','EftFamiliar','BeetleFamiliar','AntlionFamiliar',
+                'CrabFamiliar','MiteFamiliar','KeenearedSteffi','LullabyMelodia','FlowerpotBen','SaberSiravarde','FunguarFamiliar','ShellbusterOrob','ColdbloodComo','CourierCarrie','Homunculus',
+                'VoraciousAudrey','AmbusherAllie','PanzerGalahad','LifedrinkerLars','ChopsueyChucky','AmigoSabotender','NurseryNazuna','CraftyClyvonne','PrestoJulio','SwiftSieghard','MailbusterCetas',
+                'AudaciousAnna','TurbidToloi','LuckyLulush','DipperYuly','FlowerpotMerle','DapperMac','DiscreetLouise','FatsoFargann','FaithfulFalcorr','BugeyedBroncha','BloodclawShasra','GorefangHobs',
+                'GooeyGerard','CrudeRaphie','DroopyDortwin','SunburstMalfik','WarlikePatrick','ScissorlegXerin','RhymingShizuna','AttentiveIbuki','AmiableRoche','HeraldHenry','BrainyWaluis',
+                'SuspiciousAlice','HeadbreakerKen','RedolentCandi','CaringKiyomaro','HurlerPercival','AnklebiterJedd','BlackbeardRandy','FleetReinhard','GenerousArthur','ThreestarLynn','BraveHeroGlenn',
+                'SharpwitHermes','AlluringHoney','CursedAnnabelle','SwoopingZhivago','BouncingBertha','MosquitoFamilia','Ifrit','Shiva','Garuda','Fenrir','Carbuncle','Ramuh','Leviathan','CaitSith','Diabolos',
+                'Titan','Atomos','WaterSpirit','FireSpirit','EarthSpirit','ThunderSpirit','AirSpirit','LightSpirit','DarkSpirit','IceSpirit', 'Azure','Cerulean','Rygor','Firewing','Delphyne','Ember','Rover','Max',
+                'Buster','Duke','Oscar','Maggie','Jessie','Lady','Hien','Raiden','Lumiere','Eisenzahn','Pfeil','Wuffi','George','Donryu','Qiqiru','Karav-Marav','Oboro','Darug Borug','Mikan','Vhiki','Sasavi',
+                'Tatang','Nanaja','Khocha','Nanaja','Khocha','Dino','Chomper','Huffy','Pouncer','Fido','Lucy','Jake','Rocky','Rex','Rusty','Himmelskralle','Gizmo','Spike','Sylvester','Milo','Tom','Toby','Felix',
+                'Komet','Bo','Molly','Unryu','Daisy','Baron','Ginger','Muffin','Lumineux','Quatrevents','Toryu','Tataba','Etoilazuree','Grisnuage','Belorage','Centonnerre','Nouvellune','Missy','Amedeo','Tranchevent',
+                'Soufflefeu','Etoile','Tonnerre','Nuage','Foudre','Hyuh','Orage','Lune','Astre','Waffenzahn','Soleil','Courageux','Koffla-Paffla','Venteuse','Lunaire','Tora','Celeste','Galja-Mogalja','Gaboh','Vhyun',
+                'Orageuse','Stellaire','Solaire','Wirbelwind','Blutkralle','Bogen','Junker','Flink','Knirps','Bodo','Soryu','Wanaro','Totona','Levian-Movian','Kagero','Joseph','Paparaz','Coco','Ringo','Nonomi',
+                'Teter','Gigima','Gogodavi','Rurumo','Tupah','Jyubih','Majha','Luron','Drille','Tournefoux','Chafouin','Plaisantin','Loustic','Histrion','Bobeche','Bougrion','Rouleteau','Allouette','Serenade',
+                'Ficelette','Tocadie','Caprice','Foucade','Capillotte','Quenotte','Pacotille','Comedie','Kagekiyo','Toraoh','Genta','Kintoki','Koumei','Pamama','Lobo','Tsukushi','Oniwaka','Kenbishi','Hannya','Mashira',
+                'Nadeshiko','E100','Koume','X-32','Poppo','Asuka','Sakura','Tao','Mao','Gadget','Marion','Widget','Quirk','Sprocket','Cogette','Lecter','Coppelia','Sparky','Clank','Calcobrena','Crackle','Ricochet',
+                'Josette','Fritz','Skippy','Pino','Mandarin','Jackstraw','Guignol','Moppet','Nutcracker','Erwin','Otto','Gustav','Muffin','Xaver','Toni','Ina','Gerda','Petra','Verena','Rosi','Schatzi','Warashi',
+                'Klingel','Clochette','Campanello','Kaiserin','Principessa','Butler','Graf','Caro','Cara','Mademoiselle','Herzog','Tramp','V-1000','Hikozaemon','Nine','Acht','Quattro','Zero','Dreizehn','Seize',
+                'Fukusuke','Mataemon','Kansuke','Polichinelle','Tobisuke','Sasuke','Shijimi','Chobi','Aurelie','Magalie','Aurore','Caroline','Andrea','Machinette','Clarine','Armelle','Reinette','Dorlote','Turlupin',
+                'Klaxon','Bambino','Potiron','Fustige','Amidon','Machin','Bidulon','Tandem','Prestidige','Purute-Porute','Bito-Rabito','Cocoa','Totomo','Centurion','A7V','Scipio','Sentinel','Pioneer','Seneschal',
+                'Ginjin','Amagatsu','Dolly','Fantoccini','Joe','Kikizaru','Whippet','Punchinello','Charlie','Midge','Petrouchka','Schneider','Ushabti','Noel','Yajirobe','Hina','Nora','Shoki','Kobina','Kokeshi','Mame',
+                'Bishop','Marvin','Dora','Data','Robin','Robby','Porlo-Moperlo','Paroko-Puronko','Pipima','Gagaja','Mobil','Donzel','Archer','Shooter','Stephen','Mk.IV','Conjurer','Footman','Tokotoko','Sancho',
+                'Sarumaro','Picket','Mushroom','Shantotto','Naji','Kupipi','Excenmille','Ayame','NanaaMihgo','Curilla','Volker','Ajido-Marujido','Trion','Zeid','Lion','Tenzen','MihliAliapoh','Valaineral','Joachim',
+                'NajaSalaheem','Prishe','Ulmia','ShikareeZ','Cherukiki','IronEater','Gessho','Gadalar','Rainemard','Ingrid','LehkoHabhoka','Nashmeira','Zazarg','Ovjang','Mnejing','Sakura','Luzaf','Najelith','Aldo',
+                'Moogle','Fablinix','Maat','D.Shantotto','StarSibyl','Karaha-Baruha','Cid','Gilgamesh','Areuhat','SemihLafihna','Elivira','Noillurie','LhuMhakaracca','FerreousCoffin','Lilisette','Mumor','UkaTotlihn',
+                'Klara','RomaaMihgo','KuyinHathdenna','Rahal','Koru-Moru','Pieuje','InvincibleShld','Apururu','JakohWahcondalo','Flaviria','Babban','Abenzio','Rughadjeen','Kukki-Chebukki','Margret','Chacharoon',
+                'LheLhangavo','Arciela','Mayakov','Qultada','Adelheid','Amchuchu','Brygid','Mildaurion','Halver','Rongelouts','Leonoyne','Maximilian','Kayeel-Payeel','Robel-Akbel','Kupofried','Selh\'teus','Yoran-Oran',
+                'Sylvie','Abquhbah','Balamor','August','Rosulatia','Teodor','Ullegore','Makki-Chebukki','KingOfHearts','Morimar','Darrcuiln','ArkHM','ArkEV','ArkMR','ArkTT','ArkGK','Iroha','Ygnas','Excenmille','Ayame',
+                'Maat','Aldo','NajaSalaheem','Lion','Zeid','FluffyBredo'}
+
+luopantxt = {}
+luopantxt.pos = {}
+luopantxt.pos.x = -200
+luopantxt.pos.y = 175
+luopantxt.text = {}
+luopantxt.text.font = 'Arial'
+luopantxt.text.size = 12
+luopantxt.flags = {}
+luopantxt.flags.right = true
+
+luopan = texts.new('${value}', luopantxt)
+
+luopan:bold(true)
+luopan:bg_alpha(0)--128
+luopan:stroke_width(2)
+luopan:stroke_transparency(192)
+
+bt_color = '\\cs(230,118,116)'
+
+windower.raw_register_event('prerender', function()
+    local s = windower.ffxi.get_mob_by_target('me')
+    if windower.ffxi.get_mob_by_target('pet') then
+        myluopan = windower.ffxi.get_mob_by_target('pet')
+    else
+        myluopan = nil
+    end
+    local luopan_txtbox = ''
+    local indi_count = 0
+    local geo_count = 0
+    local battle_target = windower.ffxi.get_mob_by_target('bt') or false
+    if myluopan and last_geo then
+        luopan_txtbox = luopan_txtbox..' \\cs(0,255,0)Geo-'..last_geo..':\\cs(255,255,255)\n'
+        for i,v in pairs(windower.ffxi.get_mob_array()) do
+            local DistanceBetween = ((myluopan.x - v.x)*(myluopan.x-v.x) + (myluopan.y-v.y)*(myluopan.y-v.y)):sqrt()
+            if DistanceBetween < (6 + v.model_size) and not (v.status == 2 or v.status == 3) and v.name and v.name ~= '' and v.name ~= "Luopan" and v.valid_target and v.model_size > 0 then
+                if debuff_list:contains(last_geo) then
+					if v.is_npc and not (v.in_party or ignore_list:contains(v.name)) then
+						if battle_target and battle_target.id == v.id then
+							luopan_txtbox = luopan_txtbox..' '..bt_color..v.name.." "..string.format("%.2f",DistanceBetween).."\\cs(255,255,255)\n"
+						else
+							luopan_txtbox = luopan_txtbox..' '..v.name.." "..string.format("%.2f",DistanceBetween).."\n"
+						end
+						geo_count = geo_count + 1
+					end
+                else
+					if v.in_party then
+						luopan_txtbox = luopan_txtbox..' '..v.name.." "..string.format("%.2f",DistanceBetween).."\n"
+						geo_count = geo_count + 1
+					end
+                end
+            end
+        end
+    end
+
+    if buffactive['Colure Active'] and last_indi then
+		if myluopan then
+			luopan_txtbox = luopan_txtbox..'\n'
+		end
+		luopan_txtbox = luopan_txtbox..' \\cs(0,255,0)Indi-'..last_indi..':\\cs(255,255,255)\n'
+		for i,v in pairs(windower.ffxi.get_mob_array()) do
+			local DistanceBetween = ((s.x - v.x)*(s.x-v.x) + (s.y-v.y)*(s.y-v.y)):sqrt()
+			if DistanceBetween < (6 + v.model_size) and (v.status == 1 or v.status == 0) and v.name and v.name ~= '' and v.name ~= "Luopan" and v.name ~= s.name and v.valid_target and v.model_size > 0 then
+				if debuff_list:contains(last_indi) then
+					if v.is_npc and not (v.in_party or ignore_list:contains(v.name)) then
+						if battle_target and battle_target.id == v.id then
+							luopan_txtbox = luopan_txtbox..' '..bt_color..v.name.." "..string.format("%.2f",DistanceBetween).."\\cs(255,255,255)\n"
+						else
+							luopan_txtbox = luopan_txtbox..' '..v.name.." "..string.format("%.2f",DistanceBetween).."\n"
+						end
+						indi_count = indi_count + 1
+					end
+				else
+					if v.in_party then
+						luopan_txtbox = luopan_txtbox..' '..v.name.." "..string.format("%.2f",DistanceBetween).."\n"
+						indi_count = indi_count + 1
+					end
+				end
+			end
+		end
+    end
+
+    luopan.value = luopan_txtbox
+    if ((myluopan and geo_count ~= 0) or (buffactive['Colure Active'] and indi_count ~= 0)) then
+        luopan:visible(true)
+    else
+        luopan:visible(false)
+    end
+
+end)

@@ -349,7 +349,7 @@ function get_sets()
 		waist       = "Sarissapho. Belt",
 		back		= Capes.TP
 	})
-	sets.aftercast.Engaged.Hybrid = set_combine(sets.Engaged, {
+	sets.aftercast.Engaged.Hybrid = set_combine(sets.aftercast.Engaged, {
 		head		= "Kasuga Kabuto +3",
 		waist       = "Windbuffet Belt +1",
 		back		= Capes.TP
@@ -577,14 +577,13 @@ function equip_check()
 	if player.status == 'Engaged' then	
 		eq = sets.aftercast.Engaged
         if egs ~= nil and sets.aftercast.Engaged[egs] then 
-			if acc_mode == true and sets.precast.Engaged[egs].Accuracy then
-				eq = set_combine(eq,sets.precast.Engaged[egs].Accuracy)
+			if acc_mode == true and sets.aftercast.Engaged[egs].Accuracy then
+				eq = set_combine(eq,sets.aftercast.Engaged[egs].Accuracy)
 			else
             	eq = sets.aftercast.Engaged[egs]
 			end
         else
-            egs = nil
-			if acc_mode == true and sets.precast.Engaged.Accuracy then
+			if acc_mode == true and sets.aftercast.Engaged.Accuracy then
 				eq = sets.aftercast.Engaged.Accuracy
 			end
         end
@@ -598,6 +597,7 @@ function equip_check()
 	if sets.Weapons[CurrentWeapon] then
 		eq = set_combine(eq, sets.Weapons[CurrentWeapon])
 	end
+
 	if range_mode == true then
 		eq = set_combine(eq, sets.Ranged)
 	end
