@@ -581,20 +581,12 @@ function equip_check()
 	if player.status == 'Engaged' then	
 		eq = sets.aftercast.Engaged
         if egs ~= nil and sets.aftercast.Engaged[egs] then 
-			if acc_mode == true and sets.aftercast.Engaged[egs].Accuracy then
-				eq = set_combine(eq,sets.aftercast.Engaged[egs].Accuracy)
-			else
-            	eq = sets.aftercast.Engaged[egs]
-			end
-        else
-			if acc_mode == true and sets.aftercast.Engaged.Accuracy then
-				eq = sets.aftercast.Engaged.Accuracy
-			end
+            eq = sets.aftercast.Engaged[egs]
         end
 	else
 		eq = sets.aftercast.Idle
 		if ids ~= nil and sets.aftercast.Idle[ids] then
-			eq = set_combine(eq,sets.aftercast.Idle[ids])
+			eq = eq,sets.aftercast.Idle[ids]
 		end
 	end
 		
