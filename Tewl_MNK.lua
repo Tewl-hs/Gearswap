@@ -16,6 +16,8 @@ function get_sets()
     send_command('wait 1.5;input /lockstyleset 4')
     send_command('input //equipviewer pos 1663 935') 
 
+    CurrentWeapon = 'Verethragna'
+
     -- Variables for auto-skill chain. Only edit AutoWS 
     AutoWS = 'One Inch Punch'
     WeaponSkills = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
@@ -180,6 +182,8 @@ function get_sets()
         right_ring	= "Karieyh Ring +1",
         back		= "Moonlight Cape" -- 6/6
     }
+    include('FFXI-Display.lua')	
+    equip_change()
 end
 
 function file_unload()  
