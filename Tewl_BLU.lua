@@ -239,6 +239,8 @@ function get_sets()
             else
                 add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
             end
+        elseif buff == 'stun' and gain then
+            equip_check()
         end
     end
 

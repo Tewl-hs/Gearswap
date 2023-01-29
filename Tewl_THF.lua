@@ -144,7 +144,9 @@ function status_change(new,old)
 end
     
 function buff_change(status,gain_or_loss)
-    --
+    if buff == 'stun' and gain then
+        equip_check()
+    end
 end
     
 function self_command(commandArgs)

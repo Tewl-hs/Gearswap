@@ -527,12 +527,14 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	if name == "silence" and gain =="True" then
+	if name == "silence" and gain then
 		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
 			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
 		end
+    elseif buff == 'stun' and gain then
+        equip_check()
 	end
 end
 

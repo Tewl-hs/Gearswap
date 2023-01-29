@@ -1,426 +1,449 @@
 --[[
-	Author: Tewl / Bismark
+	Author: Tewl / Bismarck
 	Files: MNK.lua 
-
-	Not all of this is my code, some was copied and altered for my own preferences.
-	This lua is under alterations periodically, I am in no way finished but wanted to post for backup purposes
-	and to share with friends that might be interested or could help with it.
-
-	sets.MoveSpeed should be your movement speed feet that will be equiped while in motion
 --]]
-    function get_sets()		      
-        include('Modes.lua') -- Using Motes meta tables for modes
-        
-	    send_command('bind ^f9 gs c cycle')
+function get_sets()		      
+    items = require('resources').items
+    require('queues')
+    
+    include('FFXI-Mappings')
+    
+    include('FFXI-Utility')
+    send_command('bind ^f9 gs c cycle engaged')
+    send_command('bind ^f10 gs c cycle idle')
+    
+    set_macros(9,1)
+    send_command('wait 1.5;input /lockstyleset 4')
+    send_command('input //equipviewer pos 1663 935') 
 
-        -- Personal settings: Load macros and set equipviewer position
-        send_command('input /macro book 9;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 4')
-        send_command('input //equipviewer pos 1663 934')
+    -- Variables for auto-skill chain. Only edit AutoWS 
+    AutoWS = 'One Inch Punch'
+    WeaponSkills = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
+    ws_order = 1
 
-        EngagedMode = M{['description'] = 'Engaged Mode', 'Normal', 'DT', 'Hybrid'}
+    buffs = {}
+    buffs.Boost = buffactive["Boost"] or false
+    buffs.Impetus = buffactive["Impetus"] or false
 
-        --  NOT MY CODE! Testing content for displaying text under chat
-	    texts = require('texts')
-	    if stateBox then stateBox:destroy() end
+    sets.MoveSpeed = { feet = "Herald's Gaiters"} 
 
-	    local settings = windower.get_windower_settings()
-	    local x,y
+    -- Augmented Gear
+    Capes = {}
+    Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
+    Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+    Capes.WSCrit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10','Phys. dmg. taken-10%',}}
+    Capes.WSD = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
 
-	    if settings["ui_x_res"] == 1920 and settings["ui_y_res"] == 1080 then
-	    	x,y = settings["ui_x_res"]-1917, settings["ui_y_res"]-18 -- -285, -18
-	    else
-	    	x,y = 0, settings["ui_y_res"]-17 -- -285, -18
-	    end
+    -- Precast sets: Job Abilities, Fastcast, Weaponskills 
+    sets.precast = {}
+    sets.precast.JA = {
+        ["Hundred Fists"] = {
+            legs    = "Hesychast's Hose +3"
+        },
+        ["Impetus"] = {
+            body    = "Bhikku Cyclas +3"
+        },
+        ["Dodge"] = {
+            feet    = "Anchorite's Gaiters +3"
+        },
+        ["Focus"] = {},
+        ["Footwork"] = {},
+        ["Counterstance"] = {},
+        ["Chi Blast"] = {
+            head    = "Hesychast's Crown +3"
+        },
+        ["Chakra"] = {
+            body    = "Anchorite's Cyclas +2",
+            hands   = "Hesychast's Gloves +1"
+        },
+        ["Formless Strikes"] = {
+            body    = "Hesychast's Cyclas +3"
+        },
+        ["Mantra"] = {
+            feet    = "Hesychast's Gaiters +1"
+        },
+        ["Boost"] = {
+            waist   = "Ask Sash",
+            hands   = "Anchor. Gloves +3"
+        }
+    }
+    sets.precast.WS = { -- Raging Fists
+        ammo        = "Knobkierrie",
+        head        = "Ken. Jinpachi +1",
+        body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
+        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+        legs        = { name="Mpaca's Hose", augments={'Path: A',}},
+        feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
+        neck        = "Fotia Gorget",
+        waist       = "Moonbow Belt +1",
+        left_ear    = "Sherida Earring",
+        right_ear   = { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+        left_ring   = "Gere Ring",
+        right_ring  = "Niqmaddu Ring",
+        back		= Capes.WS
+    }
+    sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
+        body        = "Ken. Samue +1",
+        hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
+        feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
+        right_ear   = "Odr Earring",
+        back        = Capes.WSCrit
+    })
+    sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"],{
+        ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+        body        = "Bhikku Cyclas +3",
+        right_ear   = { name="Schere Earring", augments={'Path: A',}},
+        back        = Capes.WS
+    })
+    sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
+        head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
+        body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+        hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+        left_ear    = { name="Schere Earring", augments={'Path: A',}},
+        back        = Capes.WS
+    })
+    sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
+        ammo		= "Aurgelmir Orb +1",
+        body        = "Malignance Tabard", 
+        hands       = "Malignance Gloves",
+        right_ear   = "Mache Earring +1",
+        back        = Capes.TP
+    })
+    sets.precast.WS["Tornado Kick"] = set_combine(sets.precast.WS,{
+        ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+        head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
+        body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
+        feet        = "Anch. Gaiters +3",
+        hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
+        neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
+    })
 
-	    if displayx then x = displayx end
-	    if displayy then y = displayy end
+    -- Aftercast sets: TP, Idle
+    sets.aftercast = {}
+    sets.aftercast.Engaged = {
+        ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+        head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
+        body        = { name="Mpaca's Doublet", augments={'Path: A',}},
+        hands       = { name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
+        legs        = "Bhikku Hose +3",
+        feet        = "Anch. Gaiters +3",
+        neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
+        waist       = "Moonbow Belt +1",
+        left_ear    = "Sherida Earring",
+        right_ear   = { name="Schere Earring", augments={'Path: A',}},
+        left_ring   = "Gere Ring",
+        right_ring  = "Niqmaddu Ring",
+        back		= Capes.TP
+    }
+    sets.aftercast.Engaged.DT = {
+        ammo		= "Staunch Tathlum +1", -- 3/3
+        head        = "Malignance Chapeau",  -- 6/6
+        body        = "Malignance Tabard",  -- 9/9
+        hands       = "Malignance Gloves",  -- 5/5
+        legs        = "Malignance Tights",  -- 7/7
+        feet        = "Malignance Boots",  -- 4/4
+        neck		= "Mnk. Nodowa +2",
+        waist		= "Moonbow Belt +1",
+        left_ear	= "Sherida Earring",
+        right_ear   = "Telos Earring",
+        left_ring	= "Gere Ring",
+        right_ring	= "Niqmaddu Ring",
+        back		= Capes.TP
+    }
+    sets.aftercast.Engaged.Hybrid = {
+        ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
+        head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
+        body        = { name="Mpaca's Doublet", augments={'Path: A',}},
+        hands       = "Malignance Gloves",
+        legs        = "Bhikku Hose +3",
+        feet        = "Malignance Boots",
+        neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
+        waist       = "Moonbow Belt +1",
+        left_ear    = "Sherida Earring",
+        right_ear   = { name="Schere Earring", augments={'Path: A',}},
+        left_ring   = "Gere Ring",
+        right_ring  = "Niqmaddu Ring",
+        back		= Capes.TP
+    }
+    sets.aftercast.Idle = {
+        ammo        = "Staunch Tathlum +1", -- 3/3
+        head		= "Mpaca's Cap",
+        body		= "Mpaca's Doublet",
+        hands		= "Mpaca's Gloves",
+        legs        = "Mpaca's Hose", 
+        feet        = "Mpaca's Boots", 
+        neck		= "Loricate Torque +1", -- 6/6
+        waist		= "Moonbow Belt +1", -- 6/6
+        left_ear	= "Genmei Earring", -- 2/0
+        right_ear	= "Odnowa Earring +1", -- 0/2
+        left_ring	= "Defending Ring", -- 10/10
+        right_ring	= "Karieyh Ring +1",
+        back		= "Moonlight Cape" -- 6/6
+    }
+end
 
-	    local font = displayfont or 'Arial'
-	    local size = displaysize or 12
-	    local bold = displaybold or true
-	    local bg = displaybg or 0
-	    local strokewidth = displaystroke or 2
-	    local stroketransparancy = displaytransparancy or 192
+function file_unload()  
+    send_command('unbind ^F9')
+    send_command('unbind ^F10')
+end
 
-	    stateBox = texts.new()
-	    stateBox:pos(x,y)
-	    stateBox:font(font)--Arial
-	    stateBox:size(size)
-	    stateBox:bold(bold)
-	    stateBox:bg_alpha(bg)--128
-	    stateBox:right_justified(false)
-	    stateBox:stroke_width(strokewidth)
-	    stateBox:stroke_transparency(stroketransparancy)
+function precast(spell,action)         
+    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
+        cancel_spell()
+        return
+    end
 
-	    update_status()
-        -- End of display code
-
-        -- Variables for auto-skill chain. Only edit AutoWS 
-        AutoWS = 'One Inch Punch'
-        WeaponSkills = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
+    if spell.english == 'Spectral Jig' then
+        send_command('cancel 71;')
+    end
+    
+    local target = player.target.id
+    if target ~= last_target then
         ws_order = 1
-    
-        buffs = {}
-        buffs.Boost = buffactive["Boost"] or false
-        buffs.Impetus = buffactive["Impetus"] or false
+        last_target = target
+    end
 
-        sets.MoveSpeed = { feet = "Herald's Gaiters",} 
-    
-        -- Augmented Gear
-        Capes = {}
-        Capes.TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
-        Capes.WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
-        Capes.WSCrit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10','Phys. dmg. taken-10%',}}
-        Capes.WSD = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
-    
-        -- Precast sets: Job Abilities, Fastcast, Weaponskills 
-        sets.precast = {}
-        sets.precast.JA = {
-            ["Hundred Fists"] = {
-                legs    = "Hesychast's Hose +3"
-            },
-            ["Impetus"] = {
-                body    = "Bhikku Cyclas +3"
-            },
-            ["Dodge"] = {
-                feet    = "Anchorite's Gaiters +3"
-            },
-            ["Focus"] = {},
-            ["Footwork"] = {},
-            ["Counterstance"] = {},
-            ["Chi Blast"] = {
-                head    = "Hesychast's Crown +3"
-            },
-            ["Chakra"] = {
-                body    = "Anchorite's Cyclas +2",
-                hands   = "Hesychast's Gloves +1"
-            },
-            ["Formless Strikes"] = {
-                body    = "Hesychast's Cyclas +3"
-            },
-            ["Mantra"] = {
-                feet    = "Hesychast's Gaiters +1"
-            },
-            ["Boost"] = {
-                waist   = "Ask Sash",
-                hands   = "Anchor. Gloves +3"
-            }
-        }
-        sets.precast.WS = { -- Raging Fists
-            ammo        = "Knobkierrie",
-            head        = "Ken. Jinpachi +1",
-            body        = { name="Adhemar Jacket +1", augments={'STR+12','DEX+12','Attack+20',}},
-            hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
-            legs        = { name="Mpaca's Hose", augments={'Path: A',}},
-            feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
-            neck        = "Fotia Gorget",
-            waist       = "Moonbow Belt +1",
-            left_ear    = "Sherida Earring",
-            right_ear   = { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
-            left_ring   = "Gere Ring",
-            right_ring  = "Niqmaddu Ring",
-            back		= Capes.WS
-        }
-        sets.precast.WS["Victory Smite"] = set_combine(sets.precast.WS,{
-            body        = "Ken. Samue +1",
-            hands       = { name="Ryuo Tekko +1", augments={'STR+12','DEX+12','Accuracy+20',}},
-            feet        = { name="Herculean Boots", augments={'Crit. hit damage +3%','STR+12','Accuracy+5','Attack+7',}},
-            right_ear   = "Odr Earring",
-            back        = Capes.WSCrit
-        })
-        sets.precast.WS["Victory Smite"].Impetus = set_combine(sets.precast.WS["Victory Smite"],{
-            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-            body        = "Bhikku Cyclas +3",
-            right_ear   = { name="Schere Earring", augments={'Path: A',}},
-            back        = Capes.WS
-        })
-        sets.precast.WS["Howling Fist"] = set_combine(sets.precast.WS,{
-            head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
-            body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
-            hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
-            left_ear    = { name="Schere Earring", augments={'Path: A',}},
-            back        = Capes.WS
-        })
-        sets.precast.WS["Shijin Spiral"] = set_combine(sets.precast.WS,{
-            ammo		= "Aurgelmir Orb +1",
-            body        = "Malignance Tabard", 
-            hands       = "Malignance Gloves",
-            right_ear   = "Mache Earring +1",
-            back        = Capes.TP
-        })
-        sets.precast.WS["Tornado Kick"] = set_combine(sets.precast.WS,{
-            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-            head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
-            body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
-            feet        = "Anch. Gaiters +3",
-            hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
-            neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
-        })
-    
-        -- Aftercast sets: TP, Idle
-        sets.aftercast = {}
-        sets.aftercast.TP = { }
-        sets.aftercast.TP.Normal = {
-            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-            head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
-            body        = { name="Mpaca's Doublet", augments={'Path: A',}},
-            hands       = { name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
-            legs        = "Bhikku Hose +3",
-            feet        = "Anch. Gaiters +3",
-            neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
-            waist       = "Moonbow Belt +1",
-            left_ear    = "Sherida Earring",
-            right_ear   = { name="Schere Earring", augments={'Path: A',}},
-            left_ring   = "Gere Ring",
-            right_ring  = "Niqmaddu Ring",
-            back		= Capes.TP
-        }
-        sets.aftercast.TP.DT = {
-            ammo		= "Staunch Tathlum +1", -- 3/3
-            head        = "Malignance Chapeau",  -- 6/6
-            body        = "Malignance Tabard",  -- 9/9
-            hands       = "Malignance Gloves",  -- 5/5
-            legs        = "Malignance Tights",  -- 7/7
-            feet        = "Malignance Boots",  -- 4/4
-            neck		= "Mnk. Nodowa +2",
-            waist		= "Moonbow Belt +1",
-            left_ear	= "Sherida Earring",
-            right_ear   = "Telos Earring",
-            left_ring	= "Gere Ring",
-            right_ring	= "Niqmaddu Ring",
-            back		= Capes.TP
-        }
-        sets.aftercast.TP.Hybrid = {
-            ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-            head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
-            body        = { name="Mpaca's Doublet", augments={'Path: A',}},
-            hands       = "Malignance Gloves",
-            legs        = "Bhikku Hose +3",
-            feet        = "Malignance Boots",
-            neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
-            waist       = "Moonbow Belt +1",
-            left_ear    = "Sherida Earring",
-            right_ear   = { name="Schere Earring", augments={'Path: A',}},
-            left_ring   = "Gere Ring",
-            right_ring  = "Niqmaddu Ring",
-            back		= Capes.TP
-        }
-        sets.aftercast.Idle = {
-            ammo        = "Staunch Tathlum +1", -- 3/3
-            head		= "Mpaca's Cap",
-            body		= "Mpaca's Doublet",
-            hands		= "Mpaca's Gloves",
-            legs        = "Mpaca's Hose", 
-            feet        = "Mpaca's Boots", 
-            neck		= "Loricate Torque +1", -- 6/6
-            waist		= "Moonbow Belt +1", -- 6/6
-            left_ear	= "Genmei Earring", -- 2/0
-            right_ear	= "Odnowa Earring +1", -- 0/2
-            left_ring	= "Defending Ring", -- 10/10
-            right_ring	= "Karieyh Ring +1",
-            back		= "Moonlight Cape" -- 6/6
-        }
-        sets.aftercast.Engaged = {}
-    end
-    
-
-    function file_unload()     
-	    send_command('unbind ^F9')
-    end
-    
-    function precast(spell,action)
-        if spell.english == 'Spectral Jig' then
-            send_command('cancel 71;')
+    if spell.type == 'WeaponSkill' then
+        if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
+            add_to_chat(123,'['..spell.name..'] Target out of range.')
+            cancel_spell()
+            return
         end
-        
-        Mob_ID = player.target.id
-	    if Mob_ID ~= Old_Mob_ID then
-	        ws_order = 1
-	        Old_Mob_ID = Mob_ID
-        end
-        
-        if sets.precast.JA[spell.english] then
-            equip(sets.precast.JA[spell.english])
-            if spell.english == 'Boost' then
-                buffs.Boost = true
+        if spell.name == ascWS and AutoSC == true then
+            cancel_spell()
+            send_command('@input /ws "'..AutoSkillChain[asc_order]..'" '..spell.target.raw)
+            asc_order = asc_order + 1
+            if asc_order > table.getn(AutoSkillChain) then
+                asc_order = 1
             end
-            if spell.english == 'Impetus' then
-                buffs.Impetus = true
-            end
+            return
         end
-
-        if spell.type == 'WeaponSkill' then
-	        if spell.name == AutoWS then
-		        cancel_spell()
-		        send_command('@input /ws "'..WeaponSkills[ws_order]..'" '..spell.target.raw)
-		        ws_order = ws_order + 1
-		        if ws_order > table.getn(WeaponSkills) then
-			        ws_order = 1
-		        end
-		        return
-	        end
-            if sets.precast.WS[spell.english] then
-                equip(sets.precast.WS[spell.english])
-            else
-                equip(sets.precast.WS)
-            end
-            if spell.english == 'Victory Smite' and buffactive['Impetus'] then
-                equip(sets.precast.WS["Victory Smite"].Impetus)
-            end
-        end
-    end
-    
-    function midcast(spell,action)
-        if spell.english == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
-            send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
-        elseif spell.english == 'Monomi: Ichi' and buffactive['Sneak'] then
-            send_command('@wait 1.0; cancel 71')
-        end
-    end
-    
-    function aftercast(spell,action)
-        if player.status == 'Engaged' then
-            sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +3"} or {})
+        if sets.precast.WS[spell.english] then
+            equip(sets.precast.WS[spell.english])
         else
-            equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
+            equip(sets.precast.WS)
         end
-        if not buffactive["Boost"] then
-          buffs.Boost = false
+        if spell.english == 'Victory Smite' and buffactive['Impetus'] then
+            equip(sets.precast.WS["Victory Smite"].Impetus)
         end
-        if not buffactive["Impetus"] then
-          buffs.Impetus = false
+    elseif spell.action_type == 'Ability' then
+        local abil_recasts = windower.ffxi.get_ability_recasts()
+        if abil_recasts[spell.recast_id] > 0 then
+            cancel_spell()
+            return
         end
-    end
-    
-    function status_change(new,old)
-        if T{'Idle','Resting'}:contains(new) then
-            equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
-        elseif new == 'Engaged' then
-            sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +3"} or {})
+        if sets.precast.JA[spell.name] then
+            equip(sets.precast.JA[spell.name])
+        end    
+    elseif spell.action_type == 'Magic' then
+        local spellCost = actual_cost(spell)
+        if player.mp < spellCost then
+            add_to_chat(123,'Unable to cast: Not enough MP. ('..player.mp..'/'..spellCost..')')
+            cancel_spell()
+            return
         end
-    end
-    
-    function buff_change(buff,gain)
-        if not gain then
-            if buff == 'Boost' then
-                buffs.Boost = false
-                SwapGear()
-            end
-            if buff == 'Impetus' then
-                buffs.Impetus = false
-                SwapGear()
-            end
+        local spell_recasts = windower.ffxi.get_spell_recasts()
+        local sr = math.floor(spell_recasts[spell.recast_id]/60)
+        if sr > 0 then
+            cancel_spell()
+            add_to_chat(123,'['..spell.name..'] '..disp_time(sr))
+            return
         end
-    end
-    
-    function self_command(commandArgs)
-        local originalCommand = commandArgs
-        if type(commandArgs) == 'string' then
-            commandArgs = T(commandArgs:split(' '))
-            if #commandArgs == 0 then
-                return
-            end
-        end
-        if commandArgs[1] == 'SwapGear' then
-            SwapGear()
-        elseif commandArgs[1] == 'cycle' then
-            EngagedMode:cycle()
-            SwapGear()
-        end
-    end
-
-    function get_engaged_set()
-        return sets.aftercast.TP[EngagedMode.value] or sets.aftercast.TP.Normal
-    end
-
-    function SwapGear()
-        if player.status == 'Engaged' then
-            sets.aftercast.Engaged = get_engaged_set()
-            equip(sets.aftercast.Engaged,buffactive["Impetus"] and {body="Bhikku Cyclas +3"} or {})
+        if sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
+        elseif sets.precast.FC[spell.skill] then
+            equip(sets.precast.FC[spell.skill])
         else
-            equip(sets.aftercast.Idle,buffactive["Boost"] and {waist = "Ask Sash"} or {})
+            equip(sets.precast.FC)
         end
-        update_status()
+    end
+end
+
+function midcast(spell,action)
+    if spell.english == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
+        send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
+    elseif spell.english == 'Monomi: Ichi' and buffactive['Sneak'] then
+        send_command('@wait 1.0; cancel 71')
+    elseif sets.midcast[spell.skill][spell.name] then
+        equip(sets.midcast[spell.skill][spell.name])
+    elseif sets.midcast[spell.skill] then
+        equip(sets.midcast[spell.skill])
+    end
+end
+
+function aftercast(spell,action)
+    if player.status == 'Engaged' then
+        sets.aftercast.Engaged = get_engaged_set()
+        equip(sets.aftercast.Engaged,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +3"} or {})
+    else
+        equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
+    end
+    if not buffactive["Boost"] then
+        buffs.Boost = false
+    end
+    if not buffactive["Impetus"] then
+        buffs.Impetus = false
     end
     
-    mov = {counter=0}
-    if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-        mov.x = windower.ffxi.get_mob_by_index(player.index).x
-        mov.y = windower.ffxi.get_mob_by_index(player.index).y
-        mov.z = windower.ffxi.get_mob_by_index(player.index).z
+    equip_check()
+end
+
+function status_change(new,old)
+    if T{'Idle','Resting','Engaged'}:contains(new) then
+        equip_check()
     end
-     
-    moving = false
-    windower.raw_register_event('prerender',function()
-        mov.counter = mov.counter + 1;
-        if mov.counter>15 then
-            local pl = windower.ffxi.get_mob_by_index(player.index)
-            if pl and pl.x and mov.x then
-                dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-                if dist > 1 and not moving then
-                    if player.status ~= 'Engaged' then
-                        send_command('gs equip sets.MoveSpeed')
-                    end
-                    moving = true
-                elseif dist < 1 and moving then
-                    if player.status ~= 'Engaged' then
-                        send_command('gs c SwapGear')
-                    end
-                    moving = false
+end
+
+function buff_change(buff,gain)
+    if not gain then
+        if buff == 'Boost' then
+            buffs.Boost = false
+            equip_check()
+        end
+        if buff == 'Impetus' then
+            buffs.Impetus = false
+            equip_check()
+        end
+    elseif buff == 'stun' and gain then
+        equip_check()
+    end
+end
+
+function equip_check()
+    local eq = {}
+    if player.status == 'Engaged' then
+        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+            eq = sets.aftercast.Engaged[egs]
+        else
+            egs = nil
+            eq = sets.aftercast.Engaged
+        end
+        equip(set_combine(eq,{main=CurrentWeapon}),buffactive["Impetus"] and {body="Bhikku Cyclas +3"} or {})
+    else
+        if ids ~= nil and sets.aftercast.Idle[ids] then 
+            eq = sets.aftercast.Idle[ids]
+        else
+            ids = nil
+            eq = sets.aftercast.Idle
+        end
+        equip(set_combine(eq,{main=CurrentWeapon}),buffactive["Boost"] and {waist = "Ask Sash"} or {})
+    end
+    update_status()
+end
+
+function self_command(cmd)
+    local args = T(cmd:split(' '))
+    if args[1] == 'cycle' and args[2] then
+        if args[2] == 'idle' then
+            local last_ids = ids 
+            for k,v in pairs(sets.aftercast.Idle) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif ids == nil then
+                    ids = k
+                    break
+                elseif ids == k then
+                    ids = nil
                 end
             end
-            if pl and pl.x then
-                mov.x = pl.x
-                mov.y = pl.y
-                mov.z = pl.z
+            if last_ids == ids then ids = nil end
+            if ids == nil then 
+                add_to_chat('Idle mode set to: Default')
+            else
+                add_to_chat('Idle mode set to: '..ids)
             end
-            mov.counter = 0
+            equip_check()
+        elseif args[2] == 'engaged' then
+            local last_egs = egs 
+            for k,v in pairs(sets.aftercast.Engaged) do
+                if slot_names:contains(k) then
+                    -- do nothing
+                elseif egs == nil then
+                    egs = k
+                    break
+                elseif egs == k then
+                    egs = nil
+                end
+            end
+            if last_egs == egs then egs = nil end
+            if egs == nil then 
+                add_to_chat('Engaged mode set to: Default')
+            else
+                add_to_chat('Engaged mode set to: '..egs)
+            end
+            equip_check()
         end
-    end)
+        update_status()
+    elseif args[1] == 'equip_check' then
+        equip_check()
+    elseif args[1] == 'update_status' then
+        update_status()
+    end
+end
 
-    -- More code for displaying text -- Not finished 
-    function update_status()
-	    local clr = {
-            h='\\cs(255,192,0)', -- Yellow for active booleans and non-default modals
-		    w='\\cs(255,255,255)', -- White for labels and default modals
-            n='\\cs(192,192,192)', -- White for labels and default modals
-            s='\\cs(96,96,96)', -- Gray for inactive booleans
-		    Fire='\\cs(255,80,80)', -- Red For Fire Element
-		    Ice='\\cs(140,160,255)', -- Light Blue For Ice Element
-		    Wind='\\cs(110,255,110)', -- Light Green For Wind Element
-		    Earth='\\cs(220,214,110)', -- Brown/Yellow For Earth Element
-		    Lightning='\\cs(190,90,190)', -- Purple For Lightning Element
-		    Water='\\cs(110,110,255)', -- Blue For Water Element
-		    Light='\\cs(255,255,155)', -- Light Yellow For Light Element
-		    Dark='\\cs(90,90,90)', -- Dark Grey For Dark Element
-        }
+function equip_change()
+    local inventory = windower.ffxi.get_items();
+    local equipment = inventory['equipment'];
+    local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+    local sitem = windower.ffxi.get_items(equipment["sub_bag"],equipment["sub"])
+    if (item and items[item['id']]) and (sitem and items[sitem['id']]) then 
+        local mw = items[item['id']].name
+        local sw = items[sitem['id']].name
+        if mw ~= MainWeapon then 
+            if mw == 'Gil' then -- No idea why? 
+                MainWeapon = 'Empty'
+                TwoHandedWeapon = false
+            else
+                if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+                    TwoHandedWeapon = true
+                else 
+                    TwoHandedWeapon = false	
+                end
+                MainWeapon = mw
+            end	
+        end
+        if sw ~= SubWeapon then 
+            if sw == 'Gil' then -- No idea why? 
+                SubWeapon = 'Empty'
+            else
+                SubWeapon = sw
+            end	
+        end
+        equip_check()
+    end
+end
 
-	    local spc = '    '
+function update_status()
+    local spc = '   '
+    local WeaponColor = get_weapon_color(MainWeapon)
 
-        stateBox:clear()
-	    stateBox:append('   ')
-	    local status_text = ''
-        
-		status_text = string.format("%sEngaged: %s%s%s", clr.w, clr.h, EngagedMode.value, spc)
-	    stateBox:append(status_text)
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
+    stateBox:clear()
+    stateBox:append(spc)
+
+    local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+
+    status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
+    
+    status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+    
+    stateBox:append(status_text)
+    stateBox:show()
+end
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+    if id == 0x00D and stateBox then
+        stateBox:hide()
+    end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+    if id == 0x00A and stateBox then
         stateBox:show()
     end
-
-    function clear_job_states()
-        if stateBox then stateBox:destroy() end
+    if id == 0x050 then
+        equip_change()
     end
-
-    windower.raw_register_event('outgoing chunk', function(id, data)
-        if id == 0x00D and stateBox then
-            stateBox:hide()
-        end
-    end)
-
-    windower.raw_register_event('incoming chunk', function(id, data)
-        if id == 0x00A and stateBox then
-            stateBox:show()
-        end
-    end)
-    -- End of Display Code
+end)

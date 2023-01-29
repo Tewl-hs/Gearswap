@@ -1,5 +1,5 @@
  --[[
-	Author: Tewl / Bismark
+	Author: Tewl / Bismarck
 	Files: Tewl_SAM.lua 
 
 	Note: 
@@ -562,11 +562,15 @@ function buff_change(buff, gain)
 	if buff == 'sleep' and player.status == 'Engaged' then
 		if gain then 
 			send_command('cancel Stoneskin')
+			equip_check()
 			equip({neck='Vim Torque +1'})
 		else
 			equip_check()
 		end
+	elseif buff == 'stun' and gain then
+        equip_check()
 	end
+
 	if player.status == 'Engaged' and auto_hasso and buff == 'Hasso' and not gain then
 		windower.chat.input:schedule(1,'/ja Hasso <me>')
 	end

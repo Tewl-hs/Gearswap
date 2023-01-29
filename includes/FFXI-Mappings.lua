@@ -684,3 +684,8 @@ DurationBuffBPWard = T{
 	['Hastega II']='Garuda',['Inferno Howl']='Ifrit',['Crimson Howl']='Ifrit',['Rolling Thunder']='Ramuh',['Lightning Armor']='Ramuh',['Crystal Blessing']='Shiva',
 	['Frost Armor']='Shiva',['Earthen Ward']='Titan',['Earthen Armor']='Titan',
 }
+EleNinjitsu = T{'Katon: Ichi', 'Katon: Ni', 'Katon: San', 'Hyoton: Ichi', 'Hyoton: Ni', 'Hyoton: San', 'Huton: Ichi', 'Huton: Ni', 'Huton: San',
+'Doton: Ichi', 'Doton: Ni', 'Doton: San', 'Raiton: Ichi', 'Raiton: ni', 'Raiton: San', 'Suiton: Ichi', 'Suiton: Ni', 'Suiton: San'}
+EnfNinjitsu = T{'Aisha: Ichi', 'Jubaku: Ichi', 'Hojo: Ichi', 'Hojo: Ni', 'Kurayami: Ichi', 'Kurayami: Ni', 'Dokumori: Ichi', 'Yurin: Ichi'}
+EnhNinjitsu= T{'Tonko: Ichi', 'Tonko: Ni', 'Monomi: Ichi', 'Utsusemi: Ichi', 'Utsusemi: Ni', 'Utsusemi: San', 'Gekka: Ichi', 'Yain: Ichi', 'Myoshu: Ichi', 'Kakka: Ichi', 'Migawari: Ichi'}
+

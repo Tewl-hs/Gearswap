@@ -113,7 +113,11 @@ windower.raw_register_event('prerender',function()
 			dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
 			if dist > 1 and not moving then
 				if player.status ~= 'Engaged' then -- When not engaged and moving equip movement speed
-					if sets.MoveSpeed then send_command('gs equip sets.MoveSpeed') end
+                    if player.main_job == "NIN" then
+                        send_command('gs c movement')
+					elseif sets.MoveSpeed then
+                        send_command('gs equip sets.MoveSpeed')
+                    end
 				end
 				moving = true
 			elseif dist < 1 and moving then -- When stopping and not engaged, equip idle set
