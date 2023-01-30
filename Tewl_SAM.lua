@@ -586,7 +586,7 @@ function equip_check()
 	else
 		eq = sets.aftercast.Idle
 		if ids ~= nil and sets.aftercast.Idle[ids] then
-			eq = eq,sets.aftercast.Idle[ids]
+			eq = sets.aftercast.Idle[ids]
 		end
 	end
 		
