@@ -609,7 +609,7 @@ function equip_change()
                     TwoHandedWeapon = false	
                 end
             end	
-            equip_check()
+            update_status()
         end
     end
 end

@@ -723,7 +723,7 @@ function equip_change()
 					if auto_hasso == true then auto_hasso = false update_status() end
 				end
 			end	
-			equip_check()
+			update_status()
 		end
 	end
 end

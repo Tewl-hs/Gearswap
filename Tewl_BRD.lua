@@ -28,7 +28,8 @@ function get_sets()
     Kali.Skill      = { name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',} }
     Kali.MACC       = { name="Kali", augments={'MP+60','Mag. Acc.+20','"Refresh"+1',} }
 
-    Offhand = { sub = "Ternion Dagger +1" }
+    MainWeapon = ''
+    SubWeapon = ''
 
     -- DummySongs
     DummySongs = T{'Knight\'s Minne', 'Knight\'s Minne II'}
@@ -260,6 +261,9 @@ function get_sets()
         right_ring  = "Chirich Ring +1", 
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}},
     }
+
+    include('FFXI-Display.lua')	
+    equip_change()
 end
 
 function file_unload()  
@@ -408,6 +412,7 @@ function equip_check()
             equip(sets.aftercast.Idle)
         end
     end
+    update_status()
 end
 
 function self_command(cmd)
@@ -452,9 +457,83 @@ function self_command(cmd)
             end
             equip_check()
         end
+        update_status()
     elseif args[1] == 'toggle' then
         --
     elseif args[1] == 'equip_check' then
         equip_check()
+	elseif args[1] == 'update_status' then
+		update_status()
     end
 end
+
+function equip_change()
+	local inventory = windower.ffxi.get_items();
+	local equipment = inventory['equipment'];
+	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
+	local sitem = windower.ffxi.get_items(equipment["sub_bag"],equipment["sub"])
+	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then 
+		local mw = items[item['id']].name
+        local sw = items[sitem['id']].name
+		if mw ~= MainWeapon then 
+			if mw == 'Gil' then -- No idea why? 
+				MainWeapon = 'Empty'
+				TwoHandedWeapon = false
+			else
+                if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+					TwoHandedWeapon = true
+				else 
+					TwoHandedWeapon = false	
+                end
+				MainWeapon = mw
+			end	
+		end
+        if sw ~= SubWeapon then 
+			if sw == 'Gil' then -- No idea why? 
+				SubWeapon = 'Empty'
+			else
+				SubWeapon = sw
+			end	
+		end
+        update_status()
+	end
+end
+
+function update_status()
+	local spc = '   '
+    local WeaponColor = get_weapon_color(MainWeapon)
+    local SubColor = get_weapon_color(SubWeapon)
+
+    local engaged_display = egs or 'Default'
+    local idle_display = ids or 'Default'
+
+	stateBox:clear()
+	stateBox:append(spc)
+	
+	local status_text = string.format("%s%s%s%s%s%s%s", WeaponColor, MainWeapon, Colors.White,' / ',SubColor,SubWeapon, spc)
+
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
+	
+	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+	
+	if BurstMode == true then
+		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
+	end
+	stateBox:append(status_text)
+	stateBox:show()
+end
+
+windower.raw_register_event('outgoing chunk', function(id, data)
+	if id == 0x00D and stateBox then
+		stateBox:hide()
+	end
+end)
+
+windower.raw_register_event('incoming chunk', function(id, data)
+	if id == 0x00A and stateBox then
+		stateBox:show()
+	end
+	if id == 0x050 then
+		equip_change()
+	end
+end)

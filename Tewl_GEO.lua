@@ -546,17 +546,15 @@ function equip_change()
 			if ew == 'Gil' then
 				CurrentWeapon = 'Empty'
 				TwoHandedWeapon = false
-				if auto_hasso == true then auto_hasso = false update_status() end
 			else
 				CurrentWeapon = ew
 				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
 					TwoHandedWeapon = true
 				else 
 					TwoHandedWeapon = false	
-					if auto_hasso == true then auto_hasso = false update_status() end
 				end
 			end	
-			equip_check()
+			update_status()
 		end
 	end
 end

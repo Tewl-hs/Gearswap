@@ -358,6 +358,7 @@ function get_sets()
     } 
     
 	include('FFXI-Display.lua')	
+    equip_change()
 end
 -- Set macros based on sub job
 function load_macros()
@@ -588,7 +589,7 @@ function equip_change()
 					if auto_hasso == true then auto_hasso = false update_status() end
 				end
 			end	
-			equip_check()
+			update_status()
 		end
 	end
 end

@@ -157,10 +157,25 @@ function get_sets()
 		left_ear    = "Brutal Earring",
     })
     sets.midcast = {}
-    sets.midcast.SIRD = { }
+    sets.midcast.SIRD = { -- 116%
+        ammo        = "Staunch Tathlum +1", -- 11
+        head        = { name="Taeon Chapeau", augments={'DEF+11','Spell interruption rate down -10%','HP+35',}}, -- 10
+        body        = { name="Taeon Tabard", augments={'Spell interruption rate down -9%',}}, -- 9
+        hands       = "Rawhide Gloves", -- 15
+        legs        = { name="Taeon Tights", augments={'Spell interruption rate down -9%',}}, -- 9
+        feet        = { name="Taeon Boots", augments={'DEF+12','Spell interruption rate down -9%','HP+36',}}, -- 9
+        neck        = "Moonlight Necklace", -- 15
+        waist       = "Audumbla Sash", -- 10
+        left_ear    = "Halasz Earring", -- 5
+        right_ear   = "Magnetic Earring", -- 8
+        left_ring   = "Defending Ring",
+        right_ring  = "Evanescence Ring", -- 5
+        back        = Capes.FC --  10
+    }
     sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +3", })
     sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +2", })
-    sets.midcast.Ninjitsu.Enhancing = { }
+    sets.midcast.Ninjitsu = set_combine(sets.precast.SIRD, { })
+    sets.midcast.Ninjitsu.Enhancing = set_combine(sets.precast.SIRD, { }) -- Not sure if this set even needs to exist
     sets.midcast.Ninjitsu.Elemental = { 
         ammo        = { name="Ghastly Tathlum +1", augments={'Path: A',}},
 		head        = { name="Mochi. Hatsuburi +3", augments={'Enhances "Yonin" and "Innin" effect',}},
@@ -329,7 +344,10 @@ function midcast(spell,action)
                 equip(sets.midcast.Enhancing)
             elseif EleNinjitsu:contains(spell.english) then
                 if buffactive("Futae") or BurstMode == true then
-                equip(sets.midcast.Elemental)
+                    equip(sets.midcast.Ninjitsu.Elemental.Burst)
+                else
+                    equip(sets.midcast.Ninjitsu.Elemental)
+                end
             else
                 equip(sets.midcast.SIRD)
             end
@@ -477,7 +495,7 @@ function equip_change()
 				SubWeapon = sw
 			end	
 		end
-		equip_check()
+        update_status()
 	end
 end
 

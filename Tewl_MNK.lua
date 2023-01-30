@@ -16,7 +16,7 @@ function get_sets()
     send_command('wait 1.5;input /lockstyleset 4')
     send_command('input //equipviewer pos 1663 935') 
 
-    CurrentWeapon = 'Verethragna'
+    MainWeapon = ''
 
     -- Variables for auto-skill chain. Only edit AutoWS 
     AutoWS = 'One Inch Punch'
@@ -119,6 +119,7 @@ function get_sets()
         hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
         neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
     })
+    sets.midcast = {}
 
     -- Aftercast sets: TP, Idle
     sets.aftercast = {}
@@ -197,7 +198,7 @@ function precast(spell,action)
         return
     end
 
-    if spell.english == 'Spectral Jig' then
+    if spell.name == 'Spectral Jig' then
         send_command('cancel 71;')
     end
     
@@ -268,7 +269,7 @@ function midcast(spell,action)
         send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
     elseif spell.english == 'Monomi: Ichi' and buffactive['Sneak'] then
         send_command('@wait 1.0; cancel 71')
-    elseif sets.midcast[spell.skill][spell.name] then
+    elseif sets.midcast[spell.skill] and sets.midcast[spell.skill][spell.name] then
         equip(sets.midcast[spell.skill][spell.name])
     elseif sets.midcast[spell.skill] then
         equip(sets.midcast[spell.skill])
@@ -276,19 +277,12 @@ function midcast(spell,action)
 end
 
 function aftercast(spell,action)
-    if player.status == 'Engaged' then
-        sets.aftercast.Engaged = get_engaged_set()
-        equip(sets.aftercast.Engaged,(buffs.Impetus or buffactive["Impetus"]) and {body="Bhikku Cyclas +3"} or {})
-    else
-        equip(sets.aftercast.Idle,(buffs.Boost or buffactive["Boost"]) and {waist = "Ask Sash"} or {})
-    end
-    if not buffactive["Boost"] then
+    if action ~= 'Boost' and not buffactive["Boost"] then
         buffs.Boost = false
     end
-    if not buffactive["Impetus"] then
+    if action ~= 'Impetus' and not buffactive["Impetus"] then
         buffs.Impetus = false
-    end
-    
+    end    
     equip_check()
 end
 
@@ -299,15 +293,12 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-    if not gain then
-        if buff == 'Boost' then
-            buffs.Boost = false
-            equip_check()
-        end
-        if buff == 'Impetus' then
-            buffs.Impetus = false
-            equip_check()
-        end
+    if buff == 'Boost' then
+        buffs.Boost = gain
+        equip_check()
+    elseif buff == 'Impetus' then
+        buffs.Impetus = gain
+        equip_check()
     elseif buff == 'stun' and gain then
         equip_check()
     end
@@ -322,7 +313,7 @@ function equip_check()
             egs = nil
             eq = sets.aftercast.Engaged
         end
-        equip(set_combine(eq,{main=CurrentWeapon}),buffactive["Impetus"] and {body="Bhikku Cyclas +3"} or {})
+        equip(eq,{main=CurrentWeapon},buffs.Impetus and {body="Bhikku Cyclas +3"} or {})
     else
         if ids ~= nil and sets.aftercast.Idle[ids] then 
             eq = sets.aftercast.Idle[ids]
@@ -330,7 +321,7 @@ function equip_check()
             ids = nil
             eq = sets.aftercast.Idle
         end
-        equip(set_combine(eq,{main=CurrentWeapon}),buffactive["Boost"] and {waist = "Ask Sash"} or {})
+        equip(eq,{main=CurrentWeapon},buffs.Boost and {waist = "Ask Sash"} or {})
     end
     update_status()
 end
@@ -405,15 +396,8 @@ function equip_change()
                 end
                 MainWeapon = mw
             end	
+            update_status()
         end
-        if sw ~= SubWeapon then 
-            if sw == 'Gil' then -- No idea why? 
-                SubWeapon = 'Empty'
-            else
-                SubWeapon = sw
-            end	
-        end
-        equip_check()
     end
 end
 
@@ -427,7 +411,7 @@ function update_status()
     stateBox:clear()
     stateBox:append(spc)
 
-    local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
+    local status_text = string.format("%s%s%s", WeaponColor, MainWeapon, spc)
 
     status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
     
