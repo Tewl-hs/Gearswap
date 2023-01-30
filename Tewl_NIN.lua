@@ -16,13 +16,15 @@ function get_sets()
     send_command('bind ^f9 gs c cycl engaged')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c toggle burst')
+    
+	send_command('bind !f10 gs c toggle autosc') 
 
     BurstMode = false
 
-	AWSEnabled = false
-	AutoWS = 'Blade: Ei'
-	WeaponSkills = T{'Blade: Shun', 'Blade: Shun'}
-	ws_order = 1
+    AutoSC = false
+	ascWS = 'Blade: Ei'
+	AutoSkillChain = T{'Blade: To', 'Blade: Teki'} -- Skillchain order
+	asc_order = 1
 	last_target = nil
 
     MainWeapon = 'Heishi Shorinken'
@@ -51,11 +53,11 @@ function get_sets()
         back        = Capes.Enmity
     }
     sets.precast = {}
-    sets.precast.FC = { -- 66
+    sets.precast.FC = { -- 67%
         ammo        = "Sapience Orb", --2
         head        = { name="Herculean Helm", augments={'"Fast Cast"+6',}}, -- 13
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}}, -- 9
-        hands       = "Leyline Gloves", --7
+        hands       = "Leyline Gloves", --8
         legs        = "Rawhide Trousers", --5
         feet        = { name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +3',}}, --5
         neck        = "Orunmila's Torque", --5
@@ -64,7 +66,7 @@ function get_sets()
         left_ring   = "Kishar Ring", --4
         right_ring  = "Prolix Ring", -- 2
         waist       = "Sailfi Belt +1",
-        back        = Capes.FC
+        back        = Capes.FC -- 10
     }
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, { neck="Magoraga Beads", body="Mochizuki Chainmail +3" })
     sets.precast.JA = { }
@@ -98,16 +100,17 @@ function get_sets()
         right_ring  = "Regal Ring",
     })
     sets.precast.WS['Blade: Chi'] = set_combine(sets.precast.WS, {
+        head        = "Mochi. Hatsuburi +3",
+		feet		= "Nyame Sollerets",
         neck        = "Ninja Nodowa +2",
         right_ear   = { name="Lugra Earring +1", augments={'Path: A',}},
         left_ring   = "Gere Ring",
-        right_ring  = "Epona's Ring",
         waist       = "Orpheus's Sash",
         back        = Capes.STR
     })
     sets.precast.WS['Blade: Ei'] = set_combine(sets.precast.WS, { })
-    sets.precast.WS['Blade: To'] = set_combine(sets.precast.WS, { })
-    sets.precast.WS['Blade: Teki'] = set_combine(sets.precast.WS, { })
+    sets.precast.WS['Blade: To'] = set_combine(sets.precast.WS['Blade: Chi'], { })
+    sets.precast.WS['Blade: Teki'] = set_combine(sets.precast.WS['Blade: Chi'], { })
     sets.precast.WS['Blade: Shun'] = set_combine(sets.precast.WS, {
         ammo        = "Crepuscular Pebble",
         head        = "Ken. Jinpachi +1",
@@ -211,19 +214,19 @@ function get_sets()
      }
     sets.aftercast = {}
     sets.aftercast.Engaged = {
-        ammo        = "Date Shuriken",
-        head		= "Mpaca's Cap",
-        body		= "Mpaca's Doublet",
-        hands		= "Mpaca's Gloves",
-        legs        = "Mpaca's Hose", 
-        feet        = "Mpaca's Boots", 
+        ammo        = "Seki Shuriken",
+        head		= "Malignance Chapeau",
+        body		= "Tatena. Harama. +1",
+        hands		= { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+        legs        = "Samnuha Tights", 
+        feet        = "Malignance Boots", 
         neck        = { name="Ninja Nodowa +2", augments={'Path: A',}},
-        left_ear    = "Cessance Earring",
+        left_ear    = "Dedition Earring",
         right_ear   = "Telos Earring",
         left_ring   = "Gere Ring",
         right_ring  = "Epona's Ring",
         waist       = { name="Sailfi Belt +1", augments={'Path: A',}},
-        back        = Capes.DEX
+        back        = Capes.STP
     }
     sets.aftercast.Engaged.DW = { -- Current: 43
         ammo        = "Date Shuriken",
@@ -352,7 +355,7 @@ function midcast(spell,action)
                 equip(sets.midcast.SIRD)
             end
         end
-    elseif sets.midcast[spell.skill][spell.name] then
+    elseif sets.midcast[spell.skill] and sets.midcast[spell.skill][spell.name] then
         equip(sets.midcast[spell.skill][spell.name])
     elseif sets.midcast[spell.skill] then
         equip(sets.midcast[spell.skill])
@@ -451,7 +454,13 @@ function self_command(cmd)
             else
                 BurstMode = false
                 add_to_chat('BurstMode disabled.')
-            end
+            end        
+		elseif args[2] == 'autosc' then
+			if AutoSC == false then
+				AutoSC = true
+			else
+				AutoSC = false
+			end
         end
 		update_status()
     elseif args[1] == 'movement' then
@@ -518,6 +527,10 @@ function update_status()
 	
 	if BurstMode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
+	end
+    
+	if AutoSC == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoSC: ', Colors.Yellow, ascWS, spc)
 	end
 	stateBox:append(status_text)
 	stateBox:show()

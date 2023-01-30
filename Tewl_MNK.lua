@@ -11,6 +11,8 @@ function get_sets()
     include('FFXI-Utility')
     send_command('bind ^f9 gs c cycle engaged')
     send_command('bind ^f10 gs c cycle idle')
+
+	send_command('bind !f10 gs c toggle autosc') 
     
     set_macros(9,1)
     send_command('wait 1.5;input /lockstyleset 4')
@@ -18,10 +20,11 @@ function get_sets()
 
     MainWeapon = ''
 
-    -- Variables for auto-skill chain. Only edit AutoWS 
-    AutoWS = 'One Inch Punch'
-    WeaponSkills = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
-    ws_order = 1
+    AutoSC = false
+	ascWS = 'One Inch Punch'
+	AutoSkillChain = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
+	asc_order = 1
+	last_target = nil
 
     buffs = {}
     buffs.Boost = buffactive["Boost"] or false
@@ -369,6 +372,15 @@ function self_command(cmd)
             equip_check()
         end
         update_status()
+    elseif args[1] == 'toggle' and args[2] then
+        if args[2] == 'autosc' then
+			if AutoSC == false then
+				AutoSC = true
+			else
+				AutoSC = false
+			end
+        end
+		update_status()
     elseif args[1] == 'equip_check' then
         equip_check()
     elseif args[1] == 'update_status' then
@@ -416,6 +428,11 @@ function update_status()
     status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
     
     status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
+
+    
+	if AutoSC == true then
+		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoSC: ', Colors.Yellow, ascWS, spc)
+	end
     
     stateBox:append(status_text)
     stateBox:show()
