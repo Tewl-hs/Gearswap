@@ -450,7 +450,7 @@ function buff_change(buff,gain)
         else
             add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
         end
-    else    elseif buff == 'stun' and gain then
+    elseif buff == 'stun' and gain then
         equip_check()
     end
 end
