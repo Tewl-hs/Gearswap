@@ -52,6 +52,11 @@ function get_sets()
         waist       = "Kasiri Belt", -- 3
         back        = Capes.Enmity
     }
+    sets.precast.JA = {
+        ['Mijin Gakure'] = {
+            legs    = "Mochi.  Hakama +3",
+        }
+    }
     sets.precast = {}
     sets.precast.FC = { -- 67%
         ammo        = "Sapience Orb", --2
@@ -176,7 +181,7 @@ function get_sets()
         back        = Capes.FC --  10
     }
     sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +3", })
-    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +2", })
+    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +3", })
     sets.midcast.Ninjitsu = set_combine(sets.precast.SIRD, { })
     sets.midcast.Ninjitsu.Enhancing = set_combine(sets.precast.SIRD, { }) -- Not sure if this set even needs to exist
     sets.midcast.Ninjitsu.Elemental = { 
@@ -195,7 +200,7 @@ function get_sets()
 		back        = Capes.MAB
     }
     sets.midcast.Ninjitsu.Elemental.Burst = set_combine(sets.midcast.Ninjitsu.Elemental, {
-        hands       = "Hattori Tekko +2",
+        hands       = "Hattori Tekko +3",
     })
     sets.midcast.Ninjitsu.Enfeebling = {
         ammo        = "Yamarang",
