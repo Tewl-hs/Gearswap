@@ -180,8 +180,8 @@ function get_sets()
         right_ring  = "Evanescence Ring", -- 5
         back        = Capes.FC --  10
     }
-    sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +3", })
-    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +3", })
+    sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +3",left_ear={ name="Odnowa Earring +1", augments={'Path: A',}}, }) -- 102% SIRD
+    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +3",left_ear={ name="Odnowa Earring +1", augments={'Path: A',}}, }) -- 102% SIRD
     sets.midcast.Ninjitsu = set_combine(sets.precast.SIRD, { })
     sets.midcast.Ninjitsu.Enhancing = set_combine(sets.precast.SIRD, { }) -- Not sure if this set even needs to exist
     sets.midcast.Ninjitsu.Elemental = { 
@@ -257,8 +257,8 @@ function get_sets()
         feet        = "Mpaca's Boots", 
         neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
         waist		= "Flume Belt +1", -- 4/0
-        left_ear	= "Genmei Earring", -- 2/0
-        right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 3/5
+        left_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 2/5
+        right_ear	= "Genmei Earring" -- 2/0
         left_ring	= "Defending Ring", -- 10/10
         right_ring	= "Karieyh Ring +1",
         back		= "Moonlight Cape" -- 6/6
