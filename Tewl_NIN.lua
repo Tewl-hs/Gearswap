@@ -258,7 +258,7 @@ function get_sets()
         neck		= { name="Loricate Torque +1", augments={'Path: A',}}, -- 6/6
         waist		= "Flume Belt +1", -- 4/0
         left_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 2/5
-        right_ear	= "Genmei Earring" -- 2/0
+        right_ear	= "Genmei Earring", -- 2/0
         left_ring	= "Defending Ring", -- 10/10
         right_ring	= "Karieyh Ring +1",
         back		= "Moonlight Cape" -- 6/6
