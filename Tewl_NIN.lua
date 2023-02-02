@@ -52,12 +52,12 @@ function get_sets()
         waist       = "Kasiri Belt", -- 3
         back        = Capes.Enmity
     }
+    sets.precast = { }
     sets.precast.JA = {
         ['Mijin Gakure'] = {
             legs    = "Mochi.  Hakama +3",
         }
     }
-    sets.precast = {}
     sets.precast.FC = { -- 67%
         ammo        = "Sapience Orb", --2
         head        = { name="Herculean Helm", augments={'"Fast Cast"+6',}}, -- 13
