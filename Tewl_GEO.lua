@@ -122,27 +122,26 @@ function get_sets()
         main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo        = "Ghastly Tathlum +1",
-        head        = "Jhakri Coronal +2",
+        head        = "Agwu's Cap",
         body        = "Amalric Doublet +1", 
         hands       = "Amalric Gages +1",
-        legs        = "Amalric Slops +1",
-        feet        = "Amalric Nails +1",   
+        legs        = "Agwu's Slops",
+        feet        = "Agwu's Pigaches",   
         neck        = "Sibyl Scarf",
         waist       = "Acuity Belt +1",
-        left_ear    = "Malignance Earring",
-        right_ear   = "Regal Earring", 
+        left_ear    = "Regal Earring", 
+        right_ear   = "Malignance Earring",
         left_ring   = "Freke Ring",
-        right_ring  = "Shiva Ring +1",
+        right_ring  = "Metamor. Ring +1",
         back        = Capes.MagicDmg,  
     } 
 
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
-        head		= "Ea Hat +1",
-        body		= "Ea Houppe. +1",
+        head        = "Azimuth Hood +3",
+        body        = "Azimuth Coat +3",
         hands       = "Agwu's Gages",
-        legs		= "Ea Slops +1",
+        legs        = "Azimuth Tights +3",
         feet        = "Agwu's Pigaches",
-        right_ring	= "Mujin Band",
     })
 
     sets.midcast['Enfeebling Magic'] = {
