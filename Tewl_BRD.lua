@@ -246,20 +246,20 @@ function get_sets()
     }
     sets.aftercast.Engaged = {
         main        = "Naegling",
-        sub         = "Genmei Shield", 
+        sub         = "Genmei Shield",  -- PDT  10
         range       = { name="Linos", augments={'Accuracy+13 Attack+13','"Dbl.Atk."+2','CHR+8',}},
-        head        = "Bunzi's Hat",
-		body		= "Nyame Mail",
-        hands       = "Bunzi's Gloves",
-		legs		= "Nyame Flanchard",
-		feet		= "Nyame Sollerets",
+        head        = "Bunzi's Hat", -- MDB 8, MEVA 123
+		body		= "Nyame Mail", -- MEVA 139 DT-9
+        hands       = "Bunzi's Gloves", -- MEVA 112 DT-8
+		legs		= "Nyame Flanchard", -- MEVA 150 MDB 7 DT 8
+		feet		= "Nyame Sollerets", -- MEVA 150 MDB 5 DT 7
         neck        = "Bard's Charm +2",
         waist       = "Sailfi Belt +1",
         left_ear    = "Crep. Earring",
         right_ear   = "Telos Earring",
-        left_ring   = "Moonlight Ring", 
+        left_ring   = "Moonlight Ring", -- DT 5
         right_ring  = "Chirich Ring +1", 
-        back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}},
+        back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}}, -- DT 5
     }
 
     include('FFXI-Display.lua')	
