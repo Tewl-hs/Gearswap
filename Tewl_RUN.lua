@@ -358,7 +358,6 @@ function get_sets()
     } 
     
 	include('FFXI-Display.lua')	
-    equip_change()
 end
 -- Set macros based on sub job
 function load_macros()

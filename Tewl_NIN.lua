@@ -265,7 +265,6 @@ function get_sets()
     }
     
     include('FFXI-Display.lua')	
-    equip_change()
 end
 
 function file_unload()  

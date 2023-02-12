@@ -39,4 +39,6 @@ stateBox:right_justified(false)
 stateBox:stroke_width(2)
 stateBox:stroke_transparency(192)
 
-update_status()
+if update_status then update_status() end
+
+if equip_change then equip_change() end

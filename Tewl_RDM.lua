@@ -382,7 +382,6 @@ function get_sets()
         back        = "Moonlight Cape",
     })
     include('FFXI-Display.lua')	
-    equip_change()
 end
 
 function file_unload()  
