@@ -257,11 +257,11 @@ function precast(spell,action)
             add_to_chat(123,'['..spell.name..'] '..disp_time(sr))
             return
         end
-        if sets.precast.FC[spell.name] then
+        if sets.precast.FC and sets.precast.FC[spell.name] then
             equip(sets.precast.FC[spell.name])
-        elseif sets.precast.FC[spell.skill] then
+        elseif sets.precast.FC and sets.precast.FC[spell.skill] then
             equip(sets.precast.FC[spell.skill])
-        else
+        elseif sets.precast.FC then
             equip(sets.precast.FC)
         end
     end
