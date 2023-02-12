@@ -342,15 +342,15 @@ end
 function midcast(spell,action)
     if spell.action_type == 'Magic' then
         if spell.skill == 'Ninjitsu' then
-            if spell.english:startswith('Migawari') then
+            if spell.name:startswith('Migawari') then
                 equip(sets.midcast.Migawari)
-            elseif spell.english:startswith('Utsusemi') then
+            elseif spell.name:startswith('Utsusemi') then
                 equip(sets.midcast.Utsusemi)
-            elseif EnfNinjitsu:contains(spell.english) then
+            elseif EnfNinjitsu:contains(spell.name) then
                 equip(sets.midcast.Enfeebling)
-            elseif EnhNinjitsu:contains(spell.english) then
+            elseif EnhNinjitsu:contains(spell.name) then
                 equip(sets.midcast.Enhancing)
-            elseif EleNinjitsu:contains(spell.english) then
+            elseif EleNinjitsu:contains(spell.name) then
                 if buffactive("Futae") or BurstMode == true then
                     equip(sets.midcast.Ninjitsu.Elemental.Burst)
                 else

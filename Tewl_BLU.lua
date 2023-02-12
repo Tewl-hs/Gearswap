@@ -208,9 +208,9 @@ function get_sets()
     
     function midcast(spell)
         if spell.skill == 'Blue Magic' then 
-            if spell.english == 'Magic Fruit' then
+            if spell.name == 'Magic Fruit' then
                 equip(set_combine(sets.midcast,{right_ear="Etiolation Earring",back="Moonlight Cape"})) -- equip HP+ gear for full heal
-            elseif spell.english == 'Dream Flower' then
+            elseif spell.name == 'Dream Flower' then
                 equip(set_combine(sets.midcast,sets.midcast.MACC))
             elseif sets.midcast[spell.name] then                
                 equip(sets.midcast[spell.name])

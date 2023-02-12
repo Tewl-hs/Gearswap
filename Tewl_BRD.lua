@@ -286,7 +286,7 @@ function precast(spell)
                 equip(sets.precast.FC[spell.skill])
             end
         elseif sets.precast.FC then
-            if spell.english == 'Dispelga' then
+            if spell.name == 'Dispelga' then
                 equip(set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"}))
             else
                 equip(sets.precast.FC)
@@ -294,18 +294,18 @@ function precast(spell)
         end
     elseif spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
-            add_to_chat(123,'Unable to use: '..spell.english..'. Not enough TP.')
+            add_to_chat(123,'Unable to use: '..spell.name..'. Not enough TP.')
             cancel_spell()
             return
         end
-        if sets.precast.WS[spell.english] then
-            equip(sets.precast.WS[spell.english])
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
         elseif sets.precast.WS then
             equip(sets.precast.WS)
         end
     elseif spell.action_type == 'Ability' then
-        if sets.precast.JA[spell.english] then
-            equip(sets.precast.JA[spell.english])
+        if sets.precast.JA[spell.name] then
+            equip(sets.precast.JA[spell.name])
         end
     end
 end

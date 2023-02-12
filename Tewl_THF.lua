@@ -91,16 +91,16 @@ function get_sets()
 end
     
 function precast(spell,action)
-    if spell.english == 'Spectral Jig' then
+    if spell.name == 'Spectral Jig' then
         send_command('cancel 71;')
     end
     
     if spell.type=="WeaponSkill" then
-        if sets.precast.WS[spell.english] then            
+        if sets.precast.WS[spell.name] then            
             if LockTH ~= false then
-                equip(set_combine(sets.precast.WS[spell.english],sets.TH))
+                equip(set_combine(sets.precast.WS[spell.name],sets.TH))
             else
-                equip(sets.precast.WS[spell.english])
+                equip(sets.precast.WS[spell.name])
             end
         else            
             if LockTH == true then
@@ -128,9 +128,9 @@ function precast(spell,action)
 end
     
 function midcast(spell,action)
-    if spell.english == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
+    if spell.name == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
         send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
-    elseif spell.english == 'Monomi: Ichi' and buffactive['Sneak'] then
+    elseif spell.name == 'Monomi: Ichi' and buffactive['Sneak'] then
         send_command('@wait 1.0; cancel 71')
     end
 end

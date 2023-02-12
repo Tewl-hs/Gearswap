@@ -391,7 +391,7 @@ function precast(spell,action)
     end        
     if spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
-            add_to_chat(123,'['..spell.english..'] Not enough TP.')
+            add_to_chat(123,'['..spell.name..'] Not enough TP.')
 			cancel_spell()
             return
         end

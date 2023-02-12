@@ -226,12 +226,12 @@ function precast(spell,action)
             end
             return
         end
-        if sets.precast.WS[spell.english] then
-            equip(sets.precast.WS[spell.english])
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
         else
             equip(sets.precast.WS)
         end
-        if spell.english == 'Victory Smite' and buffactive['Impetus'] then
+        if spell.name == 'Victory Smite' and buffactive['Impetus'] then
             equip(sets.precast.WS["Victory Smite"].Impetus)
         end
     elseif spell.action_type == 'Ability' then
@@ -268,9 +268,9 @@ function precast(spell,action)
 end
 
 function midcast(spell,action)
-    if spell.english == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
+    if spell.name == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
         send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
-    elseif spell.english == 'Monomi: Ichi' and buffactive['Sneak'] then
+    elseif spell.name == 'Monomi: Ichi' and buffactive['Sneak'] then
         send_command('@wait 1.0; cancel 71')
     elseif sets.midcast[spell.skill] and sets.midcast[spell.skill][spell.name] then
         equip(sets.midcast[spell.skill][spell.name])

@@ -366,12 +366,12 @@ function midcast(spell)
     end
     if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
         -- Do nothing
-    elseif sets.midcast[spell.english] then
-        equip(sets.midcast[spell.english])
+    elseif sets.midcast[spell.name] then
+        equip(sets.midcast[spell.name])
     elseif spell.type=="WhiteMagic" then
         if string.find(spell.name,"Cure") or string.find(spell.name,"Curaga") then
             equip(sets.midcast.Cure)
-        elseif spell.english == "Cursna" then
+        elseif spell.name == "Cursna" then
             equip(sets.midcast.Cursna)
         elseif spell.skill=="Enhancing Magic" then
             equip(sets.midcast.Enhancing)

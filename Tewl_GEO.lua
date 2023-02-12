@@ -271,7 +271,7 @@ function precast(spell)
         return
     end
     if spell.action_type == 'Magic' and sets.precast.FC then
-        if spell.english:startswith('Cur') and spell.name ~= 'Cursna' then
+        if spell.name:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
         elseif sets.precast.FC[spell.name] then
             equip(sets.precast.FC[spell.name])
@@ -280,18 +280,18 @@ function precast(spell)
         end
     elseif spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
-            add_to_chat(123,'Unable to use: '..spell.english..'. Not enough TP.')
+            add_to_chat(123,'Unable to use: '..spell.name..'. Not enough TP.')
             cancel_spell()
             return
         end
-        if sets.precast.WS[spell.english] then
-            equip(sets.precast.WS[spell.english])
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
         elseif sets.precast.WS then
             equip(sets.precast.WS)
         end
     elseif spell.action_type == 'Ability' then
-        if sets.precast.JA[spell.english] then
-            equip(sets.precast.JA[spell.english])
+        if sets.precast.JA[spell.name] then
+            equip(sets.precast.JA[spell.name])
         end
     end
 end
@@ -361,13 +361,13 @@ end
 
 function aftercast(spell)    
     if not spell.interrupted then
-        if spell.english:startswith('Indi-') then
+        if spell.name:startswith('Indi-') then
             if spell.target.type == 'SELF' then
-                last_indi = string.sub(spell.english,6)
+                last_indi = string.sub(spell.name,6)
             end
-        elseif spell.english:startswith('Geo-') or spell.english == "Mending Halation" or spell.english == "Radial Arcana" then
-            if spell.english:startswith('Geo-') then
-                last_geo = string.sub(spell.english,5)
+        elseif spell.name:startswith('Geo-') or spell.name == "Mending Halation" or spell.name == "Radial Arcana" then
+            if spell.name:startswith('Geo-') then
+                last_geo = string.sub(spell.name,5)
             end
         end
     end    
