@@ -124,7 +124,6 @@ function get_sets()
     })
     sets.midcast = {}
 
-    -- Aftercast sets: TP, Idle
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
@@ -141,28 +140,13 @@ function get_sets()
         right_ring  = "Niqmaddu Ring",
         back		= Capes.TP
     }
-    sets.aftercast.Engaged.DT = {
-        ammo		= "Staunch Tathlum +1", -- 3/3
-        head        = "Malignance Chapeau",  -- 6/6
-        body        = "Malignance Tabard",  -- 9/9
-        hands       = "Malignance Gloves",  -- 5/5
-        legs        = "Malignance Tights",  -- 7/7
-        feet        = "Malignance Boots",  -- 4/4
-        neck		= "Mnk. Nodowa +2",
-        waist		= "Moonbow Belt +1",
-        left_ear	= "Sherida Earring",
-        right_ear   = "Telos Earring",
-        left_ring	= "Gere Ring",
-        right_ring	= "Niqmaddu Ring",
-        back		= Capes.TP
-    }
     sets.aftercast.Engaged.Hybrid = {
         ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-        head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
+        head		= "Mpaca's Cap",
         body        = { name="Mpaca's Doublet", augments={'Path: A',}},
-        hands       = "Malignance Gloves",
+        hands       = "Mpaca's Gloves",
         legs        = "Bhikku Hose +3",
-        feet        = "Malignance Boots",
+        feet        = "Mpaca's Boots",
         neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
         waist       = "Moonbow Belt +1",
         left_ear    = "Sherida Earring",
