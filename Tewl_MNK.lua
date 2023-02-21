@@ -142,12 +142,13 @@ function get_sets()
     }
     sets.aftercast.Engaged.Hybrid = {
         ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-        head		= "Mpaca's Cap",
+        head		= "Bhikku Crown +3",
         body        = { name="Mpaca's Doublet", augments={'Path: A',}},
-        hands       = "Mpaca's Gloves",
+        hands       = { name="Nyame Gauntlets", augments={'Path: B',}}, --= "Mpaca's Gloves",
         legs        = "Bhikku Hose +3",
-        feet        = "Mpaca's Boots",
-        neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
+        feet        = "Nyame Sollerets", --"Mpaca's Boots",
+        neck        = "Warder's Charm +1", -- while we are doing v25 odyssey
+        --neck        = { name="Mnk. Nodowa +2", augments={'Path: A',}},
         waist       = "Moonbow Belt +1",
         left_ear    = "Sherida Earring",
         right_ear   = { name="Schere Earring", augments={'Path: A',}},
