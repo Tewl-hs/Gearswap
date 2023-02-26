@@ -103,7 +103,6 @@ function get_sets()
         ammo        = "Hydrocera",
         neck        = "Incanter's Torque",
         waist       = "Luminary Sash",
-        back        = "Rosmerta's Cape",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
     })
