@@ -76,7 +76,7 @@ function get_sets()
         ['Full Circle'] = { head = "Azimuth Hood +3" },
         ['Bolster'] = { body = "Bagua Tunic +3" },
         ['Life Cycle'] = {
-            body        = "Geomancy Tunic +2",
+            body        = "Geomancy Tunic +3",
             back        = Capes.PetRegen
         },
         ['Curative Recantation'] = { hands = "Bagua Mitaines +3"},
