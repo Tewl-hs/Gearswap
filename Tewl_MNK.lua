@@ -127,7 +127,7 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         ammo        = { name="Coiste Bodhar", augments={'Path: A',}},
-        head        = { name="Adhemar Bonnet +1", augments={'HP+105','Attack+13','Phys. dmg. taken -4',}},
+        head        = { name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
         body        = { name="Mpaca's Doublet", augments={'Path: A',}},
         hands       = { name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
         legs        = "Bhikku Hose +3",
