@@ -22,37 +22,28 @@ function get_sets()
      }
 
     sets.precast.WS = {
-        ammo        = "Aurgelmir Orb +1",
-        head        = "Adhemar Bonnet +1",
-        body        = "Adhemar Jacket +1",
-        hands       = "Meg. Gloves +2",
-        legs        = "Samnuha Tights",
+        ammo        = "Seeth. Bomblet +1",
+        head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
+        body        = "Gleti's Cuirass",
+        hands       = { name="Adhemar Wrist. +1", augments={'STR+12','DEX+12','Attack+20',}},
+        legs        = "Gleti's Breeches",
         feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
         neck		= "Fotia Gorget",
-        waist		= "Fotia Belt",
-        left_ear    = "Ishvara Earring",
+        waist       = "Kentarch Belt +1",
+        left_ear    = "Odr Eerring",
         right_ear   = "Moonshade Earring",
         left_ring   = "Regal Ring",
-        right_ring  = "Epaminondas's Ring",
+        right_ring  = "Ilabrat Ring",
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
     }
     sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
-        neck        = "Asn. Gorget +1",
+        hands       = "Nyame Gauntlets",
+        feet        = "Nyame Sollerets",
+        neck		= "Asn. Gorget +1",
         left_ear    = "Sherida Earring",
-        waist       = "Kentarch Belt +1",
     })
     sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS['Evisceration'], {
         ammo        = "Yetshila +1",
-        head        = "Plun. Bonnet +3",
-        body        = "Pillager's Vest +3",
-        hands       = "Mummu Wrists +2",
-        legs        = "Zoar Subligar +1",
-        feet        = "Plun. Poulaines +3",
-        left_ear    = "Sherida Earring",
-        right_ear   = "Mache Earring +1",
-        left_ring   = "Begrudging Ring",
-        right_ring  = "Mummu Ring",
-        --back        = gear.THF_WS2_Cape,
     })
 
     sets.aftercast = { }
@@ -60,16 +51,16 @@ function get_sets()
         ammo        = "Aurgelmir Orb +1",
         head        = "Malignance Chapeau",
         body        = "Malignance Tabard",
-        --hands       = "Malignance Gloves",
+        --hands       = "Gleti's Gauntlets",
         hands       = { name="Plun. Armlets +3", augments={'Enhances "Perfect Dodge" effect',}},
-        legs        = "Malignance Tights",
-        --feet        = "Malignance Boots",
+        legs        = "Gleti's Breeches",
+        --feet        = "Plun. Poulaines +3",
         feet        = "Skulk. Poulaines +1",
         neck        = "Asn. Gorget +1",
-        waist       = "Sailfi Belt +1",
+        waist       = "Windbuffet Belt +1",
         left_ear    = "Sherida Earring",
-        right_ear   = "Telos Earring",
-        left_ring   = "Regal Ring",
+        right_ear   = "Dedition Earring",
+        left_ring   = "Hetairoi Ring",
         right_ring  = "Gere Ring",
         back        = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     }
