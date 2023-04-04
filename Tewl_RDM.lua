@@ -266,6 +266,7 @@ function get_sets()
         back		= Capes.MND,
     }
     sets.midcast['Enhancing Magic'].SelfDuration = set_combine(sets.midcast['Enhancing Magic'], {
+        main        = { name="Colada", augments={'Enh. Mag. eff. dur. +4',}},
         sub         = "Ammurapi Shield",
         body        = "Lethargy Sayon +3",
         neck		= "Dls. Torque +2",
@@ -273,6 +274,7 @@ function get_sets()
         left_ring   = "Kishar Ring",
     })
     sets.midcast['Enhancing Magic'].Composure = set_combine(sets.midcast['Enhancing Magic'], {
+        main        = { name="Colada", augments={'Enh. Mag. eff. dur. +4',}},
         sub         = "Ammurapi Shield",
         head        = "Leth. Chappel +3",
         body        = "Lethargy Sayon +3",
