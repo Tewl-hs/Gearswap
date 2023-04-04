@@ -265,6 +265,24 @@ function get_sets()
         waist		= "Embla Sash",
         back		= Capes.MND,
     }
+    sets.midcast['Enhancing Magic'].SelfDuration = set_combine(sets.midcast['Enhancing Magic'], {
+        sub         = "Ammurapi Shield",
+        body        = "Lethargy Sayon +3",
+        neck		= "Dls. Torque +2",
+        left_ear	= "Malignance Earring",
+        left_ring   = "Kishar Ring",
+    })
+    sets.midcast['Enhancing Magic'].Composure = set_combine(sets.midcast['Enhancing Magic'], {
+        sub         = "Ammurapi Shield",
+        head        = "Leth. Chappel +3",
+        body        = "Lethargy Sayon +3",
+        legs        = "Leth. Fuseau +3",   
+        neck		= "Dls. Torque +2",
+        left_ear	= "Malignance Earring",
+        left_ring   = "Kishar Ring",
+        right_ring  = "Rahab Ring",
+        -- back     = "Ghostfyre Cape"
+    })
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
         head		= "Amalric Coif +1",
         body		= "Atrophy Tabard +3",
@@ -503,8 +521,12 @@ function midcast(spell,action)
 				equip(sets.midcast[spell.skill].Refresh)
 			elseif spell.name:startswith('Phalanx') and spell.target.type == 'SELF' and sets.midcast[spell.skill].Phalanx then
 				equip(sets.midcast[spell.skill].Phalanx)
+            elseif spell.target.type == 'SELF' then
+                equip(sets.midcast[spell.skill].SelfDuration)
 			elseif sets.midcast[spell.skill][spell.name] then
 				equip(sets.midcast[spell.skill][spell.name])
+            elseif spell.target.type ~= 'SELF' and buffactive['Composure'] then
+                equip(sets.midcast[spell.skill].Composure)
 			else
 				equip(sets.midcast[spell.skill])
 			end
