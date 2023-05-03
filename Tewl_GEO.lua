@@ -187,11 +187,8 @@ function get_sets()
     }
     sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
         head        = "Bagua Galero +3",
-        waist       = "Austertiy Belt +1",
-    })
-
-    sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
         feet        = "Agwu's Pigaches",
+        waist       = "Austertiy Belt +1",
         left_ring   = "Evanescence Ring",
     })
 
@@ -229,7 +226,7 @@ function get_sets()
         head        = { name="Merlinic Hood", augments={'"Counter"+3','"Drain" and "Aspir" potency +9','"Refresh"+2','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
         body        = "Azimuth Coat +3",
         hands       = "Bagua Mitaines +3",
-        legs        = "Assid. Pants +1",
+        legs        = { name="Merlinic Shalwar", augments={'"Dbl.Atk."+1','Accuracy+4','"Refresh"+2','Accuracy+15 Attack+15',}},
         feet        = "Geomancy Sandals +3",
         neck        = "Loricate Torque +1",
         left_ear    = "Etiolation Earring",

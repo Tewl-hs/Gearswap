@@ -235,58 +235,31 @@ function get_current_spellset()
     :map(function(id) return spells[id].english:lower() end)
 end
     
-function precast(spell,action)    
+function precast(spell)    
     if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
         cancel_spell()
         return
     end
-    
-	local target = player.target.id
-	if target ~= last_target then
-		ws_order = 1
-		last_target = target
-	end
-
-	if spell.type == 'WeaponSkill' then
-		if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
-            add_to_chat(123,'['..spell.name..'] Target out of range.')
-			cancel_spell()
-			return
-		end
-        if sets.precast.WS[spell.name] then
-            equip(sets.precast.WS[spell.name])
+    if spell.action_type == 'Magic' and sets.precast.FC then
+        if sets.precast.FC[spell.name] then
+            equip(sets.precast.FC[spell.name])
         else
-            equip(sets.precast.WS)
+            equip(sets.precast.FC)
         end
-    elseif spell.action_type == 'Ability' then
-		local abil_recasts = windower.ffxi.get_ability_recasts()
-		if abil_recasts[spell.recast_id] > 0 then
-			cancel_spell()
-            return
-		end
-        if sets.precast.JA[spell.name] then
-            equip(sets.precast.JA[spell.name])
-        end    
-    elseif spell.action_type == 'Magic' then
-        local spellCost = actual_cost(spell)
-        if player.mp < spellCost then
-            add_to_chat(123,'Unable to cast: Not enough MP. ('..player.mp..'/'..spellCost..')')
+    elseif spell.type == 'WeaponSkill' then
+        if player.tp < 1000 then
+            add_to_chat(123,'Unable to use: '..spell.name..'. Not enough TP.')
             cancel_spell()
             return
         end
-        local spell_recasts = windower.ffxi.get_spell_recasts()
-        local sr = math.floor(spell_recasts[spell.recast_id]/60)
-        if sr > 0 then
-			cancel_spell()
-			add_to_chat(123,'['..spell.name..'] '..disp_time(sr))
-            return
+        if sets.precast.WS[spell.name] then
+            equip(sets.precast.WS[spell.name])
+        elseif sets.precast.WS then
+            equip(sets.precast.WS)
         end
-        if sets.precast.FC[spell.name] then
-            equip(sets.precast.FC[spell.name])
-        elseif sets.precast.FC[spell.skill] then
-            equip(sets.precast.FC[spell.skill])
-        else
-            equip(sets.precast.FC)
+    elseif spell.action_type == 'Ability' then
+        if sets.precast.JA[spell.name] then
+            equip(sets.precast.JA[spell.name])
         end
     end
 end

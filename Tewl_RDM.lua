@@ -351,8 +351,6 @@ function get_sets()
     sets.midcast['Dark Magic'] =  set_combine(sets.midcast['Dark Magic'], { })
     sets.aftercast = {}
     sets.aftercast.Engaged = {
-        main        = "Maxentius",
-        sub			= "Genmei Shield",
         ammo		= "Aurgelmir Orb +1",
         head		= "Malignance Chapeau",
         body		= "Malignance Tabard",

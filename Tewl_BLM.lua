@@ -78,6 +78,10 @@ function get_sets()
         right_ring  = "Freke Ring",
         back        = { name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
     }
+    sets.midcast['Elemental Magic'].Impact =  set_combine(sets.midcast['Elemental Magic'], {
+        head        = empty,
+        body        = "Twilight Cloak",
+    })
     sets.midcast['Elemental Magic'].RecoverMode = set_combine(sets.midcast['Elemental Magic'], {
         body        = "Spaekona's Coat +3",
     })
@@ -203,7 +207,7 @@ function get_sets()
         head        = { name="Merlinic Hood", augments={'"Counter"+3','"Drain" and "Aspir" potency +9','"Refresh"+2','Mag. Acc.+4 "Mag.Atk.Bns."+4',}},
         body        = "Jhakri Robe +2",
     	hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
-        legs        = "Assid. Pants +1",
+        legs        = { name="Merlinic Shalwar", augments={'"Dbl.Atk."+1','Accuracy+4','"Refresh"+2','Accuracy+15 Attack+15',}},
         feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
         neck        = "Loricate Torque +1",
         waist       = "Fucho-no-obi",
@@ -295,10 +299,10 @@ function midcast(spell)
         elseif spell.skill == 'Elemental Magic' then
             if EleDebuff:contains(spell.name) and sets.midcast[spell.skill].Debuff then
                 equip(sets.midcast[spell.skill].Debuff)
+            elseif spell.name == 'Impact' then
+                equip(sets.midcast[spell.skill].Impact)
             elseif sets.midcast[spell.skill].Burst and BurstMode == true then                
-                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst == nil then
-                    equip(set_combine(sets.midcast[spell.skill].Burst,{head=empty,body="Twilight Cloak"}))
-                elseif sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
+                if sets.midcast[spell.skill][spell.name] and sets.midcast[spell.skill][spell.name].Burst then
                     equip(sets.midcast[spell.skill][spell.name].Burst)
                 else
                     if player.mpp < 50 then
@@ -308,9 +312,7 @@ function midcast(spell)
                     end
                 end
             else        
-                if spell.name == 'Impact' and sets.midcast[spell.skill][spell.name] == nil then
-                    equip(set_combine(sets.midcast[spell.skill],{head=empty,body="Twilight Cloak"}))
-                elseif sets.midcast[spell.skill][spell.name] then
+                if sets.midcast[spell.skill][spell.name] then
                     equip(sets.midcast[spell.skill][spell.name])
                 else
                     if player.mpp < 50 then
