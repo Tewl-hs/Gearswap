@@ -62,8 +62,10 @@ function get_sets()
 
     sets.midcast = {}
     sets.midcast['Elemental Magic'] = {
-        main        = "Bunzi's Rod",
-        sub         = "Ammurapi Shield",
+        main        = "Laevateinn",
+        sub         = "Enki Strap",
+        --main        = "Bunzi's Rod",
+        --sub         = "Ammurapi Shield",
         ammo        = "Sroda Tathlum",
         head        = "Wicce Petasos +3",
         body        = "Wicce Coat +3",
@@ -128,6 +130,8 @@ function get_sets()
     sets.midcast['Dark Magic'] = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
+        main        = "Contemplator +1",
+        sub         = "Khonsu",
         ammo        = "Pemphredo Tathlum",
         head        = "Agwu's Cap",
         body        = "Agwu's Robe",
@@ -147,8 +151,8 @@ function get_sets()
         waist       = "Fucho-no-Obi",
     })
     sets.midcast['Healing Magic'] = { 
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
+        --main        = "Daybreak",
+        --sub         = "Ammurapi Shield",
         ammo        = "Staunch Tathlum +1",
         head        = "Vanya Hood",
         body        = "Vanya Robe",
@@ -173,8 +177,8 @@ function get_sets()
         left_ring   = "Menelaus's Ring",
     })
     sets.midcast['Enhancing Magic'] = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
+        --main        = "Daybreak",
+        --sub         = "Ammurapi Shield",
         ammo        = "Impatiens",
         head        = "Telchine Cap",
         body        = "Telchine Chas.",
@@ -233,10 +237,10 @@ function get_sets()
 		feet		= "Nyame Sollerets",
         neck        = "Loricate Torque +1",
         waist       = "Fucho-no-obi",
-        left_ear    = "Genmei Earring",
-        right_ear   = "Etiolation Earring",
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
-        right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
+        left_ear    = "Telos Earring",
+        right_ear   = "Dedition Earring",
+        left_ring   = "Chirich Ring +1",
+        right_ring  = "Chirich Ring +1",
         back        = "Moonlight Cape"
      }
 

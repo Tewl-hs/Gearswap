@@ -82,7 +82,7 @@ function get_sets()
 	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}
 
 	sets.Twilight = { 
-		head		= "Twilight helm",
+		head		= "Crepuscular helm",
 		body		= "Twilight mail"
 	}
 	
