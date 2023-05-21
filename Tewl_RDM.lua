@@ -304,7 +304,7 @@ function get_sets()
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         sub         = "Ammurapi Shield",
         head		= "Amalric Coif +1",
-        --hands		= "Regal Cuffs",
+        hands		= "Regal Cuffs",
         legs        = "Shedir Seraweels",
         neck		= "Dls. Torque +2",
         left_ear	= "Magnetic Earring",

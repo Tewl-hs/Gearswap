@@ -154,13 +154,13 @@ function get_sets()
         waist       = "Luminary Sash"
     }
 
-    sets.midcast['Enhancing Magic'] = { -- Enhancing Duration: 76
+    sets.midcast['Enhancing Magic'] = { -- Enhancing Duration: 70
         sub         = "Ammurapi Shield", -- 10
         head        = "Telchine Cap", --10
-        body        = "Telchine Chas.", -- 8
+        body        = "Telchine Chas.", -- 10
         hands       = "Telchine Gloves", -- 10
         legs        = "Telchine Braconi", -- 10
-        feet        = "Telchine Pigaches",  -- 8
+        feet        = "Telchine Pigaches",  -- 10
         neck        = "Incanter's Torque",
         right_ear   = "Augment. Earring",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
