@@ -26,10 +26,6 @@ function get_sets()
     sets.MoveSpeed = { feet = "Herald's Gaiters",}
     BurstMode = false
     CurrentWeapon = "Mpaca's Staff"
-
-    Capes = {}
-    Capes.FC = { name="Lugh's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Phys. dmg. taken-10%',}}
-    Capes.MAB = { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
                 
     sets.precast = {}
     sets.precast.FC = { 
@@ -47,7 +43,7 @@ function get_sets()
         right_ear   = "Malignance Earring", -- 4
         right_ring  = "Kishar Ring", -- 4 
         left_ring   = "Prolix Ring", -- 2
-        back        = Capes.FC -- 10
+        back        = "Fi Follet Cape +1" -- 10
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
@@ -59,10 +55,10 @@ function get_sets()
 		['Parsimony'] = { legs = "Arbatel Pants +2" },
 		['Celerity'] = { feet = "Peda. Loafers +3" },
 		['Alacrity'] = { feet = "Peda. Loafers +3" },
-        ['Tabula Rasa'] = { legs = "Peda. Pants +1", }
+        ['Tabula Rasa'] = { legs = "Peda. Pants +1", },
 		['Immanence'] = { 
 			hands	= "Arbatel Bracers +3",
-			back	= Capes.MAB
+			back	= { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
 		},
         ['Sublimation'] = {
             head    = "Acad. Mortar. +2",
@@ -106,11 +102,11 @@ function get_sets()
         main        = "Contemplator +1",
         sub         = "Khonsu",
         ammo        = "Pemphredo Tathlum",
-        head        = "Acad. Mortar. +2",
-        body        = "Acad. Gown +2",
+        head        = empty,
+        body        = "Cohort Cloak +1",
         hands       = "Kaykaus Cuffs +1",
         legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
-        feet        = "Acad. Loafers +2",
+        feet        = "Acad. Loafers +3",
         neck		= "Incanter's Torque",
         waist       = "Obstin. Sash",
         left_ear    = "Regal Earring",
@@ -122,6 +118,10 @@ function get_sets()
     sets.midcast['Enfeebling Magic'].Dispelga = set_combine(sets.midcast['Enfeebling Magic'], {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
+    })
+    sets.midcast['Enfeebling Magic'].DarkArts = set_combine(sets.midcast['Enfeebling Magic'], {
+        head        = "Acad. Mortar. +2",
+        body        = "Acad. Gown +2",
     })
     sets.midcast['Enhancing Magic'] = {	
         main        = "Musa",
@@ -137,7 +137,7 @@ function get_sets()
         right_ear   = "Andoaa Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-        back	    = Capes.MAB
+        back	    = "Fi Follet Cape +1"
     }
     sets.midcast['Enhancing Magic'].Regen = set_combine(sets.midcast['Enhancing Magic'],{
         head        = "Arbatel Bonnet +2",
@@ -172,7 +172,7 @@ function get_sets()
         right_ear   = "Malignance Earring",
         left_ring   = "Metamor. Ring +1",
         right_ring  = "Freke Ring",
-        back	    = Capes.MAB
+        back	    = { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
     }
     sets.midcast['Elemental Magic'].Impact = set_combine(sets.midcast['Elemental Magic'], {
         main        = "Contemplator +1",
@@ -192,9 +192,9 @@ function get_sets()
         feet        = "Amalric Nails +1", 
     })
     sets.midcast['Elemental Magic'].BurstHelix = set_combine(sets.midcast['Elemental Magic'].Helix, { 
-        head        = "Peda. M.Board +1",
+        head        = "Peda. M.Board +3",
         hands       = "Agwu's Gages",
-        feet        = "Arbatel Loafer's +2",
+        feet        = "Arbatel Loafer's +3",
         left_ear    = "Arbatel Earring +1",
     })
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
@@ -221,7 +221,7 @@ function get_sets()
         right_ear   = "Crep. Earring",
         left_ring   = "Evanescence Ring",
         right_ring  = "Archon Ring",
-        back	    = Capes.MAB
+        back	    = { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
     }
     sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
         head        = "Pixie Hairpin +1",
@@ -257,10 +257,6 @@ function file_unload()
 end
 
 function precast(spell)
-	if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
     if spell.action_type == 'Magic' and sets.precast.FC then
         if spell.name:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))

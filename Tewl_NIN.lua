@@ -274,11 +274,6 @@ function file_unload()
 end
 
 function precast(spell,action)    
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
-    
 	local target = player.target.id
 	if target ~= last_target then
 		ws_order = 1

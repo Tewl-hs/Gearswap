@@ -424,11 +424,6 @@ function precast(spell, action)
 		last_target = target
 	end
 
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
-
 	if spell.type == 'WeaponSkill' then
 		if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
             add_to_chat(123,'['..spell.name..'] Target out of range.')

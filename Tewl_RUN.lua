@@ -383,11 +383,7 @@ function sub_job_change(new, old)
     end
 end
     
-function precast(spell,action)
-	if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end        
+function precast(spell,action)    
     if spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
             add_to_chat(123,'['..spell.name..'] Not enough TP.')

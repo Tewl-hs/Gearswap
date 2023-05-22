@@ -115,6 +115,7 @@ function get_sets()
     sets.midcast['Blue Magic']['Battery Charge'] = set_combine(sets.midcast['Blue Magic'],{
         head        = "Amalric Coif +1",
         waist		= "Gishdubar Sash",
+        back        = "Grapevine Cape",
     })
     
     sets.aftercast = { }
@@ -236,10 +237,6 @@ function get_current_spellset()
 end
     
 function precast(spell)    
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
     if spell.action_type == 'Magic' and sets.precast.FC then
         if sets.precast.FC[spell.name] then
             equip(sets.precast.FC[spell.name])

@@ -145,16 +145,24 @@ function get_sets()
     })
 
     sets.midcast['Enfeebling Magic'] = {
+        main        = "Daybreak",
         sub         = "Ammurapi Shield",
-        neck        = "Incanter's Torque",
-        body        = "Vanya Robe",
-        hands       = "Azimuth Gloves +3",
-        left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
+        head        = "Geo. Galero +3",
+        body        = "Geomancy Tunic +3",
+        hands       = "Regal Cuffs",
+        legs        = "Geomancy Pants +3",
+        feet        = "Geo. Sandals +3",
+        neck        = "Bagua Charm +2",
+        left_ear    = "Regal Earring", 
+        right_ear   = "Malignance Earring",
+        left_ring	= "Kishar Ring",
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
-        waist       = "Luminary Sash"
+        waist       = "Luminary Sash",
+        back        = Capes.MagicDmg -- // Need to make a MND/MACC ambu cape
     }
 
     sets.midcast['Enhancing Magic'] = { -- Enhancing Duration: 70
+        --main        = "Gada" -- // Enh. dur. +6%
         sub         = "Ammurapi Shield", -- 10
         head        = "Telchine Cap", --10
         body        = "Telchine Chas.", -- 10
@@ -162,11 +170,18 @@ function get_sets()
         legs        = "Telchine Braconi", -- 10
         feet        = "Telchine Pigaches",  -- 10
         neck        = "Incanter's Torque",
-        right_ear   = "Augment. Earring",
+        left_ear    = "Mimir Earring",
+        right_ear   = "Andoaa Earring",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Embla Sash" -- 10
     }
+    sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
+        head        = "Amalric Coif +1",
+        feet        = "Inspirited Boots",
+        waist		= "Gishdubar Sash",
+        back		= "Grapevine Cape"
+    })
 
     sets.midcast['Dark Magic'] = {
         main        = "Daybreak",
@@ -262,10 +277,6 @@ function file_unload()
 end
 
 function precast(spell)
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
     if spell.action_type == 'Magic' and sets.precast.FC then
         if spell.name:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))

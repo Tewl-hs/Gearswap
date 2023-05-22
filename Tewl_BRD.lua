@@ -271,10 +271,6 @@ function file_unload()
 end
 
 function precast(spell)
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
     if spell.action_type == 'Magic' then        
         if spell.skill == 'Singing' and sets.precast.FC[spell.skill] then 
             if DummySongs:contains(spell.name) or string.find(spell.name,'Paeon') or spell.name:startswith('Horde')  then

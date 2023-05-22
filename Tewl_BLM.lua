@@ -66,7 +66,7 @@ function get_sets()
         sub         = "Enki Strap",
         --main        = "Bunzi's Rod",
         --sub         = "Ammurapi Shield",
-        ammo        = "Sroda Tathlum",
+        ammo        = "Ghastly Tathlum +1",
         head        = "Wicce Petasos +3",
         body        = "Wicce Coat +3",
         hands       = "Wicce Gloves +3",
@@ -98,11 +98,8 @@ function get_sets()
         back        = "Aurist's Cape +1"
     })
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
-        ammo        = "Ghastly Tathlum +1",
         head		= "Ea Hat +1",
-        body        = "Wicce Coat +3",
         hands       = "Agwu's Gages",
-        legs        = "Wicce Chausses +3",
         feet        = "Agwu's Pigaches",
     })
     sets.midcast['Elemental Magic'].RecoverMode.Burst = set_combine(sets.midcast['Elemental Magic'].Burst, { 
@@ -112,9 +109,9 @@ function get_sets()
         main        = "Contemplator +1",
         sub         = "Khonsu",
         ammo        = "Pemphredo Tathlum",
-        head        = "Wicce Petasos +3",
-        body        = "Wicce Coat +3",
-        hands       = "Wicce Gloves +3",
+        head        = empty,
+        body        = "Cohort Cloak +1",
+        hands       = "Regal Cuffs",
         legs        = "Wicce Chausses +3",
         feet        = "Wicce Sabots +3",
         neck		= "Src. Stole +2",
@@ -149,8 +146,8 @@ function get_sets()
         waist       = "Fucho-no-Obi",
     })
     sets.midcast['Healing Magic'] = { 
-        --main        = "Daybreak",
-        --sub         = "Ammurapi Shield",
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
         ammo        = "Staunch Tathlum +1",
         head        = "Vanya Hood",
         body        = "Vanya Robe",
@@ -190,7 +187,7 @@ function get_sets()
         head        = "Amalric Coif +1",
         feet        = "Inspirited Boots",
         waist		= "Gishdubar Sash",
-        --back		= "Grapevine Cape"
+        back		= "Grapevine Cape"
     })
     sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
         legs        = "Shedir Seraweels",
@@ -252,10 +249,6 @@ function file_unload()
 end
 
 function precast(spell)
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
-        cancel_spell()
-        return
-    end
     if spell.action_type == 'Magic' and sets.precast.FC then
         if sets.precast.FC[spell.name] then
             equip(sets.precast.FC[spell.name])
