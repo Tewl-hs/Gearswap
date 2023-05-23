@@ -443,7 +443,7 @@ function precast(spell, action)
 		local ws = sets.precast.WS -- Default weaponskill set
 
 		if sets.precast.WS[spell.name] then -- Specific weaponskill sets
-			if acc_mode == true and sets.WS[spell.name].Accuracy then
+			if acc_mode == true and sets.precast.WS[spell.name].Accuracy then
 				ws = sets.precast.WS[spell.name].Accuracy
 			else
 				ws = sets.precast.WS[spell.name]

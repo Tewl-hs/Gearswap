@@ -48,8 +48,8 @@ function get_sets()
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
     sets.precast.JA = {
-		['Rapture'] = { head="Arbatel Bonnet +2" },
-		['Ebullience'] = { head = "Arbatel Bonnet +2" },
+		['Rapture'] = { head="Arbatel Bonnet +3" },
+		['Ebullience'] = { head = "Arbatel Bonnet +3" },
 		['Perpetuance'] = { hands = "Arbatel Bracers +2", },
 		['Penury'] = { legs = "Arbatel Pants +2" },
 		['Parsimony'] = { legs = "Arbatel Pants +2" },
@@ -162,10 +162,10 @@ function get_sets()
         sub         = "Ammurapi Shield",
         ammo        = "Ghastly Tathlum +1",
         head        = "Agwu's Cap",
-        body        = "Agwu's Robe", -- Arbatel Gown +3
+        body        = "Arbatel Gown +3",
         hands       = "Agwu's Gages", -- Arbatel Bracers +3
         legs        = "Agwu's Slops", -- Arbatel Pants +3
-        feet        = "Agwu's Pigaches", -- Arbatel Loafer's + 3
+        feet        = "Arbatel Loafer's +3",
         neck		= "Argute Stole +2",
         waist       = "Acuity Belt +1",
         left_ear    = "Regal Earring",
@@ -202,7 +202,7 @@ function get_sets()
         legs        = "Agwu's Slops",
     })
     sets.midcast['Elemental Magic'].EbullienceBurst = set_combine(sets.midcast['Elemental Magic'].Burst, {
-        head        = "Arbatel Bonnet +2",
+        head        = "Arbatel Bonnet +3",
         body        = "Agwu's Robe",
         right_ring  = "Mujin Band"
     }) 
