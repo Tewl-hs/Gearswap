@@ -61,7 +61,7 @@ function get_sets()
 			back	= { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
 		},
         ['Sublimation'] = {
-            head    = "Acad. Mortar. +2",
+            head    = "Acad. Mortar. +3",
             body    = "Peda. Gown +1",
             waist   = "Embla Sash"
         }
@@ -89,7 +89,8 @@ function get_sets()
     sets.midcast['Healing Magic'].Cursna = set_combine(sets.midcast['Healing Magic'], {
         feet        = "Gende. Galosh. +1",
         left_ring   = "Haoma's Ring",
-        right_ring  = "Menelaus's Ring"
+        right_ring  = "Menelaus's Ring",
+        back        = "Oretan. Cape +1"
     })
     sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
         neck		= "Nodens Gorget",
@@ -120,7 +121,7 @@ function get_sets()
         sub         = "Ammurapi Shield",
     })
     sets.midcast['Enfeebling Magic'].DarkArts = set_combine(sets.midcast['Enfeebling Magic'], {
-        head        = "Acad. Mortar. +2",
+        head        = "Acad. Mortar. +3",
         body        = "Acad. Gown +2",
     })
     sets.midcast['Enhancing Magic'] = {	
@@ -141,6 +142,7 @@ function get_sets()
     }
     sets.midcast['Enhancing Magic'].Regen = set_combine(sets.midcast['Enhancing Magic'],{
         head        = "Arbatel Bonnet +2",
+        back	    = { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
     })
     sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'],{
         legs        = "Shedir Seraweels",
@@ -163,8 +165,8 @@ function get_sets()
         ammo        = "Ghastly Tathlum +1",
         head        = "Agwu's Cap",
         body        = "Arbatel Gown +3",
-        hands       = "Agwu's Gages", -- Arbatel Bracers +3
-        legs        = "Agwu's Slops", -- Arbatel Pants +3
+        hands       = "Arbatel Bracers +2",
+        legs        = "Arbatel Pants +2",
         feet        = "Arbatel Loafer's +3",
         neck		= "Argute Stole +2",
         waist       = "Acuity Belt +1",
@@ -213,7 +215,7 @@ function get_sets()
         head        = "Agwu's Cap",
         body        = "Agwu's Robe",
         hands       = "Agwu's Gages",
-        legs        = "Agwu's Slops", -- Peda. Pants +3
+        legs        = "Peda. Pants +1",
         feet        = "Agwu's Pigaches",
         neck        = "Erra Pendant",
         waist       = "Luminary Sash",
