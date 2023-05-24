@@ -79,7 +79,7 @@ function get_sets()
 	Capes.FC		= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 	Capes.Enmity 	= { name="Smertrios's Mantle", augments={'HP+60','Enmity+10',}}
 	
-	sets.MoveSpeed = { feet = "Danzo Sune-Ate",}
+	sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
 
 	sets.Twilight = { 
 		head		= "Crepuscular helm",
@@ -192,7 +192,7 @@ function get_sets()
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		right_ear	= "Thrud Earring",
 		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring +1",
+		right_ring	= "Cornelia's Ring",
 		back		= Capes.WS
 	}
 	sets.precast.WS.Accuracy = set_combine(sets.precast.WS, { 
@@ -366,7 +366,7 @@ function get_sets()
 		left_ear	= "Tuisto Earring", 
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Defending Ring",
-		right_ring	= "Karieyh Ring +1",
+		right_ring	= "Shneddick Ring +1",
 		back		= Capes.TP
 	}
 	sets.aftercast.Idle.PDT = sets.aftercast.Engaged.PDT
@@ -378,7 +378,7 @@ function get_sets()
 		left_ear	= "Tuisto Earring", 
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Defending Ring",
-		right_ring	= "Karieyh Ring +1",
+		right_ring	= "Shneddick Ring +1",
 	})
 	sets.aftercast.Idle.Refresh = set_combine(sets.aftercast.Idle,{
 		left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
