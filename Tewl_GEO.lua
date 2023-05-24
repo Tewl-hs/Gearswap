@@ -93,7 +93,7 @@ function get_sets()
         left_ear    = "Moonshade Earring",
         right_ear   = "Ishvara Earring",
         left_ring	= "Epaminondas's Ring",
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Cornelia's Ring",
     }
     
     sets.midcast = {}

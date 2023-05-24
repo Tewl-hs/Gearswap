@@ -23,7 +23,7 @@ function get_sets()
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c cycle engaged')
 
-    sets.MoveSpeed = { feet = "Herald's Gaiters",}
+    sets.MoveSpeed = { feet = right_ring = "Shneddick ring +1",}
     BurstMode = false
     CurrentWeapon = "Mpaca's Staff"
                 

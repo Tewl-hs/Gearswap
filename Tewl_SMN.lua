@@ -33,7 +33,7 @@ function get_sets()
         ['Carbuncle']   = '1',
     }
 
-    sets.MoveSpeed = { feet = "Herald's Gaiters",}
+    sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
 
     CurrentWeapon = 'Nirvana'
     PetDT = false

@@ -86,7 +86,7 @@ function get_sets()
         left_ear	= "Ishvara Earring",
         right_ear	= "Moonshade Earring",
         left_ring   = "Epaminondas's Ring",
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Cornelia's Ring",
         waist		= "Fotia Belt",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         back		= Capes.WSD,
@@ -111,7 +111,7 @@ function get_sets()
         left_ear    = "Moonshade Earring",
         right_ear   = "Ishvara Earring",
         left_ring   = "Epaminondas's Ring",
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Cornelia's Ring",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         back		= Capes.WSD,
     })
@@ -139,7 +139,7 @@ function get_sets()
         feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Cornelia's Ring",
     })
     sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS['Sanguine Blade'], {
         head		= "Nyame Helm",
@@ -149,7 +149,7 @@ function get_sets()
         feet		= "Leth. Houseaux +3",
         right_ear	= "Moonshade Earring",
         left_ring	= "Epaminondas's Ring",
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Cornelia's Ring",
     })
 
     sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, { 

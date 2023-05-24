@@ -154,7 +154,7 @@ function get_sets()
         left_ear    = "Moonshade Earring",
         right_ear   = "Sherida Earring",
         left_ring   = "Ilabrat Ring",
-        right_ring  = "Karieyh Ring +1",
+        right_ring  = "Cornelia's Ring",
         back        = Capes.DA
     }
     sets.precast.WS['Dimidiation'] = set_combine(sets.precast.WS,{

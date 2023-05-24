@@ -86,7 +86,7 @@ function get_sets()
 		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
         right_ear   = "Ishvara Earring",
 		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Karieyh Ring +1",
+		right_ring	= "Cornelia's Ring",
         neck        = "Fotia Gorget",
         waist       = "Fotia Belt",
         back        = Capes.DEX
@@ -260,7 +260,7 @@ function get_sets()
         left_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 2/5
         right_ear	= "Genmei Earring", -- 2/0
         left_ring	= "Defending Ring", -- 10/10
-        right_ring	= "Karieyh Ring +1",
+        right_ring	= "Cornelia's Ring",
         back		= "Moonlight Cape" -- 6/6
     }
     

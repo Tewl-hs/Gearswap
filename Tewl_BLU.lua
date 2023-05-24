@@ -63,7 +63,7 @@ function get_sets()
         left_ear    = { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
         right_ear   = "Regal Earring",
         left_ring   = "Epaminondas's Ring",
-        right_ring  = "Karieyh Ring +1",
+        right_ring  = "Cornelia's Ring",
         back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}}, -- 10
     }
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {

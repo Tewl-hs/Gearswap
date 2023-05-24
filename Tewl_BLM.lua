@@ -22,7 +22,7 @@ function get_sets()
     set_macros(3,1)
 	send_command('wait 1.5;input /lockstyleset 5')
 
-    sets.MoveSpeed = { feet = "Herald's Gaiters",}
+    sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
 	BurstMode = false
     RecoverMode = false
 
