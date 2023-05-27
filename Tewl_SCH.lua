@@ -141,7 +141,7 @@ function get_sets()
         back	    = "Fi Follet Cape +1"
     }
     sets.midcast['Enhancing Magic'].Regen = set_combine(sets.midcast['Enhancing Magic'],{
-        head        = "Arbatel Bonnet +2",
+        head        = "Arbatel Bonnet +3",
         back	    = { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
     })
     sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'],{
