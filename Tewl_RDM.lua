@@ -64,7 +64,7 @@ function get_sets()
         right_ear	= "Leth. Earring +1", -- 7
         left_ring   = "Kishar Ring",
         right_ring	= "Lebeche Ring", -- 0|2
-        back		= Capes.MND -- 10
+        back		= Capes.MND
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})

@@ -28,14 +28,14 @@ function get_sets()
     CurrentWeapon = "Mpaca's Staff"
                 
     sets.precast = {}
-    sets.precast.FC = { 
+    sets.precast.FC = { -- Current: 92
         main        = "Mpaca's Staff", -- 5
         sub         = "Khonsu",
-        ammo        = "Sapience Orb", -- 2
+        ammo        = "Incantor Stone", -- 2
         head        = "Amalric Coif +1", -- 11
-        body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
-        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
-        legs        = "Agwu's Slops", -- 7
+        body        = "Pinga Tunic", --13
+        hands       = "Acad. Bracers +3", -- 9
+        legs        = "Pinga Pants", -- 11
         feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
@@ -45,6 +45,10 @@ function get_sets()
         left_ring   = "Prolix Ring", -- 2
         back        = "Fi Follet Cape +1" -- 10
     }
+    sets.precast.FC.Grimoire = set_combine(sets.precast.FC,{ -- Current 95%
+        head        = "Peda. M.Board +3", --13
+        feet        = "Acad. Loafers +3" -- 12
+    })
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
     sets.precast.JA = {
@@ -62,7 +66,7 @@ function get_sets()
 		},
         ['Sublimation'] = {
             head    = "Acad. Mortar. +3",
-            body    = "Peda. Gown +1",
+            body    = "Peda. Gown +2",
             waist   = "Embla Sash"
         }
     }    
@@ -156,7 +160,7 @@ function get_sets()
         waist       = "Emphatikos Rope"
     })
     sets.midcast['Enhancing Magic'].BarSpells = set_combine(sets.midcast['Enhancing Magic'],{
-        body        = "Peda. Gown +1",
+        body        = "Peda. Gown +2",
         legs        = "Shedir Seraweels",
     })
     sets.midcast['Elemental Magic'] = {
