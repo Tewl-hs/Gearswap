@@ -28,15 +28,15 @@ function get_sets()
     CurrentWeapon = "Mpaca's Staff"
                 
     sets.precast = {}
-    sets.precast.FC = { -- Current: 92
-        main        = "Mpaca's Staff", -- 5
-        sub         = "Khonsu",
+    sets.precast.FC = { -- Current: 80% + (CT-25)
+        main        = "Musa", -- 10
+        sub         = "Clerisy Strap +1", -- 3
         ammo        = "Incantor Stone", -- 2
-        head        = "Amalric Coif +1", -- 11
+        head        = "Peda. M.Board +3", -- CT-13
         body        = "Pinga Tunic", --13
         hands       = "Acad. Bracers +3", -- 9
         legs        = "Pinga Pants", -- 11
-        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
+        feet        = "Acad. Loafers +3", -- CT-12
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
         left_ear    = "Loquacious Earring", -- 2
@@ -45,28 +45,24 @@ function get_sets()
         left_ring   = "Prolix Ring", -- 2
         back        = "Fi Follet Cape +1" -- 10
     }
-    sets.precast.FC.Grimoire = set_combine(sets.precast.FC,{ -- Current 95%
-        head        = "Peda. M.Board +3", --13
-        feet        = "Acad. Loafers +3" -- 12
-    })
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
     sets.precast.JA = {
 		['Rapture'] = { head="Arbatel Bonnet +3" },
 		['Ebullience'] = { head = "Arbatel Bonnet +3" },
-		['Perpetuance'] = { hands = "Arbatel Bracers +2", },
+		['Perpetuance'] = { hands = "Arbatel Bracers +3", },
 		['Penury'] = { legs = "Arbatel Pants +3" },
 		['Parsimony'] = { legs = "Arbatel Pants +3" },
 		['Celerity'] = { feet = "Peda. Loafers +3" },
 		['Alacrity'] = { feet = "Peda. Loafers +3" },
-        ['Tabula Rasa'] = { legs = "Peda. Pants +1", },
+        ['Tabula Rasa'] = { legs = "Peda. Pants +3", },
 		['Immanence'] = { 
 			hands	= "Arbatel Bracers +3",
 			back	= { name="Lugh's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Phys. dmg. taken-10%',}}
 		},
         ['Sublimation'] = {
             head    = "Acad. Mortar. +3",
-            body    = "Peda. Gown +2",
+            body    = "Peda. Gown +3",
             waist   = "Embla Sash"
         }
     }    
@@ -74,8 +70,8 @@ function get_sets()
 
     sets.midcast = {}	
     sets.midcast['Healing Magic'] = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
+        main        = "Musa",
+        sub         = "Khonsu",
         ammo        = "Pemphredo Tathlum",
         head		= "Kaykaus Mitra +1",
         body		= "Kaykaus Bliaut +1",
@@ -160,7 +156,7 @@ function get_sets()
         waist       = "Emphatikos Rope"
     })
     sets.midcast['Enhancing Magic'].BarSpells = set_combine(sets.midcast['Enhancing Magic'],{
-        body        = "Peda. Gown +2",
+        body        = "Peda. Gown +3",
         legs        = "Shedir Seraweels",
     })
     sets.midcast['Elemental Magic'] = {
@@ -169,7 +165,7 @@ function get_sets()
         ammo        = "Ghastly Tathlum +1",
         head        = "Agwu's Cap",
         body        = "Arbatel Gown +3",
-        hands       = "Arbatel Bracers +2",
+        hands       = "Arbatel Bracers +3",
         legs        = "Arbatel Pants +3",
         feet        = "Arbatel Loafer's +3",
         neck		= "Argute Stole +2",
@@ -219,7 +215,7 @@ function get_sets()
         head        = "Agwu's Cap",
         body        = "Agwu's Robe",
         hands       = "Agwu's Gages",
-        legs        = "Peda. Pants +1",
+        legs        = "Peda. Pants +3",
         feet        = "Agwu's Pigaches",
         neck        = "Erra Pendant",
         waist       = "Luminary Sash",
