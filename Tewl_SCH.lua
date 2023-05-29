@@ -167,7 +167,7 @@ function get_sets()
         body        = "Arbatel Gown +3",
         hands       = "Arbatel Bracers +3",
         legs        = "Arbatel Pants +3",
-        feet        = "Arbatel Loafer's +3",
+        feet        = "Arbatel Loafers +3",
         neck		= "Argute Stole +2",
         waist       = "Acuity Belt +1",
         left_ear    = "Regal Earring",
@@ -196,7 +196,7 @@ function get_sets()
     sets.midcast['Elemental Magic'].BurstHelix = set_combine(sets.midcast['Elemental Magic'].Helix, { 
         head        = "Peda. M.Board +3",
         hands       = "Agwu's Gages",
-        feet        = "Arbatel Loafer's +3",
+        feet        = "Arbatel Loafers +3",
         left_ear    = "Arbatel Earring +1",
     })
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
