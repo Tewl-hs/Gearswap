@@ -156,9 +156,10 @@ function get_sets()
         back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}},
     }
 
-    check_spells()
     
     include('FFXI-Display.lua')	
+
+    check_spells()
 end
 
 function file_unload()  
@@ -175,7 +176,7 @@ function check_spells()
     if windower.ffxi.get_player().main_job_id ~= 16 then return nil end
     current_sj = player.sub_job
     if BlueSets[current_sj] then
-        if S(BlueSets[current_sj]):map(string.lower) == S(get_current_spellset()) then
+        if BlueNukeSet:map(string.lower) == S(get_current_spellset()) then
             windower.add_to_chat(8,'[Blue Spells Equipped]')
         else
             windower.add_to_chat(8,'[Equipping Blue Spells]')

@@ -7,6 +7,8 @@
     CTRL+F10    : Cycle Idle sets
     CTRL+F11    : Cycle Engaged sets
 --]]
+
+
 function get_sets()	
     items = require('resources').items
     require('queues')
@@ -14,6 +16,7 @@ function get_sets()
     include('FFXI-Mappings')
 
     include('FFXI-Utility')
+
     -- Personal settings. You can remove these two lines.
     set_macros(16,1)
     send_command('wait 1;input /lockstyleset 15')
@@ -122,7 +125,7 @@ function get_sets()
     })
     sets.midcast['Enfeebling Magic'].DarkArts = set_combine(sets.midcast['Enfeebling Magic'], {
         head        = "Acad. Mortar. +3",
-        body        = "Acad. Gown +2",
+        body        = "Acad. Gown +3",
     })
     sets.midcast['Enhancing Magic'] = {	
         main        = "Musa",
@@ -250,6 +253,7 @@ function get_sets()
         back        = "Moonlight Cape"
     }
     include('FFXI-Display.lua')	
+    
 end
 
 function file_unload()  
