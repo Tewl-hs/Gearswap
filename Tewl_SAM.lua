@@ -13,12 +13,10 @@
 	CTRL+F9  : Toggle Engaged Mode (Normal, Accuracy, PDT, MDT, Hybrid)
 	CTRL+F10 : Toggle Idle Mode (Normal, PDT, MDT, Hybrid)
 	CTRL+F11 : Toggle Twilight (Disabled by default)
-	CTRL+F12 : N/A
 
-	ALT+F9   : Toggle Auto Hasso (Disabled by default)
-	ALT+F10  : Toggle SkillChain Mode
-	ATL+F11	 : Toggle Accuracy Mode
-	ALT+F12  : Toggle Ranged Mode
+	ALT+F9   : Toggle SkillChain Mode
+	ATL+F10	 : Toggle Accuracy Mode
+	ALT+F11  : Toggle Ranged Mode
 
 	WIN+A	 : Equip Dojikiri Yasutsuna
 	WIN+E	 : Equip Masamune
@@ -44,10 +42,9 @@ function get_sets()
 	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
 	send_command("bind @c input //gs equip sets.Weapons['Mafic Cudgel']")
 
-	send_command('bind !f9 gs c toggle autohs')
-	send_command('bind !f10 gs c toggle autosc') 
-	send_command('bind !f11 gs c toggle acc')
-	send_command('bind !f12 gs c toggle ranged')
+	send_command('bind !f9 gs c toggle autosc') 
+	send_command('bind !f10 gs c toggle acc')
+	send_command('bind !f11 gs c toggle ranged')
 
 	send_command('bind ^f9 gs c cycle engaged')
 	send_command('bind ^f10 gs c cycle idle')
@@ -385,11 +382,9 @@ function get_sets()
 		right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
 	})
 	
-
 	range_mode = false
 	lock_twilight = false
 	acc_mode = false
-	auto_hasso = true
     
 	-- Variables for Auto Skillchainer
 	AutoSC = false
@@ -484,16 +479,7 @@ function precast(spell, action)
 			if spell.name ~= 'Hasso' then add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id])) end
 			return
 		end
-		-- Enable AutoHasso on Hasso use if down
-		if spell.name == 'Hasso' then
-			if TwoHandedWeapon == false then cancel_spell() end
-			if auto_hasso == false then auto_hasso = true update_status() end
-		end
-		-- Disable AutoHasso if needing to use Seigan 
-		if spell.name == 'Seigan' then
-			if TwoHandedWeapon == false then cancel_spell() end
-			if auto_hasso == true then auto_hasso = false update_status() end
-		end
+
 		if sets.precast.JA[spell.name] then
 			if range_mode == true then
 				equip(set_combine(sets.precast.JA[spell.name], sets.Ranged))
@@ -565,10 +551,6 @@ function buff_change(buff, gain)
 	elseif buff == 'stun' and gain then
         equip_check()
 	end
-
-	if player.status == 'Engaged' and auto_hasso and buff == 'Hasso' and not gain then
-		windower.chat.input:schedule(1,'/ja Hasso <me>')
-	end
 end
 
 function equip_check()
@@ -594,10 +576,6 @@ function equip_check()
 	end
 
 	equip(eq)
-
-	if auto_hasso and player.status == 'Engaged' and not buffactive['Hasso'] then
-		windower.chat.input:schedule(1,'/ja Hasso <me>')
-	end
 
 	update_status()
 end
@@ -655,18 +633,6 @@ function self_command(cmd)
 				lock_twilight = false
 				equip_check()
 			end
-		elseif args[2] == 'autohs' then
-			if auto_hasso == false then
-				if TwoHandedWeapon == false then
-					add_to_chat(122, 'AutoHasso requires a 2-handed weapon.')
-				else
-				    auto_hasso = true
-					update_status()
-				end
-			else
-				auto_hasso = false
-				update_status()
-			end
 		elseif args[2] == 'autosc' then
 			if AutoSC == false then
 				AutoSC = true
@@ -715,7 +681,6 @@ function equip_change()
 					TwoHandedWeapon = true
 				else 
 					TwoHandedWeapon = false	
-					if auto_hasso == true then auto_hasso = false update_status() end
 				end
 			end	
 			update_status()
@@ -765,10 +730,6 @@ function update_status()
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Yellow, 'High', spc)
 	else
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)
-	end
-	
-	if auto_hasso == true then
-		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Hasso', spc)
 	end
 	
 	if range_mode == true then
