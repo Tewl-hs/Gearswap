@@ -260,7 +260,7 @@ function get_sets()
         left_ear	= { name="Odnowa Earring +1", augments={'Path: A',}}, -- 2/5
         right_ear	= "Genmei Earring", -- 2/0
         left_ring	= "Defending Ring", -- 10/10
-        right_ring	= "Cornelia's Ring",
+        right_ring	= "Shneddick Ring +1",
         back		= "Moonlight Cape" -- 6/6
     }
     
@@ -466,7 +466,7 @@ function self_command(cmd)
         if world.time >= 17*60 or world.time < 7*60 then
             equip({feet="Hachiya Kyahan +3"})
         else
-            equip({feet="Danzo Sune-Ate"})
+            equip({right_ring="Shneddick Ring +1"})
         end
     elseif args[1] == 'equip_check' then
         equip_check()

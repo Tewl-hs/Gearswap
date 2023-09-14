@@ -588,3 +588,65 @@ function equip_change()
 		end
 	end
 end
+
+-- Functions for loading blu spells
+
+function check_spells()
+    if windower.ffxi.get_player().sub_job_id ~= 16 then return nil end
+    if S(BlueSpells):map(string.lower) == S(get_current_spellset()) then
+        windower.add_to_chat(8,'[Blue Spells Equipped]')
+    else
+        windower.add_to_chat(8,'[Equipping Blue Spells]')
+        clear_spells()
+    end
+end
+
+function clear_spells()
+    windower.ffxi.reset_blue_magic_spells()
+    set_spells()
+end
+
+function set_spells()
+    local delay = 0.65
+    local i = 0
+    for k,v in pairs(BlueSpells) do
+        if v ~= nil then
+            local spellID = find_spell_id_by_name(v)
+            if spellID ~= nil then
+                i = i + 1
+                x = delay * i
+                set_spell:schedule(x, spellID, i)
+            end
+        end
+    end
+end
+
+function set_spell(id, slot)
+    windower.ffxi.set_blue_magic_spell(id, tonumber(slot))
+    if tonumber(slot) == table.getn(BlueSpells) then
+        windower.add_to_chat(8, '[Finished equipping spells.]')
+        windower.send_command('@timers c "Blue Magic Cooldown" 60 up')
+    end
+end
+
+function find_spell_id_by_name(spellname)
+    spells = res.spells:type('BlueMagic')
+
+    for spell in spells:it() do
+        if spell['english']:lower() == spellname:lower() then
+            return spell['id']
+        end
+    end
+    return nil
+end
+
+function get_current_spellset()
+    spells = res.spells:type('BlueMagic')
+    return T(windower.ffxi.get_sjob_data().spells)
+    -- Returns all values but 512
+    :filter(function(id) return id ~= 512 end)
+    -- Transforms them from IDs to lowercase English names
+    :map(function(id) return spells[id].english:lower() end)
+    -- Transform the keys from numeric x or xx to string 'slot0x' or 'slotxx'
+    :key_map(function(slot) return 'slot%02u':format(slot) end)
+end

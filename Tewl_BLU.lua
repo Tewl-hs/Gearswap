@@ -11,9 +11,9 @@ function get_sets()
 
     include('FFXI-Mappings')
 
-    include('FFXI-Utility')
+    --include('FFXI-Utility')
     -- Personal settings. You can remove these two lines.
-    set_macros(4,1)
+    --set_macros(4,1)
     send_command('wait 1;input /lockstyleset 6')
 	send_command('input //equipviewer pos 1663 935') 
 
@@ -156,10 +156,9 @@ function get_sets()
         back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}},
     }
 
+    check_spells()
     
     include('FFXI-Display.lua')	
-
-    check_spells()
 end
 
 function file_unload()  
@@ -174,6 +173,7 @@ end
 
 function check_spells()
     if windower.ffxi.get_player().main_job_id ~= 16 then return nil end
+    
     current_sj = player.sub_job
     if BlueSets[current_sj] then
         if BlueNukeSet:map(string.lower) == S(get_current_spellset()) then
