@@ -163,12 +163,31 @@ data.weaponskills.empyrean = {
     ["Hvergelmir"] = "Myrkr",
     ["Gandiva"] = "Jishnu's Radiance",
     ["Armageddon"] = "Wildfire"}
+
+data.weaponskills.prime = {
+	['Varga Purnikawa'] = "Maru Kala",
+	['Mpu Gandring'] = "Ruthless Stroke",
+	['Caliburnus'] = "Imperator",
+	['Helheim'] = "Fimbulvetr",
+	['Spalirisos'] = "Blitz",
+	['Laphria'] = "Disaster",
+	['Foenaria'] = "Origin",
+	['Gae Buide'] = "Diarmuid",
+	['Dokoku'] = "Zesho Meppo",
+	['Kusanagi'] = "Tachi: Mumei",
+	['Lorg Mor'] = "Dagda",
+	['Opashoro'] = "Oshala",
+	['Pinaka'] = "Sarv",
+	['Earp'] = "Terminus",}
 	
 -- Weaponskills that can be used at range.
 ranged_weaponskills = S{"Flaming Arrow","Piercing Arrow","Dulling Arrow","Sidewinder","Arching Arrow",
     "Empyreal Arrow","Refulgent Arrow","Apex Arrow","Namas Arrow","Jishnu's Radiance",
     "Hot Shot","Split Shot","Sniper Shot","Slug Shot","Heavy Shot","Detonator","Last Stand",
     "Coronach","Trueflight","Leaden Salute","Wildfire","Myrkr"}
+
+prime_weapons = S{'Varga Purnikawa', 'Mpu Gandring', 'Caliburnus', 'Helheim', 'Spalirisos', 'Laphria', 'Foenaria', 'Gae Buide', 'Dokoku',
+	'Kusanagi', 'Lorg Mor', 'Opashoro', 'Pinaka', 'Earp', 'Duban', 'Loughnashade'}
 
 mythic_weapons = S{'Conqueror','Glanzfaust','Yagrush','Laevateinn','Murgleis','Vajra','Burtgang','Liberator',
 	'Aymur','Carnwenhan','Gastraphetes','Kogarasumaru','Nagi','Ryunohige','Nirvana','Tizona','Death Penalty','Kenkonken',

@@ -4,7 +4,8 @@ Colors = {
     Green = '\\cs(110,255,110)',
     Blue = '\\cs(140,160,255)',
     Gray = '\\cs(96,96,96)',
-    White = '\\cs(255,255,255)'
+    White = '\\cs(255,255,255)',
+    Purple = '\\cs(180,0,255)'
 }
 
 function get_weapon_color(weapon)
@@ -13,6 +14,7 @@ function get_weapon_color(weapon)
     if relic_weapons:contains(weapon) then return Colors.Yellow end
     if aeonic_weapons:contains(weapon) then return Colors.Green end
     if empyrean_weapons:contains(weapon) then return Colors.Red end
+    if prime_weapons:contains(weapon) then return Colors.Purple end
     return Colors.White
 end
 

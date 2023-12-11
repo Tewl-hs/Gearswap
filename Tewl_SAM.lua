@@ -37,6 +37,7 @@ function get_sets()
 	send_command("bind @e input //gs equip sets.Weapons['Masamune']")
 	send_command("bind @m input //gs equip sets.Weapons['Kogarasumaru']")
 	send_command("bind @r input //gs equip sets.Weapons['Amanomurakumo']")
+	send_command("bind @k input //gs equip sets.Weapons['Kusanagi']")
 	send_command("bind @a input //gs equip sets.Weapons['Dojikiri Yasutsuna']")
 	send_command("bind @s input //gs equip sets.Weapons['Soboro Sukehiro']")
 	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
@@ -56,7 +57,7 @@ function get_sets()
 	send_command('input //equipviewer pos 1663 935') 
     
     --
-    CurrentWeapon = "Masamune"
+    CurrentWeapon = "Kusanagi"
 
     TwoHandedWeapon = true
 
@@ -90,6 +91,7 @@ function get_sets()
 
 	sets.Weapons = {
 		['Masamune'] = {main='Masamune',sub='Utu Grip'},
+		['Kusanagi'] = {main='Kusanagi',sub='Utu Grip'},
 		['Kogarasumaru'] = {main='Kogarasumaru',sub='Utu Grip'},
 		['Amanomurakumo'] = {main='Amanomurakumo',sub='Utu Grip'},
 		['Dojikiri Yasutsuna'] = {main='Dojikiri Yasutsuna',sub='Utu Grip'},
