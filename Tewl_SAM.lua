@@ -387,6 +387,7 @@ function get_sets()
 	range_mode = false
 	lock_twilight = false
 	acc_mode = false
+
     
 	-- Variables for Auto Skillchainer
 	AutoSC = false
@@ -663,6 +664,8 @@ function self_command(cmd)
 		equip_check()
 	elseif args[1] == 'update_status' then
 		update_status()
+	elseif args[1] == 'test' then
+		test()
 	end
 end
 
