@@ -32,24 +32,40 @@ function get_sets()
                 
     sets.precast = {}
     sets.precast.FC = { -- Current: 80% + (CT-25)
-        main        = "Musa", -- 10
-        sub         = "Clerisy Strap +1", -- 3
-        ammo        = "Incantor Stone", -- 2
+        main        = "Hvergelmir", -- 50
+        sub         = "Khonsu",
+        ammo        = "Staunch Tathlum +1",
         head        = "Peda. M.Board +3", -- CT-13
-        body        = "Pinga Tunic", --13
+        body        = "Arbatel Gown +3", 
         hands       = "Acad. Bracers +3", -- 9
-        legs        = "Pinga Pants", -- 11
+        legs        = "Arbatel Pants +3",
         feet        = "Acad. Loafers +3", -- CT-12
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
+        left_ear    = "Genmei Earring",
+        right_ear   = "Etiolation Earring", -- 1
+        right_ring  = "Shneddick ring +1", 
+        left_ring   = "Defending Ring",
+        back        = "Fi Follet Cape +1" -- 10
+    }
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { -- 80%
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield"
+        ammo        = "Incantor Stone", -- 2
+        head        = "Amalric Coif +1", -- 11
+        body        = "Pinga Tunic", --13
+        hands       = "Acad. Bracers +3", -- 9
+        legs        = "Pinga Pants", -- 11
+        feet        = "Agwu's Pigaches", -- 4
         left_ear    = "Loquacious Earring", -- 2
         right_ear   = "Malignance Earring", -- 4
         right_ring  = "Kishar Ring", -- 4 
-        left_ring   = "Prolix Ring", -- 2
-        back        = "Fi Follet Cape +1" -- 10
-    }
-    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
-    sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
+        left_ring   = "Defending Ring", -- 2
+    })
+    sets.precast.FC.Impact = set_combine(sets.precast.FC, { -- 80% + (CT-12)
+        head        = empty,
+        body        = "Twilight Cloak"
+    })
     sets.precast.JA = {
 		['Rapture'] = { head="Arbatel Bonnet +3" },
 		['Ebullience'] = { head = "Arbatel Bonnet +3" },

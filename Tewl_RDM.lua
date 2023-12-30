@@ -216,10 +216,10 @@ function get_sets()
         back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
     })
     sets.midcast['Enfeebling Magic'] = {
-        --main		= { name="Crocea Mors", augments={'Path: C',}},
-        --sub         = "Ammurapi Shield",
-        main        = { name="Contemplator +1", augments={'Path: A',}},
-        sub         = "Enki Strap",
+        main		= { name="Crocea Mors", augments={'Path: C',}},
+        sub         = "Ammurapi Shield",
+        --main        = { name="Contemplator +1", augments={'Path: A',}},
+        --sub         = "Enki Strap",
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +3",
         body		= "Atrophy Tabard +3",

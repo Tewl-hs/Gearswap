@@ -32,22 +32,40 @@ function get_sets()
     sets.precast = {}
     sets.precast.WS = { }
     sets.precast.FC = { -- 80%
-        ammo        = "Sapience Orb", -- 2
-        head        = "Amalric Coif +1", -- 11
-        body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
-        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
-        legs        = "Agwu's Slops", -- 7
-        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
+        main        = "Hvergelmir", -- 50
+        sub         = "Khonsu",
+        ammo        = "Staunch Tathlum +1",
+        head        = "Wicce Petasos +3",
+        body        = "Wicce Coat +3",
+        hands       = "Wicce Gloves +3",
+        legs        = "Wicce Chausses +3",
+        feet        = "Wicce Sabots +3",
         neck        = "Orunmila's Torque", -- 5
         waist       = "Embla Sash", -- 5
         left_ear    = "Loquacious Earring", -- 2
         right_ear   = "Malignance Earring", -- 4
-        right_ring  = "Kishar Ring", -- 4 
-        left_ring   = "Prolix Ring", -- 2
+        right_ring  = "Kishar Ring", -- 4
+        left_ring   = "Defending Ring",
         back        = { name="Taranus's Cape", augments={'MP+60','"Fast Cast"+10',}}, -- 10
     }
-    sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
-    sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { -- 80%
+        main        = "Daybreak",
+        sub         = "Ammurapi Shield",
+        ammo        = "Sapience Orb", -- 2
+        head        = "Amalric Coif +1 ", -- 11
+        body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
+        hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
+        legs        = "Agwu's Slops", -- 7
+        feet        = { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
+        left_ear    = "Loquacious Earring", -- 2
+        right_ear   = "Malignance Earring", -- 4
+        right_ring  = "Kishar Ring", -- 4 
+        left_ring   = "Prolix Ring", -- 2
+    })
+    sets.precast.FC.Impact = set_combine(sets.precast.FC, { -- 80%
+        head        = empty,
+        body        = "Twilight Cloak"
+    })
 
     sets.precast.JA = {
         ['Mana Wall'] = { feet = "Wicce Sabots +3", },
