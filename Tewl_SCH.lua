@@ -50,7 +50,7 @@ function get_sets()
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { -- 80%
         main        = "Daybreak",
-        sub         = "Ammurapi Shield"
+        sub         = "Ammurapi Shield",
         ammo        = "Incantor Stone", -- 2
         head        = "Amalric Coif +1", -- 11
         body        = "Pinga Tunic", --13
