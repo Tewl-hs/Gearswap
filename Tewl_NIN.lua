@@ -13,7 +13,7 @@ function get_sets()
     send_command('wait 1;input /lockstyleset 16')
 	send_command('input //equipviewer pos 1663 935') 
 
-    send_command('bind ^f9 gs c cycl engaged')
+    send_command('bind ^f9 gs c cycle engaged')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c toggle burst')
     
