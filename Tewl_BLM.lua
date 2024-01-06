@@ -21,6 +21,7 @@ function get_sets()
 
     set_macros(3,1)
 	send_command('wait 1.5;input /lockstyleset 5')
+	send_command('input //equipviewer pos 1663 935') 
 
     sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
 	BurstMode = false
@@ -80,10 +81,10 @@ function get_sets()
 
     sets.midcast = {}
     sets.midcast['Elemental Magic'] = {
-        main        = "Laevateinn",
-        sub         = "Enki Strap",
-        --main        = "Bunzi's Rod",
-        --sub         = "Ammurapi Shield",
+        --main        = "Laevateinn",
+        --sub         = "Enki Strap",
+        main        = "Bunzi's Rod",
+        sub         = "Ammurapi Shield",
         ammo        = "Ghastly Tathlum +1",
         head        = "Wicce Petasos +3",
         body        = "Wicce Coat +3",
