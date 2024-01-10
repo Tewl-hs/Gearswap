@@ -168,7 +168,7 @@ function get_sets()
         left_ear	= "Genmei Earring", -- 2/0
         right_ear	= "Odnowa Earring +1", -- 0/2
         left_ring	= "Defending Ring", -- 10/10
-        right_ring	= "Cornelia's Ring",
+        right_ring	= "Shneddick Ring +1",
         back		= "Moonlight Cape" -- 6/6
     }
     include('FFXI-Display.lua')	
