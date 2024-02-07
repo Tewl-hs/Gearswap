@@ -53,7 +53,7 @@ function get_sets()
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         ammo        = "Sapience Orb", -- 2
-        head        = "Amalric Coif +1 ", -- 11
+        head        = "Amalric Coif +1", -- 11
         body        = { name="Merlinic Jubbah", augments={'"Mag.Atk.Bns."+21','"Fast Cast"+5','MND+8','Mag. Acc.+10',}}, --11
         hands       = { name="Merlinic Dastanas", augments={'"Fast Cast"+6','Mag. Acc.+15','"Mag.Atk.Bns."+4',}}, -- 6
         legs        = "Agwu's Slops", -- 7

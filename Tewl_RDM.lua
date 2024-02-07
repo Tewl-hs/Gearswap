@@ -386,7 +386,7 @@ function get_sets()
         right_ear	= "Genmei Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
-        back        = "Moonlight Cape",
+        back        = "Solemnity Cape",
     }
     sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {	
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
@@ -403,7 +403,7 @@ function get_sets()
         right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
         left_ring	= "Shadow Ring",
         right_ring	= "Stikini Ring +1",
-        back        = "Moonlight Cape",
+        back        = "Solemnity Cape",
     })
     include('FFXI-Display.lua')	
 end
