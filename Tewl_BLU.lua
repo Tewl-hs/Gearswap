@@ -11,7 +11,7 @@ function get_sets()
 
     include('FFXI-Mappings')
 
-    --include('FFXI-Utility')
+    include('FFXI-Utility')
     -- Personal settings. You can remove these two lines.
     --set_macros(4,1)
     send_command('wait 1;input /lockstyleset 6')

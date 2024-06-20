@@ -406,8 +406,8 @@ tool_map = {
 	['Kakka: Ichi'] = items[2644],
 	['Gekka: Ichi'] = items[8803],
 	['Yain: Ichi'] = items[8804],
-    }
-	
+}
+
 toolbag_map = {
 	['Katon: Ichi'] = items[5308],
 	['Katon: Ni'] = items[5308],
@@ -454,7 +454,7 @@ toolbag_map = {
 	['Kakka: Ichi'] = items[5865],
 	['Gekka: Ichi'] = items[6265],
 	['Yain: Ichi'] = items[6266],
-    }
+}
 
 universal_tool_map = {
 	['Katon: Ichi'] = items[2971],
@@ -501,8 +501,8 @@ universal_tool_map = {
 	['Kakka: Ichi'] = items[2972],
 	['Gekka: Ichi'] = items[2972],
 	['Yain: Ichi'] = items[2972],
-    }
-	
+}
+
 universal_toolbag_map = {
 	['Katon: Ichi'] = items[5867],
 	['Katon: Ni'] = items[5867],
@@ -548,17 +548,17 @@ universal_toolbag_map = {
 	['Kakka: Ichi'] = items[5868],
 	['Gekka: Ichi'] = items[5868],
 	['Yain: Ichi'] = items[5868],
-    }
+}
 
 -- Command related mappings.
-	
+
 outgoing_action_category_table = {['/ma']=3,['/ws']=7,['/ja']=9,['/ra']=16,['/ms']=25}
-	
+
 unify_prefix = {['/ma'] = '/ma', ['/magic']='/ma',['/jobability'] = '/ja',['/ja']='/ja',['/item']='/item',['/song']='/ma',
     ['/so']='/ma',['/ninjutsu']='/ma',['/weaponskill']='/ws',['/ws']='/ws',['/ra']='/ra',['/rangedattack']='/ra',['/nin']='/ma',
-    ['/throw']='/ra',['/range']='/ra',['/shoot']='/ra',['/monsterskill']='/ms',['/ms']='/ms',['/pet']='/ja',['Monster']='Monster',['/bstpet']='/ja'}	
-	
-	
+    ['/throw']='/ra',['/range']='/ra',['/shoot']='/ra',['/monsterskill']='/ms',['/ms']='/ms',['/pet']='/ja',['Monster']='Monster',['/bstpet']='/ja'}
+
+
 spell_stepdown = {
 	['Aspir III'] = 'Aspir II',
 	['Aspir II'] = 'Aspir',

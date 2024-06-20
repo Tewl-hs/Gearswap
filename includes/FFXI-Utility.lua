@@ -49,7 +49,7 @@ end
 
 function count_available_ammo(ammo_name)
 	local ammo_count = 0
-	
+
     for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","wardrobe5","wardrobe6","wardrobe7","wardrobe8","satchel"}) do
 		if player[n][ammo_name] then
 			ammo_count = ammo_count + player[n][ammo_name].count

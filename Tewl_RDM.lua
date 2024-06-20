@@ -51,20 +51,11 @@ function get_sets()
         back		= { name="Sucellos's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Mag. Evasion+15',}},
     }
     sets.precast = {}
-    sets.precast.FC = { -- 106
-        ammo		= "Sapience Orb", -- 2
+    sets.precast.FC = { -- 48/42
         head		= "Atrophy Chapeau +3", -- 16
         body		= "Viti. Tabard +3", -- 15
-        hands		= "Leyline Gloves", -- 5
-        legs		= "Psycloth Lappas", -- 7
-        feet		= { name="Merlinic Crackows", augments={'Mag. Acc.+5','"Fast Cast"+6','"Mag.Atk.Bns."+5',}}, -- 11
-        neck        = "Orunmila's Torque", -- 5
-        waist		= "Embla Sash", -- 5
-        left_ear	= "Malignance earring", -- 4
         right_ear	= "Leth. Earring +1", -- 7
-        left_ring   = "Kishar Ring",
-        right_ring	= "Lebeche Ring", -- 0|2
-        back		= Capes.MND
+        back		= Capes.MND -- 10
     }
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC,{main="Daybreak",sub="Ammurapi Shield"})
     sets.precast.FC.Impact = set_combine(sets.precast.FC,{head=empty,body="Twilight Cloak"})
@@ -87,30 +78,25 @@ function get_sets()
         right_ear	= "Moonshade Earring",
         left_ring   = "Epaminondas's Ring",
         right_ring	= "Cornelia's Ring",
-        waist		= "Fotia Belt",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         back		= Capes.WSD,
     }
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS,{
-        hands		= "Jhakri Cuffs +2",
+        ammo        = "Crepuscular Pebble",
         feet		= "Leth. Houseaux +3",
         neck		= "Dls. Torque +2",
-        left_ear	= "Sherida Earring",
+        left_ear	= "Moonshade Earring",
         right_ear	= "Regal Earring",
-        left_ring   = "Epaminondas's Ring",
-        right_ring	= "Metamor. Ring +1",
+        left_ring   = "Sroda Ring",
+        waist       = "Sailfi Belt +1",
 
     })
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
-        head		= "Nyame Helm",
-        body		= "Nyame Mail",
-        hands		= "Nyame Gauntlets",
-        legs		= "Nyame Flanchard",
-        feet		= "Nyame Sollerets",
+        feet		= "Leth. Houseaux +3",
         neck        = "Anu Torque",
         left_ear    = "Moonshade Earring",
         right_ear   = "Ishvara Earring",
-        left_ring   = "Epaminondas's Ring",
+        left_ring   = "Sroda Ring",
         right_ring	= "Cornelia's Ring",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         back		= Capes.WSD,
@@ -356,7 +342,6 @@ function get_sets()
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         main        = "Naegling",
-        sub         = "Genmei Shield",
         ammo		= "Aurgelmir Orb +1",
         head		= "Malignance Chapeau",
         body		= "Malignance Tabard",

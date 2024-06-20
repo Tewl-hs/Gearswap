@@ -76,12 +76,12 @@ function get_sets()
         waist       = "Embla Sash", -- 5
         back        = { name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Eva.+20 /Mag. Eva.+20','Pet: Magic Damage+10','"Fast Cast"+10','Pet: "Regen"+5',}}, -- 10
     }
-    sets.precast.BloodPact = { -- Skill 211/BPD I 15/BPD II 9
+    sets.precast.BloodPact = { -- Skill 216/BPD I 15/BPD II 9
         main        = { name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}}, -- 15/0/2
         sub         = "Vox Grip", -- 3/0/0
         ammo        = "Epitaph", -- 0/0/5
         head        = "Beckoner's Horn +3", -- 23/0/0
-        body        = "Baayami Robe", -- 32/0/0
+        body        = "Baayami Robe +1", -- 37/0/0
         hands       = "Glyphic Bracers +3",	-- 23/8/0
         legs        = "Baayami Slops", -- 30/7/0
         feet        = "Baayami Sabots +1", -- 29/0/0
@@ -113,7 +113,7 @@ function get_sets()
     sets.midcast = { }
     
     sets.midcast.SummoningMagic = {
-        body        = "Baayami Robe",
+        body        = "Baayami Robe +1",
     }
     
     sets.midcast.Cure = {
@@ -244,7 +244,7 @@ function get_sets()
         waist       = "Fucho-no-Obi",
         left_ear    = "C. Palug Earring",
         right_ear   = "Beck. Earring +1",
-        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},        
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},      
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Moonlight Cape",
     }

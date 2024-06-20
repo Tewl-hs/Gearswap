@@ -519,6 +519,8 @@ function midcast(spell)
 	if spell.type == 'WeaponSkill' or spell.type == 'JobAbility' then return end
 	if spell.action_type == 'Ranged Attack' and range_mode == true then
 		equip(set_combine(sets.midcast.RA,sets.Ranged))
+	elseif spell.action_type == 'Magic' then
+		equip_check()
 	end
 end
 
