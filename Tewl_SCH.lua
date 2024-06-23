@@ -8,8 +8,7 @@
     CTRL+F11    : Cycle Engaged sets
 --]]
 
-
-function get_sets()	
+function get_sets()
     items = require('resources').items
     require('queues')
 
@@ -20,7 +19,7 @@ function get_sets()
     -- Personal settings. You can remove these two lines.
     set_macros(16,1)
     send_command('wait 1;input /lockstyleset 15')
-	send_command('input //equipviewer pos 1663 935') 
+	send_command('input //equipviewer pos 1663 935')
 
     send_command('bind ^f9 gs c toggle burst')
     send_command('bind ^f10 gs c cycle idle')
@@ -29,7 +28,7 @@ function get_sets()
     sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
     BurstMode = false
     CurrentWeapon = "Mpaca's Staff"
-                
+           
     sets.precast = {}
     sets.precast.FC = { -- Current: 80% + (CT-25)
         main        = "Hvergelmir", -- 50
@@ -84,10 +83,10 @@ function get_sets()
             body    = "Peda. Gown +3",
             waist   = "Embla Sash"
         }
-    }    
+    }
     sets.precast.WS = { }
 
-    sets.midcast = {}	
+    sets.midcast = {}
     sets.midcast['Healing Magic'] = {
         main        = "Musa",
         sub         = "Khonsu",
@@ -143,16 +142,16 @@ function get_sets()
         head        = "Acad. Mortar. +3",
         body        = "Acad. Gown +3",
     })
-    sets.midcast['Enhancing Magic'] = {	
+    sets.midcast['Enhancing Magic'] = {
         main        = "Musa",
         sub         = "Khonsu",
         head        = "Telchine Cap",
         body        = "Telchine Chas.",
-        hands       = "Telchine Gloves", 
-        legs        = "Telchine Braconi", 
-        feet        = "Telchine Pigaches", 
+        hands       = "Telchine Gloves",
+        legs        = "Telchine Braconi",
+        feet        = "Telchine Pigaches",
         neck        = "Incanter's Torque",
-        waist       = "Embla Sash", 
+        waist       = "Embla Sash",
         left_ear    = "Mimir Earring",
         right_ear   = "Andoaa Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
@@ -206,13 +205,13 @@ function get_sets()
         back        = "Aurist's Cape +1"
     })
     sets.midcast['Elemental Magic'].Helix = set_combine(sets.midcast['Elemental Magic'], {
-        head        = "Agwu's Cap", 
+        head        = "Agwu's Cap",
         body        = "Agwu's Robe",
-        hands       = "Amalric Gages +1", 
-        legs        = "Agwu's Slops", 
-        feet        = "Amalric Nails +1", 
+        hands       = "Amalric Gages +1",
+        legs        = "Agwu's Slops",
+        feet        = "Amalric Nails +1",
     })
-    sets.midcast['Elemental Magic'].BurstHelix = set_combine(sets.midcast['Elemental Magic'].Helix, { 
+    sets.midcast['Elemental Magic'].BurstHelix = set_combine(sets.midcast['Elemental Magic'].Helix, {
         head        = "Peda. M.Board +3",
         hands       = "Agwu's Gages",
         feet        = "Arbatel Loafers +3",
@@ -225,7 +224,6 @@ function get_sets()
     sets.midcast['Elemental Magic'].EbullienceBurst = set_combine(sets.midcast['Elemental Magic'].Burst, {
         head        = "Arbatel Bonnet +3",
         body        = "Agwu's Robe",
-        right_ring  = "Mujin Band"
     }) 
     sets.midcast['Dark Magic'] = {
         main        = "Contemplator +1",
@@ -268,11 +266,10 @@ function get_sets()
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         back        = "Moonlight Cape"
     }
-    include('FFXI-Display.lua')	
-    
+    include('FFXI-Display.lua')
 end
 
-function file_unload()  
+function file_unload()
     send_command('unbind ^F9')
     send_command('unbind ^F10')
     send_command('unbind ^F11')
@@ -304,7 +301,7 @@ function precast(spell)
         end
     end
 end
-	
+
 function midcast(spell,action)	
     if sets.midcast[spell.skill] then
         if spell.skill == 'Healing Magic' then
@@ -403,7 +400,7 @@ function buff_change(buff,gain)
 		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
-			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')
 		end
     elseif buff == 'stun' and gain then
         equip_check()
@@ -464,7 +461,7 @@ function self_command(cmd)
                 end
             end
             if last_egs == egs then egs = nil end
-            if egs == nil then 
+            if egs == nil then
                 add_to_chat('Engaged mode set to: Default')
             else
                 add_to_chat('Engaged mode set to: '..egs)
@@ -514,13 +511,13 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
+
 	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-	
+
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-	
+
 	if BurstMode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
 	end
@@ -532,7 +529,7 @@ function equip_change()
 	local inventory = windower.ffxi.get_items();
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-	if item and items[item['id']] then 
+	if item and items[item['id']] then
 		local ew = items[item['id']].name
 		if ew ~= CurrentWeapon then -- If weapon changed
 			if ew == 'Gil' then
@@ -543,11 +540,11 @@ function equip_change()
 				CurrentWeapon = ew
 				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
 					TwoHandedWeapon = true
-				else 
-					TwoHandedWeapon = false	
+				else
+					TwoHandedWeapon = false
 					if auto_hasso == true then auto_hasso = false update_status() end
 				end
-			end	
+			end
 			update_status()
 		end
 	end
