@@ -38,9 +38,9 @@ function get_sets()
     Capes.FC = { name="Nantosuelta's Cape", augments={'MP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','"Fast Cast"+10',}}
     Capes.MagicDmg = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
     Capes.GeoSkill = { name="Lifestream Cape", augments={'Geomancy Skill +6','Indi. eff. dur. +20','Pet: Damage taken -3%',}}
-    
+
     -- Gear sets
-    sets.luopan = { 
+    sets.luopan = {
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         ammo        = empty,
@@ -95,15 +95,15 @@ function get_sets()
         left_ring	= "Epaminondas's Ring",
         right_ring	= "Cornelia's Ring",
     }
-    
+
     sets.midcast = {}
-    sets.midcast['Geomancy'] = { 
+    sets.midcast['Geomancy'] = {
         main        = "Idris",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}}, -- 5/18
         head        = "Azimuth Hood +3", -- 15
         body        = "Bagua Tunic +3", -- 16
         hands       = "Geo. Mitaines +3", -- 19
-        legs        = "Vanya Slops",   
+        legs        = "Vanya Slops",
         feet        = "Medium's Sabots",
         neck        = "Bagua Charm +2",
         waist       = "Austerity Belt +1",
@@ -114,27 +114,27 @@ function get_sets()
     sets.midcast['Geomancy'].Indi = {
         main        = { name="Gada", augments={'Indi. eff. dur. +9','MND+5','Mag. Acc.+14','DMG:+1',}},
         neck        = "Incanter's Torque",
-        legs        = "Bagua Pants +3",   
+        legs        = "Bagua Pants +3",
         feet        = "Azimuth Gaiters +3",
     }
 
-    sets.midcast['Elemental Magic'] = { 
+    sets.midcast['Elemental Magic'] = {
         main        = "Bunzi's Rod",
         sub         = "Ammurapi Shield",
         ammo        = "Ghastly Tathlum +1",
         head        = "Agwu's Cap",
-        body        = "Amalric Doublet +1", 
+        body        = "Amalric Doublet +1",
         hands       = "Amalric Gages +1",
         legs        = "Agwu's Slops",
-        feet        = "Agwu's Pigaches",   
+        feet        = "Agwu's Pigaches",
         neck        = "Sibyl Scarf",
         waist       = "Acuity Belt +1",
-        left_ear    = "Regal Earring", 
+        left_ear    = "Regal Earring",
         right_ear   = "Malignance Earring",
         left_ring   = "Freke Ring",
         right_ring  = "Metamor. Ring +1",
-        back        = Capes.MagicDmg,  
-    } 
+        back        = Capes.MagicDmg,
+    }
 
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
         head        = "Azimuth Hood +3",
@@ -184,24 +184,23 @@ function get_sets()
     })
 
     sets.midcast['Dark Magic'] = {
-        main        = "Daybreak",
-        sub         = "Ammurapi Shield",
-        ammo        = "Pemphredo Tathlum",
-        head        = "Agwu's Cap",
-        body        = "Agwu's Robe",
-        hands       = "Agwu's Gages",
-        legs        = "Azimuth Tights +3",
-        feet        = "Agwu's Pigaches",
-        neck        = "Erra Pendant",
-        waist       = "Luminary Sash",
-        left_ear    = "Digni. Earring",
-        right_ear   = "Crep. Earring",
-        left_ring   = "Evanescence Ring",
-        right_ring  = "Archon Ring",
-        back        = Capes.MagicDmg
+        main        = "Daybreak", -- MA 40
+        sub         = "Ammurapi Shield", -- MA 38
+        ammo        = "Pemphredo Tathlum", -- MA 8
+        head        = "Ea Hat +1", -- MA 51
+        body        = "Geomancy Tunic +3", -- MA 50  / Skill 21
+        hands       = "Agwu's Gages", -- MA 40 (Augment +15)
+        legs        = "Azimuth Tights +3", -- MA 63 / Skill 10
+        feet        = "Agwu's Pigaches", -- MA 40 (Augment +15)
+        neck        = "Erra Pendant", -- MA 17 / Skill 10
+        waist       = "Acuity Belt +1", -- MA +15
+        left_ear    = "Digni. Earring", -- MA  10
+        right_ear   = "Malignance Earring", -- MA 10
+        left_ring   = "Evanescence Ring", -- MA 10
+        right_ring  = "Metamor. Ring +1", -- MA 10
+        back        = "Aurist's Cape +1" -- MA 33
     }
     sets.midcast['Dark Magic'].AspirDrain = set_combine(sets.midcast['Dark Magic'],{
-        head        = "Bagua Galero +3",
         feet        = "Agwu's Pigaches",
         waist       = "Austertiy Belt +1",
         left_ring   = "Evanescence Ring",
@@ -231,10 +230,10 @@ function get_sets()
         neck        = "Nodens Gorget",
         left_ear    = "Mendicant's Earring",
         left_ring   = "Naji's Loop",
-        back        = "Solemnity Cape",        
+        back        = "Solemnity Cape",
     })
     sets.aftercast = {}
-    sets.aftercast.Idle = { 
+    sets.aftercast.Idle = {
         main        = "Daybreak",
         sub         = "Genmei Shield",
         range       = { name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
@@ -262,11 +261,11 @@ function get_sets()
         right_ring   = "Defending Ring",
     })
 
-    sets.aftercast.Engaged = { 
-        -- LOL MELEE GEO
+    sets.aftercast.Engaged = {
+
     }
-    
-    include('FFXI-Display.lua')	
+
+    include('FFXI-Display.lua')
 end
 
 function file_unload()  

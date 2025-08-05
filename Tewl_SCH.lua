@@ -35,7 +35,7 @@ function get_sets()
         sub         = "Khonsu",
         ammo        = "Staunch Tathlum +1",
         head        = "Peda. M.Board +3", -- CT-13
-        body        = "Arbatel Gown +3", 
+        body        = "Arbatel Gown +3",
         hands       = "Acad. Bracers +3", -- 9
         legs        = "Arbatel Pants +3",
         feet        = "Acad. Loafers +3", -- CT-12
@@ -178,8 +178,8 @@ function get_sets()
         legs        = "Shedir Seraweels",
     })
     sets.midcast['Elemental Magic'] = {
-        main        = "Bunzi's Rod",
-        sub         = "Ammurapi Shield",
+        main        = "Opashoro",
+        sub         = "Enki Strap",
         ammo        = "Ghastly Tathlum +1",
         head        = "Agwu's Cap",
         body        = "Arbatel Gown +3",

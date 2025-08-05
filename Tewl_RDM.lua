@@ -7,7 +7,7 @@
     CTRL+F10    : Cycle Idle sets
     CTRL+F11    : Cycle Engaged sets
 --]]
-function get_sets()	
+function get_sets()
     items = require('resources').items
     require('queues')
 
@@ -17,18 +17,18 @@ function get_sets()
     -- Personal settings. You can remove these two lines.
     set_macros(14,1)
     send_command('wait 1;input /lockstyleset 10')
-	send_command('input //equipviewer pos 1663 935') 
+	send_command('input //equipviewer pos 1663 935')
 
     send_command('bind ^f9 gs c toggle burst')
     send_command('bind ^f10 gs c cycle idle')
     send_command('bind ^f11 gs c cycle engaged')
 
-    sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
+    sets.MoveSpeed = { legs = "Carmine Cuisses +1",}
     BurstMode = false
     CurrentWeapon = 'Crocea Mors'
 
     Capes = {}
-    Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
+    Capes.DW = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}}
     Capes.WSD = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
     Capes.MND = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Cure" potency +10%',}}
     Capes.INT = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}}
@@ -82,14 +82,13 @@ function get_sets()
         back		= Capes.WSD,
     }
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS,{
-        ammo        = "Crepuscular Pebble",
         feet		= "Leth. Houseaux +3",
-        neck		= "Dls. Torque +2",
-        left_ear	= "Moonshade Earring",
-        right_ear	= "Regal Earring",
-        left_ring   = "Sroda Ring",
-        waist       = "Sailfi Belt +1",
-
+        neck		= "Fotia Gorget", --"Rep. Plat. Medal",
+        left_ear    = "Mache Earring +1",
+        right_ear	= "Leth. Earring +1",
+        left_ring   = "Cacoethic Ring +1",
+        waist       = "Kentarch Belt +1",
+        back		= Capes.WSD,
     })
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
         feet		= "Leth. Houseaux +3",
@@ -99,10 +98,9 @@ function get_sets()
         left_ring   = "Sroda Ring",
         right_ring	= "Cornelia's Ring",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
-        back		= Capes.WSD,
     })
 
-    sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, { 
+    sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, {
         ammo		= "Sroda Tathlum",
         head		= "Pixie Hairpin +1",
         body		= "Nyame Mail",
@@ -138,7 +136,7 @@ function get_sets()
         right_ring	= "Cornelia's Ring",
     })
 
-    sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, { 
+    sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, {
         ammo		= "Coiste Bodhar",
         head		= "Nyame Helm",
         body		= "Nyame Mail",
@@ -154,7 +152,7 @@ function get_sets()
         back		= Capes.INT
     })
 
-    sets.midcast = {}	
+    sets.midcast = {}
     sets.midcast['Healing Magic'] = {
         head		= "Kaykaus Mitra +1",
         body		= "Kaykaus Bliaut +1",
@@ -234,7 +232,7 @@ function get_sets()
         neck		= "Dls. Torque +2",
         left_ring	= "Kishar Ring",
     })
-    sets.midcast['Enhancing Magic'] = {	
+    sets.midcast['Enhancing Magic'] = {
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         sub         = "Forfend +1",
         ammo		= "Staunch Tathlum +1",
@@ -254,7 +252,6 @@ function get_sets()
     sets.midcast['Enhancing Magic'].SelfDuration = set_combine(sets.midcast['Enhancing Magic'], {
         main        = { name="Colada", augments={'Enh. Mag. eff. dur. +4',}},
         sub         = "Ammurapi Shield",
-        body        = "Lethargy Sayon +3",
         neck		= "Dls. Torque +2",
         left_ear	= "Malignance Earring",
         left_ring   = "Kishar Ring",
@@ -264,21 +261,21 @@ function get_sets()
         sub         = "Ammurapi Shield",
         head        = "Leth. Chappel +3",
         body        = "Lethargy Sayon +3",
-        legs        = "Leth. Fuseau +3",   
+        legs        = "Leth. Fuseau +3",
         neck		= "Dls. Torque +2",
         left_ear	= "Malignance Earring",
         left_ring   = "Kishar Ring",
         right_ring  = "Rahab Ring",
         -- back     = "Ghostfyre Cape"
     })
-    sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], { 
+    sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head		= "Amalric Coif +1",
         body		= "Atrophy Tabard +3",
         legs		= "Leth. Fuseau +3",
         neck		= "Dls. Torque +2",
         waist		= "Gishdubar Sash",
     })
-    sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], { 
+    sets.midcast['Enhancing Magic'].Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         body        = { name="Taeon Tabard", augments={'"Fast Cast"+5','Phalanx +3',}},
         hands       = { name="Taeon Gloves", augments={'"Fast Cast"+5','Phalanx +3',}},
@@ -333,12 +330,24 @@ function get_sets()
         head		= "Ea Hat +1",
         body		= "Ea Houppe. +1",
         legs		= "Ea Slops +1",
-        right_ring	= "Mujin Band",      
+        right_ring	= "Mujin Band",
     })
     sets.midcast['Dark Magic'] =  {
-        back		= Capes.INT
+        ammo        = "Pemphredo Tathlum",
+        head        = "Atrophy Chapeau +3",
+        body        = "Lethargy Sayon +3",
+        hands		= "Leth. Ganth. +3",
+        legs        = "Leth. Fuseau +3",
+        feet        = "Leth. Houseaux +3",
+        neck        = "Erra Pendant",
+        left_ear    = "Malignance Earring",
+        right_ear   = "Regal Earring",
+        left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
+        right_ring  = "Evanescence Ring",
+        waist       = "Acuity Belt +1",
+        back		= "Aurist's Cape +1"
     }
-    sets.midcast['Dark Magic'] =  set_combine(sets.midcast['Dark Magic'], { })
+    -- sets.midcast['Dark Magic'] =  set_combine(sets.midcast['Dark Magic'], { })
     sets.aftercast = {}
     sets.aftercast.Engaged = {
         main        = "Naegling",
@@ -373,7 +382,7 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Solemnity Cape",
     }
-    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {	
+    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         sub         = "Genmei Shield",
         ammo		= "Staunch Tathlum +1",
@@ -390,10 +399,10 @@ function get_sets()
         right_ring	= "Stikini Ring +1",
         back        = "Solemnity Cape",
     })
-    include('FFXI-Display.lua')	
+    include('FFXI-Display.lua')
 end
 
-function file_unload()  
+function file_unload()
     send_command('unbind ^F9')
     send_command('unbind ^F10')
     send_command('unbind ^F11')
@@ -426,7 +435,7 @@ function precast(spell)
     end
 end
 	
-function midcast(spell,action)	
+function midcast(spell,action)
     if sets.midcast[spell.skill] then
         if spell.skill == 'Healing Magic' then
             if spell.name:startswith('Cur') and spell.name ~= "Cursna" and sets.midcast[spell.skill].Cure then
@@ -538,7 +547,7 @@ function buff_change(buff,gain)
 		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
-			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+			add_to_chat(123,'Silenced, you are out of Echo Drops!!!')
 		end
     elseif buff == 'stun' and gain then
         equip_check()

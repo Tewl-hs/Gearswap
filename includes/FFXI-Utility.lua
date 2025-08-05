@@ -103,7 +103,7 @@ if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
 	mov.y = windower.ffxi.get_mob_by_index(player.index).y
 	mov.z = windower.ffxi.get_mob_by_index(player.index).z
 end
- 
+
 moving = false
 windower.raw_register_event('prerender',function()
 	mov.counter = mov.counter + 1;
@@ -147,7 +147,7 @@ end
 
 function standardize_set(set)
 	local standardized_set = {}
-	
+
     for slot, inner in pairs(set) do
 		if slot_names:contains(slot) then
 			if type(inner) == 'table' then
@@ -163,7 +163,7 @@ function standardize_set(set)
 	standardized_set.ring1 = standardized_set.ring1 or standardized_set.left_ring or standardized_set.lring or ''
 	standardized_set.ring2 = standardized_set.ring2 or standardized_set.right_ring or standardized_set.rring or ''
 	standardized_set.range = standardized_set.range or standardized_set.ranged or ''
-	
+
 	return standardized_set
 end
 
@@ -197,7 +197,7 @@ function can_do(act)
 		if buffactive.amnesia then
             add_to_chat(123,'Unable to perform action: [Amnesia]')
             return false
-		elseif buffactive.impairment then			
+		elseif buffactive.impairment then
 			add_to_chat(123,'Unable to perform action: [Impairment]')
 			return false
         end

@@ -42,23 +42,23 @@ function get_sets()
     sets.precast.FC = { 
         ammo        = "Sapience Orb",
         head        = "Carmine Mask +1",
-        body        = "Pinga Tunic", 
-        hands       = "Leyline Gloves", 
+        body        = "Pinga Tunic",
+        hands       = "Leyline Gloves",
         legs        = "Pinga Pants",
         feet        = "Carmine Greaves +1",
-        neck        = "Orunmila's Torque", 
+        neck        = "Orunmila's Torque",
         waist       = "Witful Belt",
         left_ear    = "Loquacious Earring",
         right_ear   = "Enchanter's Earring",
         right_ring  = "Kishar Ring",
-        left_ring   = "Prolix Ring", 
+        left_ring   = "Prolix Ring",
         back        = { name="Rosmerta's Cape", augments={'HP+60','Accuracy+20 Attack+20','"Fast Cast"+10',}}, -- 10
     }
     sets.precast.WS = {
         ammo		= "Aurgelmir Orb +1",
         head		= "Nyame Helm",
         body		= "Nyame Mail",
-        neck        = "Fotia Gorget", 
+        neck        = "Fotia Gorget",
         waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         left_ear    = { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
         right_ear   = "Regal Earring",
@@ -88,7 +88,7 @@ function get_sets()
 		head        = "Hashishin Kavuk +3",
 		body        = "Hashishin Mintan +3",
 		hands       = "Hashi. Bazu. +3",
-		legs        = "Hashishin Tayt +3",	
+		legs        = "Hashishin Tayt +3",
 		feet        = "Hashi. Basmak +3",
 		neck        = "Sibyl Scarf",
         waist       = "Orpheus's Sash",
@@ -99,7 +99,7 @@ function get_sets()
         back        = { name="Rosmerta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Spell interruption rate down-10%',}},
     }
 
-    sets.midcast['Blue Magic']['Dream Flower'] = set_combine(sets.midcast['Blue Magic'], { 
+    sets.midcast['Blue Magic']['Dream Flower'] = set_combine(sets.midcast['Blue Magic'], {
         ammo        = "Hydrocera",
         neck        = "Incanter's Torque",
         waist       = "Luminary Sash",
@@ -124,7 +124,7 @@ function get_sets()
 		head        = "Hashishin Kavuk +3",
 		body        = "Hashishin Mintan +3",
 		hands       = "Hashi. Bazu. +3",
-		legs        = "Hashishin Tayt +3",	
+		legs        = "Hashishin Tayt +3",
 		feet        = "Hashi. Basmak +3",
         neck        = "Loricate Torque +1",
         waist       = "Flume Belt +1",
@@ -157,8 +157,8 @@ function get_sets()
     }
 
     check_spells()
-    
-    include('FFXI-Display.lua')	
+
+    include('FFXI-Display.lua')
 end
 
 function file_unload()  
@@ -284,21 +284,21 @@ end
 
 function buff_change(buff,gain)
     if name == "silence" and gain == "True" then
-        add_to_chat(123,'Silenced')	
+        add_to_chat(123,'Silenced')
     end
 end
 
 function equip_check()
     local eq = {}
     if player.status == 'Engaged' then
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+        if egs ~= nil and sets.aftercast.Engaged[egs] then
             eq = sets.aftercast.Engaged[egs]
         else
             egs = nil
             eq = sets.aftercast.Engaged
         end
     else
-        if ids ~= nil and sets.aftercast.Idle[ids] then 
+        if ids ~= nil and sets.aftercast.Idle[ids] then
             eq = sets.aftercast.Idle[ids]
         else
             ids = nil

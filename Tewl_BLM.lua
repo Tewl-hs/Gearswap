@@ -10,9 +10,9 @@
 function get_sets()
 	items = require('resources').items
 	require('queues')
-    
+
     include('FFXI-Mappings')
-	
+
     include('FFXI-Utility')
 
     send_command('bind ^f9 gs c toggle burst')
@@ -21,7 +21,7 @@ function get_sets()
 
     set_macros(3,1)
 	send_command('wait 1.5;input /lockstyleset 5')
-	send_command('input //equipviewer pos 1663 935') 
+	send_command('input //equipviewer pos 1663 935')
 
     sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
 	BurstMode = false
@@ -121,7 +121,7 @@ function get_sets()
         hands       = "Agwu's Gages",
         feet        = "Agwu's Pigaches",
     })
-    sets.midcast['Elemental Magic'].RecoverMode.Burst = set_combine(sets.midcast['Elemental Magic'].Burst, { 
+    sets.midcast['Elemental Magic'].RecoverMode.Burst = set_combine(sets.midcast['Elemental Magic'].Burst, {
         body        = "Spaekona's Coat +3",
     })
     sets.midcast['Enfeebling Magic'] = {
@@ -164,7 +164,7 @@ function get_sets()
         head        = "Pixie Hairpin +1",
         waist       = "Fucho-no-Obi",
     })
-    sets.midcast['Healing Magic'] = { 
+    sets.midcast['Healing Magic'] = {
         main        = "Daybreak",
         sub         = "Ammurapi Shield",
         ammo        = "Staunch Tathlum +1",
@@ -196,11 +196,11 @@ function get_sets()
         ammo        = "Impatiens",
         head        = "Telchine Cap",
         body        = "Telchine Chas.",
-        hands       = "Telchine Gloves", 
-        legs        = "Telchine Braconi", 
-        feet        = "Telchine Pigaches", 
+        hands       = "Telchine Gloves",
+        legs        = "Telchine Braconi",
+        feet        = "Telchine Pigaches",
         neck        = "Incanter's Torque",
-        waist       = "Embla Sash", 
+        waist       = "Embla Sash",
     }
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head        = "Amalric Coif +1",
@@ -258,7 +258,7 @@ function get_sets()
         back        = "Moonlight Cape"
      }
 
-     include('FFXI-Display.lua')	
+     include('FFXI-Display.lua')
 end
 
 function file_unload()  
@@ -378,16 +378,16 @@ function buff_change(buff,gain)
         if player.inventory['Echo Drops'] then
             send_command('@input /item "Echo Drops" <me>')
         else
-            add_to_chat(123,'Silenced, you are out of Echo Drops!')	
+            add_to_chat(123,'Silenced, you are out of Echo Drops!')
         end
     elseif buff == 'stun' and gain then
         equip_check()
-	end    
+	end
 end
 
 function equip_check()
     if player.status == 'Engaged' then
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+        if egs ~= nil and sets.aftercast.Engaged[egs] then
             equip(sets.aftercast.Engaged[egs])
         else
             egs = nil
@@ -408,7 +408,7 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
+            local last_ids = ids
             for k,v in pairs(sets.aftercast.Idle) do
                 if slot_names:contains(k) then
                     -- do nothing
@@ -427,7 +427,7 @@ function self_command(cmd)
             end
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
+            local last_egs = egs
             for k,v in pairs(sets.aftercast.Engaged) do
                 if slot_names:contains(k) then
                     -- do nothing
@@ -439,7 +439,7 @@ function self_command(cmd)
                 end
             end
             if last_egs == egs then egs = nil end
-            if egs == nil then 
+            if egs == nil then
                 add_to_chat('Engaged mode set to: Default')
             else
                 add_to_chat('Engaged mode set to: '..egs)
@@ -489,13 +489,13 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
+
 	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-	
+
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-	
+
 	if BurstMode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
 	end
@@ -518,8 +518,8 @@ function equip_change()
 				CurrentWeapon = ew
 				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
 					TwoHandedWeapon = true
-				else 
-					TwoHandedWeapon = false	
+				else
+					TwoHandedWeapon = false
 					if auto_hasso == true then auto_hasso = false update_status() end
 				end
 			end	

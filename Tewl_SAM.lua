@@ -29,9 +29,9 @@
 function get_sets()
 	items = require('resources').items
 	require('queues')
-    
+
     include('FFXI-Mappings')
-	
+
     include('FFXI-Utility')
 
 	send_command("bind @e input //gs equip sets.Weapons['Masamune']")
@@ -55,7 +55,7 @@ function get_sets()
 	load_macros()
 	send_command('wait 1.5;input /lockstyleset 1')
 	send_command('input //equipviewer pos 1663 935') 
-    
+
     --
     CurrentWeapon = "Kusanagi"
 
@@ -76,14 +76,14 @@ function get_sets()
 	Capes.Snapshot 	= { name="Smertrios's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Snapshot"+10',}}
 	Capes.FC		= { name="Smertrios's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
 	Capes.Enmity 	= { name="Smertrios's Mantle", augments={'HP+60','Enmity+10',}}
-	
+
 	sets.MoveSpeed = { right_ring = "Shneddick ring +1",}
 
 	sets.Twilight = { 
 		head		= "Crepuscular helm",
 		body		= "Twilight mail"
 	}
-	
+
 	sets.Ranged = {
 		range		= RangedWeapon,
 		ammo		= RangedAmmo
@@ -105,27 +105,27 @@ function get_sets()
 			head	= "Kasuga Kabuto +3"
 		},
 		['Meditate'] = {
-			head	= "Wakido Kabuto +3",
-			hands	= "Sakonji Kote +3",
+			head	= "Wakido Kabuto +4",
+			hands	= "Sakonji Kote +4",
 			back	= Capes.TP
 		},
 		['Hasso'] = {
 			hands	= "Wakido Kote +3"
 		},
 		['Warding Circle'] = {
-			head	= "Wakido Kabuto +3"
+			head	= "Wakido Kabuto +4"
 		},
 		['Sengikori'] = {
 			feet	= "Kasuga Sune-Ate +3"
 		},
 		['Blade Bash'] = {
-			hands	= "Sakonji Kote +3"
+			hands	= "Sakonji Kote +4"
 		},
 		['Meikyo Shisui'] = {
-			feet	= "Sak. Sune-Ate +3"
+			feet	= "Sak. Sune-Ate +4"
 		},
 		['Provoke'] = {
-			ammo		= "Sapience Orb", 
+			ammo		= "Sapience Orb",
 			head		= "Loess Barbuta +1",
 			neck		= "Unmoving Collar +1",
 			body		= "Emet Harness +1",
@@ -139,21 +139,7 @@ function get_sets()
 			waist		= "Kasiri Belt",
 			back		= Capes.Enmity
 		},
-		['Warcry'] = {
-			ammo		= "Sapience Orb", 
-			head		= "Loess Barbuta +1",
-			neck		= "Unmoving Collar +1",
-			body		= "Emet Harness +1",
-			hands		= { name="Acro Gauntlets", augments={'Enmity+10',}},
-			legs		= { name="Acro Breeches", augments={'Enmity+10',}},
-			feet		= { name="Acro Leggings", augments={'Enmity+10',}},
-			left_ear	= "Trux Earring",
-			right_ear	= "Cryptic Earring",
-			left_ring	= "Eihwaz Ring",
-			right_ring	= "Supershear Ring",
-			waist		= "Kasiri Belt",
-			back		= Capes.Enmity
-		},
+		['Warcry'] = { },
 	}
 	sets.precast.FC = { -- 53%
 		ammo		= "Sapience Orb", -- 2
@@ -182,7 +168,7 @@ function get_sets()
 	sets.precast.WS = {
 		ammo		= "Knobkierrie",
 		head		= "Mpaca's Cap",
-		body		= "Nyame Mail", 
+		body		= { name="Sakonji Domaru +4", augments={'Enhances "Overwhelm" effect',}},
 		hands		= "Kasuga Kote +3",
 		legs		= "Nyame Flanchard",
 		feet		= "Nyame Sollerets",
@@ -194,12 +180,12 @@ function get_sets()
 		right_ring	= "Cornelia's Ring",
 		back		= Capes.WS
 	}
-	sets.precast.WS.Accuracy = set_combine(sets.precast.WS, { 
+	sets.precast.WS.Accuracy = set_combine(sets.precast.WS, {
 		head		= "Nyame Helm",
 		left_ring	= "Regal Ring",
 	})
 	sets.precast.WS['Tachi: Fudo'] = set_combine(sets.precast.WS, { })
-	sets.precast.WS['Tachi: Fudo'].Accuracy = set_combine(sets.precast.WS['Tachi: Fudo'], { 
+	sets.precast.WS['Tachi: Fudo'].Accuracy = set_combine(sets.precast.WS['Tachi: Fudo'], {
 		head		= "Nyame Helm",
 		right_ear	= "Telos Earring",
 		left_ring	= "Regal Ring",
@@ -207,7 +193,7 @@ function get_sets()
 	})
 	sets.precast.WS['Tachi: Kaiten'] = set_combine(sets.precast.WS['Tachi: Fudo'], { })
 	sets.precast.WS['Tachi: Kaiten'].Accuracy = set_combine(sets.precast.WS['Tachi: Fudo'].Accuracy, { })
-	sets.precast.WS['Tachi: Shoha'] = set_combine(sets.precast.WS, { 
+	sets.precast.WS['Tachi: Shoha'] = set_combine(sets.precast.WS, {
 		right_ring	= "Niqmaddu Ring",
 	})
 	sets.precast.WS['Tachi: Shoha'].Accuracy = set_combine(sets.precast.WS['Tachi: Shoha'], { })
@@ -215,7 +201,7 @@ function get_sets()
 		head		= "Nyame Helm",
 		left_ear	= "Lugra Earring +1",
 	})
-	sets.precast.WS['Tachi: Jinpu'] = set_combine(sets.precast.WS, { 
+	sets.precast.WS['Tachi: Jinpu'] = set_combine(sets.precast.WS, {
 		head		= "Nyame Helm",
 		body		= "Nyame Mail",
 		hands		= "Nyame Gauntlets",
@@ -248,21 +234,21 @@ function get_sets()
 		right_ring	= "Stikini Ring +1",
 		waist		= "Eschan Stone",
 		back		= Capes.HWS
-	})		
+	})
 	sets.precast.WS['Namas Arrow'] = set_combine(sets.precast.WS, {
 		head		= "Nyame Helm",
 		left_ear	= "Telos Earring",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
-	})		
+	})
 	sets.precast.WS['Empyreal Arrow'] = set_combine(sets.precast.WS, {
 		head		= "Nyame Helm",
 		left_ring	= "Regal Ring",
 		waist		= "Fotia Belt",
 		back		= Capes.RWS
-	})	
-	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS, { 
+	})
+	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS, {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= { name="Ryuo Tekko +1", augments={'DEX+12','Accuracy+25','"Dbl.Atk."+4',}},
@@ -276,16 +262,16 @@ function get_sets()
 	})
 	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, { })
 
-	sets.midcast = {}	
+	sets.midcast = {}
 	sets.midcast.RA = {
 		head		= { name="Sakonji Kabuto +3", augments={'Enhances "Ikishoten" effect',}},
-		body		= { name="Sakonji Domaru +3", augments={'Enhances "Overwhelm" effect',}},
+		body		= { name="Sakonji Domaru +4", augments={'Enhances "Overwhelm" effect',}},
 		hands		= "Wakido Kote +3",
 		legs		= "Ken. Hakama +1",
 		feet		= "Wakido Sune. +3",
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= "Yemaya Belt",
-		left_ear   	= "Telos Earring", 
+		left_ear   	= "Telos Earring",
 		right_ear	= "Crep. Earring",
 		left_ring	= "Regal Ring",
 		right_ring	= "Cacoethic ring +1",
@@ -294,7 +280,7 @@ function get_sets()
 	sets.aftercast = {}
 	sets.aftercast.Engaged = {
 		ammo		= { name="Coiste Bodhar", augments={'Path: A',}},
-		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
+		head		= { name="Mpaca's Cap", augments={'Path: A',}},
 		body		= "Kasuga Domaru +3",
 		hands		= { name="Tatena. Gote +1", augments={'Path: A',}},
 		legs		= "Kasuga Haidate +3",
@@ -302,11 +288,11 @@ function get_sets()
 		neck		= { name="Sam. Nodowa +2", augments={'Path: A',}},
 		waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear	= "Dedition Earring",
-		right_ear	= "Kasuga Earring +1", -- ACC+11
+		right_ear	= "Kasuga Earring +1",
 		left_ring	= "Chirich Ring +1",
 		right_ring	= "Niqmaddu Ring",
 		back		= Capes.TP
-	}	
+	}
 	sets.aftercast.Engaged.Accuracy = set_combine(sets.aftercast.Engaged, {
 		body		= { name="Tatena. Harama. +1", augments={'Path: A',}},
 		hands		= "Wakido Kote +3",
@@ -317,12 +303,12 @@ function get_sets()
 		left_ear	= "Digni. Earring",
 	})
 	sets.aftercast.Engaged.PDT = set_combine(sets.aftercast.Engaged, {
-		head		= { name="Mpaca's Cap", augments={'Path: A',}}, 
-		body		= { name="Mpaca's Doublet", augments={'Path: A',}}, 
+		head		= { name="Mpaca's Cap", augments={'Path: A',}},
+		body		= { name="Mpaca's Doublet", augments={'Path: A',}},
 		hands		= "Wakido Kote +3",
 		legs		= { name="Mpaca's Hose", augments={'Path: A',}},
 		feet		= { name="Mpaca's Boots", augments={'Path: A',}},
-		waist		= "Ioskeha Belt +1", 
+		waist		= "Ioskeha Belt +1",
 		left_ring	= "Defending Ring",
 		back		= Capes.TP
 	})
@@ -333,17 +319,17 @@ function get_sets()
 		feet		= { name="Nyame Sollerets", augments={'Path: B',}},
 		back		= Capes.TP
 	})
-	sets.aftercast.Engaged["Subtle Blow"] = set_combine(sets.aftercast.Engaged, { 
- 		ammo        = "Aurgelmir Orb +1", 
-		head        = "Ken. Jinpachi +1", 
-		body		= "Dagon Breast.",  
+	sets.aftercast.Engaged["Subtle Blow"] = set_combine(sets.aftercast.Engaged, {
+ 		ammo        = "Aurgelmir Orb +1",
+		head        = "Ken. Jinpachi +1",
+		body		= "Dagon Breast.",
 		hands       = "Wakido Kote +3",
-		legs        = "Mpaca's Hose", 
-		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}}, 
+		legs        = "Mpaca's Hose",
+		feet		= { name="Ryuo Sune-Ate +1", augments={'HP+65','"Store TP"+5','"Subtle Blow"+8',}},
 		neck		= "Bathy Choker +1",
 		left_ear	= "Digni. Earring",
 		right_ear	= "Schere Earring",
-		left_ring	= "Chirich Ring +1", 
+		left_ring	= "Chirich Ring +1",
 		right_ring	= "Niqmaddu Ring",
 		waist       = "Sarissapho. Belt",
 		back		= Capes.TP
@@ -352,17 +338,17 @@ function get_sets()
 		head		= "Kasuga Kabuto +3",
 		waist       = "Windbuffet Belt +1",
 		back		= Capes.TP
-	})		
+	})
 	sets.aftercast.Idle = {
 		ammo		= "Staunch Tathlum +1",
-		head		= "Wakido Kabuto +3",
-		body		= "Sacro Breastplate",
-		hands		= { name="Sakonji Kote +3", augments={'Enhances "Blade Bash" effect',}},
+		head		= "Wakido Kabuto +4",
+		body		= "Wakido Domaru +4",
+		hands		= { name="Sakonji Kote +4", augments={'Enhances "Blade Bash" effect',}},
 		legs		= "Nyame Flanchard",
 		feet		= "Nyame Sollerets",
 		neck		= "Elite Royal Collar",
 		waist		= "Flume Belt +1",
-		left_ear	= "Tuisto Earring", 
+		left_ear	= "Tuisto Earring",
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Defending Ring",
 		right_ring	= "Shneddick Ring +1",
@@ -374,7 +360,7 @@ function get_sets()
 		ammo		= "Staunch Tathlum +1",
 		neck		= "Elite Royal Collar",
 		waist		= "Flume Belt +1",
-		left_ear	= "Tuisto Earring", 
+		left_ear	= "Tuisto Earring",
 		right_ear	= { name="Odnowa Earring +1", augments={'Path: A',}},
 		left_ring	= "Defending Ring",
 		right_ring	= "Shneddick Ring +1",
@@ -383,23 +369,21 @@ function get_sets()
 		left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
 		right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
 	})
-	
+
 	range_mode = false
 	lock_twilight = false
 	acc_mode = false
 
-    
-	-- Variables for Auto Skillchainer
 	AutoSC = false
 	ascWS = 'Tachi: Enpi'
-	AutoSkillChain = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'} -- Skillchain order
+	AutoSkillChain = T{'Tachi: Fudo','Tachi: Kasha','Tachi: Shoha','Tachi: Fudo'}
 	asc_order = 1
 	last_target = nil
 
-	include('FFXI-Display.lua')	
+	include('FFXI-Display.lua')
 end
 
-function file_unload()  
+function file_unload()
 	send_command('unbind @e')
 	send_command('unbind @m')
 	send_command('unbind @r')
@@ -562,7 +546,7 @@ function equip_check()
 	local eq = {}
 	if player.status == 'Engaged' then	
 		eq = sets.aftercast.Engaged
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+        if egs ~= nil and sets.aftercast.Engaged[egs] then
             eq = sets.aftercast.Engaged[egs]
         end
 	else
@@ -571,7 +555,7 @@ function equip_check()
 			eq = sets.aftercast.Idle[ids]
 		end
 	end
-		
+
 	if sets.Weapons[CurrentWeapon] then
 		eq = set_combine(eq, sets.Weapons[CurrentWeapon])
 	end
@@ -589,7 +573,7 @@ function self_command(cmd)
 	local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
+            local last_ids = ids
             for k,v in pairs(sets.aftercast.Idle) do
                 if slot_names:contains(k) then
                     -- do nothing
@@ -601,13 +585,13 @@ function self_command(cmd)
                 end
             end
             if last_ids == ids then ids = nil end
-            if ids == nil then 
+            if ids == nil then
                 add_to_chat('Idle mode set to: Default')
             else
                 add_to_chat('Idle mode set to: '..ids)
             end
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
+            local last_egs = egs
             for k,v in pairs(sets.aftercast.Engaged) do
                 if slot_names:contains(k) then
                     -- do nothing
@@ -619,7 +603,7 @@ function self_command(cmd)
                 end
             end
             if last_egs == egs then egs = nil end
-            if egs == nil then 
+            if egs == nil then
                 add_to_chat('Engaged mode set to: Default')
             else
                 add_to_chat('Engaged mode set to: '..egs)
@@ -666,8 +650,6 @@ function self_command(cmd)
 		equip_check()
 	elseif args[1] == 'update_status' then
 		update_status()
-	elseif args[1] == 'test' then
-		test()
 	end
 end
 
@@ -675,21 +657,21 @@ function equip_change()
 	local inventory = windower.ffxi.get_items();
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-	if item and items[item['id']] then 
+	if item and items[item['id']] then
 		local ew = items[item['id']].name
-		if ew ~= CurrentWeapon then -- If weapon changed
+		if ew ~= CurrentWeapon then
 			if ew == 'Gil' then
 				CurrentWeapon = 'Empty'
 				TwoHandedWeapon = false
 				if auto_hasso == true then auto_hasso = false update_status() end
 			else
 				CurrentWeapon = ew
-				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
+				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then
 					TwoHandedWeapon = true
-				else 
-					TwoHandedWeapon = false	
+				else
+					TwoHandedWeapon = false
 				end
-			end	
+			end
 			update_status()
 		end
 	end
@@ -699,7 +681,7 @@ function load_macros()
 	if player.sub_job == 'NIN' then set_macros(15,4) return end
 	if player.sub_job == 'DRK' then set_macros(15,3) return end
 	if player.sub_job == 'DRG' then set_macros(15,2) return end
-	set_macros(15,1) -- Default /WAR
+	set_macros(15,1)
 end
 
 windower.raw_register_event('outgoing chunk', function(id, data)
@@ -726,11 +708,11 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
+
 	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-	
+
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
 
 	if acc_mode == true then
@@ -738,7 +720,7 @@ function update_status()
 	else
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Accuracy: ',  Colors.Blue, 'Normal', spc)
 	end
-	
+
 	if range_mode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'Ranged', spc)
 	end

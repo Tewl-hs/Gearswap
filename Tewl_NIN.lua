@@ -46,8 +46,8 @@ function get_sets()
         hands       = "Kurys Gloves", -- 9
         feet        = { name="Mochi. Kyahan +3", augments={'Enh. Ninj. Mag. Acc/Cast Time Red.',}}, -- 8
         neck        = "Moonlight Necklace", -- 15
-        right_ring  = "Cryptic Earring", -- 4
-        left_ring   = "Trux Earring", -- 5
+        right_ear   = "Cryptic Earring", -- 4
+        left_ear    = "Trux Earring", -- 5
         right_ring  = "Eihwaz Ring", -- 5
         waist       = "Kasiri Belt", -- 3
         back        = Capes.Enmity
@@ -376,7 +376,7 @@ function buff_change(buff,gain)
         if player.inventory['Echo Drops'] then
             send_command('@input /item "Echo Drops" <me>')
         else
-            add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+            add_to_chat(123,'Silenced, you are out of Echo Drops!!!')
         end
     end
 end
@@ -384,7 +384,7 @@ end
 function equip_check()
     local eq = {}
     if player.status == 'Engaged' then
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+        if egs ~= nil and sets.aftercast.Engaged[egs] then
             eq = sets.aftercast.Engaged[egs]
         else
             egs = nil
@@ -480,7 +480,7 @@ function equip_change()
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
 	local sitem = windower.ffxi.get_items(equipment["sub_bag"],equipment["sub"])
-	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then 
+	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then
 		local mw = items[item['id']].name
         local sw = items[sitem['id']].name
 		if mw ~= MainWeapon then 
@@ -490,8 +490,8 @@ function equip_change()
 			else
                 if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
 					TwoHandedWeapon = true
-				else 
-					TwoHandedWeapon = false	
+				else
+					TwoHandedWeapon = false
                 end
 				MainWeapon = mw
 			end	
@@ -501,7 +501,7 @@ function equip_change()
 				SubWeapon = 'Empty'
 			else
 				SubWeapon = sw
-			end	
+			end
 		end
         update_status()
 	end
@@ -517,17 +517,17 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
+
 	local status_text = string.format("%s%s%s%s%s%s%s", WeaponColor, MainWeapon, Colors.White,' / ',SubColor,SubWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-	
+
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-	
+
 	if BurstMode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
 	end
-    
+
 	if AutoSC == true then
 		status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'AutoSC: ', Colors.Yellow, ascWS, spc)
 	end

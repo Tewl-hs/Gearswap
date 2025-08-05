@@ -47,7 +47,7 @@ function get_sets()
             ammo        = "Esper Stone +1",
             --head        = "Telchine Cap", -- "Elemental Siphon"
             --body        = "Telchine Chasuble", -- "Elemental Siphon"
-            hands       = "Baayami Cuffs",
+            hands       = "Baayami Cuffs +1",
             --legs        = "Telchine Braconi", -- "Elemental Siphon"
             feet        = "Beck. Pigaches +3",
             neck        = "Incanter's Torque",
@@ -83,7 +83,7 @@ function get_sets()
         head        = "Beckoner's Horn +3", -- 23/0/0
         body        = "Baayami Robe +1", -- 37/0/0
         hands       = "Glyphic Bracers +3",	-- 23/8/0
-        legs        = "Baayami Slops", -- 30/7/0
+        legs        = "Baayami Slops +1", -- 30/7/0
         feet        = "Baayami Sabots +1", -- 29/0/0
         neck        = "Incanter's Torque", -- 10/0/0
         left_ear    = "Lodurr Earring", -- 5/0/0
@@ -111,11 +111,11 @@ function get_sets()
     }
 
     sets.midcast = { }
-    
+
     sets.midcast.SummoningMagic = {
         body        = "Baayami Robe +1",
     }
-    
+
     sets.midcast.Cure = {
         ammo        = "Hydrocera",
         head        = "Vanya Hood",
@@ -129,13 +129,13 @@ function get_sets()
         back        = "Altruistic Cape",
         waist       = "Austerity Belt +1",
         legs        = "Vanya Slops",
-        feet        = "Vanya Clogs",   
+        feet        = "Vanya Clogs",
     }
-    
+
     sets.midcast.Cursna = {
 
     }
-    
+
     sets.midcast.Enhancing = {
         head        = "Telchine Cap", --10
         body        = "Telchine Chas.", -- 8
@@ -145,7 +145,7 @@ function get_sets()
         neck        = "Incanter's Torque",
         waist       = "Embla Sash", -- 10
     }
-    
+
     sets.midcast["Stoneskin"] = set_combine(sets.midcast.Enhancing, {
         waist       = "Siegel Sash",
     })
@@ -173,9 +173,9 @@ function get_sets()
         feet        = { name="Apogee Pumps +1", augments={'MP+80','Pet: Attack+35','Blood Pact Dmg.+8',}}
     })
     sets.midcast.MagicalBP = {
-        main        = { name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: VIT+6','Pet: Mag. Acc.+22','Pet: "Mag.Atk.Bns."+13','DMG:+15',}},
+        main        = "Opashoro", --{ name="Grioavolr", augments={'Blood Pact Dmg.+10','Pet: VIT+6','Pet: Mag. Acc.+22','Pet: "Mag.Atk.Bns."+13','DMG:+15',}},
         sub         = "Elan Strap +1",
-        ammo        = "Epitaph",        
+        ammo        = "Epitaph",
         head        = { name="Apogee Crown +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         body        = { name="Apo. Dalmatica +1", augments={'MP+80','Pet: "Mag.Atk.Bns."+35','Blood Pact Dmg.+8',}},
         hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+10','Pet: INT+5','Pet: Mag. Acc.+14','Pet: "Mag.Atk.Bns."+10',}},
@@ -200,8 +200,8 @@ function get_sets()
         ammo        = "Epitaph",
         head        = "Beckoner's Horn +3",
         body        = "Beckoner's Doublet +3",
-        hands       = "Baayami Cuffs",
-        legs        = "Baayami Slops",
+        hands       = "Baayami Cuffs +1",
+        legs        = "Baayami Slops +1",
         feet        = "Baayami Sabots +1",
         neck        = "Incanter's Torque",
         waist       = "Kobo Obi",
@@ -219,7 +219,7 @@ function get_sets()
         head        = "Beckoner's Horn +3",
         body        = "Beckoner's Doublet +3",
         hands       = { name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+16 Pet: "Mag.Atk.Bns."+16','Blood Pact Dmg.+10','Pet: INT+5','Pet: Mag. Acc.+14','Pet: "Mag.Atk.Bns."+10',}},
-        legs        = "Baayami Slops",
+        legs        = "Baayami Slops +1",
         feet        = "Baayami Sabots +1",
         neck        = { name="Smn. Collar +2", augments={'Path: A',}},
         waist       = "Kobo Obi",
@@ -231,7 +231,7 @@ function get_sets()
     }
 
     sets.aftercast = { }
-    sets.aftercast.Idle = {  
+    sets.aftercast.Idle = {
         main        = "Nirvana",
         sub         = "Oneiros Grip",
         ammo        = "Epitaph",
@@ -248,7 +248,7 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Moonlight Cape",
     }
-    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle,{  
+    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle,{
         body		= "Nyame Mail",
         hands		= "Nyame Gauntlets",
         legs		= "Nyame Flanchard",
@@ -268,7 +268,7 @@ function get_sets()
         waist		= "Regal Belt",
         left_ear	= "C. Palug Earring",
         right_ear	= "Beck. Earring +1",
-        left_ring	= "Evoker's Ring",        
+        left_ring	= "Evoker's Ring",
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back		= { name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Eva.+20 /Mag. Eva.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Pet: "Regen"+5',}},
     }
@@ -306,7 +306,7 @@ function get_sets()
         back        = "Moonlight Cape",
     }
 
-    include('FFXI-Display.lua')	
+    include('FFXI-Display.lua')
 end
 
 function file_unload()
@@ -351,7 +351,7 @@ function precast(spell)
         if sets.precast.JA[spell.name] then
             equip(sets.precast.JA[spell.name])
         end
-    elseif spell.action_type == "Magic" then     
+    elseif spell.action_type == "Magic" then
         if spell.name=="Stoneskin" then
             equip(sets.precast.FC,{waist="Siegel Sash"})
         else
@@ -448,7 +448,7 @@ function buff_change(buff,gain)
         if player.inventory['Echo Drops'] or player.satchel['Echo Drops'] then
             send_command('@input /item "Echo Drops" <me>')
         else
-            add_to_chat(123,'Silenced, you are out of Echo Drops!!!')	
+            add_to_chat(123,'Silenced, you are out of Echo Drops!!!')
         end
     elseif buff == 'stun' and gain then
         equip_check()
@@ -457,7 +457,7 @@ end
 
 function equip_check()
     if player.statuas == 'Engaged' then
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+        if egs ~= nil and sets.aftercast.Engaged[egs] then
             equip(sets.aftercast.Engaged[egs])
         else
             egs = nil
@@ -479,7 +479,7 @@ function equip_check()
                 end
             end
         else
-            if ids ~= nil and sets.aftercast.Idle[ids] then 
+            if ids ~= nil and sets.aftercast.Idle[ids] then
                 equip(sets.aftercast.Idle[ids])
             else
                 ids = nil
@@ -513,7 +513,7 @@ function self_command(cmd)
             end
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
+            local last_egs = egs
             for k,v in pairs(sets.aftercast.Engaged) do
                 if slot_names:contains(k) then
                     -- do nothing
@@ -577,13 +577,13 @@ function update_status()
 
     stateBox:clear()
     stateBox:append(spc)
-    
+
     local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
     status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-    
+
     status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-    
+
     if PetDT == true then
         status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'PetMode', spc)
     end
@@ -605,10 +605,10 @@ function equip_change()
                 CurrentWeapon = ew
                 if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
                     TwoHandedWeapon = true
-                else 
-                    TwoHandedWeapon = false	
+                else
+                    TwoHandedWeapon = false
                 end
-            end	
+            end
             update_status()
         end
     end

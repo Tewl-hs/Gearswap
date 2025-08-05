@@ -179,7 +179,7 @@ function file_unload()
     send_command('unbind ^F10')
 end
 
-function precast(spell,action)         
+function precast(spell,action)
     if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
         cancel_spell()
         return
@@ -271,15 +271,6 @@ function aftercast(spell,action)
         buffs.Impetus = false
     end    
     equip_check()
-    if player.tp > 999 and player.statuws == 'Engaged' then
-        send_command('@input /ws "Victory Smite <t>')
-    else
-        local abil_recasts = windower.ffxi.get_ability_recasts()
-		if abil_recasts[31] < 1 then
-			send_command('@input /ja "Impetus" <me>')
-		end
-    end
-
 end
 
 function status_change(new,old)
@@ -303,7 +294,7 @@ end
 function equip_check()
     local eq = {}
     if player.status == 'Engaged' then
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
+        if egs ~= nil and sets.aftercast.Engaged[egs] then
             eq = sets.aftercast.Engaged[egs]
         else
             egs = nil
