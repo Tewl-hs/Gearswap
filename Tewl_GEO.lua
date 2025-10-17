@@ -133,7 +133,7 @@ function get_sets()
         right_ear   = "Malignance Earring",
         left_ring   = "Freke Ring",
         right_ring  = "Metamor. Ring +1",
-        back        = Capes.MagicDmg,
+        back        = Capes.MagicDmg
     }
 
     sets.midcast['Elemental Magic'].Burst = set_combine(sets.midcast['Elemental Magic'], {
@@ -153,7 +153,7 @@ function get_sets()
         legs        = "Geomancy Pants +3",
         feet        = "Geo. Sandals +3",
         neck        = "Bagua Charm +2",
-        left_ear    = "Regal Earring", 
+        left_ear    = "Regal Earring",
         right_ear   = "Malignance Earring",
         left_ring	= "Kishar Ring",
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },

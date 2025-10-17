@@ -10,8 +10,8 @@ function get_sets()
     include('FFXI-Utility')
     -- Personal settings. You can remove these two lines.
     set_macros(10,1)
-    send_command('wait 1;input /lockstyleset 16')
-	send_command('input //equipviewer pos 1663 935') 
+    send_command('wait 1;input /lockstyleset 11')
+	send_command('input //equipviewer pos 1663 935')
 
     send_command('bind ^f9 gs c cycle engaged')
     send_command('bind ^f10 gs c cycle idle')
@@ -91,6 +91,15 @@ function get_sets()
         waist       = "Fotia Belt",
         back        = Capes.DEX
     }
+    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
+        head        = "Hachi. Hatsu. +3",
+        feet        = "Hattori Kyahan +3",
+        right_ear   = "Lugra Earring +1",
+        left_ring   = "Regal Ring",
+        neck        = "Rep. Plat. Medal",
+        waist       = { name="Sailfi Belt +1", augments={'Path: A',}},
+        back        = Capes.STR
+    })
     sets.precast.WS['Blade: Ku'] = set_combine(sets.precast.WS, {
         ammo        = "Crepuscular Pebble",
         head        = { name="Blistering Sallet +1", augments={'Path: A',}},
@@ -124,8 +133,8 @@ function get_sets()
         legs        = { name="Mpaca's Hose", augments={'Path: A',}},
         feet        = "Ken. Sune-Ate +1",
         neck        = { name="Ninja Nodowa +2", augments={'Path: A',}},
-		left_ear	= { name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
-        right_ear   = { name="Lugra Earring +1", augments={'Path: A',}},
+		left_ear	= { name="Lugra Earring +1", augments={'Path: A',}},
+        right_ear   = "Hattori Earring +1",
         left_ring   = "Gere Ring",
         right_ring  = "Regal Ring",
         waist       = "Fotia Belt",

@@ -39,7 +39,7 @@ function get_sets()
 
     sets.precast.JA = {}
 
-    sets.precast.FC = { 
+    sets.precast.FC = {
         ammo        = "Sapience Orb",
         head        = "Carmine Mask +1",
         body        = "Pinga Tunic",
@@ -161,7 +161,7 @@ function get_sets()
     include('FFXI-Display.lua')
 end
 
-function file_unload()  
+function file_unload()
     send_command('unbind ^F9')
     send_command('unbind ^F10')
 end
@@ -237,7 +237,7 @@ function get_current_spellset()
     :map(function(id) return spells[id].english:lower() end)
 end
     
-function precast(spell)    
+function precast(spell)
     if spell.action_type == 'Magic' and sets.precast.FC then
         if sets.precast.FC[spell.name] then
             equip(sets.precast.FC[spell.name])

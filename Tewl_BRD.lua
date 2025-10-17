@@ -9,9 +9,9 @@
 function get_sets()
     items = require('resources').items
     require('queues')
-    
+
     include('FFXI-Mappings')
-	
+
     include('FFXI-Utility')
 
     send_command('bind ^f9 gs c cycle idle')
@@ -21,7 +21,7 @@ function get_sets()
     send_command('wait 1;input /lockstyleset 3')
     send_command('input //equipviewer pos 1663 934')
 
-    sets.MoveSpeed = { feet = "Fili cothurnes +3",} 
+    sets.MoveSpeed = { feet = "Fili cothurnes +3",}
 
     -- Augments
     Kali = {}
@@ -87,7 +87,7 @@ function get_sets()
     }
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
         main        = "Naegling",
-        sub         = "Genmei Shield", 
+        sub         = "Genmei Shield",
         head		= "Nyame Helm",
         body		= "Nyame Mail",
         hands		= "Nyame Gauntlets",
@@ -154,8 +154,8 @@ function get_sets()
         right_ring	= { "Lebeche Ring", bag="wardrobe4" },
         back		= "Solemnity Cape"
     })
-    sets.midcast['Singing'] = {        
-        main        = "Carnwenhan", 
+    sets.midcast['Singing'] = {
+        main        = "Carnwenhan",
         sub         = "Genmei Shield",
         range       = "Gjallarhorn",
         head        = "Fili Calot +3",
@@ -172,7 +172,7 @@ function get_sets()
         back        = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Damage taken-5%',}}
     }
     sets.midcast['Singing'].Debuff = set_combine(sets.midcast['Singing'],{
-        sub         = "Ammurapi Shield", 
+        sub         = "Ammurapi Shield",
         head        = "Bihu Roundlet +3",
         hands       = "Inyanga Dastanas +2",
         legs        = "Brioso Cannions +3",
@@ -229,18 +229,18 @@ function get_sets()
     sets.aftercast = { }
     sets.aftercast.Idle = {   
         main        = "Carnwenhan",
-        sub         = "Genmei Shield", 
+        sub         = "Genmei Shield",
         range       = "Gjallarhorn",
-        head        = "Bunzi's Hat", 
+        head        = "Bunzi's Hat",
         body        = "Bunzi's Robe",
         hands       = "Bunzi's Gloves",
         legs        = "Bunzi's Pants",
         feet        = "Bunzi's Sabots",
         neck        = "Warder's Charm +1",
-        waist       = "Slipor Sash", 
+        waist       = "Slipor Sash",
         left_ear    = "Hearty Earring",
         right_ear   = "Odnowa Earring +1",
-        left_ring   = "Moonlight Ring", 
+        left_ring   = "Moonlight Ring",
         right_ring  = "Shadow Ring",
         back        = "Moonlight Cape"
     }
@@ -258,7 +258,7 @@ function get_sets()
         left_ear    = "Crep. Earring",
         right_ear   = "Telos Earring",
         left_ring   = "Moonlight Ring", -- DT 5
-        right_ring  = "Chirich Ring +1", 
+        right_ring  = "Chirich Ring +1",
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}}, -- DT 5
     }
 
@@ -272,7 +272,7 @@ end
 
 function precast(spell)
     if spell.action_type == 'Magic' then        
-        if spell.skill == 'Singing' and sets.precast.FC[spell.skill] then 
+        if spell.skill == 'Singing' and sets.precast.FC[spell.skill] then
             if DummySongs:contains(spell.name) or string.find(spell.name,'Paeon') or spell.name:startswith('Horde')  then
                 equip(sets.precast.FC[spell.skill].Daurdabla)
             elseif sets.precast.FC[spell.skill][spell.name] then
@@ -310,7 +310,7 @@ function midcast(spell)
         if DummySongs:contains(spell.name) or string.find(spell.name,'Paeon') then
             return
         end
-        
+
         if string.find(spell.name,'Ballad') and sets.midcast[spell.skill].Ballad then
             equip(sets.midcast['Singing'].Ballad)
         elseif string.find(spell.name,'Carol') and sets.midcast[spell.skill].Carol then
@@ -384,7 +384,7 @@ function buff_change(buff,gain)
         if player.inventory['Echo Drops'] then
             send_command('@input /item "Echo Drops" <me>')
         else
-            add_to_chat(123,'Silenced, you are out of Echo Drops!')	
+            add_to_chat(123,'Silenced, you are out of Echo Drops!')
         end
     elseif buff == 'stun' and gain then
         equip_check()
@@ -414,7 +414,7 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
+            local last_ids = ids
             for k,v in pairs(sets.aftercast.Idle) do
                 if slot_names:contains(k) then
                     -- do nothing
@@ -426,7 +426,7 @@ function self_command(cmd)
                 end
             end
             if last_ids == ids then ids = nil end
-            if ids == nil then 
+            if ids == nil then
                 add_to_chat('Idle mode set to: Default')
             else
                 add_to_chat('Idle mode set to: '..ids)
@@ -445,7 +445,7 @@ function self_command(cmd)
                 end
             end
             if last_egs == egs then egs = nil end
-            if egs == nil then 
+            if egs == nil then
                 add_to_chat('Engaged mode set to: Default')
             else
                 add_to_chat('Engaged mode set to: '..egs)
@@ -467,7 +467,7 @@ function equip_change()
 	local equipment = inventory['equipment'];
 	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
 	local sitem = windower.ffxi.get_items(equipment["sub_bag"],equipment["sub"])
-	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then 
+	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then
 		local mw = items[item['id']].name
         local sw = items[sitem['id']].name
 		if mw ~= MainWeapon then 
@@ -478,7 +478,7 @@ function equip_change()
                 if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
 					TwoHandedWeapon = true
 				else 
-					TwoHandedWeapon = false	
+					TwoHandedWeapon = false
                 end
 				MainWeapon = mw
 			end	
@@ -504,13 +504,13 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
+
 	local status_text = string.format("%s%s%s%s%s%s%s", WeaponColor, MainWeapon, Colors.White,' / ',SubColor,SubWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-	
+
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-	
+
 	if BurstMode == true then
 		status_text = string.format("%s%s %s%s", status_text, Colors.Yellow, 'BurstMode', spc)
 	end
