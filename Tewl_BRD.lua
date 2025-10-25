@@ -227,7 +227,7 @@ function get_sets()
     })
 
     sets.aftercast = { }
-    sets.aftercast.Idle = {   
+    sets.aftercast.Idle = {
         main        = "Carnwenhan",
         sub         = "Genmei Shield",
         range       = "Gjallarhorn",

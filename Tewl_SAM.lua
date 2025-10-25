@@ -43,7 +43,7 @@ function get_sets()
 	send_command("bind @p input //gs equip sets.Weapons['Shining One']")
 	send_command("bind @c input //gs equip sets.Weapons['Mafic Cudgel']")
 
-	send_command('bind !f9 gs c toggle autosc') 
+	send_command('bind !f9 gs c toggle autosc')
 	send_command('bind !f10 gs c toggle acc')
 	send_command('bind !f11 gs c toggle ranged')
 
@@ -54,7 +54,7 @@ function get_sets()
 
 	load_macros()
 	send_command('wait 1.5;input /lockstyleset 1')
-	send_command('input //equipviewer pos 1663 935') 
+	send_command('input //equipviewer pos 1663 935')
 
     --
     CurrentWeapon = "Kusanagi"
@@ -628,13 +628,15 @@ function self_command(cmd)
 			else
 				AutoSC = false
 			end
-		elseif args[2] == 'wsacc' then
+		elseif args[2] == 'acc' then
 			if acc_mode == false then
 				acc_mode = true
 				add_to_chat(122, 'Accuracy Mode: High')
+				equip_check()
 			else
 				acc_mode = false
 				add_to_chat(122, 'Accuracy Mode: Normal')
+				equip_check()
 			end
 		elseif args[2] == 'ranged' then
 			if range_mode == false then
