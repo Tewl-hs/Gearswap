@@ -47,7 +47,7 @@ function get_sets()
 	bind_commands(KeyBindings)
 
 	load_macros()
-	send_command('wait 1.5;input /lockstyleset 1')
+	send_command('wait 1.5;input /lockstyleset 19')
 	send_command('input //equipviewer pos 1663 935')
 
 	-- Shining One is already present in Tewl_SAM.lua and is the safe starting weapon.
