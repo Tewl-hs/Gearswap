@@ -262,7 +262,7 @@ function get_sets()
         back        = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Damage taken-5%',}}, -- DT 5
     }
 
-    include('FFXI-Display.lua')	
+    include('FFXI-Display.lua')
 end
 
 function file_unload()  

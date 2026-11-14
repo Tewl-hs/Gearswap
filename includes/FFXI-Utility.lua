@@ -145,6 +145,48 @@ function has_value (tab, val)
     return table.getn(tab)
 end
 
+function cycle_set_mode(current_mode, gear_sets)
+	local modes = {}
+
+	for name, _ in pairs(gear_sets) do
+		if not slot_names:contains(name) then
+			table.insert(modes, name)
+		end
+	end
+
+	table.sort(modes)
+
+	if current_mode == nil then
+		return modes[1]
+	end
+
+	for index, name in ipairs(modes) do
+		if name == current_mode then
+			return modes[index + 1]
+		end
+	end
+
+	return nil
+end
+
+function bind_commands(commands)
+	for key, command in pairs(commands) do
+		send_command('bind '..key..' '..command)
+	end
+end
+
+function unbind_commands(commands)
+	for key, _ in pairs(commands) do
+		send_command('unbind '..key)
+	end
+end
+
+function toggle_mode(value, enabled_message, disabled_message)
+	value = not value
+	add_to_chat(122, value and enabled_message or disabled_message)
+	return value
+end
+
 function standardize_set(set)
 	local standardized_set = {}
 

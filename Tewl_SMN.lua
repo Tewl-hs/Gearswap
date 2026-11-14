@@ -411,11 +411,7 @@ function pet_midcast(spell)
         if MeritBloodPacts:contains(spell.name) then
             equip(sets.midcast.MeritBP)
         elseif MagicalBloodPactRage:contains(spell.name) then
-            if spell.name == 'Flaming Crush' then
-                equip(set_combine(sets.midcast.MagicalBP,{head="C. Palug Crown"}))
-            else
-                equip(sets.midcast.MagicalBP)
-            end
+            equip(sets.midcast.MagicalBP)
         else
             if buffactive["Aftermath: Lv.3"] then
                 equip(sets.midcast.PhysicalBP.AM3)

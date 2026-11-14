@@ -52,7 +52,7 @@ function get_sets()
     }
     sets.precast = {}
     sets.precast.FC = { -- 48/42
-        head		= "Atrophy Chapeau +3", -- 16
+        head		= "Atrophy Chapeau +4", -- 16
         body		= "Viti. Tabard +3", -- 15
         right_ear	= "Leth. Earring +1", -- 7
         back		= Capes.MND -- 10
@@ -82,58 +82,40 @@ function get_sets()
         back		= Capes.WSD,
     }
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS,{
+        hands       = "Gazu Bracelets +1",
         feet		= "Leth. Houseaux +3",
         neck		= "Fotia Gorget", --"Rep. Plat. Medal",
         left_ear    = "Mache Earring +1",
         right_ear	= "Leth. Earring +1",
         left_ring   = "Cacoethic Ring +1",
         waist       = "Kentarch Belt +1",
-        back		= Capes.WSD,
     })
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,{
         feet		= "Leth. Houseaux +3",
         neck        = "Anu Torque",
-        left_ear    = "Moonshade Earring",
-        right_ear   = "Ishvara Earring",
         left_ring   = "Sroda Ring",
-        right_ring	= "Cornelia's Ring",
-        waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
     })
 
     sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, {
         ammo		= "Sroda Tathlum",
         head		= "Pixie Hairpin +1",
-        body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
-        legs		= "Nyame Flanchard",
-        feet		= "Nyame Sollerets",
         neck		= "Sibyl Scarf",
         left_ear	= "Malignance Earring",
         right_ear	= "Regal Earring",
         left_ring	= "Archon Ring",
-        right_ring	= "Epaminondas's Ring",
         waist		= "Orpheus's Sash",
         back		= Capes.INT
     })
     sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS['Sanguine Blade'], {
-        head		= "Nyame Helm",
-        body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
         legs		= "Leth. Fuseau +3",
         feet		= "Leth. Houseaux +3",
-        right_ear	= "Moonshade Earring",
-        left_ring	= "Epaminondas's Ring",
-        right_ring	= "Cornelia's Ring",
     })
     sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS['Sanguine Blade'], {
-        head		= "Nyame Helm",
-        body		= "Nyame Mail",
         hands		= "Jhakri Cuffs +2",
         legs		= "Leth. Fuseau +3",
         feet		= "Leth. Houseaux +3",
-        right_ear	= "Moonshade Earring",
-        left_ring	= "Epaminondas's Ring",
-        right_ring	= "Cornelia's Ring",
     })
 
     sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, {
@@ -145,10 +127,7 @@ function get_sets()
         feet		= "Nyame Sollerets",
         neck		= "Rep. Plat. Medal",
         left_ear	= "Regal Earring",
-        right_ear	= "Moonshade Earring",
         left_ring	= "Metamor. Ring +1",
-        right_ring	= "Epaminondas's Ring",
-        waist		= { name="Sailfi Belt +1", augments={'Path: A',}},
         back		= Capes.INT
     })
 
@@ -205,7 +184,7 @@ function get_sets()
         --main        = { name="Contemplator +1", augments={'Path: A',}},
         --sub         = "Enki Strap",
         ammo		= "Regal Gem",
-        head		= "Viti. Chapeau +3",
+        head		= "Viti. Chapeau +4",
         body		= "Atrophy Tabard +3",
         hands		= "Leth. Ganth. +3",
         legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
@@ -334,17 +313,17 @@ function get_sets()
     })
     sets.midcast['Dark Magic'] =  {
         ammo        = "Pemphredo Tathlum",
-        head        = "Atrophy Chapeau +3",
+        head        = "Atrophy Chapeau +4",
         body        = "Lethargy Sayon +3",
         hands		= "Leth. Ganth. +3",
         legs        = "Leth. Fuseau +3",
         feet        = "Leth. Houseaux +3",
         neck        = "Erra Pendant",
-        left_ear    = "Malignance Earring",
-        right_ear   = "Regal Earring",
+        left_ear    = "Alabaster Earring",
+        right_ear   = "Leth. Earring +1",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = "Evanescence Ring",
-        waist       = "Acuity Belt +1",
+        waist       = "Null Belt",
         back		= "Aurist's Cape +1"
     }
     -- sets.midcast['Dark Magic'] =  set_combine(sets.midcast['Dark Magic'], { })
@@ -369,15 +348,15 @@ function get_sets()
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         sub         = "Genmei Shield",
         ammo		= "Homiliary",
-        head		= "Viti. Chapeau +3",
+        head		= "Viti. Chapeau +4",
         body		= "Jhakri Robe +2",
         hands		= { name="Merlinic Dastanas", augments={'Pet: AGI+2','"Store TP"+4','"Refresh"+2','Accuracy+20 Attack+20',}},
         legs		= { name="Chironic Hose", augments={'"Mag.Atk.Bns."+11','STR+12','"Refresh"+2','Accuracy+15 Attack+15',}},
         feet        = { name="Merlinic Crackows", augments={'Accuracy+7','Pet: "Dbl. Atk."+1','"Refresh"+2','Mag. Acc.+7 "Mag.Atk.Bns."+7',}},
         neck		= "Loricate Torque +1",
         waist		= "Fucho-no-obi",
-        left_ear	= "Etiolation Earring",
-        right_ear	= "Genmei Earring",
+        left_ear	= "Alabaster Earring",
+        right_ear	= "Etiolation Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         back        = "Solemnity Cape",
