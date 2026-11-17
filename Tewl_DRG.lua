@@ -20,6 +20,7 @@
 	WIN+G    : Equip Gungnir
 	WIN+P    : Equip Shining One
 	WIN+N    : Equip Naegling
+	WIN+Y    : Equip Ryunohige
 	AutoSC Darkness
 	Stardiver -> Sonic Thrust (Distortion) -> Impulse Drive (Darkness)
 --]]
@@ -37,6 +38,7 @@ function get_sets()
 		['@g'] = "input //gs equip sets.Weapons['Gungnir']",
 		['@p'] = "input //gs equip sets.Weapons['Shining One']",
 		['@n'] = "input //gs equip sets.Weapons['Naegling']",
+		['@y'] = "input //gs equip sets.Weapons['Ryunohige']",
 		['!f9'] = 'gs c toggle autosc',
 		['!f10'] = 'gs c toggle acc',
 		['!f11'] = 'gs c toggle jumpupgrade',
@@ -50,7 +52,6 @@ function get_sets()
 	send_command('wait 1.5;input /lockstyleset 19')
 	send_command('input //equipviewer pos 1663 935')
 
-	-- Shining One is already present in Tewl_SAM.lua and is the safe starting weapon.
 	CurrentWeapon = 'Shining One'
 
 	-- TODO: Build these Brigantia's Mantles over time. Change augments to owned capes.
@@ -76,7 +77,7 @@ function get_sets()
 			sub		= 'Utu Grip',
 		},
 		['Rhongomiant'] = {
-			main		= 'Rhongomiant', -- TODO: future weapon
+			main	= 'Rhongomiant', -- TODO: future weapon
 			sub		= 'Utu Grip',
 		},
 		['Gungnir'] = {
@@ -89,6 +90,10 @@ function get_sets()
 		},
 		['Naegling'] = {
 			main	= 'Naegling',
+		},
+		['Ryunohige'] = {
+			main	= 'Ryunohige',
+			sub		= 'Utu Grip',
 		},
 	}
 
@@ -140,11 +145,11 @@ function get_sets()
 	-- Jump sets favor multi-attack/Store TP and the DRG artifact/relic bonuses.
 	sets.precast.JA['Jump'] = {
 		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
-		head		= 'Flam. Zucchetto +2', -- TODO or best owned multi-attack head
+		head		= 'Flam. Zucchetto +2',
 		body		= 'Vishap Mail +3', -- TODO
 		hands		= 'Vis. Fng. Gaunt. +3', -- TODO
 		legs		= 'Ptero. Brais +3', -- TODO
-		feet		= 'Ostro Greaves', -- TODO
+		feet		= 'Ostro Greaves',
 		neck		= 'Anu Torque',
 		left_ear	= 'Dedition Earring',
 		right_ear	= 'Telos Earring',
@@ -197,7 +202,7 @@ function get_sets()
 	})
 
 	sets.precast.WS["Camlann's Torment"] = set_combine(sets.precast.WS, {
-		neck		= 'Dgn. Collar +2', -- TODO
+		neck		= 'Dgn. Collar +2',
 	})
 	sets.precast.WS["Camlann's Torment"].Accuracy = set_combine(sets.precast.WS["Camlann's Torment"], {
 		left_ear	= 'Telos Earring',
@@ -298,11 +303,11 @@ function get_sets()
 	sets.aftercast = {}
 	sets.aftercast.Engaged = {
 		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
-		head		= {name="Mpaca's Cap", augments={'Path: A',}},
-		body		= {name="Mpaca's Doublet", augments={'Path: A',}},
+		head		= 'Flam. Zucchetto +2',
+		body		= {name="Gleti's Cuirass", augments={'Path: A',}}, -- TODO
 		hands		= 'Nyame Gauntlets',
-		legs		= {name="Mpaca's Hose", augments={'Path: A',}},
-		feet		= {name="Mpaca's Boots", augments={'Path: A',}},
+		legs		= 'Ptero. Brais +3', -- TODO
+		feet		= 'Flam. Gambieras +2',
 		neck		= 'Anu Torque',
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
 		left_ear	= 'Dedition Earring',
@@ -311,15 +316,33 @@ function get_sets()
 		right_ring	= 'Niqmaddu Ring',
 		back		= Capes.TP,
 	}
+	-- Ryunohige AM3 supplies a very high Occasionally Attacks Twice/Thrice rate.
+	-- Favor Store TP and remove avoidable multi-attack so it does not take priority
+	-- over the mythic aftermath. This set is applied automatically in equip_check().
+	sets.aftercast.RyunohigeAM3 = set_combine(sets.aftercast.Engaged, {
+		ammo		= 'Aurgelmir Orb +1', -- TODO
+		head		= 'Flam. Zucchetto +2',
+		body		= 'Nyame Mail',
+		hands		= 'Nyame Gauntlets',
+		legs		= 'Ptero. Brais +3', -- TODO
+		feet		= 'Flam. Gambieras +2',
+		neck		= 'Anu Torque',
+		waist		= 'Kentarch Belt +1', -- TODO
+		left_ear	= 'Dedition Earring',
+		right_ear	= 'Telos Earring',
+		left_ring	= 'Chirich Ring +1',
+		right_ring	= 'Defending Ring',
+		back		= Capes.TP,
+	})
 	-- Naegling uses a one-handed, multi-attack-focused TP set.
 	-- It is selected automatically and is not part of the CTRL+F9 mode cycle.
 	sets.aftercast.Sword = set_combine(sets.aftercast.Engaged, {
 		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
-		head		= 'Flam. Zucchetto +2', -- TODO
+		head		= 'Flam. Zucchetto +2', 
 		body		= {name="Gleti's Cuirass", augments={'Path: A',}}, -- TODO
 		hands		= 'Pel. Vambraces +3', -- TODO
 		legs		= 'Ptero. Brais +3', -- TODO
-		feet		= 'Flam. Gambieras +2', -- TODO
+		feet		= 'Flam. Gambieras +2',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= 'Ioskeha Belt +1',
 		left_ear	= 'Brutal Earring',
@@ -584,11 +607,13 @@ function sub_job_change(new, old)
 end
 
 function status_change(new, old)
-	if T{'Idle','Resting','Engaged'}:contains(new) then equip_check() end
+	if T{'Idle','Resting','Engaged'}:contains(new) then equip_check(new) end
 end
 
 function buff_change(buff, gain)
-	if buff == 'sleep' and player.status == 'Engaged' then
+	if buff == 'Aftermath: Lv.1' or buff == 'Aftermath: Lv.2' or buff == 'Aftermath: Lv.3' then
+		equip_check()
+	elseif buff == 'sleep' and player.status == 'Engaged' then
 		if gain then
 			send_command('cancel Stoneskin')
 			equip_check()
@@ -601,12 +626,17 @@ function buff_change(buff, gain)
 	end
 end
 
-function equip_check()
+function equip_check(status)
 	local eq
-	if player.status == 'Engaged' then
+	-- Use the status event value when available; player.status may still be stale.
+	status = status or player.status
+	if status == 'Engaged' then
 		eq = sets.aftercast.Engaged
 		if egs and sets.aftercast.Engaged[egs] then eq = sets.aftercast.Engaged[egs] end
 		if CurrentWeapon == 'Naegling' then eq = set_combine(eq, sets.aftercast.Sword) end
+		if CurrentWeapon == 'Ryunohige' and buffactive['Aftermath: Lv.3'] and not egs then
+			eq = set_combine(eq, sets.aftercast.RyunohigeAM3)
+		end
 	else
 		eq = sets.aftercast.Idle
 		if ids and sets.aftercast.Idle[ids] then eq = sets.aftercast.Idle[ids] end
@@ -702,6 +732,18 @@ function update_status()
 	}
 
 	if lock_twilight then table.insert(segments, Colors.Yellow..'Twilight') end
+	if CurrentWeapon == 'Ryunohige' then
+		local aftermath = 'None'
+		if buffactive['Aftermath: Lv.3'] then
+			aftermath = 'Lv.3'
+		elseif buffactive['Aftermath: Lv.2'] then
+			aftermath = 'Lv.2'
+		elseif buffactive['Aftermath: Lv.1'] then
+			aftermath = 'Lv.1'
+		end
+		table.insert(segments, Colors.White..'Aftermath: '..
+			(aftermath == 'Lv.3' and Colors.Green or Colors.Blue)..aftermath)
+	end
 	if AutoSC then
 		local next_ws = AutoSkillChain[asc_order] or 'Unknown'
 		table.insert(segments, Colors.White..'AutoSC Next: '..Colors.Yellow..next_ws)
