@@ -16,11 +16,8 @@
 	ALT+F11  : Toggle automatic Jump upgrades
 
 	WIN+T    : Equip Trishula
-	WIN+R    : Equip Rhongomiant
-	WIN+G    : Equip Gungnir
 	WIN+P    : Equip Shining One
 	WIN+N    : Equip Naegling
-	WIN+Y    : Equip Ryunohige
 	AutoSC Darkness
 	Stardiver -> Sonic Thrust (Distortion) -> Impulse Drive (Darkness)
 --]]
@@ -34,11 +31,8 @@ function get_sets()
 
 	KeyBindings = {
 		['@t'] = "input //gs equip sets.Weapons['Trishula']",
-		['@r'] = "input //gs equip sets.Weapons['Rhongomiant']",
-		['@g'] = "input //gs equip sets.Weapons['Gungnir']",
 		['@p'] = "input //gs equip sets.Weapons['Shining One']",
 		['@n'] = "input //gs equip sets.Weapons['Naegling']",
-		['@y'] = "input //gs equip sets.Weapons['Ryunohige']",
 		['!f9'] = 'gs c toggle autosc',
 		['!f10'] = 'gs c toggle acc',
 		['!f11'] = 'gs c toggle jumpupgrade',
@@ -53,6 +47,7 @@ function get_sets()
 	send_command('input //equipviewer pos 1663 935')
 
 	CurrentWeapon = 'Shining One'
+
 	-- Reaperofsoul's DRG cape configuration.
 	Capes = {}
 	Capes.TP = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
@@ -73,24 +68,12 @@ function get_sets()
 			main	= 'Trishula', -- TODO: future weapon
 			sub		= 'Utu Grip',
 		},
-		['Rhongomiant'] = {
-			main	= 'Rhongomiant', -- TODO: future weapon
-			sub		= 'Utu Grip',
-		},
-		['Gungnir'] = {
-			main	= 'Gungnir', -- TODO: future weapon
-			sub		= 'Utu Grip',
-		},
 		['Shining One'] = {
 			main	= 'Shining One',
 			sub		= 'Utu Grip',
 		},
 		['Naegling'] = {
 			main	= 'Naegling',
-		},
-		['Ryunohige'] = {
-			main	= 'Ryunohige',
-			sub		= 'Utu Grip',
 		},
 	}
 
@@ -472,9 +455,6 @@ function get_sets()
 		back		= Capes.Pet,
 	})
 
-	-- Tewl-only Ryunohige support uses the synchronized Reaper engaged set.
-	sets.aftercast.RyunohigeAM3 = set_combine(sets.aftercast.Engaged, {})
-
 	wyvern_elemental_breaths = T{
 		'Flame Breath','Frost Breath','Sand Breath','Hydro Breath','Gust Breath','Lightning Breath'
 	}
@@ -675,9 +655,7 @@ function status_change(new, old)
 end
 
 function buff_change(buff, gain)
-	if buff == 'Aftermath: Lv.1' or buff == 'Aftermath: Lv.2' or buff == 'Aftermath: Lv.3' then
-		equip_check()
-	elseif buff == 'sleep' and player.status == 'Engaged' then
+	if buff == 'sleep' and player.status == 'Engaged' then
 		if gain then
 			send_command('cancel Stoneskin')
 			equip_check()
@@ -692,15 +670,13 @@ end
 
 function equip_check(status)
 	local eq
-	-- Use the status event value when available; player.status may still be stale.
+	-- status_change can fire before player.status reflects the new state, so use
+	-- the event status when it is available instead of rereading stale data.
 	status = status or player.status
 	if status == 'Engaged' then
 		eq = sets.aftercast.Engaged
 		if egs and sets.aftercast.Engaged[egs] then eq = sets.aftercast.Engaged[egs] end
 		if CurrentWeapon == 'Naegling' then eq = set_combine(eq, sets.aftercast.Sword) end
-		if CurrentWeapon == 'Ryunohige' and buffactive['Aftermath: Lv.3'] and not egs then
-			eq = set_combine(eq, sets.aftercast.RyunohigeAM3)
-		end
 	else
 		eq = sets.aftercast.Idle
 		if ids and sets.aftercast.Idle[ids] then eq = sets.aftercast.Idle[ids] end
@@ -796,18 +772,6 @@ function update_status()
 	}
 
 	if lock_twilight then table.insert(segments, Colors.Yellow..'Twilight') end
-	if CurrentWeapon == 'Ryunohige' then
-		local aftermath = 'None'
-		if buffactive['Aftermath: Lv.3'] then
-			aftermath = 'Lv.3'
-		elseif buffactive['Aftermath: Lv.2'] then
-			aftermath = 'Lv.2'
-		elseif buffactive['Aftermath: Lv.1'] then
-			aftermath = 'Lv.1'
-		end
-		table.insert(segments, Colors.White..'Aftermath: '..
-			(aftermath == 'Lv.3' and Colors.Green or Colors.Blue)..aftermath)
-	end
 	if AutoSC then
 		local next_ws = AutoSkillChain[asc_order] or 'Unknown'
 		table.insert(segments, Colors.White..'AutoSC Next: '..Colors.Yellow..next_ws)
