@@ -358,7 +358,7 @@ function get_sets()
 		body		= 'Pelt. Plackart +3',
 		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
 		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
-		feet		= {name='Valorous Greaves', augments={'"Store TP"+7','Accuracy+9','Attack+15',}},
+		feet		= 'Flam. Gambieras +2',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
 		left_ear	= 'Dedition Earring',
@@ -434,19 +434,19 @@ function get_sets()
 		left_ear	= 'Infused Earring',
 		right_ear	= {name='Odnowa Earring +1', augments={'Path: A',}},
 		left_ring	= 'Stikini Ring +1',
-		right_ring	= 'Defending Ring',
+		right_ring	= 'Murky Ring',
 		back		= Capes.TP,
 	}
 	sets.aftercast.Idle.PDT = set_combine(sets.aftercast.Engaged.PDT, {
-		right_ring	= 'Defending Ring',
+		right_ring	= 'Murky Ring',
 	})
 	sets.aftercast.Idle.MEVA = set_combine(sets.aftercast.Engaged.MEVA, {
-		right_ring	= 'Defending Ring',
+		right_ring	= 'Murky Ring',
 	})
 	sets.aftercast.Idle.Hybrid = set_combine(sets.aftercast.Engaged.Hybrid, {
 		legs		= 'Carmine Cuisses +1',
 		left_ring	= 'Stikini Ring +1',
-		right_ring	= 'Defending Ring',
+		right_ring	= 'Murky Ring',
 		back		= Capes.TP,
 	})
 	sets.aftercast.Idle.Refresh = set_combine(sets.aftercast.Idle, {})
