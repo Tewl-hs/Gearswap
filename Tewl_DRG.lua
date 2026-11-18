@@ -53,16 +53,13 @@ function get_sets()
 	send_command('input //equipviewer pos 1663 935')
 
 	CurrentWeapon = 'Shining One'
-
-	-- TODO: Build these Brigantia's Mantles over time. Change augments to owned capes.
+	-- Reaperofsoul's DRG cape configuration.
 	Capes = {}
-	Capes.TP = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}}
-	Capes.WS = {name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
-	Capes.DA = {name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
-	Capes.Jump = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Pet: Damage taken -5%',}}
-	Capes.Pet = {name="Brigantia's Mantle", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Accuracy+10 Pet: Rng. Acc.+10','Pet: Haste+10','Pet: Damage taken -5%',}}
-	Capes.FC = {name="Brigantia's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Evasion+10','"Fast Cast"+10','Spell interruption rate down-10%',}}
-	Capes.Enmity = {name="Brigantia's Mantle", augments={'HP+60','Enmity+10',}}
+	Capes.TP = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+	Capes.WS = {name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Pet: "Regen"+5',}}
+	Capes.DA = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Pet: "Regen"+5',}}
+	Capes.Jump = Capes.DA
+	Capes.Pet = 'Updraft Mantle'
 
 	sets.MoveSpeed = {
 		right_ring	= 'Shneddick Ring +1',
@@ -100,86 +97,96 @@ function get_sets()
 	sets.precast = {}
 	sets.precast.JA = {
 		['Spirit Surge'] = {
-			body		= 'Ptero. Mail +3', -- TODO
+			body		= 'Ptero. Mail +3',
+			hands		= 'Despair Fin. Gaunt.',
+			legs		= 'Vishap Brais +3',
+			feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+			neck		= "Chanoix's Gorget",
+			waist		= 'Isa Belt',
+			left_ear	= "Lancer's Earring",
+			right_ear	= 'Anastasi Earring',
+			back		= Capes.Pet,
 		},
 		['Call Wyvern'] = {
-			body		= 'Ptero. Mail +3', -- TODO
+			body		= 'Ptero. Mail +3',
+			neck		= 'Dgn. Collar +2',
+			left_ring	= 'Dreki Ring',
+			right_ear	= "Peltast's Earring",
 		},
 		['Ancient Circle'] = {
-			legs		= 'Vishap Brais +3', -- TODO
+			legs		= 'Vishap Brais +3',
 		},
 		['Deep Breathing'] = {
-			head		= 'Ptero. Armet +3', -- TODO
+			head		= {name='Ptero. Armet +3', augments={'Enhances "Deep Breathing" effect',}},
 		},
 		['Spirit Link'] = {
-			head		= 'Vishap Armet +3', -- TODO
-			hands		= 'Pel. Vambraces +1', -- TODO
-			feet		= 'Ptero. Greaves +3', -- TODO
-			left_ear	= 'Pratik Earring', -- TODO
+			head		= 'Vishap Armet +2',
+			hands		= 'Pel. Vambraces +3',
+			feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+			left_ear	= 'Pratik Earring',
 		},
 		['Steady Wing'] = {
-			legs		= 'Vishap Brais +3', -- TODO
-			feet		= 'Ptero. Greaves +3', -- TODO
-			neck		= "Chanoix's Gorget", -- TODO
+			body		= 'Emicho Haubert',
+			hands		= 'Despair Fin. Gaunt.',
+			legs		= 'Vishap Brais +3',
+			feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+			neck		= "Chanoix's Gorget",
+			waist		= 'Isa Belt',
+			left_ear	= "Lancer's Earring",
+			right_ear	= 'Anastasi Earring',
 			back		= Capes.Pet,
 		},
 		['Angon'] = {
 			ammo		= 'Angon',
-			hands		= 'Ptero. Fin. G. +3', -- TODO
+			hands		= 'Ptero. Fin. G. +3',
 		},
-		['Provoke'] = {
-			ammo		= 'Sapience Orb',
-			head		= 'Loess Barbuta +1',
-			neck		= 'Unmoving Collar +1',
-			body		= 'Emet Harness +1',
-			left_ear	= 'Trux Earring',
-			right_ear	= 'Cryptic Earring',
-			left_ring	= 'Eihwaz Ring',
-			right_ring	= 'Supershear Ring',
-			waist		= 'Kasiri Belt',
-			back		= Capes.Enmity,
-		},
+		['Provoke'] = {},
 		['Warcry'] = {},
 	}
 
 	-- Jump sets favor multi-attack/Store TP and the DRG artifact/relic bonuses.
 	sets.precast.JA['Jump'] = {
-		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
+		ammo		= 'Aurgelmir Orb +1',
 		head		= 'Flam. Zucchetto +2',
-		body		= 'Vishap Mail +3', -- TODO
-		hands		= 'Vis. Fng. Gaunt. +3', -- TODO
-		legs		= 'Ptero. Brais +3', -- TODO
+		body		= {name='Ptero. Mail +3', augments={'Enhances "Spirit Surge" effect',}},
+		hands		= 'Vis. Fng. Gaunt. +2',
+		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
 		feet		= 'Ostro Greaves',
-		neck		= 'Anu Torque',
-		left_ear	= 'Dedition Earring',
-		right_ear	= 'Telos Earring',
-		left_ring	= 'Chirich Ring +1',
+		neck		= {name='Vim Torque +1', augments={'Path: A',}},
+		left_ear	= 'Telos Earring',
+		right_ear	= 'Sherida Earring',
+		left_ring	= 'Flamma Ring',
 		right_ring	= 'Niqmaddu Ring',
 		waist		= 'Ioskeha Belt +1',
 		back		= Capes.Jump,
 	}
 	sets.precast.JA['High Jump'] = set_combine(sets.precast.JA['Jump'], {})
-	sets.precast.JA['Spirit Jump'] = set_combine(sets.precast.JA['Jump'], {})
-	sets.precast.JA['Soul Jump'] = set_combine(sets.precast.JA['Jump'], {})
+	sets.precast.JA['Spirit Jump'] = set_combine(sets.precast.JA['Jump'], {
+		feet		= 'Pelt. Schyn. +3',
+	})
+	sets.precast.JA['Soul Jump'] = set_combine(sets.precast.JA['Jump'], {
+		body		= 'Vishap Mail +2',
+		hands		= "Gleti's Gauntlets",
+		left_ring	= 'Petrov Ring',
+	})
 	sets.precast.JA['Super Jump'] = {}
 
 	sets.precast.FC = {
 		ammo		= 'Sapience Orb',
-		head		= {name='Acro Helm', augments={'"Fast Cast"+3',}},
-		neck		= "Orunmila's Torque",
-		body		= 'Sacro Breastplate',
-		hands		= 'Leyline Gloves',
-		legs		= 'Arjuna Breeches',
-		feet		= {name='Acro Leggings', augments={'"Fast Cast"+3',}},
+		head		= 'Carmine Mask +1',
+		neck		= 'Baetyl Pendant',
+		body		= {name='Taeon Tabard', augments={'Spell interruption rate down -10%','Phalanx +3',}},
+		hands		= {name='Leyline Gloves', augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
+		legs		= 'Carmine Cuisses +1',
+		feet		= {name='Carmine Greaves +1', augments={'HP+80','MP+80','Phys. dmg. taken -4',}},
 		left_ear	= 'Loquac. Earring',
-		right_ear	= 'Enchntr. Earring +1',
-		left_ring	= 'Prolix Ring',
-		right_ring	= 'Rahab Ring',
-		back		= Capes.FC,
+		right_ear	= 'Etiolation Earring',
+		left_ring	= 'Regal Ring',
+		right_ring	= 'Niqmaddu Ring',
+		back		= Capes.DA,
 	}
 
-	-- Baseline WS gear uses broadly shared pieces already found in Tewl_SAM.lua.
-	-- Replace with DRG-specific gear as it is acquired.
+	-- Weapon skill gear migrated from Reaperofsoul's original DRG file.
 	sets.precast.WS = {
 		ammo		= 'Knobkierrie',
 		head		= 'Nyame Helm',
@@ -187,12 +194,12 @@ function get_sets()
 		hands		= 'Nyame Gauntlets',
 		legs		= 'Nyame Flanchard',
 		feet		= 'Nyame Sollerets',
-		neck		= 'Fotia Gorget',
+		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
-		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
-		right_ear	= 'Thrud Earring',
-		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Cornelia's Ring",
+		left_ear	= 'Thrud Earring',
+		right_ear	= 'Sherida Earring',
+		left_ring	= "Cornelia's Ring",
+		right_ring	= "Epaminondas's Ring",
 		back		= Capes.WS,
 	}
 	sets.precast.WS.Accuracy = set_combine(sets.precast.WS, {
@@ -202,23 +209,38 @@ function get_sets()
 	})
 
 	sets.precast.WS["Camlann's Torment"] = set_combine(sets.precast.WS, {
-		neck		= 'Dgn. Collar +2',
+		head		= "Peltast's Mezail +3",
+		waist		= 'Fotia Belt',
+		left_ear	= 'Thrud Earring',
+		right_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
+		left_ring	= 'Regal Ring',
+		right_ring	= 'Niqmaddu Ring',
 	})
 	sets.precast.WS["Camlann's Torment"].Accuracy = set_combine(sets.precast.WS["Camlann's Torment"], {
 		left_ear	= 'Telos Earring',
 		left_ring	= 'Regal Ring',
 		waist		= 'Ioskeha Belt +1',
 	})
-	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS["Camlann's Torment"], {})
+	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS["Camlann's Torment"], {
+		body		= "Gleti's Cuirass",
+		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
+		right_ear	= "Peltast's Earring",
+	})
 	sets.precast.WS['Impulse Drive'].Accuracy = set_combine(sets.precast.WS["Camlann's Torment"].Accuracy, {})
-	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS["Camlann's Torment"], {})
+	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS['Savage Blade'] or sets.precast.WS["Camlann's Torment"], {})
 	sets.precast.WS['Sonic Thrust'].Accuracy = set_combine(sets.precast.WS["Camlann's Torment"].Accuracy, {})
 
 	sets.precast.WS['Drakesbane'] = set_combine(sets.precast.WS, {
 		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
-		right_ear	= 'Schere Earring',
-		right_ring	= 'Niqmaddu Ring',
-		back		= Capes.DA,
+		head		= {name='Blistering Sallet +1', augments={'Path: A',}},
+		body		= 'Hjarrandi Breast.',
+		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
+		legs		= 'Pelt. Cuissots +3',
+		feet		= {name="Gleti's Boots", augments={'Path: A',}},
+		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
+		right_ear	= "Peltast's Earring",
+		left_ring	= 'Niqmaddu Ring',
+		right_ring	= 'Regal Ring',
 	})
 	sets.precast.WS['Drakesbane'].Accuracy = set_combine(sets.precast.WS['Drakesbane'], {
 		left_ear	= 'Telos Earring',
@@ -226,48 +248,67 @@ function get_sets()
 		waist		= 'Ioskeha Belt +1',
 	})
 	sets.precast.WS['Stardiver'] = set_combine(sets.precast.WS['Drakesbane'], {
+		head		= "Peltast's Mezail +3",
+		body		= {name="Gleti's Cuirass", augments={'Path: A',}},
+		hands		= 'Pel. Vambraces +3',
+		legs		= {name='Nyame Flanchard', augments={'Path: B',}},
+		feet		= {name='Nyame Sollerets', augments={'Path: B',}},
 		neck		= 'Fotia Gorget',
 		waist		= 'Fotia Belt',
+		right_ear	= 'Sherida Earring',
+		left_ring	= 'Regal Ring',
+		right_ring	= 'Niqmaddu Ring',
+		back		= Capes.DA,
 	})
 	sets.precast.WS['Stardiver'].Accuracy = set_combine(sets.precast.WS['Drakesbane'].Accuracy, {
 		neck		= 'Fotia Gorget',
 		waist		= 'Fotia Belt',
 	})
-	sets.precast.WS['Geirskogul'] = set_combine(sets.precast.WS['Drakesbane'], {})
+	sets.precast.WS['Geirskogul'] = set_combine(sets.precast.WS, {
+		head		= "Peltast's Mezail +3",
+		neck		= 'Fotia Gorget',
+		left_ear	= 'Thrud Earring',
+		right_ear	= 'Sherida Earring',
+		left_ring	= 'Regal Ring',
+		right_ring	= 'Niqmaddu Ring',
+	})
 	sets.precast.WS['Geirskogul'].Accuracy = set_combine(sets.precast.WS['Drakesbane'].Accuracy, {})
 
 	sets.precast.WS['Leg Sweep'] = set_combine(sets.precast.WS.Accuracy, {
 		ammo		= 'Pemphredo Tathlum',
+		head		= "Peltast's Mezail +3",
+		body		= 'Pelt. Plackart +3',
+		hands		= 'Pel. Vambraces +3',
+		legs		= 'Pelt. Cuissots +3',
+		feet		= 'Pelt. Schyn. +3',
+		neck		= 'Fotia Gorget',
+		waist		= 'Fotia Belt',
+		left_ear	= 'Crep. Earring',
 		right_ear	= 'Digni. Earring',
-		left_ring	= 'Metamor. Ring +1',
-		right_ring	= 'Stikini Ring +1',
+		left_ring	= 'Crepuscular Ring',
+		right_ring	= 'Flamma Ring',
+		back		= Capes.DA,
 	})
 	sets.precast.WS['Raiden Thrust'] = set_combine(sets.precast.WS, {
 		ammo		= 'Pemphredo Tathlum',
-		head		= 'Nyame Helm',
-		body		= 'Nyame Mail',
-		hands		= 'Nyame Gauntlets',
-		legs		= 'Nyame Flanchard',
-		feet		= 'Nyame Sollerets',
+		hands		= 'Carmine Fin. Ga. +1',
+		left_ear	= 'Hermetic Earring',
 		right_ear	= 'Friomisi Earring',
-		right_ring	= 'Metamor. Ring +1',
-		waist		= "Orpheus's Sash",
-		back		= Capes.WS,
+		left_ring	= 'Shiva Ring +1',
 	})
 	sets.precast.WS['Thunder Thrust'] = set_combine(sets.precast.WS['Raiden Thrust'], {})
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-		-- STR/MND, WSD, and TP scaling. Nyame is a strong functional baseline.
-		head		= 'Nyame Helm',
+		head		= "Peltast's Mezail +3",
 		body		= 'Nyame Mail',
 		hands		= 'Nyame Gauntlets',
 		legs		= 'Nyame Flanchard',
 		feet		= 'Nyame Sollerets',
-		neck		= 'Rep. Plat. Medal',
+		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
-		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
-		right_ear	= 'Thrud Earring',
-		left_ring	= "Epaminondas's Ring",
-		right_ring	= "Cornelia's Ring",
+		left_ear	= 'Thrud Earring',
+		right_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
+		left_ring	= "Cornelia's Ring",
+		right_ring	= 'Regal Ring',
 		back		= Capes.WS,
 	})
 	sets.precast.WS['Savage Blade'].Accuracy = set_combine(sets.precast.WS['Savage Blade'], {
@@ -275,6 +316,8 @@ function get_sets()
 		left_ring	= 'Regal Ring',
 		waist		= 'Ioskeha Belt +1',
 	})
+	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS['Savage Blade'], {})
+	sets.precast.WS['Sonic Thrust'].Accuracy = set_combine(sets.precast.WS['Savage Blade'].Accuracy, {})
 	sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS['Drakesbane'], {
 		neck		= 'Fotia Gorget',
 		waist		= 'Fotia Belt',
@@ -283,65 +326,72 @@ function get_sets()
 		neck		= 'Fotia Gorget',
 		waist		= 'Fotia Belt',
 	})
+	sets.precast.WS['Retribution'] = {
+		ammo		= 'Knobkierrie',
+		head		= "Peltast's Mezail +3",
+		body		= 'Nyame Mail',
+		hands		= 'Nyame Gauntlets',
+		legs		= 'Nyame Flanchard',
+		feet		= 'Nyame Sollerets',
+		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
+		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
+		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
+		right_ear	= "Peltast's Earring",
+		left_ring	= "Cornelia's Ring",
+		right_ring	= 'Regal Ring',
+		back		= Capes.WS,
+	}
 
 	sets.midcast = {}
 	sets.midcast.HealingBreath = {
-		head		= 'Ptero. Armet +3', -- TODO
-		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+25','Pet: Breath+8',}}, -- TODO/replace
-		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+25','Pet: Breath+8',}}, -- TODO/replace
-		legs		= 'Vishap Brais +3', -- TODO
-		feet		= 'Ptero. Greaves +3', -- TODO
-		neck		= 'Dgn. Collar +2', -- TODO
-		waist		= "Glassblower's Belt", -- TODO
+		head		= {name='Ptero. Armet +3', augments={'Enhances "Deep Breathing" effect',}},
+		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+19','Pet: Breath+5',}},
+		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+19','Pet: Breath+8',}},
+		legs		= 'Vishap Brais +3',
+		feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
+		right_ear	= 'Anastasi Earring',
 		back		= Capes.Pet,
 	}
-	sets.midcast.ElementalBreath = set_combine(sets.midcast.HealingBreath, {
+	sets.midcast.ElementalBreath = {
+		ammo		= 'Voluspa Tathlum',
+		head		= {name='Ptero. Armet +3', augments={'Enhances "Deep Breathing" effect',}},
+		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+19','Pet: Breath+5',}},
+		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+19','Pet: Breath+8',}},
+		legs		= {name='Acro Breeches', augments={'Pet: Mag. Acc.+21','Pet: Breath+8',}},
+		feet		= {name='Acro Leggings', augments={'Pet: Mag. Acc.+21','Pet: Breath+7',}},
+		neck		= 'Adad Amulet',
+		waist		= 'Incarnation Sash',
 		left_ear	= 'Enmerkar Earring',
-		right_ear	= "Dragoon's Earring", -- TODO
-	})
+		right_ear	= "Kyrene's Earring",
+		left_ring	= 'C. Palug Ring',
+		back		= Capes.Pet,
+	}
 
 	sets.aftercast = {}
 	sets.aftercast.Engaged = {
-		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
+		ammo		= 'Aurgelmir Orb +1',
 		head		= 'Flam. Zucchetto +2',
-		body		= {name="Gleti's Cuirass", augments={'Path: A',}}, -- TODO
-		hands		= 'Nyame Gauntlets',
-		legs		= 'Ptero. Brais +3', -- TODO
-		feet		= 'Flam. Gambieras +2',
-		neck		= 'Anu Torque',
+		body		= 'Pelt. Plackart +3',
+		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
+		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
+		feet		= {name='Valorous Greaves', augments={'"Store TP"+7','Accuracy+9','Attack+15',}},
+		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
 		left_ear	= 'Dedition Earring',
-		right_ear	= 'Telos Earring',
-		left_ring	= 'Chirich Ring +1',
+		right_ear	= "Peltast's Earring",
+		left_ring	= 'Moonlight Ring',
 		right_ring	= 'Niqmaddu Ring',
 		back		= Capes.TP,
 	}
-	-- Ryunohige AM3 supplies a very high Occasionally Attacks Twice/Thrice rate.
-	-- Favor Store TP and remove avoidable multi-attack so it does not take priority
-	-- over the mythic aftermath. This set is applied automatically in equip_check().
-	sets.aftercast.RyunohigeAM3 = set_combine(sets.aftercast.Engaged, {
-		ammo		= 'Aurgelmir Orb +1', -- TODO
-		head		= 'Flam. Zucchetto +2',
-		body		= 'Nyame Mail',
-		hands		= 'Nyame Gauntlets',
-		legs		= 'Ptero. Brais +3', -- TODO
-		feet		= 'Flam. Gambieras +2',
-		neck		= 'Anu Torque',
-		waist		= 'Kentarch Belt +1', -- TODO
-		left_ear	= 'Dedition Earring',
-		right_ear	= 'Telos Earring',
-		left_ring	= 'Chirich Ring +1',
-		right_ring	= 'Defending Ring',
-		back		= Capes.TP,
-	})
 	-- Naegling uses a one-handed, multi-attack-focused TP set.
 	-- It is selected automatically and is not part of the CTRL+F9 mode cycle.
 	sets.aftercast.Sword = set_combine(sets.aftercast.Engaged, {
 		ammo		= {name='Coiste Bodhar', augments={'Path: A',}},
-		head		= 'Flam. Zucchetto +2', 
-		body		= {name="Gleti's Cuirass", augments={'Path: A',}}, -- TODO
-		hands		= 'Pel. Vambraces +3', -- TODO
-		legs		= 'Ptero. Brais +3', -- TODO
+		head		= 'Flam. Zucchetto +2',
+		body		= {name="Gleti's Cuirass", augments={'Path: A',}},
+		hands		= 'Pel. Vambraces +3',
+		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
 		feet		= 'Flam. Gambieras +2',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= 'Ioskeha Belt +1',
@@ -359,21 +409,33 @@ function get_sets()
 		left_ring	= 'Regal Ring',
 	})
 	sets.aftercast.Engaged.PDT = set_combine(sets.aftercast.Engaged, {
-		head		= 'Nyame Helm',
-		body		= 'Nyame Mail',
-		hands		= 'Nyame Gauntlets',
-		legs		= 'Nyame Flanchard',
-		feet		= 'Nyame Sollerets',
-		left_ring	= 'Defending Ring',
+		head		= 'Hjarrandi Helm',
+		body		= {name="Gleti's Cuirass", augments={'Path: A',}},
+		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
+		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
+		feet		= 'Flam. Gambieras +2',
+		waist		= 'Ioskeha Belt +1',
+		left_ear	= 'Brutal Earring',
+		right_ear	= 'Sherida Earring',
+		left_ring	= 'Moonlight Ring',
 	})
-	sets.aftercast.Engaged.MEVA = set_combine(sets.aftercast.Engaged.PDT, {})
+	sets.aftercast.Engaged.MEVA = set_combine(sets.aftercast.Engaged, {
+		head		= {name='Nyame Helm', augments={'Path: B',}},
+		body		= {name='Nyame Mail', augments={'Path: B',}},
+		hands		= {name='Nyame Gauntlets', augments={'Path: B',}},
+		legs		= {name='Nyame Flanchard', augments={'Path: B',}},
+		feet		= {name='Nyame Sollerets', augments={'Path: B',}},
+		neck		= {name='Loricate Torque +1', augments={'Path: A',}},
+		left_ring	= 'Niqmaddu Ring',
+		right_ring	= 'Moonlight Ring',
+	})
 	sets.aftercast.Engaged.Hybrid = set_combine(sets.aftercast.Engaged, {
-		head		= 'Nyame Helm',
-		body		= 'Nyame Mail',
-		left_ring	= 'Defending Ring',
+		head		= 'Hjarrandi Helm',
+		body		= {name="Gleti's Cuirass", augments={'Path: A',}},
+		left_ring	= 'Moonlight Ring',
 	})
 	sets.aftercast.Engaged.PetDT = set_combine(sets.aftercast.Engaged.Hybrid, {
-		neck		= 'Dgn. Collar +2', -- TODO
+		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
 		back		= Capes.Pet,
 	})
 
@@ -384,32 +446,34 @@ function get_sets()
 		hands		= 'Nyame Gauntlets',
 		legs		= 'Carmine Cuisses +1',
 		feet		= 'Nyame Sollerets',
-		neck		= 'Elite Royal Collar',
+		neck		= 'Loricate Torque +1',
 		waist		= 'Flume Belt +1',
-		left_ear	= 'Tuisto Earring',
+		left_ear	= 'Infused Earring',
 		right_ear	= {name='Odnowa Earring +1', augments={'Path: A',}},
-		left_ring	= 'Defending Ring',
-		right_ring	= 'Shneddick Ring +1',
+		left_ring	= 'Stikini Ring +1',
+		right_ring	= 'Defending Ring',
 		back		= Capes.TP,
 	}
 	sets.aftercast.Idle.PDT = set_combine(sets.aftercast.Engaged.PDT, {
-		right_ring	= 'Shneddick Ring +1',
+		right_ring	= 'Defending Ring',
 	})
 	sets.aftercast.Idle.MEVA = set_combine(sets.aftercast.Engaged.MEVA, {
-		right_ring	= 'Shneddick Ring +1',
+		right_ring	= 'Defending Ring',
 	})
 	sets.aftercast.Idle.Hybrid = set_combine(sets.aftercast.Engaged.Hybrid, {
 		legs		= 'Carmine Cuisses +1',
-		right_ring	= 'Shneddick Ring +1',
+		left_ring	= 'Stikini Ring +1',
+		right_ring	= 'Defending Ring',
+		back		= Capes.TP,
 	})
-	sets.aftercast.Idle.Refresh = set_combine(sets.aftercast.Idle, {
-		left_ring	= {name='Stikini Ring +1', bag='wardrobe7'},
-		right_ring	= {name='Stikini Ring +1', bag='wardrobe8'},
-	})
+	sets.aftercast.Idle.Refresh = set_combine(sets.aftercast.Idle, {})
 	sets.aftercast.Idle.PetDT = set_combine(sets.aftercast.Idle.Hybrid, {
-		neck		= 'Dgn. Collar +2', -- TODO
+		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
 		back		= Capes.Pet,
 	})
+
+	-- Tewl-only Ryunohige support uses the synchronized Reaper engaged set.
+	sets.aftercast.RyunohigeAM3 = set_combine(sets.aftercast.Engaged, {})
 
 	wyvern_elemental_breaths = T{
 		'Flame Breath','Frost Breath','Sand Breath','Hydro Breath','Gust Breath','Lightning Breath'
