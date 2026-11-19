@@ -94,7 +94,7 @@ function get_sets()
 			body		= 'Ptero. Mail +3',
 			neck		= 'Dgn. Collar +2',
 			left_ring	= 'Dreki Ring',
-			right_ear	= "Peltast's Earring",
+			right_ear	= "Peltast's Earring +1",
 		},
 		['Ancient Circle'] = {
 			legs		= 'Vishap Brais +3',
@@ -207,7 +207,7 @@ function get_sets()
 	sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS["Camlann's Torment"], {
 		body		= "Gleti's Cuirass",
 		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
-		right_ear	= "Peltast's Earring",
+		right_ear	= "Peltast's Earring +1",
 	})
 	sets.precast.WS['Impulse Drive'].Accuracy = set_combine(sets.precast.WS["Camlann's Torment"].Accuracy, {})
 	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS['Savage Blade'] or sets.precast.WS["Camlann's Torment"], {})
@@ -221,7 +221,7 @@ function get_sets()
 		legs		= 'Pelt. Cuissots +3',
 		feet		= {name="Gleti's Boots", augments={'Path: A',}},
 		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
-		right_ear	= "Peltast's Earring",
+		right_ear	= "Peltast's Earring +1",
 		left_ring	= 'Niqmaddu Ring',
 		right_ring	= 'Regal Ring',
 	})
@@ -319,7 +319,7 @@ function get_sets()
 		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
 		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
-		right_ear	= "Peltast's Earring",
+		right_ear	= "Peltast's Earring +1",
 		left_ring	= "Cornelia's Ring",
 		right_ring	= 'Regal Ring',
 		back		= Capes.WS,
@@ -362,7 +362,7 @@ function get_sets()
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
 		left_ear	= 'Dedition Earring',
-		right_ear	= "Peltast's Earring",
+		right_ear	= "Peltast's Earring +1",
 		left_ring	= 'Moonlight Ring',
 		right_ring	= 'Niqmaddu Ring',
 		back		= Capes.TP,
