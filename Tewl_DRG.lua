@@ -47,10 +47,8 @@ function get_sets()
 	send_command('input //equipviewer pos 1663 935')
 
 	CurrentWeapon = 'Shining One'
-
-	-- Reaperofsoul's DRG cape configuration.
 	Capes = {}
-	Capes.TP = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+	Capes.TP = "Null Shawl"
 	Capes.WS = {name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Pet: "Regen"+5',}}
 	Capes.DA = {name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Pet: "Regen"+5',}}
 	Capes.Jump = Capes.DA
@@ -80,10 +78,10 @@ function get_sets()
 	sets.precast = {}
 	sets.precast.JA = {
 		['Spirit Surge'] = {
-			body		= 'Ptero. Mail +3',
+			body		= 'Ptero. Mail +1',
 			hands		= 'Despair Fin. Gaunt.',
-			legs		= 'Vishap Brais +3',
-			feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+			legs		= 'Vishap Brais +2',
+			feet		= 'Ptero. Greaves +1',
 			neck		= "Chanoix's Gorget",
 			waist		= 'Isa Belt',
 			left_ear	= "Lancer's Earring",
@@ -91,28 +89,28 @@ function get_sets()
 			back		= Capes.Pet,
 		},
 		['Call Wyvern'] = {
-			body		= 'Ptero. Mail +3',
+			body		= 'Ptero. Mail +1',
 			neck		= 'Dgn. Collar +2',
 			left_ring	= 'Dreki Ring',
 			right_ear	= "Peltast's Earring +1",
 		},
 		['Ancient Circle'] = {
-			legs		= 'Vishap Brais +3',
+			legs		= 'Vishap Brais +2',
 		},
 		['Deep Breathing'] = {
-			head		= {name='Ptero. Armet +3', augments={'Enhances "Deep Breathing" effect',}},
+			head		= 'Ptero. Armet +1',
 		},
 		['Spirit Link'] = {
 			head		= 'Vishap Armet +2',
 			hands		= 'Pel. Vambraces +3',
-			feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+			feet		= 'Ptero. Greaves +1',
 			left_ear	= 'Pratik Earring',
 		},
 		['Steady Wing'] = {
 			body		= 'Emicho Haubert',
 			hands		= 'Despair Fin. Gaunt.',
-			legs		= 'Vishap Brais +3',
-			feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+			legs		= 'Vishap Brais +2',
+			feet		= 'Ptero. Greaves +1',
 			neck		= "Chanoix's Gorget",
 			waist		= 'Isa Belt',
 			left_ear	= "Lancer's Earring",
@@ -121,7 +119,7 @@ function get_sets()
 		},
 		['Angon'] = {
 			ammo		= 'Angon',
-			hands		= 'Ptero. Fin. G. +3',
+			hands		= 'Ptero. Fin. G. +1',
 		},
 		['Provoke'] = {},
 		['Warcry'] = {},
@@ -131,9 +129,9 @@ function get_sets()
 	sets.precast.JA['Jump'] = {
 		ammo		= 'Aurgelmir Orb +1',
 		head		= 'Flam. Zucchetto +2',
-		body		= {name='Ptero. Mail +3', augments={'Enhances "Spirit Surge" effect',}},
+		body		= 'Ptero. Mail +1',
 		hands		= 'Vis. Fng. Gaunt. +2',
-		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
+		legs		= 'Ptero. Brais +4',
 		feet		= 'Ostro Greaves',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		left_ear	= 'Telos Earring',
@@ -145,7 +143,6 @@ function get_sets()
 	}
 	sets.precast.JA['High Jump'] = set_combine(sets.precast.JA['Jump'], {})
 	sets.precast.JA['Spirit Jump'] = set_combine(sets.precast.JA['Jump'], {
-		feet		= 'Pelt. Schyn. +3',
 	})
 	sets.precast.JA['Soul Jump'] = set_combine(sets.precast.JA['Jump'], {
 		body		= 'Vishap Mail +2',
@@ -158,8 +155,8 @@ function get_sets()
 		ammo		= 'Sapience Orb',
 		head		= 'Carmine Mask +1',
 		neck		= 'Baetyl Pendant',
-		body		= {name='Taeon Tabard', augments={'Spell interruption rate down -10%','Phalanx +3',}},
-		hands		= {name='Leyline Gloves', augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
+		body		= {name='Taeon Tabard', augments={'"Fast Cast"+5','Phalanx +3',}},
+		hands		= 'Leyline Gloves',
 		legs		= 'Carmine Cuisses +1',
 		feet		= {name='Carmine Greaves +1', augments={'HP+80','MP+80','Phys. dmg. taken -4',}},
 		left_ear	= 'Loquac. Earring',
@@ -168,8 +165,6 @@ function get_sets()
 		right_ring	= 'Niqmaddu Ring',
 		back		= Capes.DA,
 	}
-
-	-- Weapon skill gear migrated from Reaperofsoul's original DRG file.
 	sets.precast.WS = {
 		ammo		= 'Knobkierrie',
 		head		= 'Nyame Helm',
@@ -218,7 +213,6 @@ function get_sets()
 		head		= {name='Blistering Sallet +1', augments={'Path: A',}},
 		body		= 'Hjarrandi Breast.',
 		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
-		legs		= 'Pelt. Cuissots +3',
 		feet		= {name="Gleti's Boots", augments={'Path: A',}},
 		left_ear	= {name='Moonshade Earring', augments={'Attack+4','TP Bonus +250',}},
 		right_ear	= "Peltast's Earring +1",
@@ -262,8 +256,6 @@ function get_sets()
 		head		= "Peltast's Mezail +3",
 		body		= 'Pelt. Plackart +3',
 		hands		= 'Pel. Vambraces +3',
-		legs		= 'Pelt. Cuissots +3',
-		feet		= 'Pelt. Schyn. +3',
 		neck		= 'Fotia Gorget',
 		waist		= 'Fotia Belt',
 		left_ear	= 'Crep. Earring',
@@ -274,7 +266,7 @@ function get_sets()
 	})
 	sets.precast.WS['Raiden Thrust'] = set_combine(sets.precast.WS, {
 		ammo		= 'Pemphredo Tathlum',
-		hands		= 'Carmine Fin. Ga. +1',
+		hands		= 'Carmine Fin. Ga. +1', -- Need
 		left_ear	= 'Hermetic Earring',
 		right_ear	= 'Friomisi Earring',
 		left_ring	= 'Shiva Ring +1',
@@ -327,18 +319,18 @@ function get_sets()
 
 	sets.midcast = {}
 	sets.midcast.HealingBreath = {
-		head		= {name='Ptero. Armet +3', augments={'Enhances "Deep Breathing" effect',}},
+		head		= 'Ptero. Armet +1',
 		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+19','Pet: Breath+5',}},
 		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+19','Pet: Breath+8',}},
-		legs		= 'Vishap Brais +3',
-		feet		= {name='Ptero. Greaves +3', augments={'Enhances "Empathy" effect',}},
+		legs		= 'Vishap Brais +2',
+		feet		= 'Ptero. Greaves +1',
 		neck		= {name='Dgn. Collar +2', augments={'Path: A',}},
 		right_ear	= 'Anastasi Earring',
 		back		= Capes.Pet,
 	}
 	sets.midcast.ElementalBreath = {
 		ammo		= 'Voluspa Tathlum',
-		head		= {name='Ptero. Armet +3', augments={'Enhances "Deep Breathing" effect',}},
+		head		= 'Ptero. Armet +1',
 		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+19','Pet: Breath+5',}},
 		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+19','Pet: Breath+8',}},
 		legs		= {name='Acro Breeches', augments={'Pet: Mag. Acc.+21','Pet: Breath+8',}},
@@ -357,7 +349,7 @@ function get_sets()
 		head		= 'Flam. Zucchetto +2',
 		body		= 'Pelt. Plackart +3',
 		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
-		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
+		legs		= 'Ptero. Brais +4',
 		feet		= 'Flam. Gambieras +2',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= {name='Sailfi Belt +1', augments={'Path: A',}},
@@ -374,7 +366,7 @@ function get_sets()
 		head		= 'Flam. Zucchetto +2',
 		body		= {name="Gleti's Cuirass", augments={'Path: A',}},
 		hands		= 'Pel. Vambraces +3',
-		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
+		legs		= 'Ptero. Brais +4',
 		feet		= 'Flam. Gambieras +2',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
 		waist		= 'Ioskeha Belt +1',
@@ -395,7 +387,7 @@ function get_sets()
 		head		= 'Hjarrandi Helm',
 		body		= {name="Gleti's Cuirass", augments={'Path: A',}},
 		hands		= {name="Gleti's Gauntlets", augments={'Path: A',}},
-		legs		= {name='Ptero. Brais +3', augments={'Enhances "Strafe" effect',}},
+		legs		= 'Ptero. Brais +4',
 		feet		= 'Flam. Gambieras +2',
 		waist		= 'Ioskeha Belt +1',
 		left_ear	= 'Brutal Earring',
