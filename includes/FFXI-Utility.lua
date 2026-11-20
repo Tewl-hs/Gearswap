@@ -47,16 +47,56 @@ function item_available(item)
 	end
 end
 
-function count_available_ammo(ammo_name)
-	local ammo_count = 0
+function ammo_count(ammo_name)
+	local count = 0
+	for _, bag_name in ipairs({
+		'inventory', 'wardrobe', 'wardrobe2', 'wardrobe3', 'wardrobe4',
+		'wardrobe5', 'wardrobe6', 'wardrobe7', 'wardrobe8',
+	}) do
+		local bag = player[bag_name]
+		local item = bag and bag[ammo_name]
+		count = count + (item and item.count or 0)
+	end
+	return count
+end
 
-    for _,n in pairs({"inventory","wardrobe","wardrobe2","wardrobe3","wardrobe4","wardrobe5","wardrobe6","wardrobe7","wardrobe8","satchel"}) do
-		if player[n][ammo_name] then
-			ammo_count = ammo_count + player[n][ammo_name].count
+local warned_ammo
+
+function select_ammo(spell, preferred, gear)
+	local count = ammo_count(preferred)
+	local quick_draw = spell.type == 'CorsairShot'
+	local bullet = preferred
+
+	if count == 0 then
+		local equipped = player.equipment.ammo
+		if equipped and equipped ~= 'empty'
+			and (quick_draw or (spell.type == 'WeaponSkill' and equipped == gear.RAbullet)) then
+			bullet = equipped
+			count = ammo_count(bullet)
 		end
-    end
+		if count == 0 then
+			add_to_chat(104, 'No ammo available for '..spell.name..' ('..preferred..').')
+			return
+		end
+		add_to_chat(104, 'Using equipped ammo for '..spell.name..' ('..bullet..').')
+	end
 
-	return ammo_count
+	if not quick_draw then
+		local reserve = spell.action_type == 'Ranged Attack' and buffactive['Triple Shot'] and 3 or 1
+		if bullet == gear.QDbullet and count <= reserve then
+			add_to_chat(104, 'Ammo reserved for Quick Draw. Cancelling '..spell.name..'.')
+			return
+		end
+		if count <= 15 then
+			if warned_ammo ~= bullet then
+				add_to_chat(104, 'Low ammo: '..bullet..' ('..count..').')
+				warned_ammo = bullet
+			end
+		elseif warned_ammo == bullet then
+			warned_ammo = nil
+		end
+	end
+	return bullet
 end
 
 function check_facing()

@@ -460,7 +460,7 @@ function get_sets()
 
 	AutoSC = false
 	ascWS = 'Double Thrust'
-	AutoSkillChain = T{'Stardiver','Sonic Thrust','Impulse Drive'}
+	AutoSkillChain = T{'Stardiver','Camlann\'s Torment','Drakesbane'}
 	asc_order = 1
 	last_target = nil
 	last_asc_time = 0
