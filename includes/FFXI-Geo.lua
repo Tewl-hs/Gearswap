@@ -117,7 +117,10 @@ function GeoTracker.refresh()
 	if not geo and luopan_active then sections[#sections + 1] = Colors.Green..'Geo active' end
 	if indi then sections[#sections + 1] = render_aura(indi) end
 	if not indi and indi_active then sections[#sections + 1] = Colors.Green..'Indi active' end
-	if #sections == 0 then sections[1] = Colors.White..'GEO: No active effects' end
+	if #sections == 0 then
+		hide_overlay()
+		return
+	end
 	overlay.value = table.concat(sections, '\n\n')
 	overlay:show()
 end
