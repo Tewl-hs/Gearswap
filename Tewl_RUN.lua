@@ -26,7 +26,7 @@ function get_sets()
     EnmitySpells = T{'Foil', 'Flash', 'Stun'}
 
     CurrentWeapon = ''
-    
+
     -- Augmented Gear
     Capes = {}
     Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
@@ -140,7 +140,7 @@ function get_sets()
             left_ring   = "Mujin Band",
             right_ring  = "Locus Ring",
             back        = Capes.MAB
-        },   
+        },
     }
     sets.precast.WS = {
         ammo        = "Knobkierrie",
@@ -355,14 +355,14 @@ function get_sets()
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
-    } 
-    
-	include('FFXI-Display.lua')	
+    }
+   
+	load_blue_magic_spells(player.sub_job == 'BLU' and BlueSpells or nil, 'RUN', player.sub_job)
+	include('FFXI-Display.lua')
 end
 -- Set macros based on sub job
 function load_macros()
 	if player.sub_job == 'BLU' then
-        coroutine.schedule(function() check_spells() end,2)
         set_macros(12,1)
     elseif player.sub_job == 'SCH' then
         set_macros(12,2)
@@ -372,17 +372,16 @@ function load_macros()
 end
 
 function file_unload()  
+    cancel_blue_magic_load()
     send_command('unbind ^F9')
     send_command('unbind ^F10')
     send_command('unbind ^F11')
 end
 
 function sub_job_change(new, old)
-    if new == 'BLU' then
-        coroutine.schedule(function() check_spells() end,2)
-    end
+    load_blue_magic_spells(new == 'BLU' and BlueSpells or nil, 'RUN', new)
 end
-    
+
 function precast(spell,action)    
     if spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
@@ -414,7 +413,7 @@ function precast(spell,action)
         end
     end
 end
-    
+
 function midcast(spell,action)
     if sets.Enmity[spell.name] then
         equip(sets.Enmity[spell.name])
@@ -438,7 +437,7 @@ function midcast(spell,action)
         equip(sets.midcast[spell.skill])
     end
 end
-    
+
 function aftercast(spell,action)
 	if spell.name == 'Rayke' then
 		windower.send_command('@timers c "Rayke" 35 up')
@@ -448,13 +447,13 @@ function aftercast(spell,action)
 	end
 	equip_check()
 end
-    
+
 function status_change(new,old)
 	if T{'Idle','Resting','Engaged'}:contains(new) then
 		equip_check()
 	end
 end
-    
+
 function buff_change(buff,gain)
     if buff == 'stun' and gain then
         equip_check()
@@ -538,13 +537,13 @@ function update_status()
 
 	stateBox:clear()
 	stateBox:append(spc)
-	
+
 	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
 
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-	
+
 	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-	
+
 	stateBox:append(status_text)
 	stateBox:show()
 end
@@ -587,66 +586,4 @@ function equip_change()
 			update_status()
 		end
 	end
-end
-
--- Functions for loading blu spells
-
-function check_spells()
-    if windower.ffxi.get_player().sub_job_id ~= 16 then return nil end
-    if S(BlueSpells):map(string.lower) == S(get_current_spellset()) then
-        windower.add_to_chat(8,'[Blue Spells Equipped]')
-    else
-        windower.add_to_chat(8,'[Equipping Blue Spells]')
-        clear_spells()
-    end
-end
-
-function clear_spells()
-    windower.ffxi.reset_blue_magic_spells()
-    set_spells()
-end
-
-function set_spells()
-    local delay = 0.65
-    local i = 0
-    for k,v in pairs(BlueSpells) do
-        if v ~= nil then
-            local spellID = find_spell_id_by_name(v)
-            if spellID ~= nil then
-                i = i + 1
-                x = delay * i
-                set_spell:schedule(x, spellID, i)
-            end
-        end
-    end
-end
-
-function set_spell(id, slot)
-    windower.ffxi.set_blue_magic_spell(id, tonumber(slot))
-    if tonumber(slot) == table.getn(BlueSpells) then
-        windower.add_to_chat(8, '[Finished equipping spells.]')
-        windower.send_command('@timers c "Blue Magic Cooldown" 60 up')
-    end
-end
-
-function find_spell_id_by_name(spellname)
-    spells = res.spells:type('BlueMagic')
-
-    for spell in spells:it() do
-        if spell['english']:lower() == spellname:lower() then
-            return spell['id']
-        end
-    end
-    return nil
-end
-
-function get_current_spellset()
-    spells = res.spells:type('BlueMagic')
-    return T(windower.ffxi.get_sjob_data().spells)
-    -- Returns all values but 512
-    :filter(function(id) return id ~= 512 end)
-    -- Transforms them from IDs to lowercase English names
-    :map(function(id) return spells[id].english:lower() end)
-    -- Transform the keys from numeric x or xx to string 'slot0x' or 'slotxx'
-    :key_map(function(slot) return 'slot%02u':format(slot) end)
 end

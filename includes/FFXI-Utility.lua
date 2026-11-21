@@ -293,3 +293,103 @@ windower.raw_register_event('add item', function(bag, index, id, count)
 	end
 end)
 
+local blue_magic_load = 0
+
+function cancel_blue_magic_load()
+	blue_magic_load = blue_magic_load + 1
+end
+
+local function blue_magic_set_matches(job_data, desired)
+	if not job_data or not job_data.spells then return false end
+	local remaining = {}
+	for _, id in ipairs(desired) do remaining[id] = true end
+	for _, id in pairs(job_data.spells) do
+		if id ~= 512 then
+			if not remaining[id] then return false end
+			remaining[id] = nil
+		end
+	end
+	return next(remaining) == nil
+end
+
+-- Allow Windower's job data to settle before touching the spell slots.
+function load_blue_magic_spells(names, main_job, sub_job)
+	cancel_blue_magic_load()
+	if not names then return end
+
+	local request = blue_magic_load
+	local function current_player()
+		if request ~= blue_magic_load then return end
+		local current = windower.ffxi.get_player()
+		if current and current.main_job == main_job and current.sub_job == sub_job then
+			return current
+		end
+	end
+
+	coroutine.schedule(function()
+		local current = current_player()
+		if not current then return end
+		local blu_main = main_job == 'BLU'
+		if not blu_main and sub_job ~= 'BLU' then return end
+		local get_job_data = blu_main and windower.ffxi.get_mjob_data or windower.ffxi.get_sjob_data
+		local job_data = get_job_data()
+		local learned = windower.ffxi.get_spells()
+		local level = blu_main and current.main_job_level or current.sub_job_level
+		if not job_data or not job_data.spells or not learned or not level then return end
+
+		local tier = math.ceil(level / 10)
+		local slots = level > 70 and 20 or tier * 2 + 4
+		local points = tier * 5 + 5
+		if blu_main and level >= 75 then
+			points = points + (current.merits and current.merits.assimilation or 0)
+			local jp = current.job_points and current.job_points.blu
+			points = points + (level == 99 and jp and jp.blue_magic_point_bonus or 0)
+		end
+
+		local by_name = {}
+		for _, spell in pairs(res.spells) do
+			if spell.type == 'BlueMagic' then by_name[spell.english:lower()] = spell end
+		end
+		local desired, seen, skipped = {}, {}, {}
+		for _, name in ipairs(names) do
+			local spell = by_name[name:lower()]
+			if not spell or not learned[spell.id] or spell.levels[16] > level then
+				skipped[#skipped + 1] = name
+			elseif not seen[spell.id] then
+				if #desired < slots and points >= spell.blu_points then
+					desired[#desired + 1] = spell.id
+					seen[spell.id] = true
+					points = points - spell.blu_points
+				else
+					skipped[#skipped + 1] = name
+				end
+			end
+		end
+
+		if #skipped > 0 then
+			windower.add_to_chat(8, '[Blue Magic skipped: '..table.concat(skipped, ', ')..']')
+		end
+		if #desired == 0 then return end
+		if blue_magic_set_matches(job_data, desired) then
+			windower.add_to_chat(8, '[Blue Spells Equipped]')
+			return
+		end
+
+		windower.add_to_chat(8, '[Equipping Blue Spells]')
+		windower.ffxi.reset_blue_magic_spells()
+		for slot, id in ipairs(desired) do
+			coroutine.schedule(function()
+				if current_player() then windower.ffxi.set_blue_magic_spell(id, slot) end
+			end, slot * 0.65)
+		end
+		coroutine.schedule(function()
+			if not current_player() then return end
+			if blue_magic_set_matches(get_job_data(), desired) then
+				windower.add_to_chat(8, '[Finished equipping spells.]')
+			else
+				windower.add_to_chat(8, '[Blue Magic set incomplete. Check the Blue Magic menu.]')
+			end
+			windower.send_command('@timers c "Blue Magic Cooldown" 60 up')
+		end, (#desired + 1) * 0.65)
+	end, 2)
+end
