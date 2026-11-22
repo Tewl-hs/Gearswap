@@ -130,7 +130,7 @@ function get_sets()
 		ammo		= 'Aurgelmir Orb +1',
 		head		= 'Flam. Zucchetto +2',
 		body		= 'Ptero. Mail +3',
-		hands		= 'Vis. Fng. Gaunt. +4',
+		hands		= 'Vish. Fin. +4',
 		legs		= 'Ptero. Brais +4',
 		feet		= 'Ostro Greaves',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
@@ -523,13 +523,6 @@ function precast(spell, action)
 			return
 		end
 
-		local std_set = standardize_set(ws)
-		local left_ear = std_set.left_ear or ''
-		if player.tp > 2750 and left_ear:startswith('Moonshade') then
-			ws = set_combine(ws, {left_ear='Lugra Earring +1'})
-		elseif (world.time >= 17*60 or world.time < 7*60) and left_ear:startswith('Moonshade') then
-			ws = set_combine(ws, {left_ear='Lugra Earring +1'})
-		end
 		equip(ws)
 
 	elseif spell.action_type == 'Ability' then

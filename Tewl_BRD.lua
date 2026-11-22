@@ -10,12 +10,15 @@ function get_sets()
     items = require('resources').items
     require('queues')
 
-    include('FFXI-Mappings')
+    include('FFXI-Mappings.lua')
 
-    include('FFXI-Utility')
+    include('FFXI-Utility.lua')
 
-    send_command('bind ^f9 gs c cycle idle')
-    send_command('bind ^f10 gs c cycle engaged')
+    KeyBindings = {
+        ['^f9'] = 'gs c cycle idle',
+        ['^f10'] = 'gs c cycle engaged',
+    }
+    bind_commands(KeyBindings)
 
     set_macros(1,1)
     send_command('wait 1;input /lockstyleset 3')
@@ -129,8 +132,8 @@ function get_sets()
         legs		= "Kaykaus Tights +1",
         feet		= "Kaykaus Boots +1",
         neck		= "Nodens Gorget",
-        waist		= "Othila Sash",
-        left_ear	= "Malignance Earring",
+        waist		= "Luminary Sash",
+        left_ear	= "Fili Earring +1",
         right_ear	= "Mendicant's Earring",
         left_ring	= { "Naji's Loop", bag="wardrobe4" },
         right_ring	= { "Lebeche Ring", bag="wardrobe4" },
@@ -147,8 +150,8 @@ function get_sets()
         hands		= "Kaykaus Cuffs +1",
         legs		= "Kaykaus Tights +1",
         neck		= "Nodens Gorget",
-        waist		= "Othila Sash",
-        left_ear	= "Malignance Earring",
+        waist		= "Luminary Sash",
+        left_ear	= "Fili Earring +1",
         right_ear	= "Mendicant's Earring",
         left_ring	= { "Naji's Loop", bag="wardrobe4" },
         right_ring	= { "Lebeche Ring", bag="wardrobe4" },
@@ -177,7 +180,7 @@ function get_sets()
         hands       = "Inyanga Dastanas +2",
         legs        = "Brioso Cannions +3",
         left_ear    = "Regal Earring",
-        right_ear   = "Digni. Earring",
+        right_ear   = "Fili Earring +1",
         left_ring	= { name="Stikini Ring +1", bag="wardrobe7" },
         right_ring	= { name="Stikini Ring +1", bag="wardrobe8" },
         waist       = "Luminary Sash",
@@ -266,8 +269,7 @@ function get_sets()
 end
 
 function file_unload()  
-    send_command('unbind ^F9')
-    send_command('unbind ^F10')
+    unbind_commands(KeyBindings)
 end
 
 function precast(spell)
@@ -414,42 +416,12 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids
-            for k,v in pairs(sets.aftercast.Idle) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif ids == nil then
-                    ids = k
-                    break
-                elseif ids == k then
-                    ids = nil
-                end
-            end
-            if last_ids == ids then ids = nil end
-            if ids == nil then
-                add_to_chat('Idle mode set to: Default')
-            else
-                add_to_chat('Idle mode set to: '..ids)
-            end
+            ids = cycle_set_mode(ids, sets.aftercast.Idle)
+            add_to_chat(122, 'Idle mode set to: '..(ids or 'Default'))
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
-            for k,v in pairs(sets.aftercast.Engaged) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif egs == nil then
-                    egs = k
-                    break
-                elseif egs == k then
-                    egs = nil
-                end
-            end
-            if last_egs == egs then egs = nil end
-            if egs == nil then
-                add_to_chat('Engaged mode set to: Default')
-            else
-                add_to_chat('Engaged mode set to: '..egs)
-            end
+            egs = cycle_set_mode(egs, sets.aftercast.Engaged)
+            add_to_chat(122, 'Engaged mode set to: '..(egs or 'Default'))
             equip_check()
         end
         update_status()
@@ -495,6 +467,7 @@ function equip_change()
 end
 
 function update_status()
+    if not stateBox then return end
 	local spc = '   '
     local WeaponColor = get_weapon_color(MainWeapon)
     local SubColor = get_weapon_color(SubWeapon)
@@ -528,7 +501,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-	if id == 0x050 then
+	if id == 0x050 and data and (data:byte(6) == 0 or data:byte(6) == 1) then
 		equip_change()
 	end
 end)

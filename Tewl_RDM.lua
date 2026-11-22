@@ -11,17 +11,20 @@ function get_sets()
     items = require('resources').items
     require('queues')
 
-    include('FFXI-Mappings')
+    include('FFXI-Mappings.lua')
 
-    include('FFXI-Utility')
+    include('FFXI-Utility.lua')
     -- Personal settings. You can remove these two lines.
     set_macros(14,1)
     send_command('wait 1;input /lockstyleset 10')
 	send_command('input //equipviewer pos 1663 935')
 
-    send_command('bind ^f9 gs c toggle burst')
-    send_command('bind ^f10 gs c cycle idle')
-    send_command('bind ^f11 gs c cycle engaged')
+    KeyBindings = {
+        ['^f9'] = 'gs c toggle burst',
+        ['^f10'] = 'gs c cycle idle',
+        ['^f11'] = 'gs c cycle engaged',
+    }
+    bind_commands(KeyBindings)
 
     sets.MoveSpeed = { legs = "Carmine Cuisses +1",}
     BurstMode = false
@@ -53,7 +56,7 @@ function get_sets()
     sets.precast = {}
     sets.precast.FC = { -- 48/42
         head		= "Atrophy Chapeau +4", -- 16
-        body		= "Viti. Tabard +3", -- 15
+        body		= "Viti. Tabard +4", -- 15
         right_ear	= "Leth. Earring +1", -- 7
         back		= Capes.MND -- 10
     }
@@ -62,7 +65,7 @@ function get_sets()
     sets.precast.JA = {
         ['Composure'] = { },
         ['Saboteur'] = {hands="Leth. Ganth. +3",},
-        ['Chainspell'] = {body="Viti. Tabard +3"},
+        ['Chainspell'] = {body="Viti. Tabard +4"},
         ['Vallation'] = sets.Enmity,
         ['Valiance'] = sets.Enmity
     }
@@ -185,10 +188,10 @@ function get_sets()
         --sub         = "Enki Strap",
         ammo		= "Regal Gem",
         head		= "Viti. Chapeau +4",
-        body		= "Atrophy Tabard +3",
+        body		= "Atrophy Tabard +4",
         hands		= "Leth. Ganth. +3",
         legs		= { name="Chironic Hose", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Enmity-4','MND+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}},
-        feet		= "Vitiation Boots +3",
+        feet		= "Viti. Boots +4",
         neck		= "Dls. Torque +2",
         left_ear	= "Regal Earring",
         right_ear	= "Snotra Earring",
@@ -216,7 +219,7 @@ function get_sets()
         sub         = "Forfend +1",
         ammo		= "Staunch Tathlum +1",
         head		= "Telchine Cap",
-        body		= "Viti. Tabard +3",
+        body		= "Viti. Tabard +4",
         hands       = "Atrophy Gloves +3", -- 10
         legs		= "Telchine Braconi",
         feet        = "Leth. Houseaux +3",  -- 30%
@@ -249,7 +252,7 @@ function get_sets()
     })
     sets.midcast['Enhancing Magic'].Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         head		= "Amalric Coif +1",
-        body		= "Atrophy Tabard +3",
+        body		= "Atrophy Tabard +4",
         legs		= "Leth. Fuseau +3",
         neck		= "Dls. Torque +2",
         waist		= "Gishdubar Sash",
@@ -274,7 +277,7 @@ function get_sets()
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
         waist		= "Emphatikos Rope",
     })
-    sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].Duration, {
+    sets.midcast['Enhancing Magic'].Stoneskin = set_combine(sets.midcast['Enhancing Magic'].SelfDuration, {
         main        = { name="Sakpata's Sword", augments={'Path: A',}},
         sub         = "Ammurapi Shield",
         head        = "Leth. Chappel +3",
@@ -382,19 +385,16 @@ function get_sets()
 end
 
 function file_unload()
-    send_command('unbind ^F9')
-    send_command('unbind ^F10')
-    send_command('unbind ^F11')
+    unbind_commands(KeyBindings)
 end
 
 function precast(spell)
     if spell.action_type == 'Magic' and sets.precast.FC then
         if spell.name:startswith('Cur') and spell.name ~= 'Cursna' then
             equip(set_combine(sets.precast.FC,{body="Heka's Kalasiris"}))
-        elseif sets.precast.FC[spell.name] then
-            equip(sets.precast.FC[spell.name])
         else
-            equip(sets.precast.FC)
+            local fast_cast = sets.precast.FC
+            equip(fast_cast[spell.name] or fast_cast[spell.skill] or fast_cast)
         end
     elseif spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
@@ -522,7 +522,7 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-	if name == "silence" and gain then
+	if buff == 'silence' and gain then
 		if player.inventory['Echo Drops'] then
 			send_command('@input /item "Echo Drops" <me>')
 		else
@@ -556,54 +556,18 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
-            for k,v in pairs(sets.aftercast.Idle) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif ids == nil then
-                    ids = k
-                    break
-                elseif ids == k then
-                    ids = nil
-                end
-            end
-            if last_ids == ids then ids = nil end
-            if ids == nil then 
-                add_to_chat('Idle mode set to: Default')
-            else
-                add_to_chat('Idle mode set to: '..ids)
-            end
+            ids = cycle_set_mode(ids, sets.aftercast.Idle)
+            add_to_chat(122, 'Idle mode set to: '..(ids or 'Default'))
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
-            for k,v in pairs(sets.aftercast.Engaged) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif egs == nil then
-                    egs = k
-                    break
-                elseif egs == k then
-                    egs = nil
-                end
-            end
-            if last_egs == egs then egs = nil end
-            if egs == nil then 
-                add_to_chat('Engaged mode set to: Default')
-            else
-                add_to_chat('Engaged mode set to: '..egs)
-            end
+            egs = cycle_set_mode(egs, sets.aftercast.Engaged)
+            add_to_chat(122, 'Engaged mode set to: '..(egs or 'Default'))
             equip_check()
         end
 		update_status()
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'burst' then
-            if BurstMode == false then
-                BurstMode = true
-                add_to_chat('BurstMode enabled.')
-            else
-                BurstMode = false
-                add_to_chat('BurstMode disabled.')
-            end
+            BurstMode = toggle_mode(BurstMode, 'BurstMode enabled.', 'BurstMode disabled.')
         end
 		update_status()
     elseif args[1] == 'equip_check' then
@@ -623,12 +587,13 @@ windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-	if id == 0x050 then
+	if id == 0x050 and data and (data:byte(6) == 0 or data:byte(6) == 1) then
 		equip_change()
 	end
 end)
 
 function update_status()
+    if not stateBox then return end
 	local spc = '   '
     local WeaponColor = get_weapon_color(CurrentWeapon)
 

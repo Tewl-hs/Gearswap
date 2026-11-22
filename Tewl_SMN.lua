@@ -6,13 +6,16 @@ function get_sets()
     items = require('resources').items
     require('queues')
 
-    include('FFXI-Mappings')
+    include('FFXI-Mappings.lua')
 
-    include('FFXI-Utility')
+    include('FFXI-Utility.lua')
 
-    send_command('bind ^f9 gs c toggle petdt')
-    send_command('bind ^f10 gs c cycle idle')
-    send_command('bind ^f11 gs c cycle engaged')
+    KeyBindings = {
+        ['^f9'] = 'gs c toggle petdt',
+        ['^f10'] = 'gs c cycle idle',
+        ['^f11'] = 'gs c cycle engaged',
+    }
+    bind_commands(KeyBindings)
 
     set_macros(17,1)
     send_command('wait 1.5;input /lockstyleset 12')
@@ -106,7 +109,7 @@ function get_sets()
         left_ear    = "Malignance Earring",
         right_ear   = "Friomisi Earring",
         left_ring   = "Epaminondas's Ring",
-        right_ring  = "Karieyh Ring +1",
+        right_ring  = "Cornelia's Ring",
         back        = "Moonlight Cape",
     }
 
@@ -310,13 +313,11 @@ function get_sets()
 end
 
 function file_unload()
-    send_command('unbind ^F9')
-    send_command('unbind ^F10')
-    send_command('unbind ^F11')
+    unbind_commands(KeyBindings)
 end
 
 function precast(spell)
-    if (pet.isvalid and pet_midaction() and not spell.type=="SummonerPact") or spell.type=="Item" then
+    if (pet.isvalid and pet_midaction() and spell.type ~= 'SummonerPact') or spell.type=="Item" then
         return
     end
     if spell.type == "BloodPactWard" or spell.type == "BloodPactRage" then
@@ -427,14 +428,14 @@ function pet_aftercast(spell)
     --windower.add_to_chat(8,'Pet finished ability: '..spell.name) 
 end
 
-function pet_status_change(old,new)
+function pet_status_change(new,old)
     if pet.isvalid and not pet_midaction() and (new == 'Engaged' or old == 'Engaged') then
         equip_check()
     end
 end
 
 function status_change(new,old)
-    if T{'Idle','Resting'}:contains(new) then
+    if T{'Idle','Resting','Engaged'}:contains(new) then
         equip_check()
     end
 end
@@ -452,7 +453,7 @@ function buff_change(buff,gain)
 end
 
 function equip_check()
-    if player.statuas == 'Engaged' then
+    if player.status == 'Engaged' then
         if egs ~= nil and sets.aftercast.Engaged[egs] then
             equip(sets.aftercast.Engaged[egs])
         else
@@ -490,55 +491,19 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
-            for k,v in pairs(sets.aftercast.Idle) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif ids == nil then
-                    ids = k
-                    break
-                elseif ids == k then
-                    ids = nil
-                end
-            end
-            if last_ids == ids then ids = nil end
-            if ids == nil then 
-                add_to_chat('Idle mode set to: Default')
-            else
-                add_to_chat('Idle mode set to: '..ids)
-            end
+            ids = cycle_set_mode(ids, sets.aftercast.Idle)
+            add_to_chat(122, 'Idle mode set to: '..(ids or 'Default'))
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs
-            for k,v in pairs(sets.aftercast.Engaged) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif egs == nil then
-                    egs = k
-                    break
-                elseif egs == k then
-                    egs = nil
-                end
-            end
-            if last_egs == egs then egs = nil end
-            if egs == nil then 
-                add_to_chat('Engaged mode set to: Default')
-            else
-                add_to_chat('Engaged mode set to: '..egs)
-            end
+            egs = cycle_set_mode(egs, sets.aftercast.Engaged)
+            add_to_chat(122, 'Engaged mode set to: '..(egs or 'Default'))
             equip_check()
         end
         update_status()
 
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'petdt' then
-            if PetDT == false then
-                PetDT = true
-                add_to_chat('Pet DT mode enabled.')
-            else
-                PetDT = false
-                add_to_chat('Pet DT mode disabled.')
-            end
+            PetDT = toggle_mode(PetDT, 'Pet DT mode enabled.', 'Pet DT mode disabled.')
             equip_check()
         end
 		update_status()
@@ -559,12 +524,13 @@ windower.raw_register_event('incoming chunk', function(id, data)
     if id == 0x00A and stateBox then
         stateBox:show()
     end
-    if id == 0x050 then
+    if id == 0x050 and data and (data:byte(6) == 0 or data:byte(6) == 1) then
         equip_change()
     end
 end)
 
 function update_status()
+    if not stateBox then return end
     local spc = '   '
     local WeaponColor = get_weapon_color(CurrentWeapon)
 

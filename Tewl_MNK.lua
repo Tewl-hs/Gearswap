@@ -6,24 +6,32 @@ function get_sets()
     items = require('resources').items
     require('queues')
     
-    include('FFXI-Mappings')
+    include('FFXI-Mappings.lua')
     
-    include('FFXI-Utility')
-    send_command('bind ^f9 gs c cycle engaged')
-    send_command('bind ^f10 gs c cycle idle')
-
-	send_command('bind !f10 gs c toggle autosc') 
+    include('FFXI-Utility.lua')
+    KeyBindings = {
+        ['^f9'] = 'gs c cycle engaged',
+        ['^f10'] = 'gs c cycle idle',
+        ['!f10'] = 'gs c toggle autosc',
+    }
+    bind_commands(KeyBindings)
     
     set_macros(9,1)
     send_command('wait 1.5;input /lockstyleset 4')
     send_command('input //equipviewer pos 1663 935') 
 
     MainWeapon = ''
+    sets.Weapons = {
+        godhands = {main = 'Godhands'},
+        verethragna = {main = 'Verethragna'},
+    }
 
     AutoSC = false
 	ascWS = 'One Inch Punch'
 	AutoSkillChain = T{'Asuran Fists','Victory Smite','Shijin Spiral', 'Victory Smite'}
 	asc_order = 1
+	last_asc_time = 0
+	pending_asc_ws = nil
 	last_target = nil
 
     buffs = {}
@@ -175,12 +183,11 @@ function get_sets()
 end
 
 function file_unload()  
-    send_command('unbind ^F9')
-    send_command('unbind ^F10')
+    unbind_commands(KeyBindings)
 end
 
 function precast(spell,action)
-    if spell.interrupted == true or (spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
+    if spell.interrupted == true or (spell.target and spell.target.hpp == 0  and not spell.name:startswith("Raise")) or can_do(spell.action_type) == false then
         cancel_spell()
         return
     end
@@ -189,25 +196,27 @@ function precast(spell,action)
         send_command('cancel 71;')
     end
     
-    local target = player.target.id
+    local target = spell.target and spell.target.id
     if target ~= last_target then
-        ws_order = 1
+        asc_order = 1
+        pending_asc_ws = nil
         last_target = target
     end
 
     if spell.type == 'WeaponSkill' then
-        if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
+        local distance = spell.target and spell.target.distance
+        local size = spell.target and spell.target.model_size or 0
+        local range = (spell.range or 0) * (range_mult[spell.range] or 1)
+        if distance and size + range < distance then
             add_to_chat(123,'['..spell.name..'] Target out of range.')
             cancel_spell()
             return
         end
-        if spell.name == ascWS and AutoSC == true then
+        if spell.name == ascWS and AutoSC and spell.target and spell.target.raw then
+            if os.time() - last_asc_time > 15 then asc_order = 1 end
             cancel_spell()
-            send_command('@input /ws "'..AutoSkillChain[asc_order]..'" '..spell.target.raw)
-            asc_order = asc_order + 1
-            if asc_order > table.getn(AutoSkillChain) then
-                asc_order = 1
-            end
+            pending_asc_ws = AutoSkillChain[asc_order]
+            send_command('@input /ws "'..pending_asc_ws..'" '..spell.target.raw)
             return
         end
         if sets.precast.WS[spell.name] then
@@ -220,7 +229,7 @@ function precast(spell,action)
         end
     elseif spell.action_type == 'Ability' then
         local abil_recasts = windower.ffxi.get_ability_recasts()
-        if abil_recasts[spell.recast_id] > 0 then
+        if (abil_recasts and abil_recasts[spell.recast_id] or 0) > 0 then
             cancel_spell()
             return
         end
@@ -235,7 +244,7 @@ function precast(spell,action)
             return
         end
         local spell_recasts = windower.ffxi.get_spell_recasts()
-        local sr = math.floor(spell_recasts[spell.recast_id]/60)
+        local sr = math.ceil((spell_recasts and spell_recasts[spell.recast_id] or 0) / 60)
         if sr > 0 then
             cancel_spell()
             add_to_chat(123,'['..spell.name..'] '..disp_time(sr))
@@ -264,10 +273,17 @@ function midcast(spell,action)
 end
 
 function aftercast(spell,action)
-    if action ~= 'Boost' and not buffactive["Boost"] then
+    if spell.name == pending_asc_ws then
+        if not spell.interrupted then
+            asc_order = asc_order % #AutoSkillChain + 1
+            last_asc_time = os.time()
+        end
+        pending_asc_ws = nil
+    end
+    if spell.name ~= 'Boost' and not buffactive["Boost"] then
         buffs.Boost = false
     end
-    if action ~= 'Impetus' and not buffactive["Impetus"] then
+    if spell.name ~= 'Impetus' and not buffactive["Impetus"] then
         buffs.Impetus = false
     end    
     equip_check()
@@ -300,7 +316,7 @@ function equip_check()
             egs = nil
             eq = sets.aftercast.Engaged
         end
-        equip(eq,{main=CurrentWeapon},buffs.Impetus and {body="Bhikku Cyclas +3"} or {})
+        equip(eq,buffs.Impetus and {body="Bhikku Cyclas +3"} or {})
     else
         if ids ~= nil and sets.aftercast.Idle[ids] then 
             eq = sets.aftercast.Idle[ids]
@@ -308,7 +324,7 @@ function equip_check()
             ids = nil
             eq = sets.aftercast.Idle
         end
-        equip(eq,{main=CurrentWeapon},buffs.Boost and {waist = "Ask Sash"} or {})
+        equip(eq,buffs.Boost and {waist = "Ask Sash"} or {})
     end
     update_status()
 end
@@ -317,54 +333,24 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
-            for k,v in pairs(sets.aftercast.Idle) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif ids == nil then
-                    ids = k
-                    break
-                elseif ids == k then
-                    ids = nil
-                end
-            end
-            if last_ids == ids then ids = nil end
-            if ids == nil then 
-                add_to_chat('Idle mode set to: Default')
-            else
-                add_to_chat('Idle mode set to: '..ids)
-            end
+            ids = cycle_set_mode(ids, sets.aftercast.Idle)
+            add_to_chat(122, 'Idle mode set to: '..(ids or 'Default'))
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
-            for k,v in pairs(sets.aftercast.Engaged) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif egs == nil then
-                    egs = k
-                    break
-                elseif egs == k then
-                    egs = nil
-                end
-            end
-            if last_egs == egs then egs = nil end
-            if egs == nil then 
-                add_to_chat('Engaged mode set to: Default')
-            else
-                add_to_chat('Engaged mode set to: '..egs)
-            end
+            egs = cycle_set_mode(egs, sets.aftercast.Engaged)
+            add_to_chat(122, 'Engaged mode set to: '..(egs or 'Default'))
             equip_check()
         end
         update_status()
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'autosc' then
-			if AutoSC == false then
-				AutoSC = true
-			else
-				AutoSC = false
-			end
+            AutoSC = toggle_mode(AutoSC, 'AutoSC: Enabled', 'AutoSC: Disabled')
+            if not AutoSC then pending_asc_ws = nil end
         end
 		update_status()
+    elseif args[1] == 'weapon' then
+        local weapon = args[2] and sets.Weapons[args[2]:lower()]
+        if weapon then equip(weapon) end
     elseif args[1] == 'equip_check' then
         equip_check()
     elseif args[1] == 'update_status' then
@@ -398,6 +384,7 @@ function equip_change()
 end
 
 function update_status()
+    if not stateBox then return end
     local spc = '   '
     local WeaponColor = get_weapon_color(MainWeapon)
 
@@ -432,7 +419,7 @@ windower.raw_register_event('incoming chunk', function(id, data)
     if id == 0x00A and stateBox then
         stateBox:show()
     end
-    if id == 0x050 then
+    if id == 0x050 and data and (data:byte(6) == 0 or data:byte(6) == 1) then
         equip_change()
     end
 end)

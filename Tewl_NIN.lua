@@ -5,19 +5,21 @@ function get_sets()
     items = require('resources').items
     require('queues')
 
-    include('FFXI-Mappings')
+    include('FFXI-Mappings.lua')
 
-    include('FFXI-Utility')
+    include('FFXI-Utility.lua')
     -- Personal settings. You can remove these two lines.
     set_macros(10,1)
     send_command('wait 1;input /lockstyleset 11')
 	send_command('input //equipviewer pos 1663 935')
 
-    send_command('bind ^f9 gs c cycle engaged')
-    send_command('bind ^f10 gs c cycle idle')
-    send_command('bind ^f11 gs c toggle burst')
-    
-	send_command('bind !f10 gs c toggle autosc') 
+    KeyBindings = {
+        ['^f9'] = 'gs c cycle engaged',
+        ['^f10'] = 'gs c cycle idle',
+        ['^f11'] = 'gs c toggle burst',
+        ['!f10'] = 'gs c toggle autosc',
+    }
+    bind_commands(KeyBindings)
 
     BurstMode = false
 
@@ -25,10 +27,17 @@ function get_sets()
 	ascWS = 'Blade: Ei'
 	AutoSkillChain = T{'Blade: To', 'Blade: Teki'} -- Skillchain order
 	asc_order = 1
+	last_asc_time = 0
+	pending_asc_ws = nil
 	last_target = nil
 
     MainWeapon = 'Heishi Shorinken'
     SubWeapon = 'Kunimitsu'
+    sets.Weapons = {
+        heishi = {main = 'Heishi Shorinken'},
+        kannagi = {main = 'Kannagi'},
+        yagyu = {main = 'Yagyu Darkblade'},
+    }
 
     Capes = {}
     Capes.EVA  = { name="Andartia's Mantle", augments={'AGI+20','Eva.+20 /Mag. Eva.+20','Evasion+10','"Dual Wield"+10','Damage taken-5%',}}
@@ -55,7 +64,7 @@ function get_sets()
     sets.precast = { }
     sets.precast.JA = {
         ['Mijin Gakure'] = {
-            legs    = "Mochi.  Hakama +3",
+            legs    = "Mochi. Hakama +3",
         }
     }
     sets.precast.FC = { -- 67%
@@ -92,7 +101,7 @@ function get_sets()
         back        = Capes.DEX
     }
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-        head        = "Hachi. Hatsu. +3",
+        head        = "Hachiya Hatsu. +3",
         feet        = "Hattori Kyahan +3",
         right_ear   = "Lugra Earring +1",
         left_ring   = "Regal Ring",
@@ -189,10 +198,10 @@ function get_sets()
         right_ring  = "Evanescence Ring", -- 5
         back        = Capes.FC --  10
     }
-    sets.midcast.Utsusemi = set_combine(sets.precast.SIRD, { feet="Hattori Kyahan +3",left_ear={ name="Odnowa Earring +1", augments={'Path: A',}}, }) -- 102% SIRD
-    sets.midcast.Migawari = set_combine(sets.precast.SIRD, { body="Hattori Ningi +3",left_ear={ name="Odnowa Earring +1", augments={'Path: A',}}, }) -- 102% SIRD
-    sets.midcast.Ninjitsu = set_combine(sets.precast.SIRD, { })
-    sets.midcast.Ninjitsu.Enhancing = set_combine(sets.precast.SIRD, { }) -- Not sure if this set even needs to exist
+    sets.midcast.Utsusemi = set_combine(sets.midcast.SIRD, { feet="Hattori Kyahan +3",left_ear={ name="Odnowa Earring +1", augments={'Path: A',}}, }) -- 102% SIRD
+    sets.midcast.Migawari = set_combine(sets.midcast.SIRD, { body="Hattori Ningi +3",left_ear={ name="Odnowa Earring +1", augments={'Path: A',}}, }) -- 102% SIRD
+    sets.midcast.Ninjitsu = set_combine(sets.midcast.SIRD, { })
+    sets.midcast.Ninjitsu.Enhancing = set_combine(sets.midcast.SIRD, { }) -- Not sure if this set even needs to exist
     sets.midcast.Ninjitsu.Elemental = { 
         ammo        = { name="Ghastly Tathlum +1", augments={'Path: A',}},
 		head        = { name="Mochi. Hatsuburi +3", augments={'Enhances "Yonin" and "Innin" effect',}},
@@ -277,33 +286,37 @@ function get_sets()
 end
 
 function file_unload()  
-    send_command('unbind ^F9')
-    send_command('unbind ^F10')
-    send_command('unbind ^F11')
+    unbind_commands(KeyBindings)
 end
 
-function precast(spell,action)    
-	local target = player.target.id
+function precast(spell,action)
+    if not can_do(spell.type == 'WeaponSkill' and 'Ability' or spell.action_type) then
+        cancel_spell()
+        return
+    end
+	local target = spell.target and spell.target.id
 	if target ~= last_target then
-		ws_order = 1
-		last_target = target
+	    asc_order = 1
+	    pending_asc_ws = nil
+	    last_target = target
 	end
 
 	if spell.type == 'WeaponSkill' then
-		if (spell.target.model_size + spell.range * range_mult[spell.range]) < spell.target.distance then
+		local distance = spell.target and spell.target.distance
+		local size = spell.target and spell.target.model_size or 0
+		local range = (spell.range or 0) * (range_mult[spell.range] or 1)
+		if distance and size + range < distance then
             add_to_chat(123,'['..spell.name..'] Target out of range.')
 			cancel_spell()
 			return
 		end
-		if spell.name == ascWS and AutoSC == true then
-			cancel_spell()
-			send_command('@input /ws "'..AutoSkillChain[asc_order]..'" '..spell.target.raw)
-			asc_order = asc_order + 1
-			if asc_order > table.getn(AutoSkillChain) then
-				asc_order = 1
-			end
-			return
-		end
+        if spell.name == ascWS and AutoSC and spell.target and spell.target.raw then
+            if os.time() - last_asc_time > 15 then asc_order = 1 end
+            cancel_spell()
+            pending_asc_ws = AutoSkillChain[asc_order]
+            send_command('@input /ws "'..pending_asc_ws..'" '..spell.target.raw)
+            return
+        end
         if sets.precast.WS[spell.name] then
             equip(sets.precast.WS[spell.name])
         else
@@ -311,7 +324,7 @@ function precast(spell,action)
         end
     elseif spell.action_type == 'Ability' then
 		local abil_recasts = windower.ffxi.get_ability_recasts()
-		if abil_recasts[spell.recast_id] > 0 then
+		if (abil_recasts and abil_recasts[spell.recast_id] or 0) > 0 then
 			cancel_spell()
             return
 		end
@@ -326,7 +339,7 @@ function precast(spell,action)
             return
         end
         local spell_recasts = windower.ffxi.get_spell_recasts()
-        local sr = math.floor(spell_recasts[spell.recast_id]/60)
+        local sr = math.ceil((spell_recasts and spell_recasts[spell.recast_id] or 0) / 60)
         if sr > 0 then
 			cancel_spell()
 			add_to_chat(123,'['..spell.name..'] '..disp_time(sr))
@@ -344,17 +357,17 @@ end
 
 function midcast(spell,action)
     if spell.action_type == 'Magic' then
-        if spell.skill == 'Ninjitsu' then
+        if spell.skill == 'Ninjutsu' then
             if spell.name:startswith('Migawari') then
                 equip(sets.midcast.Migawari)
             elseif spell.name:startswith('Utsusemi') then
                 equip(sets.midcast.Utsusemi)
             elseif EnfNinjitsu:contains(spell.name) then
-                equip(sets.midcast.Enfeebling)
+                equip(sets.midcast.Ninjitsu.Enfeebling)
             elseif EnhNinjitsu:contains(spell.name) then
-                equip(sets.midcast.Enhancing)
-            elseif EleNinjitsu:contains(spell.name) then
-                if buffactive("Futae") or BurstMode == true then
+                equip(sets.midcast.Ninjitsu.Enhancing)
+            elseif EleNinjitsu:contains(spell.name) or spell.name == 'Raiton: Ni' then
+                if buffactive["Futae"] or BurstMode == true then
                     equip(sets.midcast.Ninjitsu.Elemental.Burst)
                 else
                     equip(sets.midcast.Ninjitsu.Elemental)
@@ -371,6 +384,13 @@ function midcast(spell,action)
 end
 
 function aftercast(spell,action)
+    if spell.name == pending_asc_ws then
+        if not spell.interrupted then
+            asc_order = asc_order % #AutoSkillChain + 1
+            last_asc_time = os.time()
+        end
+        pending_asc_ws = nil
+    end
     equip_check()
 end
 
@@ -381,7 +401,7 @@ function status_change(new,old)
 end
 
 function buff_change(buff,gain)
-    if name == "silence" and gain =="True" then
+    if buff == 'silence' and gain then
         if player.inventory['Echo Drops'] then
             send_command('@input /item "Echo Drops" <me>')
         else
@@ -415,62 +435,30 @@ function self_command(cmd)
     local args = T(cmd:split(' '))
     if args[1] == 'cycle' and args[2] then
         if args[2] == 'idle' then
-            local last_ids = ids 
-            for k,v in pairs(sets.aftercast.Idle) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif ids == nil then
-                    ids = k
-                    break
-                elseif ids == k then
-                    ids = nil
-                end
-            end
-            if last_ids == ids then ids = nil end
-            if ids == nil then 
-                add_to_chat('Idle mode set to: Default')
-            else
-                add_to_chat('Idle mode set to: '..ids)
-            end
+            ids = cycle_set_mode(ids, sets.aftercast.Idle)
+            add_to_chat(122, 'Idle mode set to: '..(ids or 'Default'))
             equip_check()
         elseif args[2] == 'engaged' then
-            local last_egs = egs 
-            for k,v in pairs(sets.aftercast.Engaged) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif egs == nil then
-                    egs = k
-                    break
-                elseif egs == k then
-                    egs = nil
-                end
-            end
-            if last_egs == egs then egs = nil end
-            if egs == nil then 
-                add_to_chat('Engaged mode set to: Default')
-            else
-                add_to_chat('Engaged mode set to: '..egs)
-            end
+            egs = cycle_set_mode(egs, sets.aftercast.Engaged)
+            add_to_chat(122, 'Engaged mode set to: '..(egs or 'Default'))
             equip_check()
         end
 		update_status()
     elseif args[1] == 'toggle' and args[2] then
         if args[2] == 'burst' then
-            if BurstMode == false then
-                BurstMode = true
-                add_to_chat('BurstMode enabled.')
-            else
-                BurstMode = false
-                add_to_chat('BurstMode disabled.')
-            end        
+            BurstMode = toggle_mode(BurstMode, 'BurstMode enabled.', 'BurstMode disabled.')
 		elseif args[2] == 'autosc' then
-			if AutoSC == false then
-				AutoSC = true
-			else
-				AutoSC = false
-			end
+            AutoSC = toggle_mode(AutoSC, 'AutoSC: Enabled', 'AutoSC: Disabled')
+            if not AutoSC then pending_asc_ws = nil end
         end
 		update_status()
+    elseif args[1] == 'weapon' and args[2] then
+        local weapon = sets.Weapons[args[2]:lower()]
+        if weapon then
+            MainWeapon = weapon.main
+            equip(weapon)
+            update_status()
+        end
     elseif args[1] == 'movement' then
         if world.time >= 17*60 or world.time < 7*60 then
             equip({feet="Hachiya Kyahan +3"})
@@ -485,41 +473,18 @@ function self_command(cmd)
 end
 
 function equip_change()
-	local inventory = windower.ffxi.get_items();
-	local equipment = inventory['equipment'];
-	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-	local sitem = windower.ffxi.get_items(equipment["sub_bag"],equipment["sub"])
-	if (item and items[item['id']]) and (sitem and items[sitem['id']]) then
-		local mw = items[item['id']].name
-        local sw = items[sitem['id']].name
-		if mw ~= MainWeapon then 
-			if mw == 'Gil' then -- No idea why? 
-				MainWeapon = 'Empty'
-				TwoHandedWeapon = false
-			else
-                if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
-					TwoHandedWeapon = true
-				else
-					TwoHandedWeapon = false
-                end
-				MainWeapon = mw
-			end	
-		end
-        if sw ~= SubWeapon then 
-			if sw == 'Gil' then -- No idea why? 
-				SubWeapon = 'Empty'
-			else
-				SubWeapon = sw
-			end
-		end
-        update_status()
-	end
+    if player.equipment then
+        MainWeapon = player.equipment.main or MainWeapon
+        SubWeapon = player.equipment.sub or SubWeapon
+    end
+    update_status()
 end
 
 function update_status()
+    if not stateBox then return end
 	local spc = '   '
-    local WeaponColor = get_weapon_color(MainWeapon)
-    local SubColor = get_weapon_color(SubWeapon)
+    local WeaponColor = get_weapon_color(MainWeapon == 'empty' and 'Empty' or MainWeapon)
+    local SubColor = get_weapon_color(SubWeapon == 'empty' and 'Empty' or SubWeapon)
 
     local engaged_display = egs or 'Default'
     local idle_display = ids or 'Default'
@@ -554,7 +519,18 @@ windower.raw_register_event('incoming chunk', function(id, data)
 	if id == 0x00A and stateBox then
 		stateBox:show()
 	end
-	if id == 0x050 then
-		equip_change()
-	end
+
+    if id == 0x050 and data then
+        local index, slot, bag = data:byte(5, 7)
+        if (slot ~= 0 and slot ~= 1) or not bag then return end
+        local item = index ~= 0 and windower.ffxi.get_items(bag, index)
+        local resource = item and items[item.id]
+        local weapon = resource and resource.en or 'empty'
+        if slot == 0 then
+            MainWeapon = weapon
+        else
+            SubWeapon = weapon
+        end
+        update_status()
+    end
 end)

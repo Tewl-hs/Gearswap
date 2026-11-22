@@ -3,33 +3,43 @@
 	Files: Tewl_RUN.lua 
 --]]
 
-function get_sets()    
-    items = require('resources').items
+local idle_mode = 'Normal'
+local engaged_mode = 'Normal'
+local next_engaged_mode = {Normal = 'DTLite', DTLite = 'Hybrid', Hybrid = 'Normal'}
+local current_weapon = 'Empty'
+local item_resources
+local ability_timers = {Rayke = 35, Gambit = 76}
+
+function get_sets()
+    item_resources = require('resources').items
+    items = item_resources
     require('queues')
 
     include('FFXI-Mappings')
 
     include('FFXI-Utility')
-    -- Personal settings. You can remove these lines.
-    load_macros() -- Edit function on line:356  
+    load_macros(player.sub_job)
     send_command('wait 1;input /lockstyleset 13')
     send_command('input //equipviewer pos 1663 934')
 
     send_command('bind ^f9 gs c cycle idle')
     send_command('bind ^f10 gs c cycle engaged')
 
-    sets.MoveSpeed = { legs = "Carmine Cuisses +1",} 
+    sets.MoveSpeed = {legs = 'Carmine Cuisses +1'}
+    sets.Weapons = {
+        epeolatry = {main = 'Epeolatry'},
+        lionheart = {main = 'Lionheart'},
+    }
 
     -- Blue spells
     BlueSpells = T{'Grand Slam', 'Terror Touch', 'Healing Breeze', 'Cocoon', 'Pollen', 'Wild Carrot', 'Blank Gaze', 'Geist Wall', 'Soporific', 'Jettatura', 'Sheep Song', 'Metallic Body'}
 
     EnmitySpells = T{'Foil', 'Flash', 'Stun'}
 
-    CurrentWeapon = ''
 
     -- Augmented Gear
     Capes = {}
-    Capes.Enmity = { name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
+    Capes.Enmity = { name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Damage taken-5%',}}
     Capes.SIRD = { name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','"Fast Cast"+10','Spell interruption rate down-10%',}}
     Capes.DA = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
     Capes.MAB = { name="Ogma's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-5%',}}
@@ -111,7 +121,7 @@ function get_sets()
         ['Provoke'] = set_combine(sets.Enmity, {}),
         ['Warcry'] = set_combine(sets.Enmity, {}),
         ['Animated Flourish'] = set_combine(sets.Enmity, {}),    
-        ['Swipe'] = { 
+        ['Swipe'] = {
             ammo        = "Seeth. Bomblet +1",
             head        = "Agwu's Cap",
             body        = "Agwu's Robe", 
@@ -126,22 +136,9 @@ function get_sets()
             right_ring  = "Locus Ring",
             back        = Capes.MAB
         },
-        ['Lunge'] = { 
-            ammo        = "Seeth. Bomblet +1",
-            head        = "Agwu's Cap",
-            body        = "Agwu's Robe",
-            hands       = "Agwu's Gages",
-            legs        = "Agwu's Slops",
-            feet        = "Agwu's Pigaches",
-            neck        = "Baetyl Pendant",
-            waist       = "Orpheus's Sash",
-            left_ear    = "Friomisi Earring",
-            right_ear   = "Hermetic Earring",
-            left_ring   = "Mujin Band",
-            right_ring  = "Locus Ring",
-            back        = Capes.MAB
-        },
     }
+    sets.precast.JA.Lunge = sets.precast.JA.Swipe
+
     sets.precast.WS = {
         ammo        = "Knobkierrie",
         head        = { name="Adhemar Bonnet +1", augments={'STR+12','DEX+12','Attack+20',}},
@@ -193,16 +190,8 @@ function get_sets()
         left_ear    = "Telos Earring",
         right_ear   = "Digni. Earring",
     })
-    sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS,{
-        head        = "Nyame Helm",
-        body        = "Nyame Mail",
-        hands       = "Nyame Gauntlets",
-        legs        = "Nyame Flanchard",
-        feet        = "Nyame Sollerets",
-        waist       = "Kentarch Belt +1",
-        left_ear    = "Telos Earring",
-        right_ear   = "Digni. Earring",
-    })
+    sets.precast.WS.Upheaval = sets.precast.WS['Steel Cyclone']
+
     sets.midcast = {}
     sets.midcast['Healing Magic'] = {
         ammo        = "Staunch Tathlum +1",
@@ -249,7 +238,6 @@ function get_sets()
         feet        = "Carmine Greaves +1",
         neck        = "Incanter's Torque",
         left_ear    = "Odnowa Earring +1",
-        right_ear   = "Tuisto Earring",
         right_ear   = "Mimir Earring",
         left_ring   = { name="Stikini Ring +1", bag="wardrobe7", priority=2},
         right_ring  = { name="Stikini Ring +1", bag="wardrobe8", priority=1},
@@ -338,252 +326,187 @@ function get_sets()
         back        = Capes.DA
     }
     sets.aftercast.Idle = {
-        ammo        = "Staunch Tathlum +1",
-        head        = "Nyame Helm",
-        body        = "Runeist Coat +3", 
-        --body        = "Nyame Mail",
-        hands       = "Nyame Gauntlets",
-        --legs        = "Eri. Leg Guards +3",
-        legs        = "Nyame Flanchard",
-        feet        = "Erilaz Greaves +3",
-        neck        = "Futhark Torque +2",
-        waist       = "Engraved Belt",
-        --left_ear    = "Eabani Earring", 
-        left_ear    = "Odnowa Earring +1",
-		right_ear   = "Tuisto Earring",
-        --right_ear   = "Erilaz Earring +1",
+        ammo        = "Homiliary",
+        head        = "Turms Cap +1",
+        body        = "Runeist Coat +3",
+        hands       = "Regal Gauntlets",
+        legs        = "Eri. Leg Guards +3",
+        feet        = "Turms Leggings +1",
+        neck        = "Bathy Choker +1",
+        waist       = "Ioskeha Belt +1",
+        left_ear    = "Eabani Earring", 
+        right_ear   = "Erilaz Earring +1",
         left_ring   = "Defending Ring",
         right_ring  = "Moonlight Ring",
         back        = Capes.Enmity
     }
-   
+    sets.aftercast.Idle.DT = set_combine(sets.aftercast.Idle, {
+        ammo        = "Staunch Tathlum +1",
+        head        = "Nyame Helm",
+        hands       = "Nyame Gauntlets",
+        legs        = "Nyame Flanchard",
+        feet        = "Erilaz Greaves +3",
+        neck        = "Futhark Torque +2",
+        waist       = "Engraved Belt",
+        left_ear    = "Odnowa Earring +1",
+		right_ear   = "Tuisto Earring",
+    })
+
 	load_blue_magic_spells(player.sub_job == 'BLU' and BlueSpells or nil, 'RUN', player.sub_job)
 	include('FFXI-Display.lua')
 end
--- Set macros based on sub job
-function load_macros()
-	if player.sub_job == 'BLU' then
-        set_macros(12,1)
-    elseif player.sub_job == 'SCH' then
-        set_macros(12,2)
-    else
-	    set_macros(12,1)
-    end
+
+function load_macros(sub_job)
+    set_macros(12, sub_job == 'SCH' and 2 or 1)
 end
 
-function file_unload()  
+function file_unload()
     cancel_blue_magic_load()
     send_command('unbind ^F9')
     send_command('unbind ^F10')
-    send_command('unbind ^F11')
 end
 
-function sub_job_change(new, old)
+function sub_job_change(new)
+    load_macros(new)
     load_blue_magic_spells(new == 'BLU' and BlueSpells or nil, 'RUN', new)
 end
 
-function precast(spell,action)    
+function precast(spell)
     if spell.type == 'WeaponSkill' then
         if player.tp < 1000 then
-            add_to_chat(123,'['..spell.name..'] Not enough TP.')
-			cancel_spell()
+            add_to_chat(123, '[' .. spell.name .. '] Not enough TP.')
+            cancel_spell()
             return
         end
-        if sets.precast.WS[spell.name] then
-            equip(sets.precast.WS[spell.name])
-        else
-            equip(sets.precast.WS)
-        end
+        equip(sets.precast.WS[spell.name] or sets.precast.WS)
     elseif spell.action_type == 'Ability' then
-        if sets.precast.JA[spell.name] then
-            equip(sets.precast.JA[spell.name])
-        end    
+        local ability_set = sets.precast.JA[spell.name]
+        if ability_set then equip(ability_set) end
     elseif spell.action_type == 'Magic' then
-        local spell_recasts = windower.ffxi.get_spell_recasts()
-        local sr = math.floor(spell_recasts[spell.recast_id]/60)
-        if sr > 0 then
-			cancel_spell()
-			add_to_chat(121,'['..spell.name..'] '..disp_time(sr))
+        local recasts = windower.ffxi.get_spell_recasts()
+        local remaining = recasts and recasts[spell.recast_id] or 0
+        if remaining > 0 then
+            cancel_spell()
+            add_to_chat(121, '[' .. spell.name .. '] ' .. disp_time(math.ceil(remaining / 60)))
             return
         end
-        if sets.precast.FC[spell.name] then
-            equip(sets.precast.FC[spell.name])
-        else
-            equip(sets.precast.FC)
-        end
+        local fast_cast = sets.precast.FC
+        equip(fast_cast[spell.name] or fast_cast[spell.skill] or fast_cast)
     end
 end
 
-function midcast(spell,action)
-    if sets.Enmity[spell.name] then
-        equip(sets.Enmity[spell.name])
-    elseif EnmitySpells:contains(spell.name) then
+function midcast(spell)
+    local name = spell.name
+    if sets.Enmity[name] then
+        equip(sets.Enmity[name])
+        return
+    elseif EnmitySpells:contains(name) then
         equip(sets.Enmity)
-    elseif BlueSpells:contains(spell.name) then
+        return
+    elseif BlueSpells:contains(name) then
         equip(sets.Enmity.SIRD)
-    elseif spell.name:startswith('Regen') then
-        equip(sets.midcast[spell.skill].Regen)
-    elseif spell.name == 'Cursna' then
-        equip(sets.midcast[spell.skill].Cursna)
-    elseif spell.name:startswith('Cur') and spell.target.type == 'SELF' then
-        equip(sets.midcast[spell.skill].SelfCure)
-    elseif spell.name:startswith('Cur') then
-        equip(sets.midcast[spell.skill].Cure)
-    elseif spell.name:startswith('Shell') or spell.name:startswith('Protect') then
-        equip(sets.midcast[spell.skill].ProShell)
-    elseif sets.midcast[spell.skill] and sets.midcast[spell.skill][spell.name] then
-        equip(sets.midcast[spell.skill][spell.name])
-    elseif sets.midcast[spell.skill] then
-        equip(sets.midcast[spell.skill])
+        return
+    end
+
+    local skill_set = sets.midcast[spell.skill]
+    if not skill_set then return end
+
+    local spell_set = skill_set[name]
+    if spell.skill == 'Healing Magic' and name:match('^Cur[ea]') then
+        local self_target = spell.target and spell.target.type == 'SELF'
+        spell_set = self_target and skill_set.SelfCure or skill_set.Cure
+    elseif spell.skill == 'Enhancing Magic' then
+        if name:match('^Regen') then
+            spell_set = skill_set.Regen
+        elseif name:match('^Protect') or name:match('^Shell') then
+            spell_set = skill_set.ProShell
+        end
+    end
+    equip(spell_set or skill_set)
+end
+
+function aftercast(spell)
+    local duration = ability_timers[spell.name]
+    if duration and not spell.interrupted then
+        windower.send_command(('@timers c "%s" %d up'):format(spell.name, duration))
+    end
+    equip_check()
+end
+
+function status_change(new)
+    if new == 'Idle' or new == 'Resting' or new == 'Engaged' then
+        equip_check(new)
     end
 end
 
-function aftercast(spell,action)
-	if spell.name == 'Rayke' then
-		windower.send_command('@timers c "Rayke" 35 up')
-	end
-	if spell.name == 'Gambit' then
-		windower.send_command('@timers c "Gambit" 76 up')
-	end
-	equip_check()
+function buff_change(buff, gain)
+    if gain and buff:lower() == 'stun' then equip_check() end
 end
 
-function status_change(new,old)
-	if T{'Idle','Resting','Engaged'}:contains(new) then
-		equip_check()
-	end
-end
-
-function buff_change(buff,gain)
-    if buff == 'stun' and gain then
-        equip_check()
-	end
-end
-
-function equip_check()
-    if player.status == 'Engaged' then
-        if egs ~= nil and sets.aftercast.Engaged[egs] then 
-            equip(sets.aftercast.Engaged[egs])
-        else
-            egs = nil
-            equip(sets.aftercast.Engaged)
-        end
+function equip_check(status)
+    if (status or player.status) == 'Engaged' then
+        local engaged = sets.aftercast.Engaged
+        equip(engaged[engaged_mode] or engaged)
     else
-        if ids ~= nil and sets.aftercast.Idle[ids] then 
-            equip(sets.aftercast.Idle[ids])
-        else
-            ids = nil
-            equip(sets.aftercast.Idle)
-        end
-    end
-end
-
-function self_command(cmd)
-    local args = T(cmd:split(' '))
-    if args[1] == 'cycle' and args[2] then
-        if args[2] == 'idle' then
-            local last_ids = ids 
-            for k,v in pairs(sets.aftercast.Idle) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif ids == nil then
-                    ids = k
-                    break
-                elseif ids == k then
-                    ids = nil
-                end
-            end
-            if last_ids == ids then ids = nil end
-            if ids == nil then 
-                add_to_chat('Idle mode set to: Normal')
-            else
-                add_to_chat('Idle mode set to: '..ids)
-            end
-            equip_check()
-        elseif args[2] == 'engaged' then
-            local last_egs = egs 
-            for k,v in pairs(sets.aftercast.Engaged) do
-                if slot_names:contains(k) then
-                    -- do nothing
-                elseif egs == nil then
-                    egs = k
-                    break
-                elseif egs == k then
-                    egs = nil
-                end
-            end
-            if last_egs == egs then egs = nil end
-            if egs == nil then 
-                add_to_chat('Engaged mode set to: Normal')
-            else
-                add_to_chat('Engaged mode set to: '..egs)
-            end
-            equip_check()
-        end
-    elseif args[1] == 'toggle' and args[2] then
-        --
-    elseif args[1] == 'equip_check' then
-        equip_check()
+        local idle = sets.aftercast.Idle
+        equip(idle[idle_mode] or idle)
     end
     update_status()
 end
 
-function update_status()
-	local spc = '   '
-    local WeaponColor = get_weapon_color(CurrentWeapon)
-
-    local engaged_display = egs or 'Default'
-    local idle_display = ids or 'Default'
-
-	stateBox:clear()
-	stateBox:append(spc)
-
-	local status_text = string.format("%s%s%s", WeaponColor, CurrentWeapon, spc)
-
-	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Engaged: ', Colors.Blue, engaged_display, spc)
-
-	status_text = string.format("%s%s %s%s%s%s", status_text, Colors.White, 'Idle: ', Colors.Blue, idle_display, spc)
-
-	stateBox:append(status_text)
-	stateBox:show()
+function self_command(cmd)
+    local command, mode = cmd:lower():match('^%s*(%S+)%s*(%S*)')
+    if command == 'cycle' and mode == 'idle' then
+        idle_mode = idle_mode == 'DT' and 'Normal' or 'DT'
+        add_to_chat('Idle mode set to: ' .. idle_mode)
+        equip_check()
+    elseif command == 'cycle' and mode == 'engaged' then
+        engaged_mode = next_engaged_mode[engaged_mode]
+        add_to_chat('Engaged mode set to: ' .. engaged_mode)
+        equip_check()
+    elseif command == 'weapon' then
+        local weapon = sets.Weapons[mode]
+        if weapon then equip(weapon) end
+    elseif command == 'equip_check' then
+        equip_check()
+    elseif command == 'update_status' then
+        equip_change()
+        update_status()
+    end
 end
 
-windower.raw_register_event('outgoing chunk', function(id, data)
-    if id == 0x00D and stateBox then
-        stateBox:hide()
-    end
+function update_status()
+    if not stateBox then return end
+    local spacing = '   '
+    local text = string.format('%s%s%s%s%s%s%s%s%s%s%s%s',
+        spacing, get_weapon_color(current_weapon), current_weapon, spacing,
+        Colors.White, 'Engaged: ', Colors.Blue, engaged_mode, spacing,
+        Colors.White, 'Idle: ', Colors.Blue .. idle_mode .. spacing)
+    stateBox:clear()
+    stateBox:append(text)
+    stateBox:show()
+end
+
+function equip_change()
+    local main = player.equipment and player.equipment.main
+    current_weapon = main and main:lower() ~= 'empty' and main or 'Empty'
+    update_status()
+end
+
+windower.raw_register_event('outgoing chunk', function(id)
+    if id == 0x00D and stateBox then stateBox:hide() end
 end)
 
 windower.raw_register_event('incoming chunk', function(id, data)
-	if id == 0x00A and stateBox then
-		stateBox:show()
-	end
-	if id == 0x050 then
-		equip_change()
-	end
+    if id == 0x00A and stateBox then
+        equip_change()
+    elseif id == 0x050 and data and item_resources then
+        -- Equipment updates contain the inventory index, equipment slot, and bag.
+        local index, slot, bag = data:byte(5, 7)
+        if slot ~= 0 or not bag then return end
+        local item = index ~= 0 and windower.ffxi.get_items(bag, index)
+        local resource = item and item_resources[item.id]
+        current_weapon = resource and resource.en or 'Empty'
+        update_status()
+    end
 end)
-
-function equip_change()
-	local inventory = windower.ffxi.get_items();
-	local equipment = inventory['equipment'];
-	local item = windower.ffxi.get_items(equipment["main_bag"],equipment["main"])
-	if item and items[item['id']] then 
-		local ew = items[item['id']].name
-		if ew ~= CurrentWeapon then -- If weapon changed
-			if ew == 'Gil' then
-				CurrentWeapon = 'Empty'
-				TwoHandedWeapon = false
-				if auto_hasso == true then auto_hasso = false update_status() end
-			else
-				CurrentWeapon = ew
-				if T{4,6,7,8,10,12}:contains(items[item['id']].skill) then -- GS GA Scythe Polearm GK Staff
-					TwoHandedWeapon = true
-				else 
-					TwoHandedWeapon = false	
-					if auto_hasso == true then auto_hasso = false update_status() end
-				end
-			end	
-			update_status()
-		end
-	end
-end

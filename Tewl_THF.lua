@@ -1,7 +1,12 @@
 
 -- THF.lua
 function get_sets()		
-    send_command('input /macro book 18;wait 0.2;input /macro set 1;wait 1;input /lockstyleset 8')
+    items = require('resources').items
+    include('FFXI-Mappings.lua')
+    include('FFXI-Utility.lua')
+
+    set_macros(18, 1)
+    send_command('wait 1;input /lockstyleset 8')
     send_command('input //equipviewer pos 1663 934')
 
     LockTH = false
@@ -30,7 +35,7 @@ function get_sets()
         feet        = { name="Herculean Boots", augments={'Accuracy+14 Attack+14','"Triple Atk."+2','STR+14','Accuracy+5','Attack+4',}},
         neck		= "Fotia Gorget",
         waist       = "Kentarch Belt +1",
-        left_ear    = "Odr Eerring",
+        left_ear    = "Odr Earring",
         right_ear   = "Moonshade Earring",
         left_ring   = "Regal Ring",
         right_ring  = "Ilabrat Ring",
@@ -42,7 +47,7 @@ function get_sets()
         neck		= "Asn. Gorget +1",
         left_ear    = "Sherida Earring",
     })
-    sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS['Evisceration'], {
+    sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
         ammo        = "Yetshila +1",
     })
 
@@ -81,43 +86,40 @@ function get_sets()
     }
 end
     
-function precast(spell,action)
+function precast(spell)
     if spell.name == 'Spectral Jig' then
         send_command('cancel 71;')
     end
-    
-    if spell.type=="WeaponSkill" then
-        if sets.precast.WS[spell.name] then            
-            if LockTH ~= false then
-                equip(set_combine(sets.precast.WS[spell.name],sets.TH))
-            else
-                equip(sets.precast.WS[spell.name])
-            end
-        else            
-            if LockTH == true then
-                equip(set_combine(sets.precast.WS,sets.TH))
-            else
-                equip(sets.precast.WS)
-            end
-        end
-    elseif spell.action_type == 'Ability' then
-		if buffactive.amnesia or buffactive.impairment then
-            add_to_chat(123,'Unable to perform action: [Amnesia, Impairment]')
+
+    if spell.type == 'WeaponSkill' then
+        if player.tp < 1000 then
+            add_to_chat(123, '['..spell.name..'] Not enough TP.')
             cancel_spell()
             return
         end
-		local abil_recasts = windower.ffxi.get_ability_recasts()
-		if abil_recasts[spell.recast_id] > 0 then
-			cancel_spell()
-			add_to_chat(121,'['..spell.name..'] '..disp_time(abil_recasts[spell.recast_id]))
-			return
-		end
-		if sets.precast.JA[spell.name] then
-			equip(sets.precast.JA[spell.name])
-		end
+        local ws = sets.precast.WS[spell.name] or sets.precast.WS
+        if LockTH then
+            equip(ws, sets.TH)
+        else
+            equip(ws)
+        end
+    elseif spell.action_type == 'Ability' then
+        if not can_do('Ability') then
+            cancel_spell()
+            return
+        end
+        local recasts = windower.ffxi.get_ability_recasts()
+        local remaining = recasts and recasts[spell.recast_id] or 0
+        if remaining > 0 then
+            cancel_spell()
+            add_to_chat(121, '['..spell.name..'] '..disp_time(remaining))
+            return
+        end
+        local ability_set = sets.precast.JA[spell.name]
+        if ability_set then equip(ability_set) end
     end
 end
-    
+
 function midcast(spell,action)
     if spell.name == 'Utsusemi: Ichi' and (buffactive['Copy Image'] or buffactive['Copy Image (2)'] or buffactive['Copy Image (3)']) then
         send_command('@wait 3.3; cancel 66; cancel 444; cancel 445')
@@ -130,31 +132,28 @@ function aftercast(spell,action)
     equip_check()
 end
     
-function status_change(new,old)
-    equip_check()
+function status_change(new)
+    if new == 'Engaged' or new == 'Idle' or new == 'Resting' then
+        equip_check(new)
+    end
 end
-    
-function buff_change(status,gain_or_loss)
-    if buff == 'stun' and gain then
+
+function buff_change(buff, gain)
+    if gain and buff:lower() == 'stun' then equip_check() end
+end
+
+function self_command(cmd)
+    local command, mode = cmd:lower():match('^%s*(%S+)%s*(%S*)')
+    if command == 'toggle' and mode == 'th' then
+        LockTH = toggle_mode(LockTH, 'Treasure Hunter lock enabled.', 'Treasure Hunter lock disabled.')
         equip_check()
-    end
-end
-    
-function self_command(commandArgs)
-    local originalCommand = commandArgs
-    if type(commandArgs) == 'string' then
-        commandArgs = T(commandArgs:split(' '))
-        if #commandArgs == 0 then
-        return
-        end
-    end
-    if commandArgs[1] == 'equip_check' then
+    elseif command == 'equip_check' then
         equip_check()
     end
 end
 
-function equip_check()
-    if player.status == 'Engaged' then
+function equip_check(status)
+    if (status or player.status) == 'Engaged' then
         if LockTH ~= false then
             equip(set_combine(sets.aftercast.Engaged,sets.TH))
         else
@@ -165,46 +164,33 @@ function equip_check()
     end
 end
     
-mov = {counter=0}
-if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
-    mov.x = windower.ffxi.get_mob_by_index(player.index).x
-    mov.y = windower.ffxi.get_mob_by_index(player.index).y
-    mov.z = windower.ffxi.get_mob_by_index(player.index).z
-end
-     
-moving = false
-windower.raw_register_event('prerender',function()
-    mov.counter = mov.counter + 1;
-    if mov.counter>15 then
-        local pl = windower.ffxi.get_mob_by_index(player.index)
-        if pl and pl.x and mov.x then
-            dist = math.sqrt( (pl.x-mov.x)^2 + (pl.y-mov.y)^2 + (pl.z-mov.z)^2 )
-            if dist > 1 and not moving then
-                if player.status ~= 'Engaged' then
-                    send_command('gs equip sets.MoveSpeed')
-                end
-                moving = true
-            elseif dist < 1 and moving then
-                send_command('gs c equip_check')
-                moving = false
-            end
-        end
-        if pl and pl.x then
-            mov.x = pl.x
-            mov.y = pl.y
-            mov.z = pl.z
-        end
-        mov.counter = 0
-    end
-end)
+local movement_frames = 0
+local moving = false
+local last_position
 
-function disp_time(time)
-	local hours = math.floor(math.mod(time, 86400)/3600)
-	local minutes = math.floor(math.mod(time,3600)/60)
-	local seconds = math.floor(math.mod(time,60))
-	if hours > 0 then
-		return string.format("%02d:%02d:%02d",hours,minutes,seconds)
-	else
-		return string.format("%02d:%02d",minutes,seconds)
-	end
-end
+windower.raw_register_event('prerender', function()
+    movement_frames = movement_frames + 1
+    if movement_frames <= 15 then return end
+    movement_frames = 0
+
+    local position = player and player.index and windower.ffxi.get_mob_by_index(player.index)
+    if not position or not position.x or not position.y or not position.z then
+        last_position = nil
+        moving = false
+        return
+    end
+    if last_position then
+        local dx = position.x - last_position.x
+        local dy = position.y - last_position.y
+        local dz = position.z - last_position.z
+        local distance_squared = dx * dx + dy * dy + dz * dz
+        if distance_squared > 1 and not moving then
+            if player.status ~= 'Engaged' then send_command('gs equip sets.MoveSpeed') end
+            moving = true
+        elseif distance_squared < 1 and moving then
+            send_command('gs c equip_check')
+            moving = false
+        end
+    end
+    last_position = {x = position.x, y = position.y, z = position.z}
+end)

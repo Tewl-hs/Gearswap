@@ -140,7 +140,7 @@ function get_sets()
 			hands	= "Sakonji Kote +4"
 		},
 		['Meikyo Shisui'] = {
-			feet	= "Sak. Sune-Ate +4"
+			feet	= "Sakonji Sune. +4"
 		},
 		['Provoke'] = {
 			ammo		= "Sapience Orb",
