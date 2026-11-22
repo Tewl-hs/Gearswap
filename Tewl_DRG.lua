@@ -78,7 +78,7 @@ function get_sets()
 	sets.precast = {}
 	sets.precast.JA = {
 		['Spirit Surge'] = {
-			body		= 'Ptero. Mail +1',
+			body		= 'Ptero. Mail +3',
 			hands		= 'Despair Fin. Gaunt.',
 			legs		= 'Vishap Brais +2',
 			feet		= 'Ptero. Greaves +4',
@@ -89,7 +89,7 @@ function get_sets()
 			back		= Capes.Pet,
 		},
 		['Call Wyvern'] = {
-			body		= 'Ptero. Mail +1',
+			body		= 'Ptero. Mail +3',
 			neck		= 'Dgn. Collar +2',
 			left_ring	= 'Dreki Ring',
 			right_ear	= "Peltast's Earring +1",
@@ -98,7 +98,7 @@ function get_sets()
 			legs		= 'Vishap Brais +2',
 		},
 		['Deep Breathing'] = {
-			head		= 'Ptero. Armet +1',
+			head		= 'Ptero. Armet +3',
 		},
 		['Spirit Link'] = {
 			head		= 'Vishap Armet +2',
@@ -119,7 +119,7 @@ function get_sets()
 		},
 		['Angon'] = {
 			ammo		= 'Angon',
-			hands		= 'Ptero. Fin. G. +1',
+			hands		= 'Ptero. Fin. G. +3',
 		},
 		['Provoke'] = {},
 		['Warcry'] = {},
@@ -129,8 +129,8 @@ function get_sets()
 	sets.precast.JA['Jump'] = {
 		ammo		= 'Aurgelmir Orb +1',
 		head		= 'Flam. Zucchetto +2',
-		body		= 'Ptero. Mail +1',
-		hands		= 'Vis. Fng. Gaunt. +2',
+		body		= 'Ptero. Mail +3',
+		hands		= 'Vis. Fng. Gaunt. +4',
 		legs		= 'Ptero. Brais +4',
 		feet		= 'Ostro Greaves',
 		neck		= {name='Vim Torque +1', augments={'Path: A',}},
@@ -145,7 +145,7 @@ function get_sets()
 	sets.precast.JA['Spirit Jump'] = set_combine(sets.precast.JA['Jump'], {
 	})
 	sets.precast.JA['Soul Jump'] = set_combine(sets.precast.JA['Jump'], {
-		body		= 'Vishap Mail +2',
+		body		= 'Vishap Mail +3',
 		hands		= "Gleti's Gauntlets",
 		left_ring	= 'Petrov Ring',
 	})
@@ -319,7 +319,7 @@ function get_sets()
 
 	sets.midcast = {}
 	sets.midcast.HealingBreath = {
-		head		= 'Ptero. Armet +1',
+		head		= 'Ptero. Armet +3',
 		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+19','Pet: Breath+5',}},
 		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+19','Pet: Breath+8',}},
 		legs		= 'Vishap Brais +2',
@@ -330,7 +330,7 @@ function get_sets()
 	}
 	sets.midcast.ElementalBreath = {
 		ammo		= 'Voluspa Tathlum',
-		head		= 'Ptero. Armet +1',
+		head		= 'Ptero. Armet +3',
 		body		= {name='Acro Surcoat', augments={'Pet: Mag. Acc.+19','Pet: Breath+5',}},
 		hands		= {name='Acro Gauntlets', augments={'Pet: Mag. Acc.+19','Pet: Breath+8',}},
 		legs		= {name='Acro Breeches', augments={'Pet: Mag. Acc.+21','Pet: Breath+8',}},

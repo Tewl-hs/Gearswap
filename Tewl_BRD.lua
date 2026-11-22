@@ -59,7 +59,7 @@ function get_sets()
         left_ring	= "Gelatinous Ring +1",
         right_ring  = "Defending Ring",
     })
-    sets.precast.FC['Singing'].Daurdabla = set_combine(sets.precast.FC,{ 
+    sets.precast.FC['Singing'].Daurdabla = set_combine(sets.precast.FC,{
         range       = "Daurdabla",
     })
     sets.precast.FC['Singing']['Honor March'] = set_combine(sets.precast.FC['Singing'],{
@@ -141,7 +141,7 @@ function get_sets()
         left_ring   = "Haoma's Ring",
         right_ring  = "Menelaus's Ring"
     })
-    sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {	
+    sets.midcast['Healing Magic'].Cure = set_combine(sets.midcast['Healing Magic'], {
         head		= "Kaykaus Mitra +1",
         body		= "Kaykaus Bliaut +1",
         hands		= "Kaykaus Cuffs +1",
